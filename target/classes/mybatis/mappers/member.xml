@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!--  실제 쿼리를 작성하기 위한 부분 -->
+<mapper namespace="mybatis.mapper.member">
+	
+	<resultMap type="member" id="memVo">
+		<result column="member_num" property="member_num"/>
+		<result column="member_id" property="member_id"/>
+		<result column="member_pwd" property="member_pwd"/>
+		<result column="member_name" property="member_name"/>
+		<result column="member_nickname" property="member_nickname"/>
+		<result column="member_phone" property="member_phone"/>
+		<result column="member_email" property="member_email"/>
+		<result column="member_adress" property="member_adress"/>
+		<result column="member_point" property="member_point"/>
+	</resultMap>
+
+	<!-- 반복적으로 나오는 쿼리를 묶어서 처리  -->
+	
+	<sql id="selectAllMember">
+		SELECT * FROM M_MEMBER
+	</sql>
+	
+	<select id="memberAll" resultMap="memVo" parameterType="member">
+		SELECT * FROM M_MEMBER
+	</select>
+	
+	 <!-- AJAX 아이디 중복체크용 일단 보류
+    <select id="idCheck" parameterType="String" resultType="int">
+        SELECT COUNT(id) FROM USER WHERE id= #{id}
+    </select> -->
+    
+    <!--  아이디 중복 체크 -->
+    <select id="selectById" resultMap="memVo" parameterType="String">
+		<include refid="selectAllMember" />
+		WHERE MEMBER_ID=#{member_id}
+	</select>
+    
+    <!-- 회원등록 -->
+    <insert id="insertMember" parameterType="RegisterRequest">
+		INSERT INTO M_MEMBER 
+		 VALUES(M_MEMBER_SEQ.NEXTVAL,#{member_id},#{member_pwd},#{member_name},#{member_nickname},#{member_email},#{member_phone},#{member_adress},0)
+	</insert>
+    
+    
+	
+</mapper>
