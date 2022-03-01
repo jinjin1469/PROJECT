@@ -19,14 +19,16 @@ public class MemberDao {
 	}
 	
 
+	public MemberDao(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
+	
+
 	public List<Member> memberAll() { 
 		List<Member> list = sqlSession.selectList("mybatis.mapper.member.memberAll");
 		return list;
 	}
 	
-	public MemberDao(SqlSession sqlSession) {
-		this.sqlSession = sqlSession;
-	}
 	
 	//중복아이디가 있는지 확인
 	public Member selectById(String member_id) {
@@ -40,9 +42,22 @@ public class MemberDao {
 
 	}
 	
+	//닉네임 중복검사 ajax
+	public int nameCheck(String member_nickname){ 
+		return sqlSession.selectOne("mybatis.mapper.member.nameCheck", member_nickname);
+	}
+	
+	//아이디 중복검사 ajax
+	public int idCheck(String member_id){ 
+		return sqlSession.selectOne("mybatis.mapper.member.idCheck", member_id);
+	}
+
+
+
 }
 
 
+	
 
 
 

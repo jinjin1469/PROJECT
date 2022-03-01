@@ -9,9 +9,7 @@ public class Member {
 	private String member_nickname;
 	private String member_phone;
 	private String member_email;
-	private String member_zipcode;
-	private String member_adress;
-	private String member_detailadress;
+	private String member_address;
 	private long member_point;
 
 	public Member() {
@@ -19,48 +17,17 @@ public class Member {
 	
 
 	public Member(String member_id, String member_pwd, String member_name, String member_nickname, String member_phone,
-			String member_email, String member_adress) {
+			String member_email, String member_address) {
 		this.member_id = member_id;
 		this.member_pwd = member_pwd;
 		this.member_name = member_name;
 		this.member_nickname = member_nickname;
 		this.member_phone = member_phone;
 		this.member_email = member_email;
-		this.member_adress = member_adress;
+		this.member_address = member_address;
 	}
 	
 	
-
-
-	public Member(String member_id, String member_pwd, String member_name, String member_nickname, String member_phone,
-			String member_email, String member_zipcode, String member_adress, String member_detailadress) {
-		this.member_id = member_id;
-		this.member_pwd = member_pwd;
-		this.member_name = member_name;
-		this.member_nickname = member_nickname;
-		this.member_phone = member_phone;
-		this.member_email = member_email;
-		this.member_zipcode = member_zipcode;
-		this.member_adress = member_adress;
-		this.member_detailadress = member_detailadress;
-	}
-
-
-	public String getMember_zipcode() {
-		return member_zipcode;
-	}
-
-	public void setMember_zipcode(String member_zipcode) {
-		this.member_zipcode = member_zipcode;
-	}
-
-	public String getMember_detailadress() {
-		return member_detailadress;
-	}
-
-	public void setMember_detailadress(String member_detailadress) {
-		this.member_detailadress = member_detailadress;
-	}
 
 	public long getMember_number() {
 		return member_number;
@@ -118,12 +85,12 @@ public class Member {
 		this.member_email = member_email;
 	}
 
-	public String getMember_adress() {
-		return member_adress;
+	public String getMember_address() {
+		return member_address;
 	}
 
-	public void setMember_adress(String member_adress) {
-		this.member_adress = member_adress;
+	public void setMember_address(String member_address) {
+		this.member_address = member_address;
 	}
 
 	public long getMember_point() {

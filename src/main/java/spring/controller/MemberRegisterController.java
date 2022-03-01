@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.dao.MemberDao;
@@ -19,6 +20,10 @@ import spring.vo.RegisterRequest;
 
 @Controller
 public class MemberRegisterController {
+	
+	
+	@Autowired
+	MemberDao dao;
 
 	@Autowired
 	private MemberRegisterService  memberRegisterService;
@@ -26,10 +31,9 @@ public class MemberRegisterController {
 	public void setMemberRegisterService(MemberRegisterService memberRegisterService) {
 		this.memberRegisterService = memberRegisterService;
 	}
-
-	@Autowired
-	MemberDao dao;
 	
+	
+	//폼으로 연결
 	@RequestMapping(value="/member/join")
 	public String registerForm(Model model) {
 	
@@ -38,9 +42,23 @@ public class MemberRegisterController {
 		return "member/join";
 	}
 	
-	
-	@RequestMapping(value="/member/register", method=RequestMethod.POST)
+	//닉네임 중복체크 ajax
+	@RequestMapping(value = "/nameCheck", method = RequestMethod.POST) 
 	@ResponseBody
+	public int nameCheck(@RequestParam("member_nickname") String member_nickname) { 
+		return memberRegisterService.nameCheck(member_nickname); 
+	}
+	
+	//아이디 중복체크 ajax
+	@RequestMapping(value = "/idCheck", method = RequestMethod.POST) 
+	@ResponseBody
+	public int idCheck(@RequestParam("member_id") String member_id) { 
+		return memberRegisterService.idCheck(member_id); 
+	}
+
+
+
+	@RequestMapping(value="/member/register", method=RequestMethod.POST)
 	public String register(Model model, RegisterRequest regReq,Errors errors,HttpServletResponse response) {
 	
 		if(!regReq.isPasswordEqualToConfirmPassword()) {

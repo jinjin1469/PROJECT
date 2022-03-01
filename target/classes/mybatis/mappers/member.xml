@@ -14,9 +14,7 @@
 		<result column="member_nickname" property="member_nickname"/>
 		<result column="member_phone" property="member_phone"/>
 		<result column="member_email" property="member_email"/>
-		<result column="member_zipcode" property="member_zipcode"/>
-		<result column="member_adress" property="member_adress"/>
-		<result column="member_detailadress" property="member_detailadress"/>
+		<result column="member_address" property="member_address"/>
 		<result column="member_point" property="member_point"/>
 	</resultMap>
 
@@ -44,8 +42,17 @@
     <!-- 회원등록 -->
     <insert id="insertMember" parameterType="RegisterRequest">
 		INSERT INTO M_MEMBER 
-		 VALUES(M_MEMBER_SEQ.NEXTVAL,#{member_id},#{member_pwd},#{member_name},#{member_nickname},#{member_phone},#{member_email},#{member_adress},0,#{member_zipcode},#{member_detailadress})
+		 VALUES(M_MEMBER_SEQ.NEXTVAL,#{member_id},#{member_pwd},#{member_name},#{member_nickname},#{member_phone},#{member_email},#{member_address},0)
 	</insert>
+	
+	<select id="nameCheck" parameterType="String" resultType="integer"> 
+		SELECT COUNT(*) FROM M_MEMBER WHERE member_nickname = #{member_nickname}
+	</select>
+	
+	<select id="idCheck" parameterType="String" resultType="integer"> 
+		SELECT COUNT(*) FROM M_MEMBER WHERE member_id = #{member_id}
+	</select>
+
     
     
 	

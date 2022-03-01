@@ -8,29 +8,11 @@ public class RegisterRequest {
 	private String member_nickname;
 	private String member_phone;
 	private String member_email;
-	private String member_zipcode;
-	private String member_adress;
-	private String member_detailadress;
+	private String member_address;
 	private String rePassword;
 
 	public boolean isPasswordEqualToConfirmPassword() {
 		return member_pwd.equals(rePassword);
-	}
-
-	public String getMember_zipcode() {
-		return member_zipcode;
-	}
-
-	public void setMember_zipcode(String member_zipcode) {
-		this.member_zipcode = member_zipcode;
-	}
-
-	public String getMember_detailadress() {
-		return member_detailadress;
-	}
-
-	public void setMember_detailadress(String member_detailadress) {
-		this.member_detailadress = member_detailadress;
 	}
 
 	public String getMember_id() {
@@ -81,12 +63,12 @@ public class RegisterRequest {
 		this.member_email = member_email;
 	}
 
-	public String getMember_adress() {
-		return member_adress;
+	public String getMember_address() {
+		return member_address;
 	}
 
-	public void setMember_adress(String member_adress) {
-		this.member_adress = member_adress;
+	public void setMember_address(String member_address) {
+		this.member_address = member_address;
 	}
 
 	public String getRePassword() {

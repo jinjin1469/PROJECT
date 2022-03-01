@@ -17,7 +17,19 @@ public class MemberRegisterService {
 	public MemberRegisterService(MemberDao dao) { 
 		this.dao = dao;
 	}
+	
+	//닉네임 중복체크 
+		public int nameCheck(String member_nickname) {
+			return dao.nameCheck(member_nickname);
+		}
+		
+	//닉네임 중복체크 
+		public int idCheck(String member_id) {
+			return dao.idCheck(member_id);
+		}
 
+	
+	//회원가입진행
 	public void regist(RegisterRequest reg) {
 		System.out.println("아이디값 :" + reg.getMember_id());
 		
@@ -27,8 +39,10 @@ public class MemberRegisterService {
 			throw new AlreadyExistingMemberException("이미 존재하는 계정입니다.:"+reg.getMember_id());
 		}
 		
-		dao.insertMember(reg); // 회원가입진행
+		dao.insertMember(reg); 
 		
 	}
+	
+	
 
 }
