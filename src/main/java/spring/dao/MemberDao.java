@@ -30,10 +30,11 @@ public class MemberDao {
 	}
 	
 	
-	//중복아이디가 있는지 확인
+	// 로그인
 	public Member selectById(String member_id) {
-		Member result = sqlSession.selectOne("mybatis.mapper.member.selectById", member_id);
-		return result;
+		System.out.println("로그인 member_id" + member_id);
+		Member member = sqlSession.selectOne("mybatis.mapper.member.selectById", member_id);
+		return member;
 	}
 	
 	// 회원 가입
@@ -52,7 +53,10 @@ public class MemberDao {
 		return sqlSession.selectOne("mybatis.mapper.member.idCheck", member_id);
 	}
 
-
+	//아이디 찾기
+	public String findId(String member_email) throws Exception{
+		return sqlSession.selectOne("mybatis.mapper.member.findId", member_email);
+	}
 
 }
 

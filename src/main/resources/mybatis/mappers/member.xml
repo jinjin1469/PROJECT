@@ -28,18 +28,12 @@
 		SELECT * FROM M_MEMBER
 	</select>
 	
-	 <!-- AJAX 아이디 중복체크용 일단 보류
-    <select id="idCheck" parameterType="String" resultType="int">
-        SELECT COUNT(id) FROM USER WHERE id= #{id}
-    </select> -->
-    
-    <!--  아이디 중복 체크 -->
+    <!--  아이디 중복 체크 보류
     <select id="selectById" resultMap="memVo" parameterType="String">
 		<include refid="selectAllMember" />
 		WHERE MEMBER_ID=#{member_id}
-	</select>
-    
-    <!-- 회원등록 -->
+	</select>  -->
+
     <insert id="insertMember" parameterType="RegisterRequest">
 		INSERT INTO M_MEMBER 
 		 VALUES(M_MEMBER_SEQ.NEXTVAL,#{member_id},#{member_pwd},#{member_name},#{member_nickname},#{member_phone},#{member_email},#{member_address},0)
@@ -53,6 +47,16 @@
 		SELECT COUNT(*) FROM M_MEMBER WHERE member_id = #{member_id}
 	</select>
 
+	 <select id="selectById" resultMap="memVo" parameterType="String">
+		<!-- SELECT * FROM members -->
+		<include refid="selectAllMember" />
+		WHERE member_id=#{member_id}
+	</select>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findId" parameterType="String" resultType="String">
+		select member_id from M_MEMBER where member_email = #{member_email}
+	</select>
     
     
 	

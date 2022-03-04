@@ -28,6 +28,14 @@ public class Member {
 	}
 	
 	
+	
+
+	public Member(long member_number, String member_id, String member_name) {
+		this.member_number = member_number;
+		this.member_id = member_id;
+		this.member_name = member_name;
+	}
+
 
 	public long getMember_number() {
 		return member_number;
@@ -37,11 +45,11 @@ public class Member {
 		this.member_number = member_number;
 	}
 
-	public String getMemer_id() {
+	public String getMember_id() {
 		return member_id;
 	}
 
-	public void setMemer_id(String memer_id) {
+	public void setMember_id(String memer_id) {
 		this.member_id = memer_id;
 	}
 

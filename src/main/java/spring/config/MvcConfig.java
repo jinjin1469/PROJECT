@@ -1,11 +1,14 @@
 package spring.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+
 
 
 
@@ -16,10 +19,9 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		// mvc:default-servlet-handler
+		// mvc:default-servlet-handler 
 		configurer.enable();
 	}
-
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 		// mvc:view-resolvers
@@ -36,8 +38,8 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 		registry.addViewController("/member/register").setViewName("/member/register");
 		registry.addViewController("/kakaologin").setViewName("main");
 		
-		
 	}
+	
 	
 	
 //	@Bean   //사용할 인터셉터 빈

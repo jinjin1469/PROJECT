@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
  <head>
@@ -19,6 +21,8 @@
     
     <!--footer-->
     <link rel="canonical" href="https://getbootstrap.kr/docs/5.1/examples/footers/">
+    <!--  네이버 로그인 API -->
+    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 
     
 
@@ -65,7 +69,7 @@
         margin: 0.5rem;
       }
       a{padding: 0.5rem; text-align: center; font-weight: bold;}
-      a:link { color: red; text-decoration: none;}
+      a:link {text-decoration: none;}
       a:visited { color: black; text-decoration: none;}
       a:hover { color: rgb(95, 185, 87); text-decoration: none;}
 
@@ -80,17 +84,17 @@
   <body class="text-center">
     
 <main class="form-signin">
-  <form>
-    <img class="mb-4" src="../../../resources/image/logo_transparent.png" alt="" width="50%" height="0%">
-    <h1 class="h3 mb-3 fw-normal"><strong>LOGIN</strong></h1>
 
+    <img class="mb-4" src="../../../resources/image/logo_transparent.png" alt="" width="20%" height="0%">
+    <h1 class="h3 mb-3 fw-normal"><strong>LOGIN</strong></h1>
+	 <form action="login" method="post" commandName="login">
     <div class="form-floating">
-      <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+      <input type="text" class="form-control" id="floatingInput" name="member_id" placeholder="name@example.com">
       <label for="floatingInput">ID</label>
     </div>
     <br> 
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <input type="password" class="form-control" id="floatingPassword" name="member_pwd" placeholder="Password">
       <label for="floatingPassword">Password</label>
     </div>
     <div class="checkbox mb-301">
@@ -102,20 +106,25 @@
     <div class="loginWrap">
       <button class="kakaoLogin w-50 btn btn-lg" type="button" 
       onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=bc528016f97202a3cca0df4fd5072b8f&redirect_uri=http://localhost:8080/kakaologin&response_type=code';">
-      </button>
-      <button class="naverLogin w-50 btn btn-lg" type="button"></button>
+      </button> 
+      <button class="naverLogin w-50 btn btn-lg" type="submit"></button>
     </div>
   
   </form>
   <br>
   <label>
-    <a href="">[아이디 찾기]</a>
-    <a href="">[비밀번호 찾기]</a>
+    <a href="<c:url value='/member/findId' />">[아이디/비밀번호 찾기]</a>
     <a href="">[회원가입]</a>
    </label>
 
 </main>
 
 <%@include file="../footer.jsp" %>
+
+<script>
+
+
+
+</script>
 </body>
 </html>

@@ -23,53 +23,65 @@
 </head>
 
 <body>
-
+	
+	<img class="mb-4" src="../../../resources/image/logo_transparent.png" alt="" width="20%" height="50%">
 	<h2 class="cen">회원 정보 입력</h2>
 
-	<form name="register" action="register" commandName="formData"
-		class="validation-form" method="post" novalidate>
+	<form name="register" id="signform" action="register" commandName="formData" class="validation-form" method="post">
 
 		<table>
 			<tr>
 				<th>이름</th>
-				<td><input type="text" class="form-control" id="member_name" name="member_name" style="text-align:left;" required>
-				<div class="check_font" id="name_check"></div>
+				<td><input type="text" class="form-control" id="member_name" name="member_name" required>
+				<br>
+				<span class="member_name regex" style="text-align:left;"></span>
+				<input type="hidden" id="nameDoubleChk">
 				</td>
 			</tr>
 			<tr>
 				<th>닉네임</th>
-				<td><input type="text" class="form-control" id="member_nickname" name="member_nickname" style="text-align:left;" required>
+				<td><input type="text" class="form-control" id="member_nickname" name="member_nickname" 
+				placeholder="한글/영문/숫자 포함  2~10자 " required>
 				<br>
-				<span class="point successNameChk">닉네임은 2자 이상 8자 이하로 설정해주세요.</span>
+				<span class="point successNameChk"></span>
 				<input type="hidden" id="nicknameDoubleChk"></td>
 
 
 			</tr>
 			<tr>
 				<th>아이디</th>
-				<td><input type="text" class="form-control" id="member_id" name="member_id" style="text-align:left;" required>
+				<td><input type="text" class="form-control" id="member_id" name="member_id" 
+				placeholder="영문 소문자/숫자 포함  5~12자" required>
 				<br>
-				<span class="point successIdChk">아이디는 영문자로 시작하는 영문자 또는 숫자 6~20자로 설정해주세요.</span>
+				<span class="point successIdChk"></span>
 				<input type="hidden" id="idDoubleChk">
 			</td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
 				<td><input type="password" class="form-control" id="member_pwd"
-					name="member_pwd" style="text-align:left;" required></td>
+					placeholder="영문 /숫자 포함  8~20자 " name="member_pwd" required>
+					<div class="member_pwd regex" style="text-align:left;"></div>
+					<input type="hidden" id="pwdDoubleChk">
+					</td>
+				
 			</tr>
 			<tr>
 				<th>비밀번호 확인</th>
 				<td><input type="password" class="form-control" id="rePassword"
-					name="rePassword" style="text-align:left;" required></td>
+					name="rePassword" style="text-align:left;" required>
+					<div class="rePassword regex" style="text-align:left;"></div>
+					<input type="hidden" id="rePwdDoubleChk">
+					</td>
 			</tr>
 			<tr>
 				<th>이메일</th>
-				<td><input type="text" name="email" id="email" style="width:100px; text-align:left;">
+				<td><input type="text" name="email" id="email" value="" style="width:100px; text-align:left;">
 				<span id="middle">@</span>
-				<input type="text" name="domain" id="domain" style="width: 100px;"> 
+				<input type="text" name="domain" id="domain" value="" style="width: 100px;"> 
 				<select style="width: 100px; margin-right: 10px" name="selectEmail" id="selectEmail">
-						<option value="1" selected>직접입력</option>
+						<option value="1">직접입력</option>
+						<option value="" selected>선택하세요</option>
 						<option value="naver.com">naver.com</option>
 						<option value="hanmail.net">hanmail.net</option>
 						<option value="hotmail.com">hotmail.com</option>
@@ -85,12 +97,17 @@
 						<option value="paran.com">paran.com</option>
 					</select>
 				<input type="hidden" id="member_email" name="member_email" value="">
+				<input type="hidden" id="emailDoubleChk">
 				</td>
 			</tr>
 			<tr>
 				<th>휴대폰번호</th>
 				<td><input type="text" class="form-control" id="member_phone"
-					name="member_phone" placeholder="-를 제외한 숫자만 입력해주세요" style="text-align:left;" required></td>
+					name="member_phone" placeholder="-를 제외한 숫자만 입력해주세요" style="text-align:left;" required>
+					<br>
+					<span class="member_phone regex" style="text-align:left;"></span>
+					<input type="hidden" id="phoneDoubleChk">
+					</td>
 			</tr>
 			<tr>
 				<th>주소</th>
@@ -107,36 +124,115 @@
 				</td>
 		</tr>
 		</table>
-
+	<br>
+	<br>
+	<hr>
 		<p>
 			<strong>이용약관</strong>
 		</p>
-		<p>만 14세 이상이며 밀슐랭 온라인사이트 이용약관,</p>
-		<p>개인정보 수집 및 이용동의를 확인하였고 동의합니다.</p>
-		<p>고객님께서는 개인정보 수집 및 이용동의를 거부하실 수 있으며,</p>
-		<p>동의거부 시 회원가입이 제한됩니다.</p>
+		<div>
+		 <span class="info" designElement="text" textIndex="71" >
+			 만 14세 이상이며 밀슐랭	 온라인사이트 이용약관,<br>
+			 개인정보 수집 및 이용동의를 확인하였고 동의합니다.<br>
+			 고객님께서는 개인정보 수집 및 이용동의를 거부하실 수 있으며,<br>
+			 동의거부 시 회원가입이 제한됩니다.
+		 </span> 
+		 </div>
+		 <br>
 
-		<p>온라인사이트 이용약관 ></p>
-		<p>개인정보 수집 및 이용동의 ></p>
-
-
-		<button class="btn btn-primary btn-lg btn-block" type="submit">동의하고
+	<div class="agree_area">
+			 <ul id="agreeList" class="agree_list">
+				 <li class="agree_section">
+					 <a class="agree_view" href="javascript:void(0)" onclick="showCenterLayer('#agreementDeatilLayer')">
+						 온라인사이트 이용약관 >
+					 </a>
+				 </li>
+				 <li class="agree_section">
+					 <a class="agree_view" href="javascript:void(0)" onclick="showCenterLayer('#privacyDeatilLayer')">
+						 개인정보 수집 및 이용동의  >
+					 </a>
+				 </li>
+			 </ul>
+		 </div> 
+		 <br>
+		 <br>
+		<button class="btn btn-primary btn-lg btn-block" type="button" id="signupbtn" name="signup">동의하고
 			회원가입</button>
 	</form>
 
 
 
 
-
-	<script>
+<script>
 	
-	//이메일 주소 합치기  
-	//blur 이벤트는 사용자가 폼에 입력을 마치고 커서가 해당 폼을 벗어났을 때 실행되며, change 이벤트는 폼에 변화가 감지되었을 때 실행된다.
-	$("#email").change(function(){
-		email();	
+	//이름 유효성검사
+	$("#member_name").on("input",function(){
+	    var regex = /[가-힣]{2,}/;
+	    var result = regex.exec($("#member_name").val());
+	    
+	    if(result != null){
+	       $(".member_name.regex").html("");  
+	    }else{
+	        $(".member_name.regex").html("한글만 입력 가능합니다.");
+	        $(".member_name.regex").css("color","red");
+	    }
+	    
+	})
+	
+
+	//비밀번호 유효성검사
+	$("#member_pwd").on("input",function(){
+	    var regex = /^[A-Za-z\d]{8,21}$/;
+	    var result = regex.exec($("#member_pwd").val())
+	    
+	    if(result != null){
+	        $(".member_pwd.regex").html("");
+	    }else{
+	        $(".member_pwd.regex").html("비밀번호는 영문 대소문자,숫자 8자 이상 20자 이하로 설정해주세요.");
+	        $(".member_pwd.regex").css("color","	red")
+	    }
 	});
 	
-	$("#domain").change(function(){
+	//비밀번호 확인    
+	   $("#rePassword").on("input",function(){
+		   
+		   let member_pwd = document.getElementById("member_pwd").value
+		   let rePassword = document.getElementById("rePassword").value 		   
+
+	        if(rePassword.length > 2 && member_pwd == rePassword){
+	        	$(".rePassword.regex").html("비밀번호가 일치합니다"); 
+	        	  $(".rePassword.regex").css("color","green"); 
+	          
+	        }else{
+	         $(".rePassword.regex").html("비밀번호가 일치하지않습니다"); 
+	         $(".rePassword.regex").css("color","red"); 
+	        }
+	   });
+	
+
+	//전화번호 유효성검사
+         $("#member_phone").on("input",function(){
+              var regex = /^01\d\d{3,4}\d{4}$/;
+              var result = regex.exec($("#member_phone").val());
+             
+             if(result != null){
+                $(".member_phone.regex").html("");  
+             }else{
+                 $(".member_phone.regex").html("올바른 번호가 아닙니다");
+                 $(".member_phone.regex").css("color","red"); 
+             }
+             
+         })
+	
+	//이메일  합치기  
+	//blur 이벤트는 사용자가 폼에 입력을 마치고 커서가 해당 폼을 벗어났을 때 실행되며, change 이벤트는 폼에 변화가 감지되었을 때 실행된다.
+	
+	
+	$("#email").blur(function(){
+		email();	
+	});
+
+	$("select[name=selectEmail]").change(function(){
 		email();	
 	});
 
@@ -171,45 +267,18 @@
 		}
 	};
 	
-	
-	
-	
-	//모든 공백 체크 정규식
-	var emp = /\s/g;
-	//아이디 정규식 - a~z 0~9로 시작하는 4~12 자리 아이디를 만들 수 있다.
-	var id = /^[a-z0-9]{4,12}$/;
-	// 비밀번호 정규식  - 소문자 + 숫자 + 언더바/하이픈 허용 4~20자리
-	var pw = /^[a-z0-9_-]{4,20}$/;
-	// 이름 정규식
-	var name = /^[가-힣]{2,6}$/;
-	// 이메일 검사 정규식
-	var mail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-	
-	
-	
-	//이름에 특수문자가 들어가지 않도록 확인
-	$("#member_name").blur(function() {
-		if (name.test($(this).val())) {
-				console.log(nameJ.test($(this).val()));
-				$("#name_check").text('');
-		} else {
-			$('#name_check').text('이름을 확인해주세요');
-			$('#name_check').css('color', 'red');
-		}
-	});
-	
-	
-	
-	
-	
- 	
+
 	//닉네임 중복 체크
 	$("#member_nickname").blur(function(){ 
 		var member_nickname = $("#member_nickname").val();
+		var regex = /[0-9]|[a-z]|[A-Z]|[가-힣]/;
+		var result = regex.exec($("#member_nickname").val());
 		
-		if(member_nickname == "" || member_nickname.length < 2){ 
-			$(".successNameChk").text("닉네임은 2자 이상 8자 이하로 설정해주세요");
+		if(member_nickname == "" || member_nickname.length<2){ 
+			
+			$(".successNameChk").text("닉네임은 한글, 영문, 숫자만 가능하며 2-10자리 가능합니다.");
 			$(".successNameChk").css("color", "red"); 
+			$("#nicknameDoubleChk").val("false"); 
 			$("#nicknameDoubleChk").val("false"); 
 		
 		}else{ 
@@ -221,30 +290,47 @@
 					 dataType: "json",
 					 cache : false, 
 					 success : function(data) { 
-						 if (data == 0) {
+						 if (data == 0 && result != null) {
 							 $(".successNameChk").text("사용가능한 닉네임입니다."); 
 						 	 $(".successNameChk").css("color", "green"); 
 						 	 $("#nicknameDoubleChk").val("true"); 
-						 } else {
+						
+						 } else if(result == null){
+			
+							 $(".successNameChk").text("닉네임은 한글, 영문, 숫자만 가능하며 2-10자리 가능합니다.");
+							 $(".successNameChk").css("color", "red"); 
+							 $("#nicknameDoubleChk").val("false"); 
+							 
+						 }else{ 
 							 $(".successNameChk	").text("사용중인 닉네임입니다.");
 							 $(".successNameChk").css("color", "red"); 
 							 $("#nicknameDoubleChk").val("false"); 
 							 } 
 						 }, error : function() {
+							 console.log(member_nickname);
 							 console.log("실패"); 
+							 $(".successNameChk").text("특수문자 입력 불가능합니다.");
+							 $(".successNameChk").css("color", "red"); 
+							 $("#nicknameDoubleChk").val("false"); 
 							 }
 						 });
 					} });
 	
 	
+	
+
+	
 	//아이디 중복 체크
 	$("#member_id").blur(function(){ 
 		var member_id = $("#member_id").val();
+		var regex = /^[a-z][a-z\d]{4,11}$/;
+	    var result = regex.exec($("#member_id").val());
 		
-		if(member_nickname == "" || member_nickname.length < 2){ 
-			$(".successIdChk").text("아이디는 영문자로 시작하는 영문자 또는 숫자 6~20자로 설정해주세요.");
-			$(".successIdChk").css("color", "red"); 
+		if(member_id == "" || member_id.length<5 ){ 
 			$("#idDoubleChk").val("false"); 
+			$(".successIdChk").text("아이디는 영어 소문자/숫자 5~12자리로 설정해주세요.");
+			 $(".successIdChk").css("color", "red"); 
+			 $("#idDoubleChk").val("false"); 
 		
 		}else{ 
 			 
@@ -255,18 +341,23 @@
 					 dataType: "json",
 					 cache : false, 
 					 success : function(data) { 
-						 if (data == 0) {
+						 if (data == 0 && result != null) {
 							 $(".successIdChk").text("사용가능한 아이디입니다."); 
 						 	 $(".successIdChk").css("color", "green"); 
 						 	 $("#idDoubleChk").val("true"); 
 						 
-						 } else {
-							 $(".successIdChk").text("사용중인 아이디입니다.");
+						 } else if(result == null) {
+							 $(".successIdChk").text("아이디는 영어 소문자/숫자 5~12자리로 설정해주세요.");
 							 $(".successIdChk").css("color", "red"); 
 							 $("#idDoubleChk").val("false"); 
 						
-							 } 
+							 } else{
+							 $(".successIdChk").text("사용 중인 아이디입니다."); 
+						 	 $(".successIdChk").css("color", "red"); 
+						 	 $("#idDoubleChk").val("false"); 
+							 	 }
 						 }, error : function() {
+							 
 							 console.log("실패"); 
 							 }
 						 });
@@ -324,43 +415,90 @@
         }).open();
     }
 	
-/* 	//이메일 입력방식 선택 
-	$('#selectEmail').change(function(){ 
-		$("#selectEmail option:selected").each(function () { 
-			if($(this).val()== '1'){ 
-		//직접입력일 경우
-			$("#domain").val(''); 
-		//값 초기화
-			$("#domain").attr("disabled",false); 
-		//활성화 
-			}else{ 
-		//직접입력이 아닐경우
-			$("#domain").val($(this).text()); 
-		//선택값 입력 
-			$("#domain").attr("disabled",false); 
-		//비활성화 
-				} 
-			});
-		});
 
-	 */
+	//이메일 주소 입력
+	 $(function(){ $('#selectEmail').change(function(){
+	   if($('#selectEmail').val() == "1"){
+	    $("#domain").val(""); //값 초기화
+	    $("#domain").prop("readonly",false); //활성화
+	   } else if($('#selectEmail').val() == ""){
+	    $("#domain").val(""); //값 초기화
+	    $("#domain").prop("readonly",true); //textBox 비활성화
+	   } else {
+	    $("#domain").val($('#selectEmail').val()); //선택값 입력
+	    $("#domain").prop("readonly",true); //비활성화
+	   }
+	  });
+	 });
 	
-	 
-	 $(document).ready(function(){
-	        $("#selectEmail").change(function(){
-	            var selectEmail = $(this).val(); 
-	            if(selectEmail == "1") { //직접입력일때
-	                $("input[name='domain']").val('');  //이메일 도메인입력박스 초기화.
-	                $("input[name='domain']").attr('readonly', false); //직접입력 가능하도록 readonly막기
-	            }
-	           else {
-	               $("input[name='domain']").val(selectEmail); //이메일 도메인 입력박스에 선택된 호스트등록.
-	               $("input[name='domain']").attr('readonly', true); //readonly로 직접입력 막기.
-	           }
-	       });
-	   });
+	//폼 제출전 유효성 검사
+	  $("#signupbtn").on("click",function(){
+		  
+	  /*  var id = $("#id").val();
+   	   var pw = $("#pw").val();
+   	   var name = $("#name").val();
+   	   var phone = $("#phone").val();
+   	   var email = $("#email").val();	   */
+		  
+   	   var id =  document.getElementById('member_id').value
+   	   var pw =  document.getElementById('member_pwd').value
+   	   var name =  document.getElementById('member_name').value
+   	   var nickname = document.getElementById('member_nickname').value
+   	   var email = document.getElementById('member_email').value
+	   var idDoubleChk = document.getElementById('idDoubleChk').value
+	   var nicknameDoubleChk = document.getElementById('nicknameDoubleChk').value
+   	   
+   		   	   
+   	   var idregex = /^[a-z][a-z\d]{4,11}$/;
+   	   var pwregex = /^[A-Za-z\d]{8,21}$/;
+   	   var nameregex = /[가-힣]{2,}/;
+   	   var nicknameregex = /[0-9]|[a-z]|[A-Z]|[가-힣]/;
+   	   var emailregex = /.+@[a-z]+(\.[a-z]+){1,2}$/;
+   	   var a = true;
+   	   var b = false;
+   	 
+   	   var nameregex = nameregex.exec(name);
+	   if(nameregex == null){
+		   alert("이름양식을 다시 확인해주세요");
+		   retrun;
+	   }
+	   
+	   var nicknameregex = nicknameregex.exec(nickname);
+   	   if(nicknameregex == null){
+   		   alert("닉네임양식을 다시 확인해주세요");
+   		   retrun;
+   	   }
+   	   
+   	   if(idDoubleChk === b){
+   	    	alert("아이디가 중복입니다.");
+   	    	return
+   	   }
+   	   
+   	   
+   	   var idregex = idregex.exec(id);
+   	   if(idregex == null){
+   		   alert("아이디양식을 다시 확인해주세요");
+   		   return;
+   	   }
 
-	
+   	   
+   	   var pwregex = pwregex.exec(pw);
+   	   if(pwregex == null){
+   		   alert("비밀번호양식을 다시 확인해주세요");
+   		   retrun;
+   	   }
+   	  var emailregex = emailregex.exec(email);
+	   if(emailregex == null){
+		   alert("이메일양식을 다시 확인해주세요");
+		   retrun;
+	   }
+   	   
+        //빈칸 없을 때 제출.
+   	   $("#signform").submit();
+       	   
+
+   })
+
 </script>
 
 

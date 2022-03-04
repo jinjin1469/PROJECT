@@ -124,10 +124,8 @@
       <input type="button" class="kakaoJoin" onclick="kakaoLogin();">
       <input type="button" class="naverJoin"> 
     </div>
- <!-- <div class="joinWrap">
-        <p>카카오</p>
-        <p>네이버</p>
-    </div>-->  
+
+
   
   </form>
   <br>

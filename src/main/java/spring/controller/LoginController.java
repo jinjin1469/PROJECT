@@ -1,20 +1,19 @@
 package spring.controller;
 
-import javax.servlet.http.HttpServletResponse;
+
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import spring.exception.IdPasswordNotMatchingException;
 import spring.service.AuthService;
-import spring.service.KakaoAPI;
 import spring.vo.AuthInfo;
+import spring.vo.Login;
 
 @Controller
 public class LoginController {
@@ -25,59 +24,40 @@ public class LoginController {
 		this.authService = authService;
 	}
 		
-	@Autowired
-    private KakaoAPI kakao;
-    
-    @RequestMapping(value="/")
-    public String index() {
-        
-        return "index";
-    }
-	
-    
+	 //로그인 폼으로 연결
     @RequestMapping(value="/member/login",method=RequestMethod.GET)
-	public String form(Model model) {  
+	public String form(Login login) {
 		
-		model.addAttribute("loginCommand",new LoginCommand());
-		
-		return "login/loginForm";
+		return "member/login";
 	}
     
-    
-    @RequestMapping(value="/loginForm",method=RequestMethod.POST)
-	public String submit(LoginCommand loginCommand, Errors errors, HttpSession session, HttpServletResponse response) { 
+    //로그인
+    @RequestMapping(value="/member/login",method=RequestMethod.POST)
+	public String submit(Login login, Errors errors, HttpSession session) { 
 			
-		new LoginCommandValidator().validate(loginCommand, errors);
-				
-				if(errors.hasErrors()) {
-					return "login/loginForm";
-				}
-		
-	
 		try {
-			AuthInfo authInfo = authService.authenticate(loginCommand.getMemberId(), loginCommand.getMemberPassword());
+			AuthInfo authInfo = authService.authenticate(login.getMember_id(), login.getMember_pwd());
 			
 			// 로그인 정보를 기록할 세션 코드
 			session.setAttribute("authInfo", authInfo);
-			if(loginCommand.getMemberId().contentEquals("admin")) {
-				return "redirect:/adminmain";
-			}
 			
 		}catch(IdPasswordNotMatchingException e) {
-			//아이디가 없거나, 비밀번호가 틀린경우
+			
 			errors.reject("idPasswordNotMatching");
 			return "login/loginForm";
 		}
 		return "redirect:/";
 	}
     
+
+    //로그아웃
+    @RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate(); //세션에 저장된 모든 데이터를 제거
+		
+		return "redirect:/";
+	}
     
-   @RequestMapping(value="/kakaologin")
-	    public String login(@RequestParam("code") String code) { //컨트롤러 메소드에서 API인증을 통해 얻어낸 code의 값 받아온다.
-		 String access_Token = kakao.getAccessToken(code);
-	        System.out.println("controller access_token : " + access_Token);
-	        
-	        session.setAttribute("authInfo", authInfo);
-	        return "main";
-	  }
+    
 }
+    

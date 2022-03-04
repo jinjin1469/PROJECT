@@ -4,9 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
+import spring.controller.LoginController;
 import spring.controller.MainController;
+import spring.controller.MemberFindController;
 import spring.controller.MemberRegisterController;
 import spring.dao.MemberDao;
+import spring.service.AuthService;
+import spring.service.FindService;
 import spring.service.MemberRegisterService;
 
 
@@ -17,8 +22,11 @@ public class ControllerConfig {
 	private MemberDao dao;
 	@Autowired
 	private MemberRegisterService regSvc;
-//	@Autowired
-//	private AuthService authService;
+	@Autowired
+	private AuthService authService;
+	@Autowired
+	private FindService findService;
+
 
 	@Bean
 	public MainController mainController() {
@@ -34,15 +42,22 @@ public class ControllerConfig {
 		return regCon;
 	}
 
-//	@Bean
-//	public LoginController loginController() {
-//		LoginController loginCon = new LoginController();
-//		loginCon.setAuthService(authService);
-//		return loginCon;
-//	}
-//
-//	@Bean public LogoutController logoutController() { 
-//		return new LogoutController(); }
+	@Bean
+	public LoginController loginController() {
+		LoginController loginCon = new LoginController();
+		loginCon.setAuthService(authService);
+		return loginCon;
+	}
+	
+	@Bean
+	public MemberFindController memberFindController() {
+		MemberFindController memberFindCon = new MemberFindController();
+		memberFindCon.setFindService(findService);
+		return memberFindCon;
+	}
+	
+	
+	
 //	
 //	@Bean
 //	public BoardController boardController() {
