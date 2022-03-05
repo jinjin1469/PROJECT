@@ -55,9 +55,18 @@
 	
 	<!-- 아이디 찾기 -->
 	<select id="findId" parameterType="String" resultType="String">
-		select member_id from M_MEMBER where member_email = #{member_email}
+		select member_id from M_MEMBER where member_name = #{member_name} AND member_email = #{member_email} 
 	</select>
-    
+	
+	<!-- 비밀번호 찾기 -->
+	<select id="findPwd" parameterType="String" resultType="String">
+		select member_id from M_MEMBER where member_name = #{member_name} AND member_email = #{member_email} AND member_id = #{member_id}
+	</select>
+	
+		    
+    <update id="updatePw">
+		update m_member set member_pwd = #{member_pwd} where member_id = #{member_id}
+	</update>
     
 	
 </mapper>

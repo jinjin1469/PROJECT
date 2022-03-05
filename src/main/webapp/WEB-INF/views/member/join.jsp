@@ -23,8 +23,8 @@
 </head>
 
 <body>
+<%@include file="../header.jsp" %>
 	
-	<img class="mb-4" src="../../../resources/image/logo_transparent.png" alt="" width="20%" height="50%">
 	<h2 class="cen">회원 정보 입력</h2>
 
 	<form name="register" id="signform" action="register" commandName="formData" class="validation-form" method="post">

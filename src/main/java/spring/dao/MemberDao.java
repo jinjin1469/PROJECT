@@ -54,10 +54,19 @@ public class MemberDao {
 	}
 
 	//아이디 찾기
-	public String findId(String member_email) throws Exception{
-		return sqlSession.selectOne("mybatis.mapper.member.findId", member_email);
+	public String findId(Member memVo) throws Exception{
+		return sqlSession.selectOne("mybatis.mapper.member.findId",memVo);
 	}
-
+	
+	//비밀번호 찾기
+	public String findPw(Member memVo) throws Exception{
+			return sqlSession.selectOne("mybatis.mapper.member.findPwd",memVo);
+	}
+	
+	//임시 비밀번호 전송
+	public int updatePw(Member memVo) throws Exception {
+		return sqlSession.update("mybatis.mapper.member.updatePw",memVo);
+	}
 }
 
 

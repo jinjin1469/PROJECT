@@ -82,10 +82,8 @@
     <link href="signin.css" rel="stylesheet">
   </head>
   <body class="text-center">
-    
+<%@include file="../header.jsp" %>
 <main class="form-signin">
-
-    <img class="mb-4" src="../../../resources/image/logo_transparent.png" alt="" width="20%" height="0%">
     <h1 class="h3 mb-3 fw-normal"><strong>LOGIN</strong></h1>
 	 <form action="login" method="post" commandName="login">
     <div class="form-floating">

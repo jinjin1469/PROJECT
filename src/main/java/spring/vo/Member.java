@@ -109,4 +109,6 @@ public class Member {
 		this.member_point = member_point;
 	}
 
+
+
 }
