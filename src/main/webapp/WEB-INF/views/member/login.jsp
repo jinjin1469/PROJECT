@@ -82,8 +82,12 @@
     <link href="signin.css" rel="stylesheet">
   </head>
   <body class="text-center">
-<%@include file="../header.jsp" %>
-<main class="form-signin">
+    <%@include file="../header.jsp" %>
+	<br>
+	<br>
+	<main class="form-signin">
+
+   
     <h1 class="h3 mb-3 fw-normal"><strong>LOGIN</strong></h1>
 	 <form action="login" method="post" commandName="login">
     <div class="form-floating">
@@ -112,10 +116,12 @@
   <br>
   <label>
     <a href="<c:url value='/member/findId' />">[아이디/비밀번호 찾기]</a>
-    <a href="">[회원가입]</a>
+    <a href="<c:url value='/member/join' />">[회원가입]</a>
    </label>
 
 </main>
+<br>
+<br>
 
 <%@include file="../footer.jsp" %>
 

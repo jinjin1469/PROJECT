@@ -9,6 +9,7 @@ import spring.controller.LoginController;
 import spring.controller.MainController;
 import spring.controller.MemberFindController;
 import spring.controller.MemberRegisterController;
+import spring.controller.MyPageController;
 import spring.dao.MemberDao;
 import spring.service.AuthService;
 import spring.service.FindService;
@@ -55,7 +56,6 @@ public class ControllerConfig {
 		memberFindCon.setFindService(findService);
 		return memberFindCon;
 	}
-	
 	
 	
 //	

@@ -6,26 +6,19 @@
 <meta charset="UTF-8">
 <script src="../../../resources/jquery/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="../../../resources/css/join.css">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author"
-	content="Mark Otto, Jacob Thornton, 그리고 Bootstrap 기여자들">
-<meta name="generator" content="Hugo 0.88.1">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-
 <title>회원가입:밀슐랭과 함께해요</title>
-
 </head>
 
-<body>
+<body class="text-center">
 <%@include file="../header.jsp" %>
-	
+<br>
+
 	<h2 class="cen">회원 정보 입력</h2>
+<br>
 
 	<form name="register" id="signform" action="register" commandName="formData" class="validation-form" method="post">
 
@@ -159,8 +152,9 @@
 		<button class="btn btn-primary btn-lg btn-block" type="button" id="signupbtn" name="signup">동의하고
 			회원가입</button>
 	</form>
-
-
+<br>
+<br>
+<%@include file="../footer.jsp" %>
 
 
 <script>

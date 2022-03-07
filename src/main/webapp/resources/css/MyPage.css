@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+
+#content {
+	overflow: hidden;
+}
+section {
+	float: right;
+	width: 350px;
+	background: Khaki;
+}
+aside {
+	float: left;
+	width: 300px;
+	background: LightGreen;
+}
+footer {
+	background: SkyBlue;
+}

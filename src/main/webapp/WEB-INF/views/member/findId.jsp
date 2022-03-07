@@ -7,12 +7,12 @@
  <head>
  <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
-<link rel="stylesheet" href="../../../resources/css/find.css">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="../../../resources/css/find.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>LOGIN</title>
+    <title>아이디/비밀번호 찾기</title>
     
  
 <!-- Bootstrap core CSS -->
@@ -89,6 +89,7 @@
 
 
 
+
 </style>
 
 
@@ -98,17 +99,17 @@
 
 
 <body>
-
-<img class="mb-4" src="../../../resources/image/logo_transparent.png" alt="" width="20%" height="0%">
-
+<%@include file="../header.jsp" %>
+<br>
+<br>
 
 <!-- 탭 메뉴 -->
-<nav>
+
   <div class="nav nav-tabs centered" id="nav-tab" role="tablist">
     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">아이디 찾기</button>
     <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">비밀번호 찾기</button>
   </div>
-</nav>
+
 
 <!-- 아이디 찾기 시작 -->
 <div class="tab-content" id="nav-tabContent">
@@ -171,13 +172,9 @@
   </div>
 
 <br>
-
-
-<a class="small" href="/member/login">[로그인]</a>
-<a class="small" href="/">[메인페이지]</a>
-
-
-
+<br>
+<br>
+<%@include file="../footer.jsp" %>
 <script>
 
 $("#findID").on("click",function(){	

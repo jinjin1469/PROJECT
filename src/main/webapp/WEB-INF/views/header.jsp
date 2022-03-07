@@ -14,32 +14,31 @@
 </head>
 <body>
 
- <div class="container">
-   <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+ <div class="containerbox">
+   <header class="d-flex flex-wrap justify-content-center py-3 mb-4">
      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-       <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
        <span class="font" id="bookmark">🔖BOOKMARK</span>
      </a>
 
      <ul class="navheader">
-       <li class="navheader"><a href="<c:url value='/member/login' />" class="nav-link active" aria-current="page">로그인</a></li>
-       <li class="navheader"><a href="<c:url value='/member/joinChoice' />" class="nav-link">회원가입</a></li>
-       <li class="navheader"><a href="#" class="nav-link">마이페이지</a></li>
-       <li class="navheader"><a href="#" class="nav-link">주문조회</a></li>
-       <li class="navheader"><a href="#" class="nav-link">장바구니</a></li>
+       <li class="navheader"><a href="<c:url value='/member/login' />"  aria-current="page">로그인</a></li>
+       <li class="navheader"><a href="<c:url value='/member/joinChoice' />" >회원가입</a></li>
+       <li class="navheader"><a href="<c:url value='/member/MyPage' />" >마이페이지</a></li>
+       <li class="navheader"><a href="#" >주문조회</a></li>
+       <li class="navheader"><a href="#">장바구니</a></li>
      </ul>
    </header>
  </div>
 
 
-<img src="../../resources/image/logo_transparent.png" alt="" width="250px" height="250px">
-
+<img src="../../resources/image/logo_transparent.png" alt="" width="250px" height="250px" onclick="javascript:location.href='/';" style="cursor:pointer;">
 
 
 
 <nav role="navigation">
   <ul id="main-menu">
     <li><a href="#">MENU1</a></li>
+    
     <li><a href="#">MENU2</a>
       <ul id="sub-menu">
         <li><a href="#" aria-label="subemnu">submenu</a></li>
