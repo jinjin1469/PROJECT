@@ -23,7 +23,7 @@
      <ul class="navheader">
        <li class="navheader"><a href="<c:url value='/member/login' />"  aria-current="page">로그인</a></li>
        <li class="navheader"><a href="<c:url value='/member/joinChoice' />" >회원가입</a></li>
-       <li class="navheader"><a href="<c:url value='/member/MyPage' />" >마이페이지</a></li>
+       <li class="navheader"><a href="<c:url value='/member/mypage' />" >마이페이지</a></li>
        <li class="navheader"><a href="#" >주문조회</a></li>
        <li class="navheader"><a href="#">장바구니</a></li>
      </ul>
@@ -37,35 +37,40 @@
 
 <nav role="navigation">
   <ul id="main-menu">
-    <li><a href="#">MENU1</a></li>
+    <li><a href="#">전체보기</a></li>
     
-    <li><a href="#">MENU2</a>
+      <li><a href="#">베스트</a></li>
+      
+      <li><a href="#">재구매Best</a></li>
+      
+       <li><a href="#">신제품</a></li>
+    
+    <li><a href="#">&nbsp;&nbsp;&nbsp;테마별&nbsp;&nbsp;</a>
       <ul id="sub-menu">
+        <li><a href="#" aria-label="subemnu">한식</a></li>
+        <li><a href="#" aria-label="subemnu">양식</a></li>
+        <li><a href="#" aria-label="subemnu">중식/일식</a></li>
+        <li><a href="#" aria-label="subemnu">베트남식</a></li>
+        <li><a href="#" aria-label="subemnu">동남아</a></li>
+        <li><a href="#" aria-label="subemnu">분식/야식</a></li>
+      </ul>
+    </li>
+    <li><a href="#">사이드디쉬</a>
+      <ul id="sub-menu">
+        <li><a href="#" aria-label="subemnu">샐러드/과일</a></li>
+        <li><a href="#" aria-label="subemnu">반찬</a></li>
+
+      </ul>
+    </li>
+    <li><a href="#">프리미엄관</a>
+      <ul id="sub-menu">
+        <li><a href="#" aria-label="subemnu">submenu</a></li>
         <li><a href="#" aria-label="subemnu">submenu</a></li>
         <li><a href="#" aria-label="subemnu">submenu</a></li>
         <li><a href="#" aria-label="subemnu">submenu</a></li>
         <li><a href="#" aria-label="subemnu">submenu</a></li>
       </ul>
     </li>
-    <li><a href="#">MENU3</a>
-      <ul id="sub-menu">
-        <li><a href="#" aria-label="subemnu">submenu</a></li>
-        <li><a href="#" aria-label="subemnu">submenu</a></li>
-        <li><a href="#" aria-label="subemnu">submenu</a></li>
-        <li><a href="#" aria-label="subemnu">submenu</a></li>
-      </ul>
-    </li>
-    <li><a href="#">MENU4</a>
-      <ul id="sub-menu">
-        <li><a href="#" aria-label="subemnu">submenu</a></li>
-        <li><a href="#" aria-label="subemnu">submenu</a></li>
-        <li><a href="#" aria-label="subemnu">submenu</a></li>
-        <li><a href="#" aria-label="subemnu">submenu</a></li>
-        <li><a href="#" aria-label="subemnu">submenu</a></li>
-      </ul>
-    </li>
-    <li><a href="#">MENU5</a></li>
-    <li><a href="#">MENU6</a></li>
   </ul>
 </nav>
 

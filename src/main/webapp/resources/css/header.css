@@ -3,6 +3,7 @@
 * {
 	font-family: 'Noto Sans KR', sans-serif;
 	text-align: center;
+	box-sizing: border-box;
 }
 
 /*body 초기화*/
@@ -57,12 +58,13 @@ ul, li {
 
 #sub-menu {
   position: absolute;
-  background: rgb(208,221,151);
+  background: #E9F3C3;
   opacity: 0;
   visibility: hidden;
   transition: all 0.15s ease-in;
-   position: absolute; 
-   z-index: 99;
+  position: absolute; 
+  z-index: 99;
+ 
 }
 
 #sub-menu > li {
@@ -73,6 +75,7 @@ ul, li {
 #sub-menu > li >  a {
   color: black;
   text-decoration: none;
+  font-size: 0.75rem;
 }
 
 #main-menu > li:hover #sub-menu {
@@ -84,11 +87,6 @@ ul, li {
  text-decoration: underline;
 }
 
-section {
-  column-width: 15em;
-  background: #dadadf;
-  padding: 2em 12em;
-}
 
 .containerbox,
 .container-fluid,

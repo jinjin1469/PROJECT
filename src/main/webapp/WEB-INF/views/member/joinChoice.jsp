@@ -68,7 +68,7 @@
     margin: 0.5rem;
   }
   a{padding: 0.5rem; text-align: center; font-weight: bold;}
-  a:link { color: red; text-decoration: none;}
+  a:link { color: black; text-decoration: none;}
   a:visited { color: black; text-decoration: none;}
   a:hover { color: rgb(95, 185, 87); text-decoration: none;}
 
