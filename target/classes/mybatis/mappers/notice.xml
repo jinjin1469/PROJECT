@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="mybatis.mapper.notice">
+	
+	<resultMap type="notice" id="noticeVo">
+		<result column="NOTICE_NUMBER" property="NOTICE_NUMBER"/>
+		<result column="CLASSIFICATION" property="CLASSIFICATION"/>
+		<result column="NOTICE_TITLE" property="NOTICE_TITLE"/>
+		<result column="NOTICE_CONTENT" property="NOTICE_CONTENT"/>
+		<result column="REGDATE" property="REGDATE"/>
+	</resultMap>
+
+	
+	<select id="noticeAll" resultMap="noticeVo">
+		SELECT * FROM NOTICE
+	</select>
+	
+	<select id="detailView" resultMap="noticeVo" parameterType="long">
+		SELECT * FROM NOTICE WHERE NOTICE_NUMBER=#{num}
+	</select>
+	
+	<select id="noticeSearch" resultMap="noticeVo"  parameterType="string">
+		SELECT * FROM NOTICE 
+		<bind name="NT" value="'%'+search+'%'"/>
+		<bind name="NC" value="'%'+search+'%'"/>
+		<where>
+		<if test="search != null"> OR NOTICE_TITLE like #{NT}</if>
+		<if test="search != null"> OR NOTICE_CONTENT like #{NC}</if>
+		</where>
+	</select>
+	
+	<insert id="insertNotice" parameterType="notice">
+		INSERT INTO NOTICE 
+		VALUES(M_NOTICE_SEQ.nextval,#{CLASSIFICATION},#{NOTICE_TITLE},#{NOTICE_CONTENT},SYSDATE)
+	</insert>
+	
+	<update id="updateNotice" parameterType="notice">
+		UPDATE NOTICE SET CLASSIFICATION=#{CLASSIFICATION}, NOTICE_TITLE=#{NOTICE_TITLE}, NOTICE_CONTENT=#{NOTICE_CONTENT} WHERE NOTICE_NUMBER=#{NOTICE_NUMBER}
+	</update>
+	
+	<delete id="deleteNotice" parameterType="Long">
+		DELETE FROM NOTICE WHERE NOTICE_NUMBER=#{num}
+	</delete>
+	
+	
+</mapper>

@@ -98,7 +98,7 @@
 	<main class="form-signin">
 
    
-    <h1 class="h3 mb-3 fw-normal"><strong>LOGIN</strong></h1>
+    <h1 class="h3 mb-3 fw-normal"><strong>🍀로그인🍀</strong></h1>
 	 <form action="login" method="post" commandName="login">
     <div class="form-floating">
       <input type="text" class="form-control" id="floatingInput" name="member_id" placeholder="name@example.com">

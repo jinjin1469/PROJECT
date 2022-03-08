@@ -17,7 +17,7 @@
 <%@include file="../header.jsp" %>
 <br>
 
-	<h2 class="cen">회원 정보 입력</h2>
+	<h2 class="cen">🆕회원 정보 입력🆕</h2>
 <br>
 
 	<form name="register" id="signform" action="register" commandName="formData" class="validation-form" method="post">

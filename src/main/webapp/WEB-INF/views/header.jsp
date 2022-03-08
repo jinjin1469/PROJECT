@@ -21,21 +21,33 @@
      </a>
  <c:choose>
 	 <c:when test="${empty authInfo}">
-     <ul class="navheader">
-       <li class="navheader"><a href="<c:url value='/member/login' />"  aria-current="page">로그인</a></li>
-       <li class="navheader"><a href="<c:url value='/member/joinChoice' />" >회원가입</a></li>
-       <li class="navheader"><a href="#" >주문조회</a></li>
-       <li class="navheader"><a href="#">장바구니</a></li>
-     </ul>
+     	<ul class="navheader">
+	       <li class="navheader"><a href="<c:url value='/member/login' />"  aria-current="page">로그인</a></li>
+	       <li class="navheader"><a href="<c:url value='/member/joinChoice' />" >회원가입</a></li>
+	       <li class="navheader"><a href="#" >주문조회</a></li>
+	       <li class="navheader"><a href="#">장바구니</a></li>
+	      <li class="navheader"><a href="<c:url value='/notice/main' />">공지사항</a></li>
+     	</ul>
+     </c:when>
+    
+     <c:when test="${authInfo.member_id  eq 'MEALADMIN' }">
+     	 <ul class="navheader">
+	       <li class="navheader userinfo">관리자님 안녕하세요🙌</li>
+	       <li class="navheader"><a href="<c:url value='/logout' />"  aria-current="page">로그아웃</a></li>
+	       <li class="navheader"><a href="<c:url value='/product/insert' />"  aria-current="page">상품관리</a></li>
+	       <li class="navheader"><a href="<c:url value='/mypage/mypage/${authInfo.member_number}' />" >마이페이지</a></li>
+	       <li class="navheader"><a href="<c:url value='/notice/main' />">공지사항</a></li>
+     	</ul>
      </c:when>
      
      <c:otherwise>
        <ul class="navheader">
-       <li class="navheader userinfo">${authInfo.member_name}님 안녕하세요💗</li>
-       <li class="navheader"><a href="<c:url value='/logout' />"  aria-current="page">로그아웃</a></li>
-       <li class="navheader"><a href="<c:url value='/mypage/mypage/${authInfo.member_number}' />" >마이페이지</a></li>
-       <li class="navheader"><a href="#" >주문조회</a></li>
-       <li class="navheader"><a href="#">장바구니</a></li>
+	       <li class="navheader userinfo">${authInfo.member_name}님 안녕하세요💗</li>
+	       <li class="navheader"><a href="<c:url value='/logout' />"  aria-current="page">로그아웃</a></li>
+	       <li class="navheader"><a href="<c:url value='/mypage/mypage/${authInfo.member_number}' />" >마이페이지</a></li>
+	       <li class="navheader"><a href="#" >주문조회</a></li>
+	       <li class="navheader"><a href="#">장바구니</a></li>
+	       <li class="navheader"><a href="<c:url value='/notice/main' />">공지사항</a></li>
      </ul>
      
      
@@ -51,7 +63,7 @@
 
 <nav role="navigation">
   <ul id="main-menu">
-    <li><a href="#">전체보기</a></li>
+    <li><a href="product/totalList">전체보기</a></li>
     
       <li><a href="#">베스트</a></li>
       

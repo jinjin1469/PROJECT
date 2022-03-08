@@ -20,11 +20,18 @@
 			<param-value>
 				spring.config.MvcConfig
 				spring.config.ControllerConfig
-				spring.config.MybatisConfig
+				spring.config.MybatisConfig	
 				spring.config.ServiceConfig
+				spring.config.WebConfig
+				spring.config.ServletConfig
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<multipart-config>
+			<max-file-size>41943040</max-file-size>
+			<max-request-size>41943040</max-request-size>
+			<file-size-threshold>0</file-size-threshold>
+		</multipart-config>
 	</servlet>
 
 	<servlet-mapping>

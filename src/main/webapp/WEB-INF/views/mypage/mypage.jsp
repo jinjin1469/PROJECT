@@ -54,7 +54,7 @@
 
 <section>
 
-		<h2>MYPAGE</h2>
+		<h2>MYPAGE📃</h2>
 		<hr>
 		
 			<div class="user">

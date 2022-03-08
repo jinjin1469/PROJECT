@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="mybatis.mapper.option">
+ 
+	<resultMap type="option" id="optionVo">
+		<result column="option_number" property="option_number"/>
+		<result column="option_Join_Number" property="option_Join_Number"/>
+		<result column="option_Name" property="option_Name"/>
+		<result column="option_Price" property="option_Price"/>
+		<result column="option_Count" property="option_Count"/>
+		<result column="option_salcount" property="option_salcount"/>
+	</resultMap>
+	
+	<select id="productOptionSelect" resultMap="optionVo" parameterType="int">
+		SELECT * FROM m_option WHERE option_join_number=#{num}
+	</select>
+	
+	<insert id="insertOption" parameterType="option">
+		INSERT INTO m_option 
+		VALUES(m_option_seq.nextval,#{option_Join_Number},#{option_Name},#{option_Price},#{option_Count},0)
+	</insert>
+
+</mapper>

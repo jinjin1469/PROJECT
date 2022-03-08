@@ -7,11 +7,22 @@
 <link rel="stylesheet" href="../../../resources/css/join.css">
 <title>회원정보 수정</title>
 </head>
+<style>
+input[type="text"], input[type="password"] {
+	width: 50%;
+	height: 30px;
+	border: 0px;
+	border-bottom: 1.5px solid gray;
+	text-align: left;
+}
+
+
+</style>
 <body>
 <%@include file="../header.jsp"%>
 <br>
 
-	<h2 class="cen">회원 정보 입력</h2>
+	<h2 class="cen">회원 정보 수정🔏</h2>
 <br>
 
 	<form name="register" id="signform" action="register" commandName="formData" class="validation-form" method="post">
@@ -86,7 +97,7 @@
 				<th>휴대폰번호</th>
 				<td><input type="text" class="form-control" id="member_phone"
 					name="member_phone" placeholder="-를 제외한 숫자만 입력해주세요" style="text-align:left;" 
-					value="${member.member_nickname}" required>
+					value="${member.member_phone}" required>
 					<br>
 					<span class="member_phone regex" style="text-align:left;"></span>
 					<input type="hidden" id="phoneDoubleChk">

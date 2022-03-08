@@ -21,6 +21,8 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.mchange.v2.c3p0.DriverManagerDataSource;
 
 import spring.dao.MemberDao;
+import spring.dao.NoticeDao;
+import spring.dao.ProductDao;
 
 @Configuration
 public class MybatisConfig {
@@ -80,8 +82,20 @@ public class MybatisConfig {
 	    }
 
 	    @Bean
-		public MemberDao dao() throws Exception {
+		public MemberDao mdao() throws Exception {
 			MemberDao dao = new MemberDao(sqlSession());
+			return dao;
+		}
+	    
+	    @Bean
+		public NoticeDao ndao() throws Exception {
+	    	NoticeDao dao = new NoticeDao(sqlSession());
+			return dao;
+		}
+	    
+	    @Bean
+		public ProductDao pdao() throws Exception {
+	    	ProductDao dao = new ProductDao(sqlSession());
 			return dao;
 		}
 	    

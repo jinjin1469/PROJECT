@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="mybatis.mapper.category">
+	
+	<resultMap type="category" id="categoryVo">
+		<result column="category_number" property="category_number"/>
+		<result column="menu_join_number" property="menu_join_number"/>
+		<result column="category_title" property="category_title"/>
+		<result column="category_sort" property="category_sort"/>
+	</resultMap>
+	
+	<select id="categoryAll" resultMap="categoryVo">
+		SELECT * FROM m_category ORDER BY category_sort ASC
+	</select>
+	
+
+</mapper>
