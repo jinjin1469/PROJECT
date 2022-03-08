@@ -37,7 +37,8 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 		registry.addViewController("/member/join").setViewName("/member/join");
 		registry.addViewController("/member/register").setViewName("/member/register");
 		registry.addViewController("/kakaologin").setViewName("main");
-		registry.addViewController("/member/mypage").setViewName("/member/mypage");
+		registry.addViewController("/mypage/mypage").setViewName("/mypage/mypage");
+		registry.addViewController("/member/findIdSuccess").setViewName("/member/findIdSuccess");
 		
 	}
 	

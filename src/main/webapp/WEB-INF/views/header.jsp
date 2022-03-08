@@ -19,14 +19,28 @@
      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
        <span class="font" id="bookmark">🔖BOOKMARK</span>
      </a>
-
+ <c:choose>
+	 <c:when test="${empty authInfo}">
      <ul class="navheader">
        <li class="navheader"><a href="<c:url value='/member/login' />"  aria-current="page">로그인</a></li>
        <li class="navheader"><a href="<c:url value='/member/joinChoice' />" >회원가입</a></li>
-       <li class="navheader"><a href="<c:url value='/member/mypage' />" >마이페이지</a></li>
        <li class="navheader"><a href="#" >주문조회</a></li>
        <li class="navheader"><a href="#">장바구니</a></li>
      </ul>
+     </c:when>
+     
+     <c:otherwise>
+       <ul class="navheader">
+       <li class="navheader userinfo">${authInfo.member_name}님 안녕하세요💗</li>
+       <li class="navheader"><a href="<c:url value='/logout' />"  aria-current="page">로그아웃</a></li>
+       <li class="navheader"><a href="<c:url value='/mypage/mypage/${authInfo.member_number}' />" >마이페이지</a></li>
+       <li class="navheader"><a href="#" >주문조회</a></li>
+       <li class="navheader"><a href="#">장바구니</a></li>
+     </ul>
+     
+     
+     </c:otherwise>
+    </c:choose>
    </header>
  </div>
 

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import spring.dao.MemberDao;
 import spring.service.AuthService;
 import spring.service.FindService;
+import spring.service.ManageService;
 import spring.service.MemberRegisterService;
 
 @Configuration
@@ -38,7 +39,13 @@ public class ServiceConfig {
 		findService.setDao(dao);
 		return findService;
 		
-		
+	}
+	
+	@Bean
+	public ManageService manageService() {
+		ManageService manageService = new ManageService();
+		manageService.setDao(dao);
+		return manageService;
 	}
 	
 }

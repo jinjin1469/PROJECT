@@ -222,13 +222,13 @@
 	//blur 이벤트는 사용자가 폼에 입력을 마치고 커서가 해당 폼을 벗어났을 때 실행되며, change 이벤트는 폼에 변화가 감지되었을 때 실행된다.
 	
 	
-	$("#email").blur(function(){
+ 	$("#email").blur(function(){
 		email();	
 	});
 
 	$("select[name=selectEmail]").change(function(){
 		email();	
-	});
+	}); 
 
 	function email() {
 		const email = $("#email").val();
@@ -421,6 +421,7 @@
 	   } else {
 	    $("#domain").val($('#selectEmail').val()); //선택값 입력
 	    $("#domain").prop("readonly",true); //비활성화
+	    email();
 	   }
 	  });
 	 });

@@ -34,13 +34,11 @@ public class MemberFindController {
 	@RequestMapping(value = "/member/findId", method = RequestMethod.POST)
 	public String findId(HttpServletResponse response, Member memVo, Model model) throws Exception{
 		String member = findService.findId(response, memVo);
-		
-	
 			model.addAttribute("id", member);
 			return "/member/findIdSuccess";
 	}
 	
-
+	//비밀번호 찾기
 	@RequestMapping(value = "/member/findPwd", method = RequestMethod.POST)
 	public void findPwd(HttpServletResponse response, @ModelAttribute Member memVo) throws Exception{
 		findService.findPwd(response, memVo);

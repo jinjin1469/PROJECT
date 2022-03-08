@@ -48,6 +48,10 @@ margin-top:0.3rem;
 	margin-right: 50px;
 	margin-top: 30px;
 	margin-bottom: 50px;
+	text-align: left;
+	padding: 1rem;
+	font-size: 12px;
+	line-height: 8px;
 }
 
 
@@ -58,6 +62,10 @@ margin-top:0.3rem;
 	height:130px;
 	margin-top: 30px;
 	margin-bottom: 50px;
+	text-align: left;
+	padding: 1rem;
+	font-size: 15px;
+	line-height: 8px;
 }
 
 .tbl{
@@ -66,11 +74,15 @@ margin-top:0.3rem;
 	border-collapse:collapse;
 	border-bottom: 0.5px solid black;
 	border-top: 0.5px solid black;
-	font-size: 13px;
+	font-size: 15px;
 }
 
 th{ 
 	background-color: #EBEBEB;
 	border-bottom: 0.5px solid black;
 	
+}
+
+.green{
+	color: green;
 }

@@ -13,6 +13,7 @@ import spring.controller.MyPageController;
 import spring.dao.MemberDao;
 import spring.service.AuthService;
 import spring.service.FindService;
+import spring.service.ManageService;
 import spring.service.MemberRegisterService;
 
 
@@ -27,6 +28,8 @@ public class ControllerConfig {
 	private AuthService authService;
 	@Autowired
 	private FindService findService;
+	@Autowired
+	private ManageService manageService;
 
 
 	@Bean
@@ -57,6 +60,12 @@ public class ControllerConfig {
 		return memberFindCon;
 	}
 	
+	@Bean
+	public MyPageController myPageController() {
+		MyPageController myPageController = new MyPageController();
+		myPageController.setManageService(manageService);
+		return myPageController;
+	}
 	
 //	
 //	@Bean

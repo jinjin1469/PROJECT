@@ -47,7 +47,7 @@
 	<br>
 	<p><strong>회원정보</strong></p>
 	<hr>
-		<p><a href="<c:url value='/member/login' />" class="menu">회원정보변경</a></p>
+		<p><a href="<c:url value='/mypage/modify/${member.member_number}' />" class="menu">회원정보변경</a></p>
 		<p><a href="<c:url value='/member/login' />" class="menu">회원정보 탈퇴신청</a></p>
 </div>
 </aside>
@@ -57,7 +57,12 @@
 		<h2>MYPAGE</h2>
 		<hr>
 		
-			<div class="user"></div>
+			<div class="user">
+			<p class="green"><strong>${member.member_name}[${member.member_id}]님</strong><p>
+			<p>전 화 : ${member.member_phone}</p>
+			<p>이메일 : ${member.member_email}</p>
+			<p>주 소 : ${member.member_address}</p>
+			</div>
 			<div class="order"></div>
 
 		

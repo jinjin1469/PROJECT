@@ -72,6 +72,16 @@
       a:link {text-decoration: none;}
       a:visited { color: black; text-decoration: none;}
       a:hover { color: rgb(95, 185, 87); text-decoration: none;}
+	 
+	 
+	input[type="text"], input[type="password"] {
+	padding: 0.5rem;
+	text-align: left;
+	font-weight: bold;
+	color: black;
+	height:20px;
+	margin: 0.5rem;
+	}
 
 
     </style>

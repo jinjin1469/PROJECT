@@ -9,8 +9,9 @@
 </head>
 <body>
 <div class="footerContainer"></div>
-<div class="footerLine">
-</div>
+	<div class="footerLine">
+		<div class="footerInformation">우어어ㅏ아아</div>
+	</div>
 
 
 </body>

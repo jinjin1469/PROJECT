@@ -32,7 +32,6 @@ public class MemberDao {
 	
 	// 로그인
 	public Member selectById(String member_id) {
-		System.out.println("로그인 member_id" + member_id);
 		Member member = sqlSession.selectOne("mybatis.mapper.member.selectById", member_id);
 		return member;
 	}
@@ -66,6 +65,11 @@ public class MemberDao {
 	//임시 비밀번호 전송
 	public int updatePw(Member memVo) throws Exception {
 		return sqlSession.update("mybatis.mapper.member.updatePw",memVo);
+	}
+	
+	public Member selectByMemberNum(long member_number) {
+		Member member = sqlSession.selectOne("mybatis.mapper.member.selectByMemberNum", member_number);
+		return member;
 	}
 }
 
