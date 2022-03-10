@@ -12,6 +12,32 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
+<style>
+
+table {
+	align-items: center;
+	margin: 0 auto;
+	text-align: center;
+	border-top: 1px solid #444444;
+	border-bottom: 1px solid #444444;
+	border-collapse: collapse;
+	width: 600px;
+	font-size: 13px;
+	text-align: left;
+}
+
+th, td {
+	padding: 10px;
+	text-align: left;
+}
+
+
+
+</style>
+
+
+
+
 <body>
 <%@include file="../header.jsp" %>
 <div class="container d-flex flex-wrap d-flex align-items-center">
@@ -37,15 +63,15 @@
   </div>
   <div class="col-md-10">
     <h3>공지사항</h3>
- <nav class="nav navbar navbar-light">
+
   <div class="container-fluid">
     <form class="d-flex" action="/notice/main" method="post">
       <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search" name="Search">
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
   </div>
-</nav>
-<a href="/notice/insert">글 등록</a>
+
+
 
 <c:if test="${!empty Notice}">
 		<table border=1>
@@ -68,7 +94,7 @@
 		</table>
 </c:if>
 
-    
+  <a href="/notice/insert">글 등록</a>  
     
   </div>  
   </div>

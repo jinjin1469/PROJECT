@@ -10,44 +10,141 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="../../../resources/jquery/jquery-3.6.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="../../../resources/css/product.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<style>
+
+.btn {
+	width: 600px;
+	display: inline-block;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #212529;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: middle;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	background-color: transparent;
+	border: 1px solid transparent;
+	padding: 0.375rem 0.75rem;
+	font-size: 1rem;
+	border-radius: 0.25rem;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.w-100 {
+	width: 100% !important;
+}
+
+.btn-lg, .btn-group-lg>.btn {
+	padding: 0.5rem 1rem;
+	font-size: 1.25rem;
+	border-radius: 0.3rem;
+}
+
+.btn-primary {
+	color: #fff;
+	background-color: #a4e25e;
+	border-color: #d1f779;
+}
+
+.btn-primary:hover {
+	color: #fff;
+	background-color: #73c431;
+	border-color: #1ad123;
+}
+
+
+</style>
 </head>
 <body>
 <%@include file="../header.jsp" %>      
-  
-	<h3>파일 업로드</h3>
+  <br>
+  <br>
+	<h3>상품 등록✅</h3>
+	<br>
 	
 		<form:form id="ProductInsert" commandName="ProductCommand" action="/product/insert" method="POST" enctype="multipart/form-data">
-			카테고리1 : <form:input path="category_1"/><br>
-			카테고리2 : <form:input path="category_2"/><br>
-			상품이름 : <form:input path="product_Name"/><br>
-			상품가격 : <form:input path="product_Price"/><br>
-			상품수량 : <form:input path="product_Count"/><br>
-			조리시간 : <form:input path="product_CookingTime"/><br>
-			내용량 : <form:input path="product_weight"/><br>
-			보관방법 : <form:input path="product_Storage"/><br>
-		 	Product Main Image : <input type="file" name="uploadFile" class="fileClass"><br>
-		 	Product Main.hover Image : <input type="file" name="uploadFile" class="fileClass"><br>
-		 	Product DetailCut Image : <input type="file" name="uploadFile" class="fileClass"><br>
-		 	Product Information Image : <input type="file" name="uploadFile" class="fileClass"><br>
-		 	옵션상품명1 : <input type="text" name="product_Option[0].option_Name">
-		 	옵션상품가격1 : <input type="text" name="product_Option[0].option_Price">
-		 	옵션상품수량1 : <input type="text" name="product_Option[0].option_Count"><br>
-		 	옵션상품명2 : <input type="text" name="product_Option[1].option_Name">
-		 	옵션상품가격2 : <input type="text" name="product_Option[1].option_Price">
-		 	옵션상품수량2 : <input type="text" name="product_Option[1].option_Count"><br>
-		 	옵션상품명3 : <input type="text" name="product_Option[2].option_Name">
-		 	옵션상품가격3 : <input type="text" name="product_Option[2].option_Price">
-		 	옵션상품수량3 : <input type="text" name="product_Option[2].option_Count"><br>
-		 	
-		 	<!-- <input type="button" id="optionAdd" value="옵션상품추가">
-		 	<div id="option"></div> -->
+			<table>
+				<tr>
+					<th>상품 이름</th>
+					<td><form:input path="product_Name"/></td>
+				</tr>
+				<tr>
+					<th>카테고리1</th>
+					<td><form:input path="category_1"/></td>
+				</tr>
+				<tr>
+					<th>카테고리2</th>
+					<td><form:input path="category_2"/></td>
+				</tr>
+				<tr>
+					<th>상품가격</th>
+					<td><form:input path="product_Price"/></td>
+				</tr>
+				<tr>
+					<th>상품수량</th>
+					<td><form:input path="product_Price"/></td>
+				</tr>
+				<tr>
+					<th>조리시간</th>
+					<td><form:input path="product_CookingTime"/></td>
+				</tr>
+				<tr>
+					<th>내용량</th>
+					<td> <form:input path="product_weight"/></td>
+				</tr>
+				<tr>
+					<th>보관방법</th>
+					<td><form:input path="product_Storage"/></td>
+				</tr>
+				<tr>
+					<th>상품 메인 사진</th>
+					<td><input type="file" name="uploadFile" class="fileClass"></td>
+				</tr>
+				<tr>
+					<th>상품 클릭시 보이는 사진</th>
+					<td><input type="file" name="uploadFile" class="fileClass"></td>
+				</tr>
+				<tr>
+					<th>상품 디테일 사진</th>
+					<td><input type="file" name="uploadFile" class="fileClass"></td>
+				</tr>
+				<tr>
+					<th>상품 정보 사진</th>
+					<td><input type="file" name="uploadFile" class="fileClass"></td>
+				</tr>
+			</table>
 
+			
+			 	<!-- 옵션상품명1 : <input type="text" name="product_Option[0].option_Name">
+			 	옵션상품가격1 : <input type="text" name="product_Option[0].option_Price">
+			 	옵션상품수량1 : <input type="text" name="product_Option[0].option_Count"><br>
+			 	옵션상품명2 : <input type="text" name="product_Option[1].option_Name">
+			 	옵션상품가격2 : <input type="text" name="product_Option[1].option_Price">
+			 	옵션상품수량2 : <input type="text" name="product_Option[1].option_Count"><br>
+			 	옵션상품명3 : <input type="text" name="product_Option[2].option_Name">
+			 	옵션상품가격3 : <input type="text" name="product_Option[2].option_Price">
+			 	옵션상품수량3 : <input type="text" name="product_Option[2].option_Count"><br>
+			 	 -->
+		 	<input type="button" id="optionAdd" value="옵션상품추가">
+		 	<div id="option"></div> 
 		 ${msg}
-		 <input type="button" id="uploadBtn" value="등록">
+		 <button class="btn btn-primary btn-lg btn-block" type="button" id="uploadBtn" name="uploadBtn">상품 등록하기</button>
+
 		</form:form>
-		
+
+
+
+<br>
+<br>
+
  <%@include file="../footer.jsp" %>    	
 <script>
 $(document).ready(function(){
@@ -85,7 +182,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	/* $("#optionAdd").on("click",function(){
+	 $("#optionAdd").on("click",function(){
 		let option = document.getElementById('option');
 		
 		let span = document.createElement('span');
@@ -126,10 +223,14 @@ $(document).ready(function(){
 		option.appendChild(br);
 		
 		optionCount++;
-	}); */
+	}); 
 });
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js">
+
+
+/* $("#file").on('change',function(){
+	  var fileName = $("#file").val();
+	  $(".upload-name").val(fileName);
+	}); */
 </script>
 </body>
 </html>

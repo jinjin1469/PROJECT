@@ -39,6 +39,18 @@ public class MyPageController {
 			return "mypage/mypage";
 		}
 	 
+	//관리자 페이지 연결
+		 @RequestMapping(value="/admin/admin/{member_number}",method=RequestMethod.GET)
+			public String myPageAdmin(@PathVariable("member_number") Long member_number, Model model) {
+			 
+				Member memVo = manageService.myPage(member_number);
+				
+				model.addAttribute("member", memVo);
+				
+				return "admin/admin";
+			}
+		 
+	 
 	//회원정보 수정 폼 연결
 	 @RequestMapping(value="/mypage/modify/{member_number}",method=RequestMethod.GET)
 		public String modifyForm(@PathVariable("member_number") Long member_number, Model model) {

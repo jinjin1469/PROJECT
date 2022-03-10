@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../../../resources/css/mypage.css">
-<title>My Page</title>
+<title>ADMIN</title>
 <style>
 
 
@@ -32,20 +32,20 @@
 
 <aside>
 <div class="menu">
-	<p><strong>쇼핑정보</strong></p>
+	<p><strong>상품관리</strong></p>
 	<hr>
-		<p><a href="<c:url value='/member/login' />" class="menu">주문내역</a></p>
-		<p><a href="<c:url value='/member/login' />" class="menu">포인트내역</a></p>
+		<p><a href="<c:url value='/product/insert' />" class="menu">상품등록</a></p>
+		<p><a href="<c:url value='/member/login' />" class="menu">상품전체보기</a></p>
 		<p><a href="<c:url value='/member/login' />" class="menu">장바구니</a></p>
 		<p><a href="<c:url value='/member/login' />" class="menu">오늘본상품</a></p>
 	<br>
-	<p><strong>쇼핑문의</strong></p>
+	<p><strong>쇼핑관리</strong></p>
 	<hr>
 		<p><a href="<c:url value='/member/login' />" class="menu">1:1게시판</a></p>
-		<p><a href="<c:url value='/member/login' />" class="menu">내 리뷰 모아보기</a></p>
+		<p><a href="<c:url value='/member/login' />" class="menu">리뷰 모아보기</a></p>
 		<p><a href="<c:url value='/notice/main' />" class="menu">F&Q</a></p>
 	<br>
-	<p><strong>회원정보</strong></p>
+	<p><strong>회원관리</strong></p>
 	<hr>
 		<p><a href="<c:url value='/mypage/modify/${member.member_number}' />" class="menu">회원정보변경</a></p>
 		<p><a href="<c:url value='/member/login' />" class="menu">회원정보 탈퇴신청</a></p>

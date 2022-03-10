@@ -10,10 +10,24 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<style>
+h3{
+font-weight: bold;
+top-margin:0.5rem;
+bottom-margin:0.5rem;
+}
+
+
+
+</style>
+
 </head>
 <body>
 <%@include file="../header.jsp" %>
+<br>
+<br>
 <div class="container d-flex flex-wrap d-flex align-items-center">
 	<div class="col-md-2">
 	  <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
@@ -37,14 +51,14 @@
 	</div>
 	<div class="col-md-10">
 	    <h3>자주 묻는 질문</h3>
-		<nav class="nav navbar navbar-light">
+	
 		  <div class="container-fluid">
 		    <form class="d-flex" action="/notice/main" method="post">
 		      <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search" name="Search">
 		      <button class="btn btn-outline-success" type="submit">Search</button>
 		    </form>
 		  </div>
-		</nav>
+	
 		<div class="accordion accordion-flush" id="accordionFlushExample">
 	  		<div class="accordion-item">
 			    <h2 class="accordion-header" id="flush-headingTwo">
@@ -121,7 +135,8 @@
 		</div>  
 	</div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<br>
+<br>
 <%@include file="../footer.jsp" %>
 </body>
 </html>
