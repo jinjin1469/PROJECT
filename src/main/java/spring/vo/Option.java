@@ -8,6 +8,7 @@ public class Option {
 	private int option_Price;
 	private int option_Count;	
 	private int option_salcount;
+	private int delete_check;
 	
 	
 	public Option() {}
@@ -20,7 +21,15 @@ public class Option {
 		this.option_Count = option_Count;
 		this.option_salcount = option_salcount;
 	}
+	
+	
 
+	public int getDelete_check() {
+		return delete_check;
+	}
+	public void setDelete_check(int delete_check) {
+		this.delete_check = delete_check;
+	}
 	public int getOption_salcount() {
 		return option_salcount;
 	}
@@ -60,6 +69,11 @@ public class Option {
 	}
 	public void setOption_Count(int option_Count) {
 		this.option_Count = option_Count;
+	}
+	@Override
+	public String toString() {
+		
+		return this.option_Name;
 	}
 	
 }

@@ -52,6 +52,23 @@
 		0)
 	</insert>
 	
+	<update id="updateProduct" parameterType="product">
+		UPDATE m_product SET 
+		<if test="#{category_1} != null"> category_1=#{category_1}, </if> 
+		<if test="#{category_2} != null"> category_2=#{category_2}, </if>
+		product_name=#{product_name},
+		product_price=#{product_price},
+		product_count=#{product_count},
+		product_cookingTime=#{product_cookingTime},
+		product_weight=#{product_weight},
+		product_storage=#{product_storage},
+		product_m_image=#{product_m_image},
+		product_m_h_image=#{product_m_h_image},
+		product_d_image=#{product_d_image},
+		product_i_image=#{product_i_image}
+		WHERE option_join_number = #{option_join_number}
+	</update>
+
 	
 
 </mapper>

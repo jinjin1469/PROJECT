@@ -35,18 +35,18 @@
 		 	Product Main.hover Image : <input type="file" name="uploadFile" class="fileClass"><br>
 		 	Product DetailCut Image : <input type="file" name="uploadFile" class="fileClass"><br>
 		 	Product Information Image : <input type="file" name="uploadFile" class="fileClass"><br>
-		 	옵션상품명1 : <form:input path="product_Option[0].option_Name"/>
-		 	옵션상품가격1 : <form:input path="product_Option[0].option_Price"/>
-		 	옵션상품수량1 : <form:input path="product_Option[0].option_Count"/><br>
-		 	옵션상품명2 : <form:input path="product_Option[1].option_Name"/>
-		 	옵션상품가격2 : <form:input path="product_Option[1].option_Price"/>
-		 	옵션상품수량2 : <form:input path="product_Option[1].option_Count"/><br>
-		 	옵션상품명3 : <form:input path="product_Option[2].option_Name"/>
-		 	옵션상품가격3 : <form:input path="product_Option[2].option_Price"/>
-		 	옵션상품수량3 : <form:input path="product_Option[2].option_Count"/><br>
-		 	
-		 	<!-- <input type="button" id="optionAdd" value="옵션상품추가">
-		 	<div id="option"></div> -->
+		 	<c:if test="${!empty productOption}">
+			 	<c:forEach var="product_Option" items="${productOption}" varStatus="n">
+				 	<input type="hidden" name="product_Option[${n.index}].option_number" value="${product_Option.option_number}">
+				 	옵션상품명 : <input type="text" name="product_Option[${n.index}].option_Name" value="${product_Option.option_Name}">
+				 	옵션상품가격 : <input type="text" name="product_Option[${n.index}].option_Price" value="${product_Option.option_Price}">
+				 	옵션상품수량 : <input type="text" name="product_Option[${n.index}].option_Count" value="${product_Option.option_Count}">
+				 	<input type="checkbox" name="product_Option[${n.index}].delete_check" value="1"> : 삭제<br>
+			 	</c:forEach>
+		 	</c:if>
+		 	<div id="option">
+		 	</div>
+		 	<input type="button" id="optionAdd" value="옵션상품추가">
 		 <input type="button" id="uploadBtn" value="등록">
 		</form:form>
 		
@@ -86,49 +86,60 @@ $(document).ready(function(){
 		
 	});
 	
-	 /* $("#optionAdd").on("click",function(){
-		let option = document.getElementById('option');
-		
-		let span = document.createElement('span');
-		let br = document.createElement('br');
-		option.innerHTML="";
-		
-		
-		let pName = document.createElement('p');
-		pName.setAttribute("id","pName"+optionCount);
-		document.('#pName'+optionCount).innerHTML="옵션이름"+optionCount+1+" : ";
+	let number = 51;
+	 $("#optionAdd").on("click",function(){
+		 
+		let option = document.getElementById("option");
+		let div = document.createElement("div");
+      	let p = document.createElement('p');
 
-		
-		let productName = document.createElement('input');
-		productName.setAttribute("type","text");
-		productName.setAttribute("name","product_Option["+optionCount+"].option_Name");
-		
-		let pPrice = document.createElement('p');
-		pName.setAttribute("id","pPrice"+optionCount);
-		document.('#pPrice'+optionCount).innerHTML="옵션가격"+optionCount+1+" : ";
-		
-		let productPrice = document.createElement('input');
-		productName.setAttribute("type","text");
-		productName.setAttribute("name","product_Option["+optionCount+"].option_Price");
-		
-		let pCount = document.createElement('p');
-		pName.setAttribute("id","pCount"+optionCount);
-		document.('#pCount'+optionCount).innerHTML="옵션수량"+optionCount+1+" : ";
-		
-		let productCount = document.createElement('input');
-		productName.setAttribute("type","text");
-		productName.setAttribute("name","product_Option["+optionCount+"].option_Count");
-		
-		span.appendChild(productName);
-		span.appendChild(productPrice);
-		span.appendChild(productCount);
-		
-		option.appendChild(span);
-		option.appendChild(br);
-		
-		optionCount++;
-	}); */ 
+	 	div.setAttribute("id","div"+number+"");
+	 					
+	 	let span1 = document.createElement('span');
+	 	span1.innerHTML="옵션상품명 : ";
+	 	let productName = document.createElement('input');
+	 	productName.setAttribute("type","text");
+	 	productName.setAttribute("name","product_Option["+number+"].option_Name");
+	 	
+	 	let span2 = document.createElement('span');
+	 	span2.innerHTML=" 옵션상품가격 : ";
+	 	let productPrice = document.createElement('input');
+	 	productPrice.setAttribute("type","text");
+	 	productPrice.setAttribute("name","product_Option["+number+"].option_Price");
+	 	
+	 	let span3 = document.createElement('span');
+	 	span3.innerHTML=" 옵션상품수량 : ";
+	 	let productCount = document.createElement('input');
+	 	productCount.setAttribute("type","text");
+	 	productCount.setAttribute("name","product_Option["+number+"].option_Count");
+	 	
+	 	let removeBtn = document.createElement('input');
+	 	removeBtn.setAttribute("type","button");
+	 	removeBtn.setAttribute("value","삭제");
+	 	removeBtn.setAttribute("onclick","remove("+number+")");
+	 	
+	 	
+	 	p.appendChild(span1);
+	 	p.appendChild(productName);
+	 	p.appendChild(span2);
+	 	p.appendChild(productPrice);
+	 	p.appendChild(span3);
+	 	p.appendChild(productCount);
+	 	p.appendChild(removeBtn);
+	 	
+	 	div.appendChild(p);
+	 	
+	 	option.appendChild(div);
+	 	
+	 	++number;
+
+	 }); 
+	 
+	 
 });
+function remove(index){
+	 document.getElementById('div'+index).remove();
+}
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js">
 </script>

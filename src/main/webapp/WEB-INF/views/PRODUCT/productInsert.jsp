@@ -122,19 +122,9 @@
 				</tr>
 			</table>
 
-			
-			 	<!-- 옵션상품명1 : <input type="text" name="product_Option[0].option_Name">
-			 	옵션상품가격1 : <input type="text" name="product_Option[0].option_Price">
-			 	옵션상품수량1 : <input type="text" name="product_Option[0].option_Count"><br>
-			 	옵션상품명2 : <input type="text" name="product_Option[1].option_Name">
-			 	옵션상품가격2 : <input type="text" name="product_Option[1].option_Price">
-			 	옵션상품수량2 : <input type="text" name="product_Option[1].option_Count"><br>
-			 	옵션상품명3 : <input type="text" name="product_Option[2].option_Name">
-			 	옵션상품가격3 : <input type="text" name="product_Option[2].option_Price">
-			 	옵션상품수량3 : <input type="text" name="product_Option[2].option_Count"><br>
-			 	 -->
-		 	<input type="button" id="optionAdd" value="옵션상품추가">
-		 	<div id="option"></div> 
+			<input type="button" id="optionAdd" value="옵션상품추가">
+		 	<div id="option">
+		 	</div>
 		 ${msg}
 		 <button class="btn btn-primary btn-lg btn-block" type="button" id="uploadBtn" name="uploadBtn">상품 등록하기</button>
 
@@ -182,50 +172,60 @@ $(document).ready(function(){
 		}
 	});
 	
+	let number = 0;
 	 $("#optionAdd").on("click",function(){
-		let option = document.getElementById('option');
-		
-		let span = document.createElement('span');
-		let br = document.createElement('br');
-		option.innerHTML="";
-		
-		
-		let pName = document.createElement('p');
-		pName.setAttribute("id","pName"+optionCount);
-		document.('#pName'+optionCount).innerHTML="옵션이름"+optionCount+1+" : ";
+		 
+		let option = document.getElementById("option");
+		let div = document.createElement("div");
+       	let p = document.createElement('p');
+       	
+	 	div.setAttribute("id","div"+number+"");
+	 					
+	 	let span1 = document.createElement('span');
+	 	span1.innerHTML="옵션상품명 : ";
+	 	let productName = document.createElement('input');
+	 	productName.setAttribute("type","text");
+	 	productName.setAttribute("name","product_Option["+number+"].option_Name");
+	 	
+	 	let span2 = document.createElement('span');
+	 	span2.innerHTML="<br> 옵션상품가격 : ";
+	 	let productPrice = document.createElement('input');
+	 	productPrice.setAttribute("type","text");
+	 	productPrice.setAttribute("name","product_Option["+number+"].option_Price");
+	 	
+	 	let span3 = document.createElement('span');
+	 	span3.innerHTML="<br> 옵션상품수량 : ";
+	 	let productCount = document.createElement('input');
+	 	productCount.setAttribute("type","text");
+	 	productCount.setAttribute("name","product_Option["+number+"].option_Count");
+	 	
+	 	let removeBtn = document.createElement('input');
+	 	removeBtn.setAttribute("type","button");
+	 	removeBtn.setAttribute("value","삭제");
+	 	removeBtn.setAttribute("onclick","remove("+number+")");
+	 	
+	 	
+	 	p.appendChild(span1);
+	 	p.appendChild(productName);
+	 	p.appendChild(span2);
+	 	p.appendChild(productPrice);
+	 	p.appendChild(span3);
+	 	p.appendChild(productCount);
+	 	p.appendChild(removeBtn);
+	 	
+	 	div.appendChild(p);
+	 	
+	 	option.appendChild(div);
+	 	
+	 	++number;
 
-		
-		let productName = document.createElement('input');
-		productName.setAttribute("type","text");
-		productName.setAttribute("name","product_Option["+optionCount+"].option_Name");
-		
-		let pPrice = document.createElement('p');
-		pName.setAttribute("id","pPrice"+optionCount);
-		document.('#pPrice'+optionCount).innerHTML="옵션가격"+optionCount+1+" : ";
-		
-		let productPrice = document.createElement('input');
-		productName.setAttribute("type","text");
-		productName.setAttribute("name","product_Option["+optionCount+"].option_Price");
-		
-		let pCount = document.createElement('p');
-		pName.setAttribute("id","pCount"+optionCount);
-		document.('#pCount'+optionCount).innerHTML="옵션수량"+optionCount+1+" : ";
-		
-		let productCount = document.createElement('input');
-		productName.setAttribute("type","text");
-		productName.setAttribute("name","product_Option["+optionCount+"].option_Count");
-		
-		span.appendChild(productName);
-		span.appendChild(productPrice);
-		span.appendChild(productCount);
-		
-		option.appendChild(span);
-		option.appendChild(br);
-		
-		optionCount++;
-	}); 
+	 }); 
+	 
+	 
 });
-
+function remove(index){
+	 document.getElementById('div'+index).remove();
+}
 
 /* $("#file").on('change',function(){
 	  var fileName = $("#file").val();

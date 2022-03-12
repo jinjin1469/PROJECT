@@ -74,11 +74,15 @@ public class ProductController {
 		Product product = dao.productSelect(num);
 		
 		List<Option> productOption1 = dao.productOptionSelect(num);
+
 		ArrayList<Option> productOption = new ArrayList<Option>();
-		for(Option p : productOption1) {
-			productOption.add(p);
-		}
 		
+		if(productOption1!=null) {
+			for(Option p : productOption1) {
+				productOption.add(p);
+			}
+		}
+
 		model.addAttribute("ProductCommand", new ProductCommand(
 				product.getCategory_1(),
 				product.getCategory_2(),
@@ -90,17 +94,19 @@ public class ProductController {
 				product.getProduct_weight(),
 				product.getProduct_storage(),
 				productOption));
+
+		model.addAttribute("productOption",productOption);
+		
 		return "PRODUCT/productUpdate";
 	}
 	
 	@RequestMapping(value="/update/{num}",method=RequestMethod.POST)
 	public String updateP(@PathVariable("num") int num,ProductCommand pic, 
 		     Model model) throws IllegalStateException, IOException {
+		
+		Product productIMG = dao.productSelect(num);
+		
 		ArrayList<MultipartFile> file = pic.getUploadFile();
-		System.out.println(file.get(0).getOriginalFilename()+"1");
-		System.out.println(file.get(1).getOriginalFilename()+"2");
-		System.out.println(file.get(2).getOriginalFilename()+"3");
-		System.out.println(file.get(3).getOriginalFilename()+"4");
 		
 		Product product = new Product(num,pic.getProduct_Name(),pic.getProduct_Price(),pic.getProduct_Count(),pic.getProduct_CookingTime(),pic.getProduct_weight(),pic.getProduct_Storage());
 		
@@ -120,38 +126,81 @@ public class ProductController {
 		String[] classification = {"M","H","D","I"};
 		int number = 0;
 		for (MultipartFile multipartFile : file) {
-			
-			String uploadFileName = multipartFile.getOriginalFilename();
-			
-			String filenameExtension = uploadFileName.substring(uploadFileName.lastIndexOf("."));
-			
-			uploadFileName = pic.getProduct_Name()+classification[number]+filenameExtension;
-			
-			String productImagePath = getFolder()+"\\"+uploadFileName;
-			
-			if(number==0) {
-				product.setProduct_m_image(productImagePath);
-			}else if(number==1) {
-				product.setProduct_m_h_image(productImagePath);
-			}else if(number==2) {
-				product.setProduct_d_image(productImagePath);
-			}else if(number==3) {
-				product.setProduct_i_image(productImagePath);
+			if(!multipartFile.isEmpty()) {
+				String uploadFileName = multipartFile.getOriginalFilename();
+				
+				String filenameExtension = uploadFileName.substring(uploadFileName.lastIndexOf("."));
+				System.out.println(filenameExtension);
+				uploadFileName = pic.getProduct_Name()+classification[number]+filenameExtension;
+				
+				String productImagePath = getFolder()+"\\"+uploadFileName;
+				
+				if(number==0) {
+					product.setProduct_m_image(productImagePath);
+					System.out.println("check1");
+				}else if(number==1) {
+					product.setProduct_m_h_image(productImagePath);
+					System.out.println("check2");
+				}else if(number==2) {
+					product.setProduct_d_image(productImagePath);
+					System.out.println("check3");
+				}else if(number==3) {
+					product.setProduct_i_image(productImagePath);
+					System.out.println("check4");
+				}
+				
+				File saveFile = new File(uploadPath, uploadFileName);
+				
+				try {
+					System.out.println("업로드check1");
+					multipartFile.transferTo(saveFile);
+					System.out.println("업로드check2");
+					
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+			}else {
+				if(number==0) {
+					product.setProduct_m_image(productIMG.getProduct_m_image());
+					System.out.println("check1");
+				}else if(number==1) {
+					product.setProduct_m_h_image(productIMG.getProduct_m_h_image());
+					System.out.println("check2");
+				}else if(number==2) {
+					product.setProduct_d_image(productIMG.getProduct_d_image());
+					System.out.println("check3");
+				}else if(number==3) {
+					product.setProduct_i_image(productIMG.getProduct_i_image());
+					System.out.println("check4");
+				}
 			}
-			
-			File saveFile = new File(uploadPath, uploadFileName);
-			
-			try {
-				multipartFile.transferTo(saveFile);
-				number++;
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-
+			number++;
 		}
 		
+		dao.updateProduct(product);
 		
-		
+		int join_number = dao.selectJoinNumber(product.getProduct_name());
+		int roop = 0;
+
+		for (Option option : pic.getProduct_Option()) {
+			if(option.getDelete_check()==1) { // 값을 변경 후 삭제하면 변경된 값은 update가 되지않음
+				System.out.println(roop+"삭제");
+				option.setOption_Join_Number(join_number);				
+				dao.optionDelete(option);	
+			}else if(roop>50) { 
+				if(option.getOption_Name()!=null) {
+					System.out.println(roop+"추가");
+					option.setOption_Join_Number(join_number);
+					dao.insertOption(option);
+				}
+			}else if(option.getOption_Name()!=null){
+				System.out.println(roop+"업뎃");
+				dao.updateOption(option);
+			}
+				
+			roop++;
+		}
+	
 		return "redirect:/";
 	}
 	
@@ -220,10 +269,15 @@ public class ProductController {
 		dao.insertProduct(product);
 		int join_number = dao.selectJoinNumber(product.getProduct_name());
 		
-		for (Option option : pic.getProduct_Option()) {
-			option.setOption_Join_Number(join_number);
-			dao.insertOption(option);
+		if(pic.getProduct_Option()!=null) {
+			for (Option option : pic.getProduct_Option()) {
+				option.setOption_Join_Number(join_number);
+				if(option.getOption_Name()!=null) {
+					dao.insertOption(option);
+				}
+			}
 		}
+		
 		
 		model.addAttribute("msg", "Please select a valid mediaFile..");
 		return "redirect:/";
