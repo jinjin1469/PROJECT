@@ -12,15 +12,29 @@
 		<result column="option_Price" property="option_Price"/>
 		<result column="option_Count" property="option_Count"/>
 		<result column="option_salcount" property="option_salcount"/>
+		<result column="delete_check" property="delete_check"/>
 	</resultMap>
 	
 	<select id="productOptionSelect" resultMap="optionVo" parameterType="int">
-		SELECT * FROM m_option WHERE option_join_number=#{num}
+		SELECT * FROM m_option WHERE option_join_number=#{num} AND delete_check=0
 	</select>
 	
 	<insert id="insertOption" parameterType="option">
 		INSERT INTO m_option 
-		VALUES(m_option_seq.nextval,#{option_Join_Number},#{option_Name},#{option_Price},#{option_Count},0)
+		VALUES(m_option_seq.nextval,#{option_Join_Number},#{option_Name},#{option_Price},#{option_Count},0,0)
 	</insert>
+	
+	<update id="updateOption" parameterType="option">
+		UPDATE m_option SET 
+		option_Name=#{option_Name},
+		option_Price=#{option_Price},
+		option_Count=#{option_Count}
+		WHERE option_number = #{option_number}
+	</update>
+	
+	<update id="optionDelete" parameterType="option">
+		UPDATE m_option SET delete_check=1, option_Count=0
+		WHERE option_number = #{option_number}
+	</update>
 
 </mapper>
