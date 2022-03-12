@@ -22,8 +22,20 @@ public class ProductCommand {
 	public ProductCommand() {}
 	
 	public ProductCommand(String category_1, String category_2, String product_Name,int option_join_number, int product_Price,
-			int product_Count, String product_CookingTime, String product_weight, String product_Storage,
-			ArrayList<Option> product_Option) {
+			int product_Count, String product_CookingTime, String product_weight, String product_Storage) {
+		this.category_1 = category_1;
+		this.category_2 = category_2;
+		this.product_Name = product_Name;
+		this.option_join_number = option_join_number;
+		this.product_Price = product_Price;
+		this.product_Count = product_Count;
+		this.product_CookingTime = product_CookingTime;
+		this.product_weight = product_weight;
+		this.product_Storage = product_Storage;
+	}
+	
+	public ProductCommand(String category_1, String category_2, String product_Name,int option_join_number, int product_Price,
+			int product_Count, String product_CookingTime, String product_weight, String product_Storage, ArrayList<Option> product_Option) {
 		this.category_1 = category_1;
 		this.category_2 = category_2;
 		this.product_Name = product_Name;
@@ -34,7 +46,6 @@ public class ProductCommand {
 		this.product_weight = product_weight;
 		this.product_Storage = product_Storage;
 		this.product_Option = product_Option;
-
 	}
 	
 	public ProductCommand(String category_1, String category_2, String product_Name, int product_Price,
