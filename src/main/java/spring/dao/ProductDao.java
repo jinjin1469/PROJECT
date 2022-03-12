@@ -49,17 +49,6 @@ public class ProductDao {
 		return list;
 	}
 	
-	public void updateProduct(Product product) { 
-		sqlSession.update("mybatis.mapper.product.updateProduct",product);
-	}
-	
-	public void updateOption(Option option) { 
-		sqlSession.update("mybatis.mapper.option.updateOption",option);
-	}
-	
-	public void optionDelete(Option option) { 
-		sqlSession.update("mybatis.mapper.option.optionDelete",option);
-	}
 	
 	public ProductDao(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
