@@ -11,6 +11,7 @@ import spring.controller.MemberFindController;
 import spring.controller.MemberRegisterController;
 import spring.controller.MyPageController;
 import spring.controller.NoticeController;
+import spring.controller.PaymentController;
 import spring.controller.ProductController;
 import spring.dao.MemberDao;
 import spring.dao.NoticeDao;
@@ -95,6 +96,13 @@ public class ControllerConfig {
 		CategoryController cController = new CategoryController();
 		cController.setDao(pdao);
 		return cController;
+	}
+	
+	@Bean
+	public PaymentController paymentController() {
+		PaymentController payController = new PaymentController();
+
+		return payController;
 	}
 
 }
