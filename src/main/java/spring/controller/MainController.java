@@ -29,6 +29,7 @@ public class MainController {
 		List<Member> m = dao.memberAll();
 		System.out.println(m.get(0).getMember_name());
 		model.addAttribute("Member",m);
+		model.addAttribute("totalPrice",200);
 		
 		return "main";
 	}
