@@ -72,6 +72,7 @@ public class ProductController {
 	public String updateG(@PathVariable("num") int num,Model model) {
 		
 		Product product = dao.productSelect(num);
+		System.out.println(product.getProduct_count());
 		
 		List<Option> productOption1 = dao.productOptionSelect(num);
 
@@ -214,6 +215,7 @@ public class ProductController {
 			     Model model) throws IllegalStateException, IOException {
 		
 		int productNum = dao.seqNumber();
+		System.out.println(productNum);
 		
 		ArrayList<MultipartFile> file = pic.getUploadFile();
 		

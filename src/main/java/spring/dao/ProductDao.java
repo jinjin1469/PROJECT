@@ -24,11 +24,7 @@ public class ProductDao {
 	}
 	
 	public int seqNumber() { 
-		if(sqlSession.selectOne("mybatis.mapper.product.seqNumber")==null) {
-			return 10001;
-		}else {
-			return sqlSession.selectOne("mybatis.mapper.product.seqNumber");
-		}
+		return sqlSession.selectOne("mybatis.mapper.product.seqNumber");
 	}
 	
 	public int updateProductNumber(int option_join_number) { 

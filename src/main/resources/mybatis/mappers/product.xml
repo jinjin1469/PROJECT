@@ -29,7 +29,7 @@
 	</select>
 	
 	<select id="seqNumber" resultType="int">
-			SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME='m_product_seq'
+			SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME='M_PRODUCT_SEQ'
 	</select>
 	
 	<select id="updateProductNumber" resultType="int" parameterType="int">
@@ -51,7 +51,7 @@
 		<if test="#{category_1} != null"> category_1, </if> 
 		<if test="#{category_2} != null"> category_2, </if>
 		delete_check) 
-		VALUES(#{product_number},option_join_number_seq.nextval,#{product_name}, #{product_price},
+		VALUES(m_product_seq.nextval,option_join_number_seq.nextval,#{product_name}, #{product_price},
 		#{product_count}, #{product_cookingTime}, #{product_weight}, #{product_storage}, #{product_m_image},
 		#{product_d_image}, #{product_i_image},0,SYSDATE,
 		<if test="#{category_1} != null"> #{category_1}, </if> 
