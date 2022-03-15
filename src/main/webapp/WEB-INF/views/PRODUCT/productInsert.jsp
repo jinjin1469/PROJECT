@@ -109,10 +109,6 @@
 					<td><input type="file" name="uploadFile" class="fileClass"></td>
 				</tr>
 				<tr>
-					<th>상품 클릭시 보이는 사진</th>
-					<td><input type="file" name="uploadFile" class="fileClass"></td>
-				</tr>
-				<tr>
 					<th>상품 디테일 사진</th>
 					<td><input type="file" name="uploadFile" class="fileClass"></td>
 				</tr>
@@ -167,7 +163,7 @@ $(document).ready(function(){
 				check+=1;
 			}
 		});
-		if(check==4){
+		if(check==3){
 			$("#ProductInsert").submit();
 		}
 	});

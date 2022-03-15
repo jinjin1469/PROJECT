@@ -93,7 +93,7 @@
 			<p>${ProductOption.option_Count}</p>
 		</c:forEach>
 		
-		<img src="/uploadedIMG/${Product.product_d_image}" class="imgSize" alt="...">
+		<img src="/uploadedIMG/${Product.product_d_image}" class="detailcutImgSize" alt="...">
 		<img src="/uploadedIMG/${Product.product_i_image}" class="imgSize" alt="...">
 	
 	
