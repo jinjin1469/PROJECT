@@ -13,7 +13,6 @@ public class Product {
 	private String product_weight;
 	private String product_storage;
 	private String product_m_image;
-	private String product_m_h_image;
 	private String product_d_image;
 	private String product_i_image;
 	private int product_salcount;
@@ -162,14 +161,6 @@ public class Product {
 
 	public void setProduct_m_image(String product_m_image) {
 		this.product_m_image = product_m_image;
-	}
-
-	public String getProduct_m_h_image() {
-		return product_m_h_image;
-	}
-
-	public void setProduct_m_h_image(String product_m_h_image) {
-		this.product_m_h_image = product_m_h_image;
 	}
 
 	public String getProduct_d_image() {

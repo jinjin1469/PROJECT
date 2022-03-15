@@ -32,7 +32,6 @@
 			내용량 : <form:input path="product_weight"/><br>
 			보관방법 : <form:input path="product_Storage"/><br>
 		 	Product Main Image : <input type="file" name="uploadFile" class="fileClass"><br>
-		 	Product Main.hover Image : <input type="file" name="uploadFile" class="fileClass"><br>
 		 	Product DetailCut Image : <input type="file" name="uploadFile" class="fileClass"><br>
 		 	Product Information Image : <input type="file" name="uploadFile" class="fileClass"><br>
 		 	<c:if test="${!empty productOption}">

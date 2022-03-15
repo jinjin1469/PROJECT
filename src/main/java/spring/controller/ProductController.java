@@ -104,6 +104,8 @@ public class ProductController {
 	public String updateP(@PathVariable("num") int num,ProductCommand pic, 
 		     Model model) throws IllegalStateException, IOException {
 		
+		int productNum = dao.updateProductNumber(num);
+		
 		Product productIMG = dao.productSelect(num);
 		
 		ArrayList<MultipartFile> file = pic.getUploadFile();
@@ -123,7 +125,7 @@ public class ProductController {
 		if(uploadPath.exists() == false) {
 			uploadPath.mkdirs();
 		}
-		String[] classification = {"M","H","D","I"};
+		String[] classification = {"M","D","I"};
 		int number = 0;
 		for (MultipartFile multipartFile : file) {
 			if(!multipartFile.isEmpty()) {
@@ -131,7 +133,7 @@ public class ProductController {
 				
 				String filenameExtension = uploadFileName.substring(uploadFileName.lastIndexOf("."));
 				System.out.println(filenameExtension);
-				uploadFileName = pic.getProduct_Name()+classification[number]+filenameExtension;
+				uploadFileName = productNum+classification[number]+filenameExtension;
 				
 				String productImagePath = getFolder()+"\\"+uploadFileName;
 				
@@ -139,14 +141,11 @@ public class ProductController {
 					product.setProduct_m_image(productImagePath);
 					System.out.println("check1");
 				}else if(number==1) {
-					product.setProduct_m_h_image(productImagePath);
+					product.setProduct_d_image(productImagePath);
 					System.out.println("check2");
 				}else if(number==2) {
-					product.setProduct_d_image(productImagePath);
-					System.out.println("check3");
-				}else if(number==3) {
 					product.setProduct_i_image(productImagePath);
-					System.out.println("check4");
+					System.out.println("check3");
 				}
 				
 				File saveFile = new File(uploadPath, uploadFileName);
@@ -164,14 +163,11 @@ public class ProductController {
 					product.setProduct_m_image(productIMG.getProduct_m_image());
 					System.out.println("check1");
 				}else if(number==1) {
-					product.setProduct_m_h_image(productIMG.getProduct_m_h_image());
+					product.setProduct_d_image(productIMG.getProduct_d_image());
 					System.out.println("check2");
 				}else if(number==2) {
-					product.setProduct_d_image(productIMG.getProduct_d_image());
-					System.out.println("check3");
-				}else if(number==3) {
 					product.setProduct_i_image(productIMG.getProduct_i_image());
-					System.out.println("check4");
+					System.out.println("check3");
 				}
 			}
 			number++;
@@ -181,25 +177,27 @@ public class ProductController {
 		
 		int join_number = dao.selectJoinNumber(product.getProduct_name());
 		int roop = 0;
-
-		for (Option option : pic.getProduct_Option()) {
-			if(option.getDelete_check()==1) { // 값을 변경 후 삭제하면 변경된 값은 update가 되지않음
-				System.out.println(roop+"삭제");
-				option.setOption_Join_Number(join_number);				
-				dao.optionDelete(option);	
-			}else if(roop>50) { 
-				if(option.getOption_Name()!=null) {
-					System.out.println(roop+"추가");
-					option.setOption_Join_Number(join_number);
-					dao.insertOption(option);
+		if(pic.getProduct_Option()!=null) {
+			for (Option option : pic.getProduct_Option()) {
+				if(option.getDelete_check()==1) { // 값을 변경 후 삭제하면 변경된 값은 update가 되지않음
+					System.out.println(roop+"삭제");
+					option.setOption_Join_Number(join_number);				
+					dao.optionDelete(option);	
+				}else if(roop>50) { 
+					if(option.getOption_Name()!=null) {
+						System.out.println(roop+"추가");
+						option.setOption_Join_Number(join_number);
+						dao.insertOption(option);
+					}
+				}else if(option.getOption_Name()!=null){
+					System.out.println(roop+"업뎃");
+					dao.updateOption(option);
 				}
-			}else if(option.getOption_Name()!=null){
-				System.out.println(roop+"업뎃");
-				dao.updateOption(option);
+					
+				roop++;
 			}
-				
-			roop++;
 		}
+		
 	
 		return "redirect:/";
 	}
@@ -214,6 +212,8 @@ public class ProductController {
 	@RequestMapping(value="/insert",method=RequestMethod.POST)
 	public String uploadP(ProductCommand pic, 
 			     Model model) throws IllegalStateException, IOException {
+		
+		int productNum = dao.seqNumber();
 		
 		ArrayList<MultipartFile> file = pic.getUploadFile();
 		
@@ -233,7 +233,7 @@ public class ProductController {
 		if(uploadPath.exists() == false) {
 			uploadPath.mkdirs();
 		}
-		String[] classification = {"M","H","D","I"};
+		String[] classification = {"M","D","I"};
 		int num = 0;
 		for (MultipartFile multipartFile : file) {
 			
@@ -241,17 +241,15 @@ public class ProductController {
 			
 			String filenameExtension = uploadFileName.substring(uploadFileName.lastIndexOf("."));
 			
-			uploadFileName = pic.getProduct_Name()+classification[num]+filenameExtension;
+			uploadFileName = productNum+classification[num]+filenameExtension;
 			
 			String productImagePath = getFolder()+"\\"+uploadFileName;
 			
 			if(num==0) {
 				product.setProduct_m_image(productImagePath);
 			}else if(num==1) {
-				product.setProduct_m_h_image(productImagePath);
-			}else if(num==2) {
 				product.setProduct_d_image(productImagePath);
-			}else if(num==3) {
+			}else if(num==2) {
 				product.setProduct_i_image(productImagePath);
 			}
 			
@@ -265,7 +263,7 @@ public class ProductController {
 			}
 
 		}
-		
+		product.setProduct_number(productNum);
 		dao.insertProduct(product);
 		int join_number = dao.selectJoinNumber(product.getProduct_name());
 		
