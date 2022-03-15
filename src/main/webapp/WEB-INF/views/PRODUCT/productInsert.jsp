@@ -90,7 +90,7 @@
 				</tr>
 				<tr>
 					<th>상품수량</th>
-					<td><form:input path="product_Price"/></td>
+					<td><form:input path="product_Count"/></td>
 				</tr>
 				<tr>
 					<th>조리시간</th>
