@@ -49,11 +49,19 @@ public class ProductController {
 	
 	
 	@RequestMapping("/totalList")
-	public String totalG(Model model) {
+	public String total(Model model) {
 		List<Product> product = dao.productAll();
 		model.addAttribute("Product", product);
 		
 		return "PRODUCT/totalProductList";
+	}
+	
+	@RequestMapping("/categoryList/{category}")
+	public String category(@PathVariable("category") String category,Model model) {
+		List<Product> product = dao.category(category);
+		model.addAttribute("Product", product);
+		
+		return "PRODUCT/categoryProductList";
 	}
 	
 	@RequestMapping("/detail/{num}")
@@ -152,9 +160,9 @@ public class ProductController {
 				File saveFile = new File(uploadPath, uploadFileName);
 				
 				try {
-					System.out.println("¾÷·Îµåcheck1");
+					System.out.println("ï¿½ï¿½ï¿½Îµï¿½check1");
 					multipartFile.transferTo(saveFile);
-					System.out.println("¾÷·Îµåcheck2");
+					System.out.println("ï¿½ï¿½ï¿½Îµï¿½check2");
 					
 				}catch(Exception e) {
 					e.printStackTrace();
@@ -180,18 +188,18 @@ public class ProductController {
 		int roop = 0;
 		if(pic.getProduct_Option()!=null) {
 			for (Option option : pic.getProduct_Option()) {
-				if(option.getDelete_check()==1) { // °ªÀ» º¯°æ ÈÄ »èÁ¦ÇÏ¸é º¯°æµÈ °ªÀº update°¡ µÇÁö¾ÊÀ½
-					System.out.println(roop+"»èÁ¦");
+				if(option.getDelete_check()==1) { // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ updateï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					System.out.println(roop+"ï¿½ï¿½ï¿½ï¿½");
 					option.setOption_Join_Number(join_number);				
 					dao.optionDelete(option);	
 				}else if(roop>50) { 
 					if(option.getOption_Name()!=null) {
-						System.out.println(roop+"Ãß°¡");
+						System.out.println(roop+"ï¿½ß°ï¿½");
 						option.setOption_Join_Number(join_number);
 						dao.insertOption(option);
 					}
 				}else if(option.getOption_Name()!=null){
-					System.out.println(roop+"¾÷µ«");
+					System.out.println(roop+"ï¿½ï¿½ï¿½ï¿½");
 					dao.updateOption(option);
 				}
 					
