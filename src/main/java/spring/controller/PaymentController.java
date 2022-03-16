@@ -48,7 +48,7 @@ public class PaymentController {
 				api.cancelPaymentByImpUid(cancel);
 			}
 			if(pay.equals(responsePrice.getResponse().getAmount())) {
-				// DB insertºÎºÐ
+				// DB insertë¶€ë¶„
 			}
 			return responsePrice;
 	}

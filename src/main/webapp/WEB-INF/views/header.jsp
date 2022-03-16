@@ -59,40 +59,40 @@
 
 <nav role="navigation">
   <ul id="main-menu">
-    <li><a href="product/totalList">전체보기</a></li>
+    <li><a href="/product/totalList">전체보기</a></li>
     
       <li><a href="#">베스트</a></li>
       
       <li><a href="#">재구매Best</a></li>
       
        <li><a href="#">신제품</a></li>
-    
-    <li><a href="#">&nbsp;&nbsp;&nbsp;테마별&nbsp;&nbsp;</a>
-      <ul id="sub-menu">
-        <li><a href="#" aria-label="subemnu">한식</a></li>
-        <li><a href="#" aria-label="subemnu">양식</a></li>
-        <li><a href="#" aria-label="subemnu">중식/일식</a></li>
-        <li><a href="#" aria-label="subemnu">베트남식</a></li>
-        <li><a href="#" aria-label="subemnu">동남아</a></li>
-        <li><a href="#" aria-label="subemnu">분식/야식</a></li>
-      </ul>
-    </li>
-    <li><a href="#">사이드디쉬</a>
-      <ul id="sub-menu">
-        <li><a href="#" aria-label="subemnu">샐러드/과일</a></li>
-        <li><a href="#" aria-label="subemnu">반찬</a></li>
-
-      </ul>
-    </li>
-    <li><a href="#">프리미엄관</a>
-      <ul id="sub-menu">
-        <li><a href="#" aria-label="subemnu">submenu</a></li>
-        <li><a href="#" aria-label="subemnu">submenu</a></li>
-        <li><a href="#" aria-label="subemnu">submenu</a></li>
-        <li><a href="#" aria-label="subemnu">submenu</a></li>
-        <li><a href="#" aria-label="subemnu">submenu</a></li>
-      </ul>
-    </li>
+    <c:if test="${!empty menu1}">
+	    <li><a href="#">&nbsp;&nbsp;&nbsp;테마별&nbsp;&nbsp;</a>
+	    	<ul id="sub-menu">
+	    		<c:forEach var="menu1" items="${menu1}">
+			       <li><a href="/product/categoryList/${menu1.category_title}" aria-label="subemnu">${menu1.category_title}</a></li>
+				</c:forEach>
+	    	</ul>
+	    </li>
+	</c:if>
+	<c:if test="${!empty menu2}">
+	    <li><a href="#">사이드디쉬</a>
+	      <ul id="sub-menu">
+		        <c:forEach var="menu2" items="${menu2}">
+				   <li><a href="/product/categoryList/${menu2.category_title}" aria-label="subemnu">${menu2.category_title}</a></li>
+				</c:forEach>
+	      </ul>
+	    </li>
+    </c:if>
+    <c:if test="${!empty menu3}">
+	    <li><a href="#">브랜드관</a>
+	      <ul id="sub-menu">
+		        <c:forEach var="menu3" items="${menu3}">
+				   <li><a href="/product/categoryList/${menu3.category_title}" aria-label="subemnu">${menu3.category_title}</a></li>
+				</c:forEach>
+	      </ul>
+	    </li>
+    </c:if>
   </ul>
 </nav>
 

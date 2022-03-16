@@ -1,12 +1,17 @@
 package spring.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import spring.intercepter.AuthCheckIntercepter;
+import spring.intercepter.CategoryIntercepter;
 
 
 
@@ -45,24 +50,28 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 	
 	
 	
-//	@Bean   //사용할 인터셉터 빈
-//	public AuthCheckIntercepter authCheckIntercepter() {
-//		return new AuthCheckIntercepter();
-//	}
-//	
-//	@Bean   //사용할 인터셉터 빈
-//	public AuthCheckIntercepter2 authCheckIntercepter2() {
-//		return new AuthCheckIntercepter2();
-//	}
-//	
-//
-//	@Autowired
-//	private AuthCheckIntercepter authCheckIntercepter;
-//	
-//	@Override
-//	public void addInterceptors(InterceptorRegistry registry) {
-//		//registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/edit/**");
-//	}
+	@Bean   //사용할 인터셉터 빈
+	public AuthCheckIntercepter authCheckIntercepter() {
+		return new AuthCheckIntercepter();
+	}
+
+	@Bean   //사용할 인터셉터 빈
+	public CategoryIntercepter categoryIntercepter() {
+		return new CategoryIntercepter();
+	}
+	
+	@Autowired
+	private AuthCheckIntercepter authCheckIntercepter;
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		//registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/edit/**");
+		
+		
+		
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/**");
+
+	}
 	
 	
 	

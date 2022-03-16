@@ -28,6 +28,11 @@
 		SELECT * FROM m_product WHERE delete_check=0
 	</select>
 	
+	<select id="category" resultMap="productVo" parameterType="String">
+		SELECT * FROM m_product WHERE category_1=#{category} OR category_2=#{category} AND delete_check=0
+	</select>
+	
+	
 	<select id="seqNumber" resultType="int">
 			SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME='M_PRODUCT_SEQ'
 	</select>

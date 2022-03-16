@@ -7,13 +7,19 @@
 	
 	<resultMap type="category" id="categoryVo">
 		<result column="category_number" property="category_number"/>
-		<result column="menu_join_number" property="menu_join_number"/>
 		<result column="category_title" property="category_title"/>
+		<result column="classification" property="classification"/>
 		<result column="category_sort" property="category_sort"/>
 	</resultMap>
 	
-	<select id="categoryAll" resultMap="categoryVo">
-		SELECT * FROM m_category ORDER BY category_sort ASC
+	<select id="menu1" resultMap="categoryVo">
+		SELECT * FROM m_category WHERE classification='테마별' ORDER BY category_sort ASC
+	</select>
+	<select id="menu2" resultMap="categoryVo">
+		SELECT * FROM m_category WHERE classification='사이드디쉬' ORDER BY category_sort ASC
+	</select>
+	<select id="menu3" resultMap="categoryVo">
+		SELECT * FROM m_category WHERE classification='브랜드관' ORDER BY category_sort ASC
 	</select>
 	
 

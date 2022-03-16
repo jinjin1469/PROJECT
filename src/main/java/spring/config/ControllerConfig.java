@@ -13,9 +13,12 @@ import spring.controller.MyPageController;
 import spring.controller.NoticeController;
 import spring.controller.PaymentController;
 import spring.controller.ProductController;
+import spring.dao.CategoryDao;
 import spring.dao.MemberDao;
 import spring.dao.NoticeDao;
 import spring.dao.ProductDao;
+import spring.intercepter.AuthCheckIntercepter;
+import spring.intercepter.CategoryIntercepter;
 import spring.service.AuthService;
 import spring.service.FindService;
 import spring.service.ManageService;
@@ -39,6 +42,8 @@ public class ControllerConfig {
 	private NoticeDao ndao;
 	@Autowired
 	private ProductDao pdao;
+	@Autowired
+	private CategoryDao cdao;
 	
 
 
@@ -94,7 +99,7 @@ public class ControllerConfig {
 	@Bean
 	public CategoryController categoryController() {
 		CategoryController cController = new CategoryController();
-		cController.setDao(pdao);
+		cController.setDao(cdao);
 		return cController;
 	}
 	
@@ -103,6 +108,18 @@ public class ControllerConfig {
 		PaymentController payController = new PaymentController();
 
 		return payController;
+	}
+	
+	@Bean
+	public AuthCheckIntercepter authCheckIntercepter() {
+		 return new AuthCheckIntercepter();
+	}
+	
+	@Bean
+	public CategoryIntercepter categoryIntercepter() {
+		CategoryIntercepter  category = new CategoryIntercepter();
+		category.setDao(cdao);
+		 return category;
 	}
 
 }
