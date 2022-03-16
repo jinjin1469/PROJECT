@@ -13,16 +13,25 @@ import spring.controller.MyPageController;
 import spring.controller.NoticeController;
 import spring.controller.PaymentController;
 import spring.controller.ProductController;
+<<<<<<< Updated upstream
 import spring.dao.CategoryDao;
 import spring.dao.MemberDao;
 import spring.dao.NoticeDao;
 import spring.dao.ProductDao;
 import spring.intercepter.AuthCheckIntercepter;
 import spring.intercepter.CategoryIntercepter;
+=======
+import spring.controller.ShoppingController;
+import spring.dao.MemberDao;
+import spring.dao.NoticeDao;
+import spring.dao.ProductDao;
+import spring.dao.ShoppingDao;
+>>>>>>> Stashed changes
 import spring.service.AuthService;
 import spring.service.FindService;
 import spring.service.ManageService;
 import spring.service.MemberRegisterService;
+import spring.service.ShoppingService;
 
 
 @Configuration
@@ -39,12 +48,17 @@ public class ControllerConfig {
 	@Autowired
 	private ManageService manageService;
 	@Autowired
+	private ShoppingService shoppingService;
+	@Autowired
 	private NoticeDao ndao;
 	@Autowired
 	private ProductDao pdao;
+<<<<<<< Updated upstream
 	@Autowired
 	private CategoryDao cdao;
 	
+=======
+>>>>>>> Stashed changes
 
 
 	@Bean
@@ -111,6 +125,7 @@ public class ControllerConfig {
 	}
 	
 	@Bean
+<<<<<<< Updated upstream
 	public AuthCheckIntercepter authCheckIntercepter() {
 		 return new AuthCheckIntercepter();
 	}
@@ -120,6 +135,12 @@ public class ControllerConfig {
 		CategoryIntercepter  category = new CategoryIntercepter();
 		category.setDao(cdao);
 		 return category;
+=======
+	public ShoppingController shoppingController() {
+		ShoppingController shoppingController = new ShoppingController();
+		shoppingController.setShoppingService(shoppingService);
+		return shoppingController;
+>>>>>>> Stashed changes
 	}
 
 }

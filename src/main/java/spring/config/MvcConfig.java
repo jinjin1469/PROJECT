@@ -40,15 +40,17 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 		registry.addViewController("/member/joinChoice").setViewName("/member/joinChoice");
 		registry.addViewController("/member/login").setViewName("/member/login");
 		registry.addViewController("/member/join").setViewName("/member/join");
+		registry.addViewController("/mypage/mypage").setViewName("/mypage/mypage");
 		registry.addViewController("/member/register").setViewName("/member/register");
 		registry.addViewController("/kakaologin").setViewName("main");
-		registry.addViewController("/mypage/mypage").setViewName("/mypage/mypage");
-		registry.addViewController("/member/findIdSuccess").setViewName("/member/findIdSuccess");
+		registry.addViewController("/mXember/findIdSuccess").setViewName("/member/findIdSuccess");
 		registry.addViewController("/admin/admin").setViewName("/admin/admin");
+		registry.addViewController("/PRODUCT/cart").setViewName("/PRODUCT/cart");
 		
 	}
 	
 	
+<<<<<<< Updated upstream
 	
 	@Bean   //사용할 인터셉터 빈
 	public AuthCheckIntercepter authCheckIntercepter() {
@@ -76,5 +78,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 	
 	
 	
+=======
+>>>>>>> Stashed changes
 }
 

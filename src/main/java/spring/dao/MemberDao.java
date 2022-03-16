@@ -67,12 +67,22 @@ public class MemberDao {
 		return sqlSession.update("mybatis.mapper.member.updatePw",memVo);
 	}
 	
+	//회원정보 읽어오기
 	public Member selectByMemberNum(long member_number) {
 		Member member = sqlSession.selectOne("mybatis.mapper.member.selectByMemberNum", member_number);
 		return member;
 	}
 	
+<<<<<<< Updated upstream
 	
+=======
+	//비밀번호 수정
+	public void updatePwd(Member member) {
+		sqlSession.update("mybatis.mapper.member.updatePwd",member);
+	}
+	
+
+>>>>>>> Stashed changes
 	
 }
 

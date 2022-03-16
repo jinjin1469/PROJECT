@@ -25,7 +25,7 @@
 	       <li class="navheader"><a href="<c:url value='/member/login' />"  aria-current="page">로그인</a></li>
 	       <li class="navheader"><a href="<c:url value='/member/joinChoice' />" >회원가입</a></li>
 	       <li class="navheader"><a href="#" >주문조회</a></li>
-	       <li class="navheader"><a href="#">장바구니</a></li>
+	       <li class="navheader"><a href="<c:url value='/PRODUCT/cart' />">장바구니</a></li>
      	</ul>
      </c:when>
     
