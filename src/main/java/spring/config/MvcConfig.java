@@ -50,7 +50,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 	}
 	
 	
-<<<<<<< Updated upstream
 	
 	@Bean   //사용할 인터셉터 빈
 	public AuthCheckIntercepter authCheckIntercepter() {
@@ -78,7 +77,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 	
 	
 	
-=======
->>>>>>> Stashed changes
+
 }
 

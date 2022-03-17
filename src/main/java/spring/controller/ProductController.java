@@ -189,7 +189,7 @@ public class ProductController {
 		
 		int join_number = dao.selectJoinNumber(product.getProduct_name());
 		int roop = 0;
-<<<<<<< Updated upstream
+		
 		if(pic.getProduct_Option()!=null) {
 			for (Option option : pic.getProduct_Option()) {
 				if(option.getDelete_check()==1) { // ���� ���� �� �����ϸ� ����� ���� update�� ��������
@@ -208,27 +208,8 @@ public class ProductController {
 				}
 					
 				roop++;
-=======
-
-		for (Option option : pic.getProduct_Option()) {
-			if(option.getDelete_check()==1) { // ���� ���� �� �����ϸ� ����� ���� update�� ��������
-				System.out.println(roop+"����");
-				option.setOption_Join_Number(join_number);				
-				dao.optionDelete(option);	
-			}else if(roop>50) { 
-				if(option.getOption_Name()!=null) {
-					System.out.println(roop+"�߰�");
-					option.setOption_Join_Number(join_number);
-					dao.insertOption(option);
-				}
-			}else if(option.getOption_Name()!=null){
-				System.out.println(roop+"����");
-				dao.updateOption(option);
->>>>>>> Stashed changes
-			}
+			}	
 		}
-		
-	
 		return "redirect:/";
 	}
 	
