@@ -19,7 +19,7 @@
 
 	<h2 class="cen">🆕회원 정보 입력🆕</h2>
 <br>
-
+	<div class="modifyInfo">*모든 회원정보는 필수로 입력해야됩니다.</div>
 	<form name="register" id="signform" action="register" commandName="formData" class="validation-form" method="post">
 
 		<table>

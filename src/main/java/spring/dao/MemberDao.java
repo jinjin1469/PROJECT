@@ -72,6 +72,10 @@ public class MemberDao {
 		return member;
 	}
 	
+	//鍮꾨�踰덊샇 �닔�젙
+		public void updatePwd(Member member) {
+			sqlSession.update("mybatis.mapper.member.updatePwd",member);
+		}
 	
 	
 }

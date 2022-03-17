@@ -24,6 +24,7 @@ import spring.dao.CategoryDao;
 import spring.dao.MemberDao;
 import spring.dao.NoticeDao;
 import spring.dao.ProductDao;
+import spring.dao.ShoppingDao;
 
 @Configuration
 public class MybatisConfig {
@@ -106,6 +107,11 @@ public class MybatisConfig {
 			return dao;
 		}
 	    
+	    @Bean
+	    public ShoppingDao sdao() throws Exception{
+	    	ShoppingDao dao = new ShoppingDao(sqlSession());
+	    	return dao;
+	    }
 	  
 	    
 	    

@@ -21,19 +21,16 @@ public class CategoryController {
 		this.dao = dao;
 	}
 
-	@RequestMapping(value="/insert",method=RequestMethod.GET)
+	@RequestMapping(value="/categorySequence",method=RequestMethod.GET)
 	public String insertG(Model model) {
 		
-//		List<Category> data = dao.categoryAll();
-		
-//		model.addAttribute("CategoryData", data);
 		model.addAttribute("Category", new Category());
 		
-		return "CATEGORY/categoryInsert";
+		return "CATEGORY/categorySequence";
 	}
 	
 	
-	@RequestMapping(value="/insert",method=RequestMethod.POST)
+	@RequestMapping(value="/categorySequence",method=RequestMethod.POST)
 	public String insertP(Model model) {
 		
 		

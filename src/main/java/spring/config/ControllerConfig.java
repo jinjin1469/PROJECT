@@ -13,6 +13,7 @@ import spring.controller.MyPageController;
 import spring.controller.NoticeController;
 import spring.controller.PaymentController;
 import spring.controller.ProductController;
+import spring.controller.ShoppingController;
 import spring.dao.CategoryDao;
 import spring.dao.MemberDao;
 import spring.dao.NoticeDao;
@@ -23,6 +24,7 @@ import spring.service.AuthService;
 import spring.service.FindService;
 import spring.service.ManageService;
 import spring.service.MemberRegisterService;
+import spring.service.ShoppingService;
 
 
 @Configuration
@@ -38,6 +40,8 @@ public class ControllerConfig {
 	private FindService findService;
 	@Autowired
 	private ManageService manageService;
+	@Autowired
+	private ShoppingService shoppingService;
 	@Autowired
 	private NoticeDao ndao;
 	@Autowired
@@ -120,6 +124,13 @@ public class ControllerConfig {
 		CategoryIntercepter  category = new CategoryIntercepter();
 		category.setDao(cdao);
 		 return category;
+	}
+	
+	@Bean
+	public ShoppingController shoppingController() {
+		ShoppingController shoppingController = new ShoppingController();
+		shoppingController.setShoppingService(shoppingService);
+		return shoppingController;
 	}
 
 }
