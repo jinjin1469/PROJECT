@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!--  실제 쿼리를 작성하기 위한 부분 -->
+<mapper namespace="mybatis.mapper.member">
+	
+	<resultMap type="member" id="memVo">
+		<result column="member_num" property="member_num"/>
+		<result column="member_id" property="member_id"/>
+		<result column="member_pwd" property="member_pwd"/>
+		<result column="member_name" property="member_name"/>
+		<result column="member_nickname" property="member_nickname"/>
+		<result column="member_phone" property="member_phone"/>
+		<result column="member_email" property="member_email"/>
+		<result column="member_address" property="member_address"/>
+		<result column="member_point" property="member_point"/>
+	</resultMap>
+
+	<!-- 반복적으로 나오는 쿼리를 묶어서 처리  -->
+	
+	<sql id="selectAllMember">
+		SELECT * FROM M_MEMBER
+	</sql>
+	
+	<select id="memberAll" resultMap="memVo" parameterType="member">
+		SELECT * FROM M_MEMBER
+	</select>
+	
+    <!--  아이디 중복 체크 보류
+    <select id="selectById" resultMap="memVo" parameterType="String">
+		<include refid="selectAllMember" />
+		WHERE MEMBER_ID=#{member_id}
+	</select>  -->
+
+    <insert id="insertMember" parameterType="RegisterRequest">
+		INSERT INTO M_MEMBER 
+		 VALUES(M_MEMBER_SEQ.NEXTVAL,#{member_id},#{member_pwd},#{member_name},#{member_nickname},#{member_phone},#{member_email},#{member_address},0)
+	</insert>
+	
+	<select id="nameCheck" parameterType="String" resultType="integer"> 
+		SELECT COUNT(*) FROM M_MEMBER WHERE member_nickname = #{member_nickname}
+	</select>
+	
+	<select id="idCheck" parameterType="String" resultType="integer"> 
+		SELECT COUNT(*) FROM M_MEMBER WHERE member_id = #{member_id}
+	</select>
+
+	 <select id="selectById" resultMap="memVo" parameterType="String">
+		<!-- SELECT * FROM members -->
+		<include refid="selectAllMember" />
+		WHERE member_id=#{member_id}
+	</select>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findId" parameterType="String" resultType="String">
+		select member_id from M_MEMBER where member_name = #{member_name} AND member_email = #{member_email} 
+	</select>
+	
+	<!-- 비밀번호 찾기 -->
+	<select id="findPwd" parameterType="String" resultType="String">
+		select member_id from M_MEMBER where member_name = #{member_name} AND member_email = #{member_email} AND member_id = #{member_id}
+	</select>
+	
+		    
+    <update id="updatePw">
+		update m_member set member_pwd = #{member_pwd} where member_id = #{member_id}
+	</update>
+	
+	 <select id="selectByMemberNum" resultMap="memVo" parameterType="long">
+		<!-- SELECT * FROM members -->
+		<include refid="selectAllMember" />
+		WHERE member_number=#{member_number}
+	</select>
+    
+	
+</mapper>

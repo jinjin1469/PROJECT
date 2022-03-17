@@ -1,0 +1,88 @@
+@charset "UTF-8";
+
+*{   box-sizing: border-box;
+}
+
+#content {
+	overflow: hidden;
+}
+section {
+	float: right;
+	width: 900px;
+}
+aside {
+	float: left;
+	width: 200px;
+	margin-right: 50px;
+	text-align: left;
+}
+
+p{
+	text-align: left;
+	font-size: 14px;
+}
+
+.menu{
+	text-align: left;
+	font-size: 14px;
+	margin: 0 auto;
+	padding: 0px;
+	color: #BABABA;
+}
+
+h2{
+text-align:left;
+margin:0px;
+margin-top:0.3rem;
+}
+
+.personalInfo{
+	margin:0px;
+}
+
+.user {
+	width:500px;
+	height:130px;
+	float: left;
+	border: 0.2rem solid #E1E1E1;
+	margin-right: 50px;
+	margin-top: 30px;
+	margin-bottom: 50px;
+	text-align: left;
+	padding: 1rem;
+	font-size: 12px;
+	line-height: 8px;
+}
+
+
+.order{
+	width:300px;
+	border: 0.2rem solid #E1E1E1;
+	float: left;
+	height:130px;
+	margin-top: 30px;
+	margin-bottom: 50px;
+	text-align: left;
+	padding: 1rem;
+	font-size: 15px;
+	line-height: 8px;
+}
+
+.tbl{
+	margin-top: 50px;
+	width:900px;
+	border-collapse:collapse;
+	border-bottom: 0.5px solid black;
+	border-top: 0.5px solid black;
+	font-size: 15px;
+}
+
+th{ 
+	background-color: #EBEBEB;
+	border-bottom: 0.5px solid black;
+	
+}
+
+.green{
+	color: green;
+}
