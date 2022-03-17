@@ -68,6 +68,11 @@
 		update m_member set member_pwd = #{member_pwd} where member_id = #{member_id}
 	</update>
 	
+	<update id="updatePwd" parameterType="member">
+		UPDATE m_member
+		set member_pwd = #{member_pwd} where member_number = #{member_number}
+	</update>
+	
 	 <select id="selectByMemberNum" resultMap="memVo" parameterType="long">
 		<!-- SELECT * FROM members -->
 		<include refid="selectAllMember" />

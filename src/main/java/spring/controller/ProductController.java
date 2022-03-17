@@ -21,10 +21,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import spring.dao.MemberDao;
 import spring.dao.ProductDao;
+import spring.vo.Cart;
 import spring.vo.Notice;
 import spring.vo.Option;
 import spring.vo.Product;
 import spring.vo.ProductCommand;
+import spring.vo.RegisterRequest;
 
 @Controller
 @RequestMapping("/product")
@@ -72,6 +74,7 @@ public class ProductController {
 		
 		model.addAttribute("Product", product);
 		model.addAttribute("ProductOption", productOption);
+		model.addAttribute("formData", new Cart()); 
 		
 		return "PRODUCT/productDetail";
 	}
@@ -186,6 +189,7 @@ public class ProductController {
 		
 		int join_number = dao.selectJoinNumber(product.getProduct_name());
 		int roop = 0;
+<<<<<<< Updated upstream
 		if(pic.getProduct_Option()!=null) {
 			for (Option option : pic.getProduct_Option()) {
 				if(option.getDelete_check()==1) { // ���� ���� �� �����ϸ� ����� ���� update�� ��������
@@ -204,6 +208,23 @@ public class ProductController {
 				}
 					
 				roop++;
+=======
+
+		for (Option option : pic.getProduct_Option()) {
+			if(option.getDelete_check()==1) { // ���� ���� �� �����ϸ� ����� ���� update�� ��������
+				System.out.println(roop+"����");
+				option.setOption_Join_Number(join_number);				
+				dao.optionDelete(option);	
+			}else if(roop>50) { 
+				if(option.getOption_Name()!=null) {
+					System.out.println(roop+"�߰�");
+					option.setOption_Join_Number(join_number);
+					dao.insertOption(option);
+				}
+			}else if(option.getOption_Name()!=null){
+				System.out.println(roop+"����");
+				dao.updateOption(option);
+>>>>>>> Stashed changes
 			}
 		}
 		
