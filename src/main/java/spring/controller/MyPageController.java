@@ -2,6 +2,8 @@ package spring.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import spring.dao.MemberDao;
 import spring.service.ManageService;
 import spring.vo.Login;
 import spring.vo.Member;
+import spring.vo.RegisterRequest;
 
 @Controller
 public class MyPageController {
@@ -61,6 +64,40 @@ public class MyPageController {
 			
 			return "mypage/modify";
 		}
+	//鍮꾨�踰덊샇 �닔�젙 �뤌 �뿰寃�
+		 @RequestMapping(value="/mypage/modifyPwd/{member_number}",method=RequestMethod.GET)
+			public String modifyPwdForm(@PathVariable("member_number") Long member_number, RegisterRequest regReq, Model model) {
+			 
+				Member memVo = manageService.myPage(member_number);
+				
+				model.addAttribute("member", memVo);
+				model.addAttribute("modifyPwd", new RegisterRequest());
+				
+				return "mypage/modifyPwd";
+			}
+		 
+		 
+		 //鍮꾨�踰덊샇 �닔�젙�븯湲�	
+		 @RequestMapping(value="/mypage/modifyPwd/modifying/{member_number}",method=RequestMethod.POST)
+			public String modifyPwd(@PathVariable("member_number") Long member_number, RegisterRequest regReq,  Model model, HttpSession session) {
+
+				manageService.pwdModify(member_number,regReq);
+				System.out.println("member_number");
+				Member memVo = dao.selectByMemberNum(member_number);
+				model.addAttribute("member", memVo);
+				
+				return "redirect:/mypage/mypage/{member_number}";
+			}
+		 
+		
+		 //�쉶�썝�젙蹂� �닔�젙
+		 @RequestMapping(value="/mypage/modify/{member_number}",method=RequestMethod.POST)
+			public String modifyForm2(@PathVariable("member_number") Long member_number, Model model) {
+			 
+				Member memVo = manageService.myPage(member_number);
+				model.addAttribute("member", memVo);
+				return "/";
+			}
 	    
 	
 	

@@ -15,7 +15,6 @@
 		<result column="product_weight" property="product_weight"/>
 		<result column="product_storage" property="product_storage"/>
 		<result column="product_m_image" property="product_m_image"/>
-		<result column="product_m_h_image" property="product_m_h_image"/>
 		<result column="product_d_image" property="product_d_image"/>
 		<result column="product_i_image" property="product_i_image"/>
 		<result column="product_salcount" property="product_salcount"/>
@@ -29,6 +28,19 @@
 		SELECT * FROM m_product WHERE delete_check=0
 	</select>
 	
+	<select id="category" resultMap="productVo" parameterType="String">
+		SELECT * FROM m_product WHERE category_1=#{category} OR category_2=#{category} AND delete_check=0
+	</select>
+	
+	
+	<select id="seqNumber" resultType="int">
+			SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME='M_PRODUCT_SEQ'
+	</select>
+	
+	<select id="updateProductNumber" resultType="int" parameterType="int">
+		SELECT product_number FROM m_product WHERE option_join_number = #{option_join_number}
+	</select>
+	
 	<select id="selectJoinNumber" resultType="int" parameterType="String">
 		SELECT option_join_number FROM m_product WHERE product_name=#{product_name}
 	</select>
@@ -40,13 +52,13 @@
 	<insert id="insertProduct" parameterType="product">
 		INSERT INTO m_product(product_number,option_join_number,product_name,product_price,
 		product_count,product_cookingTime,product_weight,product_storage,product_m_image,
-		product_m_h_image,product_d_image,product_i_image,product_salcount,product_regdate,
+		product_d_image,product_i_image,product_salcount,product_regdate,
 		<if test="#{category_1} != null"> category_1, </if> 
 		<if test="#{category_2} != null"> category_2, </if>
 		delete_check) 
 		VALUES(m_product_seq.nextval,option_join_number_seq.nextval,#{product_name}, #{product_price},
 		#{product_count}, #{product_cookingTime}, #{product_weight}, #{product_storage}, #{product_m_image},
-		#{product_m_h_image}, #{product_d_image}, #{product_i_image},0,SYSDATE,
+		#{product_d_image}, #{product_i_image},0,SYSDATE,
 		<if test="#{category_1} != null"> #{category_1}, </if> 
 		<if test="#{category_2} != null"> #{category_2}, </if>
 		0)
@@ -63,7 +75,6 @@
 		product_weight=#{product_weight},
 		product_storage=#{product_storage},
 		product_m_image=#{product_m_image},
-		product_m_h_image=#{product_m_h_image},
 		product_d_image=#{product_d_image},
 		product_i_image=#{product_i_image}
 		WHERE option_join_number = #{option_join_number}

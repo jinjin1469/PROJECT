@@ -90,7 +90,7 @@
 				</tr>
 				<tr>
 					<th>상품수량</th>
-					<td><form:input path="product_Price"/></td>
+					<td><form:input path="product_Count"/></td>
 				</tr>
 				<tr>
 					<th>조리시간</th>
@@ -106,10 +106,6 @@
 				</tr>
 				<tr>
 					<th>상품 메인 사진</th>
-					<td><input type="file" name="uploadFile" class="fileClass"></td>
-				</tr>
-				<tr>
-					<th>상품 클릭시 보이는 사진</th>
 					<td><input type="file" name="uploadFile" class="fileClass"></td>
 				</tr>
 				<tr>
@@ -167,7 +163,7 @@ $(document).ready(function(){
 				check+=1;
 			}
 		});
-		if(check==4){
+		if(check==3){
 			$("#ProductInsert").submit();
 		}
 	});

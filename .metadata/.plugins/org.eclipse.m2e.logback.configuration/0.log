@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2022-03-14 10:00:34,247 [Worker-5: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
 2022-03-14 10:17:27,310 [Worker-39: Updating Maven Dependencies] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: com.green:web:1.0.0-BUILD-SNAPSHOT @ C:\WorkSpace_Project\pom.xml.
 2022-03-14 10:17:27,310 [Worker-38: Building workspace] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: com.green:web:1.0.0-BUILD-SNAPSHOT @ C:\WorkSpace_Project\pom.xml.
@@ -4451,3 +4452,6 @@ java.io.FileNotFoundException: C:\Users\makku\.m2\repository\com\github\iamport\
 2022-03-17 00:11:34,992 [Worker-42: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
 2022-03-17 00:11:34,994 [Worker-42: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
 2022-03-17 00:11:34,995 [Worker-42: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+=======
+2022-03-14 10:22:32,886 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+>>>>>>> 9634a3eaefdf65f099cd502a6d0ae987fa92aec6

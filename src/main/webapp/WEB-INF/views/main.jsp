@@ -79,7 +79,7 @@ function payment(){
 	    pay_method : 'card',
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : '주문명:결제테스트',
-	    amount : pay,
+	    amount : ${totalPrice},
 	    buyer_email : 'iamport@siot.do',
 	    buyer_name : '구매자이름',
 	    buyer_tel : '010-1234-5678',
@@ -94,10 +94,10 @@ function payment(){
             }).done(function(data) {
             	console.log(data);
             	
-            	if(rsp.paid_amount == data.response.amount){
-            		alert("결제 및 결제검증완료");
-            	}else{
-            		alert("결제 실패");
+            	if(rsp.paid_amount == data.response.amount&&data.response.amount == ${totalPrice}){
+            		alert("결제 성공");
+            	}else if(rsp.paid_amount != data.response.amount||data.response.amount != ${totalPrice}){
+            		alert("결제 취소");
             	}
            
             });

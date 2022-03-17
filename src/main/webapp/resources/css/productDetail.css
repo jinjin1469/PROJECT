@@ -3,6 +3,7 @@
 * {
 	font-family: 'Noto Sans KR', sans-serif;
 	text-align: center;
+	items-align: center;
 }
 
 .b {
@@ -13,6 +14,13 @@
 	width: 30rem;
 	height: 30rem;
 }
+
+.imgSize2 {
+	width: 75rem;
+	height: 70%;
+	margin-left: 50px;
+}
+
 
 .Product_img {
 	width: 33rem;
@@ -26,38 +34,42 @@
 	width: 40rem;
 	height: 20rem;
 	float: left;
-	margin-top: 3rem;
+	margin-top: 1rem;
 }
 
 .Product {
-	width: 100%;
+	width: 110rem;
 	height: 30rem;
+	margin: 0 auto;
+	margin-left: 50px;
 }
 
 .name {
-	font-size: 2rem;
+	font-size: 1.8rem;
 	font-weight: bold;
 	margin-left: 1rem;
 	text-align: left;
 }
 
 .price {
-	font-size: 1.5rem;
+	font-size: 1.8rem;
 	font-weight: bold;
 	margin-left: 1rem;
 	text-align: left;
 }
 
-input[type="text"] {
+input[type="text"],[type="number"] {
 	width: 30px;
 	height: 30px;
 	text-align: center;
 	border:none;
+	background-color: #F7F7F7;
  }	
 
 .info {
 	text-align: left;
 	margin-left: 1rem;
+	font-weight: bold;
 }
 
 table{
@@ -72,14 +84,6 @@ font-size:13px;
 height:10px;
 }
 
-.count{
-	width:100%;
-	heigth:300px;
-	float:left;
-	text-align:center;
-	margin:5px;
-	margin-left: 1rem;
-}
 
 .content_right{margin:20px; width:520px; padding-top:30px;}
 .content_right h2{font-size:32px; height:50px; color:#444; line-height:1;   border-bottom:1px solid #dfdfdf;}
@@ -89,6 +93,66 @@ height:10px;
 
 .plus{float:left;  width:30px; height: 30px;}
 .minus{float:left;  width:30px; height: 30px;} 
-.qty{float:left;}
-.totalamount{text-align:left; margin-left: 1rem; }
+.qty{float:left; margin-left: 1rem; }
+.totalamount{text-align:right; margin-left: 1rem;}
+.amount{font-size:20px; font-weight:bold;}
+.amount2{font-size:30px; font-weight:bold; color:red;}
 
+
+select {
+width: 100%;
+padding: 0.5rem 0.3rem;
+border: 1px solid #999;
+font-family: inherit;
+background: url('../../resources/image/arrow.jpg') no-repeat 95% 50%;
+border-radius: 0px;
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+text-align-last: left;
+text-align: left;
+-ms-text-align-last: left;
+-moz-text-align-last: left;
+margin-left: 1rem;
+}
+option{
+text-align-last: left;
+text-align: left;
+-ms-text-align-last: left;
+-moz-text-align-last: left;	
+
+}
+
+.mainmenu{
+	width:100%;
+	heigth:300px;
+	text-align: left;
+	background-color: #EEECEC;
+}
+
+.count{
+	width:100%;
+	heigth:400px;
+	float:left;
+	text-align:center;
+	margin:5px;
+	margin-left: 1rem;
+	background-color: #F7F7F7;
+	border: 1px solid #E5E5E5;
+	
+}
+.optionname{
+	font-size:18px;
+	text-align:left;
+	margin-left: 1rem;
+	margin-top:0.5rem;
+}
+
+
+.opt{margin-left: 1rem;}
+.opt_amount{font-size:13px; float:right; margin-right:-430px;}
+.opt2{font-size:15px; font-weight:bold;}
+.click{cursor:pointer;}
+.image{width:800px; height:1000px; margin-top:20rem;}
+.imagebox{margin-top:200px;}
+hr{margin-left:1rem;}

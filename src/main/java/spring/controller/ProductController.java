@@ -21,10 +21,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import spring.dao.MemberDao;
 import spring.dao.ProductDao;
+import spring.vo.Cart;
 import spring.vo.Notice;
 import spring.vo.Option;
 import spring.vo.Product;
 import spring.vo.ProductCommand;
+import spring.vo.RegisterRequest;
 
 @Controller
 @RequestMapping("/product")
@@ -49,11 +51,19 @@ public class ProductController {
 	
 	
 	@RequestMapping("/totalList")
-	public String totalG(Model model) {
+	public String total(Model model) {
 		List<Product> product = dao.productAll();
 		model.addAttribute("Product", product);
 		
 		return "PRODUCT/totalProductList";
+	}
+	
+	@RequestMapping("/categoryList/{category}")
+	public String category(@PathVariable("category") String category,Model model) {
+		List<Product> product = dao.category(category);
+		model.addAttribute("Product", product);
+		
+		return "PRODUCT/categoryProductList";
 	}
 	
 	@RequestMapping("/detail/{num}")
@@ -64,6 +74,7 @@ public class ProductController {
 		
 		model.addAttribute("Product", product);
 		model.addAttribute("ProductOption", productOption);
+		model.addAttribute("formData", new Cart()); 
 		
 		return "PRODUCT/productDetail";
 	}
@@ -72,6 +83,7 @@ public class ProductController {
 	public String updateG(@PathVariable("num") int num,Model model) {
 		
 		Product product = dao.productSelect(num);
+		System.out.println(product.getProduct_count());
 		
 		List<Option> productOption1 = dao.productOptionSelect(num);
 
@@ -104,6 +116,8 @@ public class ProductController {
 	public String updateP(@PathVariable("num") int num,ProductCommand pic, 
 		     Model model) throws IllegalStateException, IOException {
 		
+		int productNum = dao.updateProductNumber(num);
+		
 		Product productIMG = dao.productSelect(num);
 		
 		ArrayList<MultipartFile> file = pic.getUploadFile();
@@ -123,7 +137,7 @@ public class ProductController {
 		if(uploadPath.exists() == false) {
 			uploadPath.mkdirs();
 		}
-		String[] classification = {"M","H","D","I"};
+		String[] classification = {"M","D","I"};
 		int number = 0;
 		for (MultipartFile multipartFile : file) {
 			if(!multipartFile.isEmpty()) {
@@ -131,7 +145,7 @@ public class ProductController {
 				
 				String filenameExtension = uploadFileName.substring(uploadFileName.lastIndexOf("."));
 				System.out.println(filenameExtension);
-				uploadFileName = pic.getProduct_Name()+classification[number]+filenameExtension;
+				uploadFileName = productNum+classification[number]+filenameExtension;
 				
 				String productImagePath = getFolder()+"\\"+uploadFileName;
 				
@@ -139,22 +153,19 @@ public class ProductController {
 					product.setProduct_m_image(productImagePath);
 					System.out.println("check1");
 				}else if(number==1) {
-					product.setProduct_m_h_image(productImagePath);
+					product.setProduct_d_image(productImagePath);
 					System.out.println("check2");
 				}else if(number==2) {
-					product.setProduct_d_image(productImagePath);
-					System.out.println("check3");
-				}else if(number==3) {
 					product.setProduct_i_image(productImagePath);
-					System.out.println("check4");
+					System.out.println("check3");
 				}
 				
 				File saveFile = new File(uploadPath, uploadFileName);
 				
 				try {
-					System.out.println("¾÷·Îµåcheck1");
+					System.out.println("ï¿½ï¿½ï¿½Îµï¿½check1");
 					multipartFile.transferTo(saveFile);
-					System.out.println("¾÷·Îµåcheck2");
+					System.out.println("ï¿½ï¿½ï¿½Îµï¿½check2");
 					
 				}catch(Exception e) {
 					e.printStackTrace();
@@ -164,14 +175,11 @@ public class ProductController {
 					product.setProduct_m_image(productIMG.getProduct_m_image());
 					System.out.println("check1");
 				}else if(number==1) {
-					product.setProduct_m_h_image(productIMG.getProduct_m_h_image());
+					product.setProduct_d_image(productIMG.getProduct_d_image());
 					System.out.println("check2");
 				}else if(number==2) {
-					product.setProduct_d_image(productIMG.getProduct_d_image());
-					System.out.println("check3");
-				}else if(number==3) {
 					product.setProduct_i_image(productIMG.getProduct_i_image());
-					System.out.println("check4");
+					System.out.println("check3");
 				}
 			}
 			number++;
@@ -181,26 +189,27 @@ public class ProductController {
 		
 		int join_number = dao.selectJoinNumber(product.getProduct_name());
 		int roop = 0;
-
-		for (Option option : pic.getProduct_Option()) {
-			if(option.getDelete_check()==1) { // °ªÀ» º¯°æ ÈÄ »èÁ¦ÇÏ¸é º¯°æµÈ °ªÀº update°¡ µÇÁö¾ÊÀ½
-				System.out.println(roop+"»èÁ¦");
-				option.setOption_Join_Number(join_number);				
-				dao.optionDelete(option);	
-			}else if(roop>50) { 
-				if(option.getOption_Name()!=null) {
-					System.out.println(roop+"Ãß°¡");
-					option.setOption_Join_Number(join_number);
-					dao.insertOption(option);
+		
+		if(pic.getProduct_Option()!=null) {
+			for (Option option : pic.getProduct_Option()) {
+				if(option.getDelete_check()==1) { // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ updateï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					System.out.println(roop+"ï¿½ï¿½ï¿½ï¿½");
+					option.setOption_Join_Number(join_number);				
+					dao.optionDelete(option);	
+				}else if(roop>50) { 
+					if(option.getOption_Name()!=null) {
+						System.out.println(roop+"ï¿½ß°ï¿½");
+						option.setOption_Join_Number(join_number);
+						dao.insertOption(option);
+					}
+				}else if(option.getOption_Name()!=null){
+					System.out.println(roop+"ï¿½ï¿½ï¿½ï¿½");
+					dao.updateOption(option);
 				}
-			}else if(option.getOption_Name()!=null){
-				System.out.println(roop+"¾÷µ«");
-				dao.updateOption(option);
-			}
-				
-			roop++;
+					
+				roop++;
+			}	
 		}
-	
 		return "redirect:/";
 	}
 	
@@ -214,6 +223,9 @@ public class ProductController {
 	@RequestMapping(value="/insert",method=RequestMethod.POST)
 	public String uploadP(ProductCommand pic, 
 			     Model model) throws IllegalStateException, IOException {
+		
+		int productNum = dao.seqNumber();
+		System.out.println(productNum);
 		
 		ArrayList<MultipartFile> file = pic.getUploadFile();
 		
@@ -233,7 +245,7 @@ public class ProductController {
 		if(uploadPath.exists() == false) {
 			uploadPath.mkdirs();
 		}
-		String[] classification = {"M","H","D","I"};
+		String[] classification = {"M","D","I"};
 		int num = 0;
 		for (MultipartFile multipartFile : file) {
 			
@@ -241,17 +253,15 @@ public class ProductController {
 			
 			String filenameExtension = uploadFileName.substring(uploadFileName.lastIndexOf("."));
 			
-			uploadFileName = pic.getProduct_Name()+classification[num]+filenameExtension;
+			uploadFileName = productNum+classification[num]+filenameExtension;
 			
 			String productImagePath = getFolder()+"\\"+uploadFileName;
 			
 			if(num==0) {
 				product.setProduct_m_image(productImagePath);
 			}else if(num==1) {
-				product.setProduct_m_h_image(productImagePath);
-			}else if(num==2) {
 				product.setProduct_d_image(productImagePath);
-			}else if(num==3) {
+			}else if(num==2) {
 				product.setProduct_i_image(productImagePath);
 			}
 			
@@ -265,7 +275,7 @@ public class ProductController {
 			}
 
 		}
-		
+		product.setProduct_number(productNum);
 		dao.insertProduct(product);
 		int join_number = dao.selectJoinNumber(product.getProduct_name());
 		

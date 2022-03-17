@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import spring.dao.CategoryDao;
 import spring.dao.MemberDao;
 import spring.dao.ProductDao;
 import spring.vo.Category;
@@ -15,24 +16,21 @@ import spring.vo.Category;
 @RequestMapping("/category")
 public class CategoryController {
 	
-	private ProductDao dao;
-	public void setDao(ProductDao dao) {
+	private CategoryDao dao;
+	public void setDao(CategoryDao dao) {
 		this.dao = dao;
 	}
 
-	@RequestMapping(value="/insert",method=RequestMethod.GET)
+	@RequestMapping(value="/categorySequence",method=RequestMethod.GET)
 	public String insertG(Model model) {
 		
-		List<Category> data = dao.categoryAll();
-		
-		model.addAttribute("CategoryData", data);
 		model.addAttribute("Category", new Category());
 		
-		return "CATEGORY/categoryInsert";
+		return "CATEGORY/categorySequence";
 	}
 	
 	
-	@RequestMapping(value="/insert",method=RequestMethod.POST)
+	@RequestMapping(value="/categorySequence",method=RequestMethod.POST)
 	public String insertP(Model model) {
 		
 		

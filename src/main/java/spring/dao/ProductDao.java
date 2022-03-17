@@ -22,6 +22,18 @@ public class ProductDao {
 		List<Product> list = sqlSession.selectList("mybatis.mapper.product.productAll");
 		return list;
 	}
+	public List<Product> category(String category) { 
+		List<Product> list = sqlSession.selectList("mybatis.mapper.product.category",category);
+		return list;
+	}
+	
+	public int seqNumber() { 
+		return sqlSession.selectOne("mybatis.mapper.product.seqNumber");
+	}
+	
+	public int updateProductNumber(int option_join_number) { 
+		return sqlSession.selectOne("mybatis.mapper.product.updateProductNumber",option_join_number);
+	}
 	
 	public void insertProduct(Product product) { 
 		sqlSession.insert("mybatis.mapper.product.insertProduct",product);

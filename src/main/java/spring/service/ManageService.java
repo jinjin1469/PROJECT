@@ -2,6 +2,7 @@ package spring.service;
 
 import spring.dao.MemberDao;
 import spring.vo.Member;
+import spring.vo.RegisterRequest;
 
 public class ManageService {
 
@@ -17,7 +18,14 @@ public class ManageService {
 			return memInfo;
 	}
 	
-	
+	// 鍮꾨�踰덊샇 �닔�젙�븯湲�
+		public void pwdModify(Long member_number, RegisterRequest regReq) {
+
+			Member member = dao.selectByMemberNum(member_number); 
+			member.setMember_pwd(regReq.getMember_pwd());
+			dao.updatePwd(member);
+
+		}
 	
 	
 }

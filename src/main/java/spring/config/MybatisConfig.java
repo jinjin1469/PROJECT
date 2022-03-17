@@ -20,9 +20,11 @@ import org.springframework.core.io.ClassPathResource;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.mchange.v2.c3p0.DriverManagerDataSource;
 
+import spring.dao.CategoryDao;
 import spring.dao.MemberDao;
 import spring.dao.NoticeDao;
 import spring.dao.ProductDao;
+import spring.dao.ShoppingDao;
 
 @Configuration
 public class MybatisConfig {
@@ -99,6 +101,17 @@ public class MybatisConfig {
 			return dao;
 		}
 	    
+	    @Bean
+		public CategoryDao Cdao() throws Exception {
+	    	CategoryDao dao = new CategoryDao(sqlSession());
+			return dao;
+		}
+	    
+	    @Bean
+	    public ShoppingDao sdao() throws Exception{
+	    	ShoppingDao dao = new ShoppingDao(sqlSession());
+	    	return dao;
+	    }
 	  
 	    
 	    

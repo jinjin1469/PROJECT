@@ -38,14 +38,17 @@ public class PaymentController {
 		
 	
 			int DB_OrderTotalPrice = 300;
-			BigDecimal pay2 = new BigDecimal(DB_OrderTotalPrice);
+			BigDecimal pay = new BigDecimal(DB_OrderTotalPrice);
 			
 			IamportResponse<Payment> responsePrice = api.paymentByImpUid(imp_uid);
 			
 			CancelData cancel = new CancelData(imp_uid,true);
 
-			if(!pay2.equals(responsePrice.getResponse().getAmount())) {
+			if(!pay.equals(responsePrice.getResponse().getAmount())) {
 				api.cancelPaymentByImpUid(cancel);
+			}
+			if(pay.equals(responsePrice.getResponse().getAmount())) {
+				// DB insert부분
 			}
 			return responsePrice;
 	}

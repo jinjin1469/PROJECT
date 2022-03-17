@@ -6,7 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-
+import spring.vo.Category;
 import spring.vo.Member;
 import spring.vo.RegisterRequest;
 
@@ -71,6 +71,13 @@ public class MemberDao {
 		Member member = sqlSession.selectOne("mybatis.mapper.member.selectByMemberNum", member_number);
 		return member;
 	}
+	
+	//鍮꾨�踰덊샇 �닔�젙
+		public void updatePwd(Member member) {
+			sqlSession.update("mybatis.mapper.member.updatePwd",member);
+		}
+	
+	
 }
 
 
