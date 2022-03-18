@@ -54,7 +54,7 @@ public class CategoryController {
 		
 		return "CATEGORY/categoryDelete";
 	}
-	@RequestMapping(value="/categoryInsert",method=RequestMethod.POST)
+	@RequestMapping(value="/categoryDelete",method=RequestMethod.POST)
 	public String categoryDeleteP(Model model,Category category) {
 		
 		
