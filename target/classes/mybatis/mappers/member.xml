@@ -7,7 +7,7 @@
 <mapper namespace="mybatis.mapper.member">
 	
 	<resultMap type="member" id="memVo">
-		<result column="member_num" property="member_num"/>
+		<result column="member_number" property="member_number"/>
 		<result column="member_id" property="member_id"/>
 		<result column="member_pwd" property="member_pwd"/>
 		<result column="member_name" property="member_name"/>
