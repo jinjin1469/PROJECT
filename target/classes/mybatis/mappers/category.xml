@@ -21,6 +21,26 @@
 	<select id="menu3" resultMap="categoryVo">
 		SELECT * FROM m_category WHERE classification='브랜드관' ORDER BY category_sort ASC
 	</select>
+	<select id="menuCount1" resultType="int">
+		SELECT COUNT(*) FROM m_category WHERE classification='테마별'
+	</select>
+	<select id="menuCount2" resultType="int">
+		SELECT COUNT(*) FROM m_category WHERE classification='사이드디쉬'
+	</select>
+	<select id="menuCount3" resultType="int">
+		SELECT COUNT(*) FROM m_category WHERE classification='브랜드관'
+	</select>
+	
+	<insert id="categoryInsert" parameterType="Category">
+		INSERT INTO m_category
+		VALUES(m_category_seq.nextval,#{category_title},#{classification},#{category_sort})
+	</insert>
+	
+	<update id="categorySeqUpdate" parameterType="Category">
+		UPDATE m_category SET 
+		category_sort=#{category_sort}
+		WHERE category_title = #{category_title}
+	</update>
 	
 
 </mapper>

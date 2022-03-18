@@ -26,8 +26,8 @@
 	       <li class="navheader"><a href="<c:url value='/member/joinChoice' />" >회원가입</a></li>
 	       <li class="navheader"><a href="#">주문조회</a></li>
 	       <li class="navheader"><a href="#">장바구니</a></li>
-	       <li class="navheader"><a href="#">카테고리추가</a></li>
-	       <li class="navheader"><a href="#">카테고리삭제</a></li>
+	       <li class="navheader"><a href="javascript:categoryAdd();">카테고리추가</a></li>
+	       <li class="navheader"><a href="javascript:categoryRemove();">카테고리삭제</a></li>
 	       <li class="navheader"><a href="javascript:categoryEdit();">카테고리순서변경</a></li>
      	</ul>
      </c:when>
@@ -106,8 +106,15 @@
 $("#bookmark").click(function(){
     alert("Ctrl+D키를 누르시면 즐겨찾기에 추가하실 수 있습니다.");
 });
+
 function categoryEdit(){
-	open('http://localhost:8080/category/categorySequence','배너 추가','width=400px,height=200px,status=false');
+	open('http://localhost:8080/category/categorySequence','배너 추가','width=400px,height=400px,status=false');
+}
+function categoryAdd(){
+	open('http://localhost:8080/category/categoryInsert','배너 추가','width=400px,height=200px,status=false');
+}
+function categoryRemove(){
+	open('http://localhost:8080/category/categoryDelete','배너 추가','width=400px,height=200px,status=false');
 }
 
 </script>

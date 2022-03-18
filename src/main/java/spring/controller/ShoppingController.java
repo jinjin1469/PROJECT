@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.dao.ShoppingDao;
 import spring.service.ShoppingService;
+import spring.vo.AuthInfo;
 import spring.vo.Cart;
 import spring.vo.Member;
 import spring.vo.Product;
@@ -35,7 +37,7 @@ public class ShoppingController {
 	//�옣諛붽뎄�땲 �긽�뭹�벑濡�
 	@RequestMapping(value="/product/add_cart",method=RequestMethod.POST)
 	public String modifyPwdFor(Cart cart, Model model, HttpServletResponse response) {
-	 
+		
 		shoppingService.myCart(cart);
 		
 		return "PRODUCT/productDetail";

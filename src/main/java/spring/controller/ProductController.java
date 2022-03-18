@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import spring.dao.MemberDao;
 import spring.dao.ProductDao;
+import spring.vo.AuthInfo;
 import spring.vo.Cart;
 import spring.vo.Notice;
 import spring.vo.Option;
@@ -115,7 +117,6 @@ public class ProductController {
 	@RequestMapping(value="/update/{num}",method=RequestMethod.POST)
 	public String updateP(@PathVariable("num") int num,ProductCommand pic, 
 		     Model model) throws IllegalStateException, IOException {
-		
 		int productNum = dao.updateProductNumber(num);
 		
 		Product productIMG = dao.productSelect(num);
@@ -215,7 +216,6 @@ public class ProductController {
 	
 	@RequestMapping(value="/insert",method=RequestMethod.GET)
 	public String uploadG(Model model) {
-		
 		model.addAttribute("ProductCommand", new ProductCommand());
 		
 		return "PRODUCT/productInsert";

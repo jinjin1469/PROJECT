@@ -30,6 +30,23 @@ public class CategoryDao {
 		List<Category> list = sqlSession.selectList("mybatis.mapper.category.menu3");
 		return list;
 	}
+	public int menu1Count() { 
+		return sqlSession.selectOne("mybatis.mapper.category.menuCount1");
+	}
+	public int menu2Count() { 
+		return sqlSession.selectOne("mybatis.mapper.category.menuCount2");
+	}
+	public int menu3Count() { 
+		return sqlSession.selectOne("mybatis.mapper.category.menuCount3");
+	}
+	
+	public void categoryInsert(Category insertDate) {
+		sqlSession.update("mybatis.mapper.category.categoryInsert",insertDate);
+	}
+	
+	public void categorySeqUpdate(Category updateDate) { 
+		sqlSession.update("mybatis.mapper.category.categorySeqUpdate",updateDate);
+	}
 	
 	public CategoryDao(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
