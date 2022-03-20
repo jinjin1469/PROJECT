@@ -18,13 +18,13 @@
 <form:form id="CategoryEdit" commandName="Category" action="/category/categorySequence" method="POST">
 		구분 : <select name="classification" class="choice">
 				<option class="delete">선택하세요</option>
-				<option value="1">테마별</option>
-				<option value="2">사이드디쉬</option>
-				<option value="3">브랜드관</option>
+				<option value="테마별">테마별</option>
+				<option value="사이드디쉬">사이드디쉬</option>
+				<option value="브랜드관">브랜드관</option>
 			  </select>
 		<div id="edit">
 		 </div>
-		 <input type="button" id="checkBtn" value="등록" style="display:none;">
+		 <input type="button" id="checkBtn" value="변경" style="display:none;">
 </form:form>
 
 
@@ -34,7 +34,7 @@ $(document).ready(function(){
 	let check = 0;
 	$('.choice').change(function(){
 		let sel = $(this).val();
-		if(sel == 1){
+		if(sel == "테마별"){
 			document.getElementById("checkBtn").style.display='block';
 			$('.delete').remove();
 			choiceNum = sel;
@@ -70,7 +70,7 @@ $(document).ready(function(){
 
 			 	edit.appendChild(p);
 			</c:if>
-		}else if(sel == 2){
+		}else if(sel == "사이드디쉬"){
 			document.getElementById("checkBtn").style.display='block';
 			$('.delete').remove();
 			choiceNum = sel;
@@ -106,7 +106,7 @@ $(document).ready(function(){
 				 </c:forEach>
 		 	edit.appendChild(p);
 			</c:if>
-		}else if(sel == 3){
+		}else if(sel == "브랜드관"){
 			document.getElementById("checkBtn").style.display='block';
 			$('.delete').remove();
 			choiceNum = sel;

@@ -57,7 +57,47 @@ public class CategoryController {
 	@RequestMapping(value="/categoryDelete",method=RequestMethod.POST)
 	public String categoryDeleteP(Model model,Category category) {
 		
-		
+		if(category.getClassification().equals("테마별")){
+			System.out.println("0");
+			int seq = dao.categorySeq(category);
+			System.out.println("1");
+			dao.categoryDelete(category);
+			System.out.println("2");
+			dao.productCategoryNameNull1(category);
+			System.out.println("3");
+			int count = dao.menu3Count();
+			if(seq<=count) {
+				for(int i=seq;i<=count;i++) {
+					dao.deleteBysortNumUpdate(i+1,category.getClassification());
+				}
+			}
+		}else if(category.getClassification().equals("사이드디쉬")){
+			int seq = dao.categorySeq(category);
+			System.out.println("4");
+			dao.categoryDelete(category);
+			System.out.println("5");
+			dao.productCategoryNameNull1(category);
+			System.out.println("6");
+			int count = dao.menu2Count();
+			if(seq<=count) {
+				for(int i=seq;i<=count;i++) {
+					dao.deleteBysortNumUpdate(i+1,category.getClassification());
+				}
+			}
+		}else if(category.getClassification().equals("브랜드관")){
+			int seq = dao.categorySeq(category);
+			System.out.println("7");
+			dao.categoryDelete(category);
+			System.out.println("8");
+			dao.productCategoryNameNull2(category);
+			System.out.println("9");
+			int count = dao.menu3Count();
+			if(seq<=count) {
+				for(int i=seq;i<=count;i++) {
+					dao.deleteBysortNumUpdate(i+1,category.getClassification());
+				}
+			}
+		}
 		
 		return "CATEGORY/categoryClose";
 	}
@@ -84,6 +124,7 @@ public class CategoryController {
 		
 		
 		Category updateData = new Category();
+		updateData.setClassification(category.getClassification());
 		for(int i=1;i<=category.getCategory_sort().size();i++) {
 			updateData.setCategory_title(category.getCategory_title().get(i-1));
 			updateData.setCategory_sort(category.getCategory_sort().get(i-1));

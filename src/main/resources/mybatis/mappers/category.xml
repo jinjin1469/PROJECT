@@ -31,16 +31,41 @@
 		SELECT COUNT(*) FROM m_category WHERE classification='브랜드관'
 	</select>
 	
+	<select id="categorySeq" resultType="int" parameterType="category">
+		SELECT category_sort FROM m_category WHERE classification = #{classification} AND category_title=#{category_title}
+	</select>
+	
 	<insert id="categoryInsert" parameterType="Category">
 		INSERT INTO m_category
 		VALUES(m_category_seq.nextval,#{category_title},#{classification},#{category_sort})
 	</insert>
 	
+	<delete id="categoryDelete" parameterType="Category">
+		DELETE FROM m_category WHERE classification = #{classification} AND category_title=#{category_title}
+	</delete>
+	
 	<update id="categorySeqUpdate" parameterType="Category">
 		UPDATE m_category SET 
 		category_sort=#{category_sort}
-		WHERE category_title = #{category_title}
+		WHERE classification = #{classification} AND category_title = #{category_title}
 	</update>
+	<update id="productCategoryNameNull1" parameterType="Category">
+		UPDATE m_product SET 
+		category_1=NULL
+		WHERE category_1 = #{category_title}
+	</update>
+	<update id="productCategoryNameNull2" parameterType="Category">
+		UPDATE m_product SET 
+		category_2=NULL
+		WHERE category_2 = #{category_title}
+	</update>
+	<update id="deleteBysortNumUpdate" parameterType="hashMap">
+		UPDATE m_category SET 
+		category_sort=#{num}-1
+		WHERE classification = #{classification} AND category_sort = #{num} 
+	</update>
+	
+	
 	
 
 </mapper>
