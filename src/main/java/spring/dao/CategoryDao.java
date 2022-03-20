@@ -1,7 +1,9 @@
 package spring.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -40,12 +42,33 @@ public class CategoryDao {
 		return sqlSession.selectOne("mybatis.mapper.category.menuCount3");
 	}
 	
-	public void categoryInsert(Category insertDate) {
-		sqlSession.update("mybatis.mapper.category.categoryInsert",insertDate);
+	public int categorySeq(Category category) { 
+		return sqlSession.selectOne("mybatis.mapper.category.categorySeq",category);
 	}
 	
-	public void categorySeqUpdate(Category updateDate) { 
-		sqlSession.update("mybatis.mapper.category.categorySeqUpdate",updateDate);
+	public void categoryInsert(Category category) {
+		sqlSession.insert("mybatis.mapper.category.categoryInsert",category);
+	}
+	
+	public void categoryDelete(Category category) {
+		sqlSession.delete("mybatis.mapper.category.categoryDelete",category);
+	}
+	
+	public void categorySeqUpdate(Category category) { 
+		sqlSession.update("mybatis.mapper.category.categorySeqUpdate",category);
+	}
+	
+	public void productCategoryNameNull1(Category category) { 
+		sqlSession.update("mybatis.mapper.category.productCategoryNameNull1",category);
+	}
+	public void productCategoryNameNull2(Category category) { 
+		sqlSession.update("mybatis.mapper.category.productCategoryNameNull2",category);
+	}
+	public void deleteBysortNumUpdate(int num,String classification) { 
+		Map<String, Object> map = new HashMap<>();
+		map.put("num", num);
+		map.put("classification", classification);
+		sqlSession.update("mybatis.mapper.category.deleteBysortNumUpdate",map);
 	}
 	
 	public CategoryDao(SqlSession sqlSession) {

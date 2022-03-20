@@ -13,17 +13,16 @@
 
 </head>
 <body>
-<form:form id="CategoryAdd" commandName="Category" action="/category/categoryInsert" method="POST">
+<form:form id="CategoryDelete" commandName="Category" action="/category/categoryDelete" method="POST">
 		구분 : <select name="classification" class="choice">
 				<option class="delete">선택하세요</option>
 				<option value="테마별">테마별</option>
 				<option value="사이드디쉬">사이드디쉬</option>
 				<option value="브랜드관">브랜드관</option>
 			  </select><br>
-		카테고리명 <input type="text" name="category_title" id="show" style="display:none;"/><br>
 		<div id="edit">
 		 </div>
-		 <input type="button" id="checkBtn" value="등록" style="display:none;">
+		 <input type="button" id="checkBtn" value="삭제" style="display:none;">
 </form:form>
 
 
@@ -35,110 +34,97 @@ $(document).ready(function(){
 		let sel = $(this).val();
 		if(sel == "테마별"){
 			document.getElementById("checkBtn").style.display='block';
-			document.getElementById("show").style.display='block';
 			$('.delete').remove();
-			choiceNum = 1;
 			$('.op').remove();
-
+			
 			let edit = document.getElementById("edit");
 		    let p = document.createElement('p');
-			 	
-			let CategoryNum = document.createElement('input');
-			CategoryNum.setAttribute("type","hidden");
-			CategoryNum.setAttribute("name","category_sort");
-			CategoryNum.setAttribute("value","${menu1Count+1}");
-			CategoryNum.setAttribute("class","op");
-				 
-			p.appendChild(CategoryNum);
+		    
+			let span = document.createElement('span');
+		 	span.setAttribute("class","op");
+		 	span.innerHTML="카테고리명 : ";
+		 	
+		 	let CategoryName = document.createElement('select');
+		 	CategoryName.setAttribute("name","category_title");
+		 	CategoryName.setAttribute("class","op");
+			<c:forEach var="menu1" items="${menu1}" varStatus="n">
+				let opt${n.index} = document.createElement('option');
+				opt${n.index}.setAttribute("value","${menu1.category_title}");
+				opt${n.index}.innerHTML="${menu1.category_title}";
+				CategoryName.appendChild(opt${n.index});
+		 	</c:forEach>
+		 
+		 	p.appendChild(span);
+		 	p.appendChild(CategoryName);
 
 			edit.appendChild(p);
 		}else if(sel == "사이드디쉬"){
 			document.getElementById("checkBtn").style.display='block';
-			document.getElementById("show").style.display='block';
 			$('.delete').remove();
-			choiceNum = 2;
 			$('.op').remove();
-
+			
 			let edit = document.getElementById("edit");
-	       	let p = document.createElement('p');
-			 	
-			let CategoryNum = document.createElement('input');
-			CategoryNum.setAttribute("type","hidden");
-			CategoryNum.setAttribute("name","category_sort");
-			CategoryNum.setAttribute("value","${menu2Count+1}");
-			CategoryNum.setAttribute("class","op");
-				 
-			p.appendChild(CategoryNum);
+		    let p = document.createElement('p');
+		    
+			let span = document.createElement('span');
+		 	span.setAttribute("class","op");
+		 	span.innerHTML="카테고리명 : ";
+		 	
+		 	let CategoryName = document.createElement('select');
+		 	CategoryName.setAttribute("name","category_title");
+		 	CategoryName.setAttribute("class","op");
+			<c:forEach var="menu2" items="${menu2}" varStatus="n">
+				let opt${n.index} = document.createElement('option');
+				opt${n.index}.setAttribute("value","${menu2.category_title}");
+				opt${n.index}.innerHTML="${menu2.category_title}";
+				CategoryName.appendChild(opt${n.index});
+		 	</c:forEach>
+		 
+		 	p.appendChild(span);
+		 	p.appendChild(CategoryName);
 
 			edit.appendChild(p);
 		}else if(sel == "브랜드관"){
 			document.getElementById("checkBtn").style.display='block';
-			document.getElementById("show").style.display='block';
 			$('.delete').remove();
-			choiceNum = 3;
 			$('.op').remove();
-
+			
 			let edit = document.getElementById("edit");
 		    let p = document.createElement('p');
-			 	
-			let CategoryNum = document.createElement('input');
-			CategoryNum.setAttribute("type","hidden");
-			CategoryNum.setAttribute("name","category_sort");
-			CategoryNum.setAttribute("value","${menu3Count+1}");
-			CategoryNum.setAttribute("class","op");
-				 
-			p.appendChild(CategoryNum);
+		    
+			let span = document.createElement('span');
+		 	span.setAttribute("class","op");
+		 	span.innerHTML="카테고리명 : ";
+		 	
+		 	let CategoryName = document.createElement('select');
+		 	CategoryName.setAttribute("name","category_title");
+		 	CategoryName.setAttribute("class","op");
+			<c:forEach var="menu3" items="${menu3}" varStatus="n">
+				let opt${n.index} = document.createElement('option');
+				opt${n.index}.setAttribute("value","${menu3.category_title}");
+				opt${n.index}.innerHTML="${menu3.category_title}";
+				CategoryName.appendChild(opt${n.index});
+		 	</c:forEach>
+		 
+		 	p.appendChild(span);
+		 	p.appendChild(CategoryName);
 
 			edit.appendChild(p);
 		}
 	});
 	 $("#checkBtn").on("click",function(){
-		let titlecheck = document.getElementById("show").value;
-		let menu = new Array();
-		if(choiceNum==1){
-			menu = new Array();
-			<c:forEach var="menu1" items="${menu1}">
-				menu.push("${menu1.category_title}");
-			</c:forEach>
-            for(let i=0;i<menu.length;i++){
-               if(menu[i]==titlecheck){
-					check = 1;
-				}
-            }
-		} else if(choiceNum==2){
-			menu = new Array();
-			<c:forEach var="menu2" items="${menu2}">
-				menu.push("${menu2.category_title}");
-			</c:forEach>
-        	for(let i=0;i<menu.length;i++){
-           		if(menu[i]==titlecheck){
-					check = 1;
-				}
-        	}
-		}else if(choiceNum==3){
-			menu = new Array();
-			<c:forEach var="menu3" items="${menu3}">
-				menu.push("${menu3.category_title}");
-			</c:forEach>
-    		for(let i=0;i<menu.length;i++){
-       			if(menu[i]==titlecheck){
-					check = 1;
-				}
-    		}
-		}   
-		
-		if(check==0){
-			$("#CategoryAdd").submit();
-		}else{
-			alert("중복되지 않은 카테고리명을 쓰세요");
-			check=0;
-		} 
+		 let valueCheck = $("select[name=category_title]").val();
+		 let con = confirm("["+valueCheck+"] 삭제하시겠습니까?");
+		 if(con==true){
+			 $("#CategoryDelete").submit();
+		 }else{
+			 alert("취소");
+		 }
+
 	}); 
 
 });
 
-/* - JSTL에선 Javascript값을 받을 수 없다
-- Javascript에선 JSTL값을 받을 수 있다 */
 </script>
 
 </body>
