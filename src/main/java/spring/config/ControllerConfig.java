@@ -13,6 +13,8 @@ import spring.controller.MyPageController;
 import spring.controller.NoticeController;
 import spring.controller.PaymentController;
 import spring.controller.ProductController;
+import spring.controller.QnaController;
+import spring.controller.ReviewController;
 import spring.controller.ShoppingController;
 import spring.dao.CategoryDao;
 import spring.dao.MemberDao;
@@ -24,6 +26,8 @@ import spring.service.AuthService;
 import spring.service.FindService;
 import spring.service.ManageService;
 import spring.service.MemberRegisterService;
+import spring.service.QnaService;
+import spring.service.ReviewService;
 import spring.service.ShoppingService;
 
 
@@ -48,6 +52,10 @@ public class ControllerConfig {
 	private ProductDao pdao;
 	@Autowired
 	private CategoryDao cdao;
+	@Autowired
+	private ReviewService reviewService;
+	@Autowired
+	private QnaService qnaService;
 	
 
 	@Bean
@@ -131,7 +139,21 @@ public class ControllerConfig {
 		shoppingController.setShoppingService(shoppingService);
 		return shoppingController;
 	}
-
+	
+	
+	@Bean
+	public ReviewController reviewController() {
+		ReviewController reviewController = new ReviewController();
+		reviewController.setReviewService(reviewService);
+		return reviewController;
+	}
+	
+	@Bean
+	public QnaController qnaController() {
+		QnaController qnaController = new QnaController();
+		qnaController.setQnaService(qnaService);
+		return qnaController;
+	}
 }
 
 	

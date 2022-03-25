@@ -73,10 +73,13 @@ public class ProductController {
 		
 		Product product = dao.productSelect(num);
 		List<Option> productOption = dao.productOptionSelect(num);
+		//List<Qna> qnaList = dao.productNum(num);
 		
+		//model.addAttribute("Qna",qnaList);
 		model.addAttribute("Product", product);
 		model.addAttribute("ProductOption", productOption);
 		model.addAttribute("formData", new Cart()); 
+		model.addAttribute("cartData", new Cart());
 		
 		return "PRODUCT/productDetail";
 	}

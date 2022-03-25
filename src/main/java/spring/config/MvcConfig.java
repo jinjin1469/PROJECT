@@ -1,8 +1,10 @@
 package spring.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -46,7 +48,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 		registry.addViewController("/kakaologin").setViewName("main");
 		registry.addViewController("/mXember/findIdSuccess").setViewName("/member/findIdSuccess");
 		registry.addViewController("/admin/admin").setViewName("/admin/admin");
-		registry.addViewController("/PRODUCT/cart").setViewName("/PRODUCT/cart");
 		
 	}
 	
@@ -61,6 +62,14 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 	public CategoryIntercepter categoryIntercepter() {
 		return new CategoryIntercepter();
 	}
+	
+	@Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource ms = new ResourceBundleMessageSource();
+        ms.setBasenames("message.label");
+        ms.setDefaultEncoding("UTF-8");
+        return ms;
+    }
 
 	
 	@Autowired

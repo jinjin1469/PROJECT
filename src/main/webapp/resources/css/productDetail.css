@@ -28,6 +28,7 @@
 	float: left;
 	margin-left: 8rem;
 	marign-right: 10rem;
+	margin-top:1.5rem;
 }
 
 .Product_info {
@@ -39,7 +40,7 @@
 
 .Product {
 	width: 110rem;
-	height: 30rem;
+	height: 55rem;
 	margin: 0 auto;
 	margin-left: 50px;
 }
@@ -59,8 +60,7 @@
 }
 
 input[type="text"],[type="number"] {
-	width: 30px;
-	height: 30px;
+	width: 40px;
 	text-align: center;
 	border:none;
 	background-color: #F7F7F7;
@@ -72,16 +72,26 @@ input[type="text"],[type="number"] {
 	font-weight: bold;
 }
 
-table{
+.dev{
 	text-align:left;
 	width:400px;
-	margin:1rem;	
-	
+	margin:1rem;
+	border-top: none;
+	text-align: left;
 }
-th, td{
+
+.devt{
 text-align:left;
 font-size:13px;
 height:10px;
+background-color: white;
+text-align: left;
+}
+
+.devth{
+	width:20%;
+	background-color: white;
+	text-align: left;
 }
 
 
@@ -91,7 +101,8 @@ height:10px;
 .content_right dl dt{display:table-cell; vertical-align:top; width:20%; float:left;}
 .content_right dl dd{display:table-cell; vertical-align:top; width:80%; float:left;}
 
-.plus{float:left;  width:30px; height: 30px;}
+.plus{float:left;  height: 30px;}
+.plus1{float:left;  height: 30px; width:30px; margin-left: 0.5rem;}
 .minus{float:left;  width:30px; height: 30px;} 
 .qty{float:left; margin-left: 1rem; }
 .totalamount{text-align:right; margin-left: 1rem;}
@@ -123,6 +134,7 @@ text-align: left;
 
 }
 
+
 .mainmenu{
 	width:100%;
 	heigth:300px;
@@ -147,12 +159,181 @@ text-align: left;
 	margin-left: 1rem;
 	margin-top:0.5rem;
 }
-
-
+.arrow{cursor:pointer;}
+i{cursor:pointer;}
 .opt{margin-left: 1rem;}
 .opt_amount{font-size:13px; float:right; margin-right:-430px;}
 .opt2{font-size:15px; font-weight:bold;}
 .click{cursor:pointer;}
 .image{width:800px; height:1000px; margin-top:20rem;}
-.imagebox{margin-top:200px;}
+.imagebox{}
 hr{margin-left:1rem;}
+.opri{font-size:13px;}
+
+
+.nav {
+	display: flex;
+	flex-wrap: wrap;
+	padding-left: 0;
+	margin-bottom: 0;
+	list-style: none;
+	width:400px;
+	
+}
+
+.centered {
+           display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+nav-tabs>li {
+	float: none;	
+	display: inline-block;
+	zoom: 1;
+}
+
+.nav-tabs {
+	text-align: center;
+	width:900px;
+
+}
+
+.nav-link {
+	display: block;
+	padding: 0.5rem 1rem;
+	color: black;
+	text-decoration: none;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out;
+}
+
+@media ( prefers-reduced-motion : reduce) {
+	.nav-link {
+		transition: none;
+	}
+}
+
+.nav-link:hover, .nav-link:focus {
+	color: #0a58ca;
+
+}
+
+.nav-link.disabled {
+	color: #6c757d;
+	pointer-events: none;
+	cursor: default;
+}
+
+.nav-tabs {
+	border-bottom: 1px solid #dee2e6;
+	
+
+}
+
+.nav-tabs .nav-link {
+	margin-bottom: -1px;
+	background: none;
+	border: 1px solid transparent;
+	border-top-left-radius: 0.25rem;
+	border-top-right-radius: 0.25rem;
+	width:300px; 
+	float: left;
+	font-weight: bold;
+}
+
+.nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
+	border-color: #e9ecef #e9ecef #dee2e6;
+	isolation: isolate;
+
+}
+
+.nav-tabs .nav-link.disabled {
+	color: #6c757d;
+	background-color: transparent;
+	border-color: transparent;
+
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+	color: #495057;
+	background-color: #fff;
+	border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.nav-tabs .dropdown-menu {
+	margin-top: -1px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.nav-pills .nav-link {
+	background: none;
+	border: 0;
+	border-radius: 0.25rem;
+	background-color: #E0E4E0;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+	color: #fff;
+	background-color: #0d6efd;
+}
+
+.nav-fill>.nav-link, .nav-fill .nav-item {
+	flex: 1 1 auto;
+	text-align: center;
+}
+
+.nav-justified>.nav-link, .nav-justified .nav-item {
+	flex-basis: 0;
+	flex-grow: 1;
+	text-align: center;
+}
+
+.nav-fill .nav-item .nav-link, .nav-justified .nav-item .nav-link {
+	width: 100%;
+}
+
+.tab-content>.tab-pane {
+	display: none;
+}
+
+.tab-content>.active {
+	display: block;
+}
+
+.text-center{
+	margin-top: 2rem;
+	
+}
+
+table {
+	align-items: center;
+	margin: 0 auto;
+	text-align: center;
+	border-top: 1px solid #444444;
+	border-collapse: collapse;
+	width: 800px;
+	font-size: 13px;
+	text-align: left;
+}
+
+th, td {
+	border-bottom: 1px solid #444444;
+	padding: 10px;
+	text-align: left;
+}
+
+.th-1{width: 400px;}
+
+
+td {
+	width: 50%;
+}
+
+th {
+	background-color: #F5F5F5;
+}
+
+
+
