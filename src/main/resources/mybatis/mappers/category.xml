@@ -65,7 +65,5 @@
 		WHERE classification = #{classification} AND category_sort = #{num} 
 	</update>
 	
-	
-	
 
 </mapper>

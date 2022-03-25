@@ -19,8 +19,8 @@
 <form:form commandName="Category">
 		구분 : <select name="classification" class="choice">
 				<option class="delete">선택하세요</option>
-				<option value="category1">테마별&&사이드디쉬</option>
-				<option value="category2">브랜드관</option>
+				<option value="category_1">테마별&&사이드디쉬</option>
+				<option value="category_2">브랜드관</option>
 			  </select><br>
 		<div id="select">
 		 </div>
@@ -32,7 +32,7 @@ $(document).ready(function(){
 	
 	$('.choice').change(function(){
 		let sel = $(this).val();
-		if(sel == "category1"){
+		if(sel == "category_1"){
 			$('.delete').remove();
 			$('.op').remove();
 			$('.name').remove();
@@ -74,7 +74,7 @@ $(document).ready(function(){
 		 	p.appendChild(CategoryName);
 
 		 	select.appendChild(p);
-		}else if(sel == "category2"){
+		}else if(sel == "category_2"){
 			$('.delete').remove();
 			$('.op').remove();
 			$('.name').remove();
@@ -114,8 +114,10 @@ $(document).ready(function(){
 		}
 	});
 	$(document).on('change','.op',function(){
-		let classification = document.getElementsByClassName('.choice').value;
+		/* let classification = document.getElementsByClassName('.choice').value; */
+		let classification = $(".choice option:selected").val();
 		let category_title = $(this).val();
+		let obj = {'category_title':category_title,'classification':classification};
 		$('.delete2').remove();
 		
 		   $.ajax({ 
@@ -123,8 +125,9 @@ $(document).ready(function(){
 			 async:true,
 			 /* url:'/category/categoryCheck?category_title='+ category_title, */
 			 url:'/category/categoryCheck',
-			 data: {'category_title':category_title,'classification':classification},
+			 data: JSON.stringify(obj),
 			 contentType : "application/json; charset=UTF-8",
+			 dataType:"JSON",
 			 success : function(data) { 
 				 //alert(data.totalPrice);
 				 console.log(data);
