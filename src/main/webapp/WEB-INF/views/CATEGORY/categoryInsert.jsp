@@ -94,38 +94,7 @@ $(document).ready(function(){
 	});
 	 $("#checkBtn").on("click",function(){
 		let titlecheck = document.getElementById("show").value;
-		let menu = new Array();
-		if(choiceNum==1){
-			menu = new Array();
-			<c:forEach var="menu1" items="${menu1}">
-				menu.push("${menu1.category_title}");
-			</c:forEach>
-            for(let i=0;i<menu.length;i++){
-               if(menu[i]==titlecheck){
-					check = 1;
-				}
-            }
-		} else if(choiceNum==2){
-			menu = new Array();
-			<c:forEach var="menu2" items="${menu2}">
-				menu.push("${menu2.category_title}");
-			</c:forEach>
-        	for(let i=0;i<menu.length;i++){
-           		if(menu[i]==titlecheck){
-					check = 1;
-				}
-        	}
-		}else if(choiceNum==3){
-			menu = new Array();
-			<c:forEach var="menu3" items="${menu3}">
-				menu.push("${menu3.category_title}");
-			</c:forEach>
-    		for(let i=0;i<menu.length;i++){
-       			if(menu[i]==titlecheck){
-					check = 1;
-				}
-    		}
-		}   
+		check = sameCategoryCheck(titlecheck);
 		
 		if(check==0){
 			$("#CategoryAdd").submit();
@@ -139,6 +108,25 @@ $(document).ready(function(){
 
 /* - JSTL에선 Javascript값을 받을 수 없다
 - Javascript에선 JSTL값을 받을 수 있다 */
+function sameCategoryCheck(titlecheck) {
+	  let menu = new Array();
+	  let check = 0;
+	  <c:forEach var="menu1" items="${menu1}">
+		menu.push("${menu1.category_title}");
+	  </c:forEach>
+	  <c:forEach var="menu2" items="${menu2}">
+		menu.push("${menu2.category_title}");
+	  </c:forEach>
+	  <c:forEach var="menu3" items="${menu3}">
+		menu.push("${menu3.category_title}");
+	  </c:forEach>
+  	  for(let i=0;i<menu.length;i++){
+      	if(menu[i]==titlecheck){
+			check = 1;
+		}
+  	  }
+	  return check;
+}
 </script>
 
 </body>

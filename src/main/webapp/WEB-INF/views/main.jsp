@@ -23,13 +23,19 @@
 	<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
 	<div class="carousel-inner">
 	    <div class="carousel-item active">
-	      <img src="./resources/IMG/1.PNG" class="d-block w-100" alt="...">
+	      <img src="./resources/IMG/banner1.jpg" class="d-block w-100" alt="...">
 	    </div>
 	    <div class="carousel-item">
-	      <img src="./resources/IMG/2.PNG" class="d-block w-100" alt="...">
+	      <a href="https://fresheasy.co.kr/" style="padding:0px;"><img src="./resources/IMG/banner2.jpg" class="d-block w-100" alt="..."></a>
 	    </div>
 	    <div class="carousel-item">
-	      <img src="./resources/IMG/3.PNG" class="d-block w-100" alt="...">
+	      <img src="./resources/IMG/banner3.jpg" class="d-block w-100" alt="...">
+	    </div>
+	    <div class="carousel-item">
+	      <img src="./resources/IMG/banner4.jpg" class="d-block w-100" alt="...">
+	    </div>
+	    <div class="carousel-item">
+	      <img src="./resources/IMG/banner5.jpg" class="d-block w-100" alt="...">
 	    </div>
 	 </div>
 	 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">

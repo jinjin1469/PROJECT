@@ -50,7 +50,6 @@ public class ControllerConfig {
 	private CategoryDao cdao;
 	
 
-
 	@Bean
 	public MainController mainController() {
 		MainController mController = new MainController();

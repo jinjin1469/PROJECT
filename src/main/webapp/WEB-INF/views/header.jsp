@@ -29,6 +29,8 @@
 	       <li class="navheader"><a href="javascript:categoryAdd();">카테고리추가</a></li>
 	       <li class="navheader"><a href="javascript:categoryRemove();">카테고리삭제</a></li>
 	       <li class="navheader"><a href="javascript:categoryEdit();">카테고리순서변경</a></li>
+	       <li class="navheader"><a href="<c:url value='/category/productCategoryEdit1' />" >상품분류카테고리변경</a></li>
+	       <li class="navheader"><a href="javascript:categoryEdit();">브랜드관카테고리변경</a></li>
      	</ul>
      </c:when>
     

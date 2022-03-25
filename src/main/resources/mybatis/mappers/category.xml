@@ -41,13 +41,13 @@
 	</insert>
 	
 	<delete id="categoryDelete" parameterType="Category">
-		DELETE FROM m_category WHERE classification = #{classification} AND category_title=#{category_title}
+		DELETE FROM m_category WHERE category_title=#{category_title}
 	</delete>
 	
 	<update id="categorySeqUpdate" parameterType="Category">
 		UPDATE m_category SET 
 		category_sort=#{category_sort}
-		WHERE classification = #{classification} AND category_title = #{category_title}
+		WHERE category_title = #{category_title}
 	</update>
 	<update id="productCategoryNameNull1" parameterType="Category">
 		UPDATE m_product SET 

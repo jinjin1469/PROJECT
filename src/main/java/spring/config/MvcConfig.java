@@ -3,6 +3,7 @@ package spring.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -20,7 +21,7 @@ import spring.intercepter.CategoryIntercepter;
 @Configuration
 @EnableWebMvc   // annotation-driven
 public class MvcConfig extends WebMvcConfigurerAdapter{
-					//  WebMvcConfigurer 인터페이스가 구현
+					//  WebMvcConfigurer �씤�꽣�럹�씠�뒪媛� 援ы쁽
 
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
@@ -51,15 +52,16 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 	
 	
 	
-	@Bean   //사용할 인터셉터 빈
+	@Bean   //�궗�슜�븷 �씤�꽣�뀎�꽣 鍮�
 	public AuthCheckIntercepter authCheckIntercepter() {
 		return new AuthCheckIntercepter();
 	}
 
-	@Bean   //사용할 인터셉터 빈
+	@Bean   //�궗�슜�븷 �씤�꽣�뀎�꽣 鍮�
 	public CategoryIntercepter categoryIntercepter() {
 		return new CategoryIntercepter();
 	}
+
 	
 	@Autowired
 	private AuthCheckIntercepter authCheckIntercepter;
@@ -68,9 +70,20 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 	public void addInterceptors(InterceptorRegistry registry) {
 		//registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/edit/**");
 		
+
+		
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/");
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/category/categoryInsert");
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/category/categoryDelete");
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/category/categorySequence");
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/logout");
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/member/**");
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/mypage/**");
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/admin/**");
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/notice/**");
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/product/**");
 		
 		
-		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/**");
 
 	}
 	
