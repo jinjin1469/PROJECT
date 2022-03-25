@@ -24,8 +24,6 @@
      	<ul class="navheader">
 	       <li class="navheader"><a href="<c:url value='/member/login' />"  aria-current="page">로그인</a></li>
 	       <li class="navheader"><a href="<c:url value='/member/joinChoice' />" >회원가입</a></li>
-	       <li class="navheader"><a href="#">주문조회</a></li>
-	       <li class="navheader"><a href="#">장바구니</a></li>
 	       <li class="navheader"><a href="javascript:categoryAdd();">카테고리추가</a></li>
 	       <li class="navheader"><a href="javascript:categoryRemove();">카테고리삭제</a></li>
 	       <li class="navheader"><a href="javascript:categoryEdit();">카테고리순서변경</a></li>
@@ -48,7 +46,7 @@
 	       <li class="navheader"><a href="<c:url value='/logout' />"  aria-current="page">로그아웃</a></li>
 	       <li class="navheader"><a href="<c:url value='/mypage/mypage/${authInfo.member_number}' />" >마이페이지</a></li>
 	       <li class="navheader"><a href="#" >주문조회</a></li>
-	       <li class="navheader"><a href="#">장바구니</a></li>
+	        <li class="navheader"><a href="<c:url value='/product/cart/list.do' />">장바구니</a></li>
      </ul>
      
      

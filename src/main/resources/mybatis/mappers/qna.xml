@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="mybatis.mapper.qna">
+	
+	<resultMap type="qna" id="qnaVo">
+		<result column="product_number" property="product_number"/>
+		<result column="qna_number" property="qna_number"/>
+		<result column="qna_pwd" property="qna_pwd"/>
+		<result column="member_number" property="member_number"/>
+		<result column="qna_title" property="qna_title"/>
+		<result column="qna_content" property="qna_content"/>
+		<result column="qna_regdate" property="qna_regdate"/>
+		<result column="product_name" property="product_name"/>
+	</resultMap>
+	
+	
+	<select id="selectNumber" parameterType="long" resultType="String"> 
+		SELECT product_name from m_product where product_number = #{product_number}
+	</select>
+	 
+	 <insert id="insertQna" parameterType="qna">
+		INSERT INTO M_QNA
+		 VALUES(M_QNA_SEQ.NEXTVAL,#{product_number},#{qna_pwd},#{member_number},#{qna_title},#{qna_content},SYSDATE)
+	</insert>
+	
+	
+</mapper>

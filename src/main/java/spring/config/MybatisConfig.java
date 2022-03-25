@@ -24,6 +24,8 @@ import spring.dao.CategoryDao;
 import spring.dao.MemberDao;
 import spring.dao.NoticeDao;
 import spring.dao.ProductDao;
+import spring.dao.QnaDao;
+import spring.dao.ReviewDao;
 import spring.dao.ShoppingDao;
 
 @Configuration
@@ -110,6 +112,17 @@ public class MybatisConfig {
 	    @Bean
 	    public ShoppingDao sdao() throws Exception{
 	    	ShoppingDao dao = new ShoppingDao(sqlSession());
+	    	return dao;
+	    }
+	    @Bean
+	    public ReviewDao rdao() throws Exception{
+	    	ReviewDao dao = new ReviewDao(sqlSession());
+	    	return dao;
+	    }
+	    
+	    @Bean
+	    public QnaDao qdao() throws Exception{
+	    	QnaDao dao = new QnaDao(sqlSession());
 	    	return dao;
 	    }
 	  
