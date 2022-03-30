@@ -7,6 +7,7 @@ public class ProductCategoryEdit {
 	public ProductCategoryEdit(){}
 	private String classification;
 	private String category_title;
+	private String category_title_change;
 	private String category_1;
 	private String category_2;
 	private ArrayList<ProductCategoryEditList> category_editList;
@@ -39,6 +40,12 @@ public class ProductCategoryEdit {
 	}
 	public void setCategory_editList(ArrayList<ProductCategoryEditList> category_editList) {
 		this.category_editList = category_editList;
+	}
+	public String getCategory_title_change() {
+		return category_title_change;
+	}
+	public void setCategory_title_change(String category_title_change) {
+		this.category_title_change = category_title_change;
 	}
 	
 	

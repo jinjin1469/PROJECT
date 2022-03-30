@@ -1,5 +1,6 @@
 package spring.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -124,8 +125,8 @@ public class CategoryController {
 		return "CATEGORY/categoryClose";
 	}
 
-	@RequestMapping(value = "/productCategoryEdit1", method = RequestMethod.GET)
-	public String productCategoryEdit1G(Model model) {
+	@RequestMapping(value = "/productCategoryEdit", method = RequestMethod.GET)
+	public String productCategoryEditG(Model model) {
 
 		List<Category> menu1 = dao.menu1();
 		List<Category> menu2 = dao.menu2();
@@ -148,38 +149,42 @@ public class CategoryController {
 	public Map<String,Object> testaa(@RequestBody Map<String,String> param,Model model){ 
 		  
 		  Map<String,Object> list = new HashMap<String,Object>();
-		
+		  List<ProductCategoryEditList> productList = new ArrayList<ProductCategoryEditList>();
 		  String category_title = String.valueOf(param.get("category_title"));
 		  String classification = String.valueOf(param.get("classification"));
 		  System.out.println(category_title+"1");
 		  System.out.println(classification+"2");
 		  ProductCategoryEdit input = new ProductCategoryEdit();
+		  input.setCategory_title(category_title);
 		  
 		  if(category_title.equals("NULL")) {
 			  if(classification.equals("category_1")) {
 				  input.setCategory_1(classification);
 			  }else if(classification.equals("category_2")) {
 				  input.setCategory_2(classification);
-				  System.out.println(input.getCategory_1()+"get1");
-				  System.out.println(input.getCategory_2()+"get2");
 			  }
-			  List<ProductCategoryEditList> productList = dao.nullCategorySelect(input);
+			  productList = dao.nullCategorySelect(input);
 		  }else{
 			  if(classification.equals("category_1")) {
 				  input.setCategory_1(classification);
 			  }else if(classification.equals("category_2")) {
 				  input.setCategory_2(classification);
 			  }
-			  List<ProductCategoryEditList> productList = dao.categorySelect(input);
+			  productList = dao.categorySelect(input);
 		  }
-		  
-
 		  
 		  list.put("category_title",category_title);
 		  list.put("classification",classification);
-		  list.put("3",4);
-		  System.out.println("gg");
+		  list.put("productList",productList);
+
 	  return list; 
 	  }
+	@RequestMapping(value = "/productCategoryEdit", method = RequestMethod.POST)
+	public String productCategoryEditP(ProductCategoryEdit editList,Model model) {
+
+		
+
+		return "redirect:/";
+	}
 	 
 }

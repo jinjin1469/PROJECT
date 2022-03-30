@@ -51,22 +51,15 @@ bottom-margin:0.5rem;
 	</div>
 	<div class="col-md-10">
 	    <h3>자주 묻는 질문</h3>
-	
-		  <div class="container-fluid">
-		    <form class="d-flex" action="/notice/main" method="post">
-		      <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search" name="Search">
-		      <button class="btn btn-outline-success" type="submit">Search</button>
-		    </form>
-		  </div>
-	
+
 		<div class="accordion accordion-flush" id="accordionFlushExample">
 	  		<div class="accordion-item">
-			    <h2 class="accordion-header" id="flush-headingTwo">
-			      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+			    <h2 class="accordion-header" id="flush-headingOne">
+			      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
 			        적립금/이벤트 적립금은 어떻게 적용하나요?
 			      </button>
 	    		</h2>
-	    		<div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+	    		<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
 	      			<div class="accordion-body">
 					주문시 적립금 사용을 통해 일정부분 할인받을 수 있습니다.
 					

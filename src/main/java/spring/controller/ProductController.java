@@ -80,6 +80,7 @@ public class ProductController {
 		model.addAttribute("ProductOption", productOption);
 		model.addAttribute("formData", new Cart()); 
 		model.addAttribute("cartData", new Cart());
+		System.out.println("ckck");
 		
 		return "PRODUCT/productDetail";
 	}
@@ -167,9 +168,7 @@ public class ProductController {
 				File saveFile = new File(uploadPath, uploadFileName);
 				
 				try {
-					System.out.println("���ε�check1");
 					multipartFile.transferTo(saveFile);
-					System.out.println("���ε�check2");
 					
 				}catch(Exception e) {
 					e.printStackTrace();
@@ -177,13 +176,10 @@ public class ProductController {
 			}else {
 				if(number==0) {
 					product.setProduct_m_image(productIMG.getProduct_m_image());
-					System.out.println("check1");
 				}else if(number==1) {
 					product.setProduct_d_image(productIMG.getProduct_d_image());
-					System.out.println("check2");
 				}else if(number==2) {
 					product.setProduct_i_image(productIMG.getProduct_i_image());
-					System.out.println("check3");
 				}
 			}
 			number++;
@@ -196,18 +192,18 @@ public class ProductController {
 		
 		if(pic.getProduct_Option()!=null) {
 			for (Option option : pic.getProduct_Option()) {
-				if(option.getDelete_check()==1) { // ���� ���� �� �����ϸ� ����� ���� update�� ��������
-					System.out.println(roop+"����");
+				if(option.getDelete_check()==1) { // 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占싹몌옙 占쏙옙占쏙옙占� 占쏙옙占쏙옙 update占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙
+					System.out.println(roop+"占쏙옙占쏙옙");
 					option.setOption_Join_Number(join_number);				
 					dao.optionDelete(option);	
 				}else if(roop>50) { 
 					if(option.getOption_Name()!=null) {
-						System.out.println(roop+"�߰�");
+						System.out.println(roop+"占쌩곤옙");
 						option.setOption_Join_Number(join_number);
 						dao.insertOption(option);
 					}
 				}else if(option.getOption_Name()!=null){
-					System.out.println(roop+"����");
+					System.out.println(roop+"占쏙옙占쏙옙");
 					dao.updateOption(option);
 				}
 					

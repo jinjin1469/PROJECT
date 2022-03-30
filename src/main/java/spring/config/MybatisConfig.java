@@ -23,6 +23,7 @@ import com.mchange.v2.c3p0.DriverManagerDataSource;
 import spring.dao.CategoryDao;
 import spring.dao.MemberDao;
 import spring.dao.NoticeDao;
+import spring.dao.OrderDao;
 import spring.dao.ProductDao;
 import spring.dao.QnaDao;
 import spring.dao.ReviewDao;
@@ -123,6 +124,12 @@ public class MybatisConfig {
 	    @Bean
 	    public QnaDao qdao() throws Exception{
 	    	QnaDao dao = new QnaDao(sqlSession());
+	    	return dao;
+	    }
+	    
+	    @Bean
+	    public OrderDao odao() throws Exception{
+	    	OrderDao dao = new OrderDao(sqlSession());
 	    	return dao;
 	    }
 	  

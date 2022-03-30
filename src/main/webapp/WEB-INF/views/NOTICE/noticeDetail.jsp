@@ -37,14 +37,6 @@
   </div>
   <div class="col-md-10">
     <h3>공지사항</h3>
- <nav class="nav navbar navbar-light">
-  <div class="container-fluid">
-    <form class="d-flex">
-      <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
 
 <c:if test="${!empty Notice}">
 		<table border=1>

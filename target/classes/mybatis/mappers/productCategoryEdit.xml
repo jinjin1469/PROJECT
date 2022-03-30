@@ -16,6 +16,12 @@
 		<if test="category_2 != null"> category_2 is null</if>
 		AND delete_check=0
 	</select>
+	<select id="categorySelect" resultMap="pcelVo" parameterType="ProductCategoryEdit">
+		SELECT product_number,product_name FROM m_product 
+		WHERE <if test="category_1 != null"> category_1 = #{category_title}</if> 
+		<if test="category_2 != null"> category_2 = #{category_title}</if>
+		AND delete_check=0
+	</select>
 	
 
 </mapper>

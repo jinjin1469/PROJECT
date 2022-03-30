@@ -11,6 +11,7 @@ import spring.controller.MemberFindController;
 import spring.controller.MemberRegisterController;
 import spring.controller.MyPageController;
 import spring.controller.NoticeController;
+import spring.controller.OrderController;
 import spring.controller.PaymentController;
 import spring.controller.ProductController;
 import spring.controller.QnaController;
@@ -19,6 +20,7 @@ import spring.controller.ShoppingController;
 import spring.dao.CategoryDao;
 import spring.dao.MemberDao;
 import spring.dao.NoticeDao;
+import spring.dao.OrderDao;
 import spring.dao.ProductDao;
 import spring.intercepter.AuthCheckIntercepter;
 import spring.intercepter.CategoryIntercepter;
@@ -52,6 +54,8 @@ public class ControllerConfig {
 	private ProductDao pdao;
 	@Autowired
 	private CategoryDao cdao;
+	@Autowired
+	private OrderDao odao;
 	@Autowired
 	private ReviewService reviewService;
 	@Autowired
@@ -117,7 +121,7 @@ public class ControllerConfig {
 	@Bean
 	public PaymentController paymentController() {
 		PaymentController payController = new PaymentController();
-
+		payController.setDao(odao);
 		return payController;
 	}
 	
@@ -153,6 +157,13 @@ public class ControllerConfig {
 		QnaController qnaController = new QnaController();
 		qnaController.setQnaService(qnaService);
 		return qnaController;
+	}
+	
+	@Bean
+	public OrderController orderController() {
+		OrderController orderController = new OrderController();
+		orderController.setDao(odao);
+		return orderController;
 	}
 }
 

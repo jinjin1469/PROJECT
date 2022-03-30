@@ -2,7 +2,10 @@ package spring.controller;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,8 +22,18 @@ import com.siot.IamportRestClient.request.CancelData;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 
+import spring.dao.OrderDao;
+import spring.vo.AuthInfo;
+import spring.vo.Option;
+import spring.vo.OrderSub;
+
 @Controller
 public class PaymentController {
+	private OrderDao dao;
+
+	public void setDao(OrderDao dao) {
+		this.dao = dao;
+	}
 	
 	private IamportClient api;
 	
@@ -34,23 +47,55 @@ public class PaymentController {
 			Model model
 			,Locale locale
 			,HttpSession session
-			,@PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException{
+			,@PathVariable(value= "imp_uid") String imp_uid,@RequestBody Map<String,String> param) throws IamportResponseException, IOException{
+			
+		long totalPrice = 0;
+		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+		long member_number = authinfo.getMember_number();
+		List<OrderSub> output = dao.productList(member_number);
+		ArrayList<OrderSub> setdata = new ArrayList<OrderSub>();
+		if(output!=null) {
+			for(OrderSub p : output) {
+				setdata.add(p);
+				totalPrice += p.getProduct_price()*p.getProduct_count();
+			}
+		}
+		for(int i=0; i<setdata.size();i++) {
+			List<Option> optionOutput = dao.optionList(setdata.get(i).getCartoption_number());
+			if(optionOutput!=null) {
+				for(Option p : optionOutput) {
+					totalPrice += p.getOption_Price()*p.getPayment_option_count();
+				}
+			}
+		}
+		if(totalPrice<30000) {
+			totalPrice += 3000;
+		}
+		long membershipPoint = dao.membershipPoint(member_number);
 		
-	
-			int DB_OrderTotalPrice = 300;
-			BigDecimal pay = new BigDecimal(DB_OrderTotalPrice);
-			
-			IamportResponse<Payment> responsePrice = api.paymentByImpUid(imp_uid);
-			
-			CancelData cancel = new CancelData(imp_uid,true);
+		long point = Long.parseLong(param.get("point"));
+		System.out.println(point);
+		if(point!=0) {
+			totalPrice -= point;
+		}
 
-			if(!pay.equals(responsePrice.getResponse().getAmount())) {
+		int DB_OrderTotalPrice = (int)totalPrice;
+		BigDecimal pay = new BigDecimal(DB_OrderTotalPrice);
+			
+		IamportResponse<Payment> responsePrice = api.paymentByImpUid(imp_uid);
+			
+		CancelData cancel = new CancelData(imp_uid,true);
+		if(point!=0&&membershipPoint!=0) {
+			if(membershipPoint<point) {
 				api.cancelPaymentByImpUid(cancel);
 			}
-			if(pay.equals(responsePrice.getResponse().getAmount())) {
-				// DB insert부분
-			}
-			return responsePrice;
+		}
+		
+		if(!pay.equals(responsePrice.getResponse().getAmount())) {
+			api.cancelPaymentByImpUid(cancel);
+		}
+		System.out.println("여기까지");
+		return responsePrice;
 	}
 			
 }

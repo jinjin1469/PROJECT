@@ -9,6 +9,7 @@ public class Option {
 	private int option_Count;	
 	private int option_salcount;
 	private int delete_check;
+	private int payment_option_count;
 	
 	
 	public Option() {}
@@ -69,6 +70,12 @@ public class Option {
 	}
 	public void setOption_Count(int option_Count) {
 		this.option_Count = option_Count;
+	}
+	public int getPayment_option_count() {
+		return payment_option_count;
+	}
+	public void setPayment_option_count(int payment_option_count) {
+		this.payment_option_count = payment_option_count;
 	}
 	@Override
 	public String toString() {
