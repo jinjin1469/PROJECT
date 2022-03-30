@@ -9,7 +9,6 @@
 <head>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <meta charset="UTF-8">
 <title>밀슐랭</title>
@@ -77,37 +76,7 @@
 </div>
 	<button onclick="payment()" type="button">결제 테스트</button>
 <script>
-IMP.init('imp43122025');
-let pay = 100;
-function payment(){
-	IMP.request_pay({
-	    pg : 'html5_inicis',
-	    pay_method : 'card',
-	    merchant_uid : 'merchant_' + new Date().getTime(),
-	    name : '주문명:결제테스트',
-	    amount : ${totalPrice},
-	    buyer_email : 'iamport@siot.do',
-	    buyer_name : '구매자이름',
-	    buyer_tel : '010-1234-5678',
-	    buyer_addr : '서울특별시 강남구 삼성동',
-	    buyer_postcode : '123-456'
-	}, function(rsp) {
 
-            console.log(rsp);
-            $.ajax({
-            	type : "POST",
-            	url : "/verifyIamport/" + rsp.imp_uid
-            }).done(function(data) {
-            	console.log(data);
-            	
-            	if(rsp.paid_amount == data.response.amount&&data.response.amount == ${totalPrice}){
-            		alert("결제 성공");
-            	}else if(rsp.paid_amount != data.response.amount||data.response.amount != ${totalPrice}){
-            		alert("결제 취소");
-            	}
-           
-            });
-	});
 	
     /* if ( rsp.success ) {
 	

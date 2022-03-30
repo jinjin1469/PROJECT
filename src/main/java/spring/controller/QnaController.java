@@ -28,7 +28,7 @@ import spring.vo.RegisterRequest;
 
 @Controller
 public class QnaController {
-	
+
 	@Autowired
 	QnaDao dao;
 
@@ -38,37 +38,37 @@ public class QnaController {
 	public void setQnaService(QnaService qnaService) {
 		this.qnaService = qnaService;
 	}
-	
-	
 
-	//qna 글 작성 페이지로 이동
-	@RequestMapping(value="/product/qna",method=RequestMethod.GET)
-		public String myPage(@RequestParam("product_number") long product_number, Model model, HttpSession session, HttpServletRequest request){
-		 	
-		String product_name = qnaService.selectByNumber(product_number);
-		System.out.println("product_name" + product_name);
-		
-		model.addAttribute("qna", new Qna());
-		model.addAttribute("product_number", product_number);
-		model.addAttribute("product_name", product_name);
-			return "PRODUCT/qna";
-					
-					
-		}
 	
-	//qna 글작성
-	@RequestMapping(value="/product/qnainsert", method=RequestMethod.POST)
+	 //qna 湲� �옉�꽦 �럹�씠吏�濡� �씠�룞
+	 
+	 @RequestMapping(value="/product/qna",method=RequestMethod.GET) 
+	 public String myPage(@RequestParam("product_number") long product_number, Model model, HttpSession session, HttpServletRequest request){
+	 
+	 String product_name = qnaService.selectByNumber(product_number);
+	 System.out.println("product_name" + product_name);
+	 
+	 model.addAttribute("qna", new Qna()); 
+	 model.addAttribute("product_number", product_number); 
+	 model.addAttribute("product_name", product_name); 
+	 return "PRODUCT/qna";
+	 
+	 
+	 }
+	 
+	 //qna 湲��옉�꽦
+	 
+	 @RequestMapping(value="/product/qnainsert", method=RequestMethod.POST) 
 	 public String qnaRegister(Model model, Qna qna ,Errors errors,HttpServletResponse response, HttpSession session) {
-		
-		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
-		long member_number = authinfo.getMember_number();
-		qna.setMember_number(member_number);
-		
-		qnaService.insert(qna);
-	
-		return "/";
-	}
-	
+	 
+	 AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo"); 
+	 long member_number = authinfo.getMember_number();
+	 qna.setMember_number(member_number);
+	 
+	 qnaService.insert(qna);
+	 
+	 return "/"; 
+	 }
+	 
 
-	
 }

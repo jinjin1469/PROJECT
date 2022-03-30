@@ -63,13 +63,15 @@ th, td {
   </div>
   <div class="col-md-10">
     <h3>공지사항</h3>
-
-  <div class="container-fluid">
-    <form class="d-flex" action="/notice/main" method="post">
-      <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search" name="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-  </div>
+	<div class="row">
+		<div class="col-md-8"></div>
+		<div class="col-md-4">
+	    <form class="d-flex" action="/notice/main" method="post">
+	      <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search" name="Search">
+	      <button class="btn btn-outline-success" type="submit">Search</button>
+	    </form>
+		</div>
+	</div>
 
 
 

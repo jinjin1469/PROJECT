@@ -70,7 +70,7 @@ public class ProductDao {
 	}
 	
 	public void optionDelete(Option option) { 
-		sqlSession.update("mybatis.mapper.option.optionDelete",option);
+		sqlSession.delete("mybatis.mapper.option.optionDelete",option);
 	}
 	
 	public ProductDao(SqlSession sqlSession) {

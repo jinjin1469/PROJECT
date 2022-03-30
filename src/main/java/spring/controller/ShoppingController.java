@@ -29,6 +29,7 @@ import spring.vo.Cart;
 import spring.vo.CartOption;
 import spring.vo.Member;
 import spring.vo.Option;
+import spring.vo.Order;
 import spring.vo.Product;
 import spring.vo.ProductCommand;
 import spring.vo.RegisterRequest;
@@ -49,27 +50,27 @@ public class ShoppingController {
 	}
 
 	
-	//장바구니 상품 저장
+	//�옣諛붽뎄�땲 �긽�뭹 ���옣
 	@RequestMapping(value = "/product/detail/addCart", method = RequestMethod.POST)
 	public String insert(Cart cart, HttpSession session, HttpServletRequest request) {
 
-		// 현재로그인된 정보알아오기
+		// �쁽�옱濡쒓렇�씤�맂 �젙蹂댁븣�븘�삤湲�
 
 		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
 		long member_number = authinfo.getMember_number();
 		ArrayList<CartOption> option = new ArrayList<CartOption>();
 
-		// 로그인 여부를 체크하기 위해 세션에 저장된 아이디 확인
+		// 濡쒓렇�씤 �뿬遺�瑜� 泥댄겕�븯湲� �쐞�빐 �꽭�뀡�뿉 ���옣�맂 �븘�씠�뵒 �솗�씤
 
 		if (member_number == 0) {
 			return "redirect:/member/login";
 		}
 		cart.setMember_number(member_number);
-		shoppingService.insert(cart); // 장바구니 테이블에 저장됨
+		shoppingService.insert(cart); // �옣諛붽뎄�땲 �뀒�씠釉붿뿉 ���옣�맖
 		
 		
 		long cartoption_number = dao.selectCartNumber()-1;
-		System.out.println("카트옵션값" + cartoption_number);
+		System.out.println("移댄듃�샃�뀡媛�" + cartoption_number);
 
 		if(cart.getOptionList()!=null) {
 			for(CartOption cartOption : cart.getOptionList()) {
@@ -79,12 +80,12 @@ public class ShoppingController {
 		}
 		  
 
-		return "redirect:/product/cart/list.do"; // 장바구니 목록으로 이동
+		return "redirect:/product/cart/list.do"; // �옣諛붽뎄�땲 紐⑸줉�쑝濡� �씠�룞
 	}
 
-	// 장바구니 연결
+	// �옣諛붽뎄�땲 �뿰寃�
 	@RequestMapping("/product/cart/list.do")
-	public ModelAndView list(HttpSession session, ModelAndView mav, Cart cart) {
+	public ModelAndView list(HttpSession session, ModelAndView mav, Cart cart, Model model) {
 
 		Map<String, Object> map = new HashMap<>();
 		
@@ -94,28 +95,30 @@ public class ShoppingController {
 		if (member_number != 0) {
 
 			
-			List<Cart> list = shoppingService.listCart(member_number);// 장바구니 목록
+			List<Cart> list = shoppingService.listCart(member_number);// �옣諛붽뎄�땲 紐⑸줉
 		//	                  list.getCartoption_number();
 		//	int sumMenuOption = shoppingService.sumMenuOption()
-			int sumMoney = shoppingService.sumMoney(member_number);// 금액 합계
-			int fee = sumMoney >= 30000 ? 0 : 3000; // 배송료 계산 30000원이 넘으면 배송료가 0원, 안넘으면 3000원
+			int sumMoney = shoppingService.sumMoney(member_number);// 湲덉븸 �빀怨�
+			int fee = sumMoney >= 30000 ? 0 : 3000; // 諛곗넚猷� 怨꾩궛 30000�썝�씠 �꽆�쑝硫� 諛곗넚猷뚭� 0�썝, �븞�꽆�쑝硫� 3000�썝
 
-			// hasp map에 값들을 저장
+			// hasp map�뿉 媛믩뱾�쓣 ���옣
 			map.put("sumMoney", sumMoney);
-			map.put("fee", fee); // 배송료
-			map.put("sum", sumMoney + fee); // 전체 금액
-			map.put("list", list); // 장바구니 목록
-			map.put("count", list.size()); // 레코드 갯수
+			map.put("fee", fee); // 諛곗넚猷�
+			map.put("sum", sumMoney + fee); // �쟾泥� 湲덉븸
+			map.put("list", list); // �옣諛붽뎄�땲 紐⑸줉
+			map.put("count", list.size()); // �젅肄붾뱶 媛��닔
 
-			mav.setViewName("PRODUCT/cart"); // 이동할 페이지의 이름
-			mav.addObject("map", map); // 데이터 저장
+			mav.setViewName("PRODUCT/cart"); // �씠�룞�븷 �럹�씠吏��쓽 �씠由�
+			mav.addObject("map", map); // �뜲�씠�꽣 ���옣
 			mav.addObject("aa" , 100);
 			
-			
+			long waitingPayment = shoppingService.waitingPayment(member_number);
+			model.addAttribute("waitingPayment", waitingPayment);
+			model.addAttribute("Order", new Order());
 
-			return mav; // 화면 이동
+			return mav; // �솕硫� �씠�룞
 
-		} else { // 로그인하지 않은 상태
+		} else { // 濡쒓렇�씤�븯吏� �븡�� �긽�깭
 
 			return new ModelAndView("member/login", "", null);
 
@@ -123,7 +126,7 @@ public class ShoppingController {
 	
 	}
 	
-	//장바구니 상품 삭제
+	//�옣諛붽뎄�땲 �긽�뭹 �궘�젣
 	@RequestMapping("/product/delete")
 	public String deleteCart(@RequestParam("cart_number") long cart_number, HttpSession session, ModelAndView mav, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html;charset=utf-8");
@@ -132,7 +135,7 @@ public class ShoppingController {
 		
 		shoppingService.delete(cart_number);
 		/*
-		 * out.println("<script>"); out.println("alert('상품이 삭제 되었습니다.');");
+		 * out.println("<script>"); out.println("alert('�긽�뭹�씠 �궘�젣 �릺�뿀�뒿�땲�떎.');");
 		 * out.println("</script>"); out.close();
 		 */
 		
@@ -141,7 +144,7 @@ public class ShoppingController {
 		
 	}
 
-	//옵션 정보 불러오기
+	//�샃�뀡 �젙蹂� 遺덈윭�삤湲�
 	@RequestMapping("/product/cartoption")
 		public String optionlist(@RequestParam("cartoption_number") long cartoption_number, Model model, HttpSession session, ModelAndView mav) {
 			
@@ -151,7 +154,7 @@ public class ShoppingController {
 			if (member_number != 0) {
 
 				
-				List<Cart> list1 = dao.listOptionCart(cartoption_number);// 장바구니 목록
+				List<Cart> list1 = dao.listOptionCart(cartoption_number);// �옣諛붽뎄�땲 紐⑸줉
 				
 
 				ArrayList<Cart> cartOption = new ArrayList<Cart>();
@@ -161,7 +164,7 @@ public class ShoppingController {
 						cartOption.add(c);
 					}
 				}
-				map.put("count", list1.size()); // 레코드 갯수
+				map.put("count", list1.size()); // �젅肄붾뱶 媛��닔
 				
 				model.addAttribute("Cart", new Cart());
 				model.addAttribute("cartOption",cartOption);
@@ -169,7 +172,7 @@ public class ShoppingController {
 				
 				return "PRODUCT/cartoption"; 
 
-			} else { // 로그인하지 않은 상태
+			} else { // 濡쒓렇�씤�븯吏� �븡�� �긽�깭
 
 				return "member/login";
 
@@ -177,10 +180,10 @@ public class ShoppingController {
 
 		}
 	
-	// 옵션수정
+	// �샃�뀡�닔�젙
 	@RequestMapping("/product/cartoption/modifyOption")
 	public String modifyOption(Model model, Cart cart, HttpSession session, ModelAndView mav, HttpServletResponse response) throws IOException {
-		// 현재로그인된 정보알아오기
+		// �쁽�옱濡쒓렇�씤�맂 �젙蹂댁븣�븘�삤湲�
 				response.setContentType("text/html;charset=utf-8");
 				PrintWriter out = response.getWriter();
 			
@@ -188,7 +191,7 @@ public class ShoppingController {
 				long member_number = authinfo.getMember_number();
 				ArrayList<CartOption> option = new ArrayList<CartOption>();
 
-				// 로그인 여부를 체크하기 위해 세션에 저장된 아이디 확인
+				// 濡쒓렇�씤 �뿬遺�瑜� 泥댄겕�븯湲� �쐞�빐 �꽭�뀡�뿉 ���옣�맂 �븘�씠�뵒 �솗�씤
 
 				if (member_number == 0) {
 					return "redirect:/member/login";
@@ -199,7 +202,7 @@ public class ShoppingController {
 					  dao.updateOption(cartOption);
 					}
 					out.println("<script>");
-					out.println("alert('수량이 변경되었습니다.');");
+					out.println("alert('�닔�웾�씠 蹂�寃쎈릺�뿀�뒿�땲�떎.');");
 					out.println("history.go(-1);");
 					out.println("</script>");
 					out.close();
@@ -210,7 +213,7 @@ public class ShoppingController {
 
 	}
 	
-	//상품 삭제
+	//�긽�뭹 �궘�젣
 	
 	
 	

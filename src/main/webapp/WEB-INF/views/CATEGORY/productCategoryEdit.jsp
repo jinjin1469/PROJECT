@@ -114,7 +114,6 @@ $(document).ready(function(){
 		}
 	});
 	$(document).on('change','.op',function(){
-		/* let classification = document.getElementsByClassName('.choice').value; */
 		let classification = $(".choice option:selected").val();
 		let category_title = $(this).val();
 		let obj = {'category_title':category_title,'classification':classification};
@@ -129,9 +128,89 @@ $(document).ready(function(){
 			 contentType : "application/json; charset=UTF-8",
 			 dataType:"JSON",
 			 success : function(data) { 
-				 //alert(data.totalPrice);
-				 console.log(data);
-				 console.log("success!!");
+				if(data.productList[0]==undefined){
+					alert("해당 카테고리의 상품은 없습니다.");
+				}else{
+					
+					let edit = document.getElementById("edit");
+					
+					let form = document.createElement('form');
+					form.setAttribute("charset","UTF-8");
+					form.setAttribute("method","POST");
+					form.setAttribute("action","/category/productCategoryEdit");
+					form.setAttribute("commandName","ProductCategoryEdit");
+					
+					let category_title = document.createElement('input');
+					category_title.setAttribute("type","hidden");
+					category_title.setAttribute("name","category_title");
+					category_title.setAttribute("value",data.category_title);
+					
+					let span = document.createElement('span');
+				 	span.setAttribute("class","name");
+				 	span.innerHTML="변경할 카테고리명 : ";
+					
+					let category_title_change = document.createElement('select');
+					category_title.setAttribute("name","category_title_change");
+					
+					let classification = $(".choice option:selected").val();
+					
+					let opt = document.createElement('option');
+				 	opt.setAttribute("class","delete2");
+				 	opt.innerHTML="선택하세요";
+				 	category_title_change.appendChild(opt);
+				 	
+				 	let optN = document.createElement('option');
+					optN.setAttribute("value","NULL");
+					optN.innerHTML="NULL";
+					category_title_change.appendChild(optN);
+					if(classification=="category_1"){
+						<c:forEach var="menu1" items="${menu1}" varStatus="n">
+							let optT${n.index} = document.createElement('option');
+							optT${n.index}.setAttribute("value","${menu1.category_title}");
+							optT${n.index}.innerHTML="${menu1.category_title}";
+							category_title_change.appendChild(optT${n.index});
+				 		</c:forEach>
+				 		<c:forEach var="menu2" items="${menu2}" varStatus="n">
+							let optS${n.index} = document.createElement('option');
+							optS${n.index}.setAttribute("value","${menu2.category_title}");
+							optS${n.index}.innerHTML="${menu2.category_title}";
+							category_title_change.appendChild(optS${n.index});
+			 			</c:forEach>
+					}else if(classification=="category_2"){
+						<c:forEach var="menu3" items="${menu3}" varStatus="n">
+							let opt${n.index} = document.createElement('option');
+							opt${n.index}.setAttribute("value","${menu3.category_title}");
+							opt${n.index}.innerHTML="${menu3.category_title}";
+							category_title_change.appendChild(opt${n.index});
+				 		</c:forEach>
+					}
+					
+					form.appendChild(category_title);
+				 	form.appendChild(span);
+				 	form.appendChild(category_title_change);
+				 	
+					for(let key in data.productList){
+						let checkbox = document.createElement('input');
+						checkbox.setAttribute("type","checkbox");
+						checkbox.setAttribute("name","category_editList["+key+"].edit_check");
+						checkbox.setAttribute("value","1");
+						
+						let product_number = document.createElement('input');
+						product_number.setAttribute("type","hidden");
+						product_number.setAttribute("name","category_editList["+key+"].edit_check");
+						product_number.setAttribute("value",data.productList[key].product_number);
+						
+						let product_name = document.createElement('span');
+						product_name.innerHTML=data.productList[key].product_name;
+						
+						form.appendChild(checkbox);
+						form.appendChild(product_number);
+						form.appendChild(product_name);
+					}
+
+				 	edit.appendChild(form);
+					
+				}
 			},error:function(){
 				console.log("Error!!..");	
 			}
