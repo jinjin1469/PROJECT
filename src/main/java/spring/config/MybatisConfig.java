@@ -20,6 +20,7 @@ import org.springframework.core.io.ClassPathResource;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.mchange.v2.c3p0.DriverManagerDataSource;
 
+import spring.dao.AdminDao;
 import spring.dao.CategoryDao;
 import spring.dao.MemberDao;
 import spring.dao.NoticeDao;
@@ -130,6 +131,12 @@ public class MybatisConfig {
 	    @Bean
 	    public OrderDao odao() throws Exception{
 	    	OrderDao dao = new OrderDao(sqlSession());
+	    	return dao;
+	    }
+	    
+	    @Bean
+	    public AdminDao adao() throws Exception{
+	    	AdminDao dao = new AdminDao(sqlSession());
 	    	return dao;
 	    }
 	  

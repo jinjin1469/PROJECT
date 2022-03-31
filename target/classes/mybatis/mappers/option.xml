@@ -24,7 +24,7 @@
 	</select>
 	
 	<select id="optionListinfo" resultMap="optionVo" parameterType="int">
-		SELECT A.option_name option_name, B.option_count option_Count 
+		SELECT A.option_name option_name, A.option_number option_number, B.option_count option_Count 
 		FROM m_option A JOIN (SELECT * FROM m_order_option_list WHERE option_join_number=#{option_join_number}) B 
 		ON A.option_number=B.option_number
 	</select>

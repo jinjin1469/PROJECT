@@ -38,16 +38,19 @@ imgSize{width:0.5rem; height:0.5rem;}
 				
 						<c:if test="${!empty product.option_sub}">
 						 <br>
+						 <c:if test="${product.option_sub[0].payment_option_count!=0}">
 						 &nbsp;&nbsp;&nbsp; 옵션상품 (
 							<c:forEach var="option" items="${product.option_sub}" varStatus="m">
-							
-							<input type="hidden" name="order_sub[${n.index}].option_sub[${m.index}].option_number" value="${option.option_number}">
-							<input type="hidden" name="order_sub[${n.index}].option_sub[${m.index}].payment_option_count" value="${option.payment_option_count}">
-							
-							<c:if test="${m.index/2==1}"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</c:if>
-							&nbsp;	[ ${option.option_Name} * ${option.payment_option_count} EA ]	
+
+									<input type="hidden" name="order_sub[${n.index}].option_sub[${m.index}].option_number" value="${option.option_number}">
+									<input type="hidden" name="order_sub[${n.index}].option_sub[${m.index}].payment_option_count" value="${option.payment_option_count}">
+									
+									<c:if test="${m.index/2==1}"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</c:if>
+									&nbsp;	[ ${option.option_Name} * ${option.payment_option_count} EA ]	
+								
 							</c:forEach>
 							)
+						 </c:if>
 						</c:if>
 						<br>
               		</c:forEach>
@@ -304,6 +307,9 @@ function payment(){
 			$("#delivery_cost").val(3000);
 			$("#earn_point").val(0);
 		}
+	}
+	if(${totalPrice}>=30000&&totalPrice>=100){
+		$("#delivery_cost").val(0);
 	}
 	
 	let obj = {'point':point};

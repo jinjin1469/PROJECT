@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import spring.controller.AdminController;
 import spring.controller.CategoryController;
 import spring.controller.LoginController;
 import spring.controller.MainController;
@@ -17,6 +18,7 @@ import spring.controller.ProductController;
 import spring.controller.QnaController;
 import spring.controller.ReviewController;
 import spring.controller.ShoppingController;
+import spring.dao.AdminDao;
 import spring.dao.CategoryDao;
 import spring.dao.MemberDao;
 import spring.dao.NoticeDao;
@@ -56,6 +58,8 @@ public class ControllerConfig {
 	private CategoryDao cdao;
 	@Autowired
 	private OrderDao odao;
+	@Autowired
+	private AdminDao adao;
 	@Autowired
 	private ReviewService reviewService;
 	@Autowired
@@ -164,6 +168,13 @@ public class ControllerConfig {
 		OrderController orderController = new OrderController();
 		orderController.setDao(odao);
 		return orderController;
+	}
+	
+	@Bean
+	public AdminController adminController() {
+		AdminController adminController = new AdminController();
+		adminController.setDao(adao);
+		return adminController;
 	}
 }
 

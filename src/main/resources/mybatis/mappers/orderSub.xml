@@ -24,7 +24,7 @@
 	</select>
 	
 	<select id="productListinfo" resultMap="orderSubVo" parameterType="int">
-		SELECT A.product_name product_name, A.product_m_image product_m_image, 
+		SELECT A.product_name product_name, A.product_number product_number, A.product_m_image product_m_image, 
 		B.product_count product_count,B.option_join_number option_join_number 
 		FROM m_product A JOIN (SELECT * FROM m_order_list WHERE order_join_number=#{order_join_number}) B 
 		ON A.product_number=B.product_number
