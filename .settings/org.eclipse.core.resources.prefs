@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//src/main/java/spring/config/MvcConfig.java=UTF-8
 encoding//src/main/java/spring/controller/AdminController.java=UTF-8
 encoding//src/main/java/spring/controller/CategoryController.java=UTF-8
+encoding//src/main/java/spring/controller/MyPageController.java=UTF-8
 encoding//src/main/java/spring/controller/OrderController.java=UTF-8
 encoding//src/main/java/spring/controller/PaymentController.java=UTF-8
 encoding//src/main/java/spring/controller/ProductController.java=UTF-8

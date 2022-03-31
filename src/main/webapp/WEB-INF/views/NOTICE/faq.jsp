@@ -29,8 +29,7 @@ bottom-margin:0.5rem;
 <br>
 <br>
 <div class="container d-flex flex-wrap d-flex align-items-center">
-	<div class="col-md-2">
-	  <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
+	<aside>
 	    <p class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none">
 	      <svg class="bi me-2" width="30" height="24"></svg>
 	      <span class="fs-5 fw-semibold">고객센터</span>
@@ -47,8 +46,7 @@ bottom-margin:0.5rem;
 	        </a>
 	      </li>
 	    </ul>
-	  </div>
-	</div>
+	</aside>
 	<div class="col-md-10">
 	    <h3>자주 묻는 질문</h3>
 

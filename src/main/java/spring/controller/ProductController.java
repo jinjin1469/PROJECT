@@ -113,6 +113,8 @@ public class ProductController {
 				product.getProduct_storage(),
 				productOption));
 
+		model.addAttribute("category_1",product.getCategory_1());
+		model.addAttribute("category_2",product.getCategory_2());
 		model.addAttribute("productOption",productOption);
 		
 		return "PRODUCT/productUpdate";
@@ -192,18 +194,15 @@ public class ProductController {
 		
 		if(pic.getProduct_Option()!=null) {
 			for (Option option : pic.getProduct_Option()) {
-				if(option.getDelete_check()==1) { // 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占싹몌옙 占쏙옙占쏙옙占� 占쏙옙占쏙옙 update占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙
-					System.out.println(roop+"占쏙옙占쏙옙");
+				if(option.getDelete_check()==1) { 
 					option.setOption_Join_Number(join_number);				
 					dao.optionDelete(option);	
 				}else if(roop>50) { 
 					if(option.getOption_Name()!=null) {
-						System.out.println(roop+"占쌩곤옙");
 						option.setOption_Join_Number(join_number);
 						dao.insertOption(option);
 					}
 				}else if(option.getOption_Name()!=null){
-					System.out.println(roop+"占쏙옙占쏙옙");
 					dao.updateOption(option);
 				}
 					

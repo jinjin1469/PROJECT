@@ -95,14 +95,41 @@ public class OrderDao {
 		sqlSession.update("mybatis.mapper.order.pointRollBack", order);
 	}
 	
+	
 	public List<Order> selectOrderinfo(long member_number) { 
 		List<Order> list = sqlSession.selectList("mybatis.mapper.order.selectOrderinfo",member_number);
+	return list; 
+	}
+	
+	
+	public Order aaselectOrderinfo(int order_number) { 
+		Order list = sqlSession.selectOne("mybatis.mapper.order.aaselectOrderinfo",order_number);
+		return list;
+	}
+	
+	public List<Order> orderwaitList() { 
+		List<Order> list = sqlSession.selectList("mybatis.mapper.order.orderwaitList");
 		return list;
 	}
 	public Order orderinfo(int orderNum) {
 		return sqlSession.selectOne("mybatis.mapper.order.orderinfo",orderNum);
 	}
 	
+	public List<Order> deliveryCompleteList() { 
+		List<Order> list = sqlSession.selectList("mybatis.mapper.order.deliveryCompleteList");
+		return list;
+	}
+	
+	
+	public void delivery(int orderNum) {
+		sqlSession.update("mybatis.mapper.order.delivery", orderNum);
+	}
+	
+	public void purchaseConfirm(int orderNum) {
+		sqlSession.update("mybatis.mapper.order.purchaseConfirm", orderNum);
+	}
+	
+		
 	public void productDeduction(OrderSub orderSub) {
 		sqlSession.update("mybatis.mapper.order.productDeduction", orderSub);
 	}
@@ -138,6 +165,7 @@ public class OrderDao {
 	public List<Option> optionListinfo(int option_join_number) { 
 		return sqlSession.selectList("mybatis.mapper.option.optionListinfo",option_join_number);
 	}
+	
 	
 	public OrderDao(SqlSession sqlSession){
 		this.sqlSession = sqlSession;

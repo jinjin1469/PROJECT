@@ -2,6 +2,7 @@ package spring.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.siot.IamportRestClient.IamportClient;
+
 import spring.dao.MemberDao;
+import spring.dao.OrderDao;
 import spring.service.ManageService;
+import spring.vo.AuthInfo;
 import spring.vo.Login;
 import spring.vo.Member;
+import spring.vo.Order;
 import spring.vo.RegisterRequest;
 
 @Controller
@@ -31,7 +37,19 @@ public class MyPageController {
 		this.manageService = manageService;
 	}
 	
-	//마이페이지 연결
+	private OrderDao odao;
+
+	public void setDao(OrderDao odao) {
+		this.odao = odao;
+	}
+	
+	private IamportClient api;
+	
+	public MyPageController() {
+		this.api = new IamportClient("5478353111638089","38c701ccf0c5e1bb14f091d942224863eebfa6b285a8195735b0eaae973d6339abf549d563d49cf8");
+	}
+	
+	//留덉씠�럹�씠吏� �뿰寃�
 	 @RequestMapping(value="/mypage/mypage/{member_number}",method=RequestMethod.GET)
 		public String myPage(@PathVariable("member_number") Long member_number, Model model) {
 		 
@@ -42,7 +60,7 @@ public class MyPageController {
 			return "mypage/mypage";
 		}
 	 
-	//관리자 페이지 연결
+	//愿�由ъ옄 �럹�씠吏� �뿰寃�
 		 @RequestMapping(value="/admin/admin/{member_number}",method=RequestMethod.GET)
 			public String myPageAdmin(@PathVariable("member_number") Long member_number, Model model) {
 			 
@@ -54,7 +72,7 @@ public class MyPageController {
 			}
 		 
 	 
-	//회원정보 수정 폼 연결
+	//�쉶�썝�젙蹂� �닔�젙 �뤌 �뿰寃�
 	 @RequestMapping(value="/mypage/modify/{member_number}",method=RequestMethod.GET)
 		public String modifyForm(@PathVariable("member_number") Long member_number, Model model) {
 		 
@@ -64,7 +82,7 @@ public class MyPageController {
 			
 			return "mypage/modify";
 		}
-	//鍮꾨�踰덊샇 �닔�젙 �뤌 �뿰寃�
+	//�뜮袁⑨옙甕곕뜇�깈 占쎈땾占쎌젟 占쎈쨲 占쎈염野껓옙
 		 @RequestMapping(value="/mypage/modifyPwd/{member_number}",method=RequestMethod.GET)
 			public String modifyPwdForm(@PathVariable("member_number") Long member_number, RegisterRequest regReq, Model model) {
 			 
@@ -77,7 +95,7 @@ public class MyPageController {
 			}
 		 
 		 
-		 //鍮꾨�踰덊샇 �닔�젙�븯湲�	
+		 //�뜮袁⑨옙甕곕뜇�깈 占쎈땾占쎌젟占쎈릭疫뀐옙	
 		 @RequestMapping(value="/mypage/modifyPwd/modifying/{member_number}",method=RequestMethod.POST)
 			public String modifyPwd(@PathVariable("member_number") Long member_number, RegisterRequest regReq,  Model model, HttpSession session) {
 
@@ -90,7 +108,7 @@ public class MyPageController {
 			}
 		 
 		
-		 //�쉶�썝�젙蹂� �닔�젙
+		 //占쎌돳占쎌뜚占쎌젟癰귨옙 占쎈땾占쎌젟
 		 @RequestMapping(value="/mypage/modify/{member_number}",method=RequestMethod.POST)
 			public String modifyForm2(@PathVariable("member_number") Long member_number, Model model) {
 			 
@@ -99,6 +117,36 @@ public class MyPageController {
 				return "/";
 			}
 	    
-	
+		 @RequestMapping(value = "/admin/orderStatus", method = RequestMethod.GET)
+			public String orderStatusG(Model model) {
+				
+				List<Order> orderwaitList = odao.orderwaitList();
+				List<Order> deliveryCompleteList = odao.deliveryCompleteList();
+				
+				model.addAttribute("orderwaitList", orderwaitList);
+				model.addAttribute("deliveryCompleteList", deliveryCompleteList);
+				
+				return "admin/ordercheck";
+			}
+
+		 @RequestMapping(value = "/admin/delivery/{orderNum}", method = RequestMethod.GET)
+		 public String deliveryG(@PathVariable("orderNum") int orderNum,Model model) {
+				
+				odao.delivery(orderNum);
+				
+				return "redirect:/admin/orderStatus";
+		}
+		 
+		 @RequestMapping(value = "/mypage/orderStatus", method = RequestMethod.GET)
+			public String memOrderStatusG(Model model,HttpSession session, HttpServletRequest request) {
+			 
+			 	AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+				long member_number = authinfo.getMember_number();
+				List<Order> info = odao.selectOrderinfo(member_number);
+				
+				model.addAttribute("info", info);
+				
+				return "mypage/ordercheck";
+		}
 	
 }

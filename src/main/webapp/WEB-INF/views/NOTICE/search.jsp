@@ -15,26 +15,24 @@
 <body>
 <%@include file="../header.jsp" %>
 <div class="container d-flex flex-wrap d-flex align-items-center">
-<div class="col-md-2">
-<div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
-    <p class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none">
-      <svg class="bi me-2" width="30" height="24"></svg>
-      <span class="fs-5 fw-semibold">고객센터</span>
-    </p>
-    <ul class="list-unstyled ps-0">
-      <li class="mb-1">
-        <a class="d-flex align-items-center link-dark text-decoration-none" href="/notice/main">
-        <svg class="bi me-2" width="30" height="5"></svg>
-          공지사항
-        </a>
-        <a class="d-flex align-items-center link-dark text-decoration-none" href="/notice/faq">
-        <svg class="bi me-2" width="30" height="5"></svg>
-          자주 묻는 질문
-        </a>
-      </li>
-    </ul>
-  </div>
-  </div>
+	<aside>
+	    <p class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none">
+	      <svg class="bi me-2" width="30" height="24"></svg>
+	      <span class="fs-5 fw-semibold">고객센터</span>
+	    </p>
+	    <ul class="list-unstyled ps-0">
+	      <li class="mb-1">
+	        <a class="d-flex align-items-center link-dark text-decoration-none" href="/notice/main">
+	        <svg class="bi me-2" width="30" height="5"></svg>
+	          공지사항
+	        </a>
+	        <a class="d-flex align-items-center link-dark text-decoration-none" href="#">
+	        <svg class="bi me-2" width="30" height="5"></svg>
+	          자주 묻는 질문
+	        </a>
+	      </li>
+	    </ul>
+	</aside>
   <div class="col-md-10">
     <h3>공지사항</h3>
 	<div class="row">
