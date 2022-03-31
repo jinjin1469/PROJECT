@@ -25,6 +25,10 @@
 		SELECT * FROM m_order WHERE member_number=#{member_number} ORDER BY order_regdate DESC
 	</select>
 	
+	<select id="orderinfo" resultMap="orderVo" parameterType="int">
+		SELECT * FROM m_order WHERE order_number=#{order_number}
+	</select>
+	
 	<select id="membershipPoint" resultType="long" parameterType="long">
 		SELECT member_point FROM m_member WHERE member_number=#{member_number}
 	</select>
@@ -47,6 +51,14 @@
 	
 	<select id="recipient_address" resultType="String" parameterType="long">
 		SELECT member_address FROM m_member WHERE member_number=#{member_number}
+	</select>
+	
+	<select id="search_uid" resultType="String" parameterType="int">
+		SELECT imp_uid FROM m_order WHERE order_number=#{orderNum}
+	</select>
+	
+	<select id="payment_status" resultType="String" parameterType="int">
+		SELECT pay_status FROM m_order WHERE order_number=#{orderNum}
 	</select>
 	
 	<update id="paymentCancel" parameterType="long">
@@ -88,9 +100,13 @@
   	
   	
   	<update id="pointDeduction" parameterType="order">
-		update m_member set member_point = member_point-#{use_point} WHERE member_number=#{member_number}
+		update m_member set member_point = member_point - #{use_point} WHERE member_number=#{member_number}
 	</update>
-  	
+	
+	<update id="pointRollBack" parameterType="order">
+		update m_member set member_point = member_point + #{use_point} WHERE member_number=#{member_number}
+	</update>
+	
   	<delete id="deleteCart" parameterType="int">
 		DELETE FROM m_cart WHERE cartoption_number=#{cartoption_number}
 	</delete>
@@ -99,13 +115,25 @@
 	</delete>
 	
 	<update id="productDeduction" parameterType="orderSub">
-		update m_product set product_count = product_count-#{product_count}, product_salcount = product_count+#{product_count} WHERE product_number=#{product_number}
+		update m_product set product_count = product_count - #{product_count}, product_salcount = product_salcount + #{product_count} WHERE product_number=#{product_number}
 	</update>
+	
+	<update id="productRollBack" parameterType="orderSub">
+		update m_product set product_count = product_count + #{product_count}, product_salcount = product_salcount - #{product_count} WHERE product_number=#{product_number}
+	</update>
+	
 	
 	<update id="optionDeduction" parameterType="Option">
-		update m_option set option_count = option_count-#{option_Count}, option_salcount = option_salcount+#{option_Count} WHERE option_number=#{option_number}
+		update m_option set option_count = option_count - #{payment_option_count}, option_salcount = option_salcount + #{payment_option_count} WHERE option_number=#{option_number}
 	</update>
 	
+	<update id="optionRollBack" parameterType="Option">
+		update m_option set option_count = option_count + #{option_Count}, option_salcount = option_salcount - #{option_Count} WHERE option_number=#{option_number}
+	</update>
+	
+	<update id="payment_status_edit" parameterType="int">
+		update m_order set pay_status = '결제취소', order_status = '주문취소' WHERE order_number=#{orderNum}
+	</update>
 	
 	
 	

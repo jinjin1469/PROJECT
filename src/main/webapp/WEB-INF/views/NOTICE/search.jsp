@@ -37,15 +37,15 @@
   </div>
   <div class="col-md-10">
     <h3>공지사항</h3>
-<div class="row">
-		<div class="col-md-8"></div>
-		<div class="col-md-4">
-	    <form class="d-flex" action="/notice/main" method="post">
-	      <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search" name="Search">
-	      <button class="btn btn-outline-success" type="submit">Search</button>
-	    </form>
-		</div>
-</div>
+	<div class="row">
+			<div class="col-md-8"></div>
+			<div class="col-md-4">
+		    <form class="d-flex" action="/notice/main" method="post">
+		      <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search" name="Search">
+		      <button class="btn btn-outline-success" type="submit">Search</button>
+		    </form>
+			</div>
+	</div>
 
 
 <c:if test="${!empty Notice}">
@@ -69,7 +69,7 @@
 		</table>
 </c:if>
 
-    <a href="/notice/insert">글 등록</a>
+    <a href="/notice/insert">글 등록</a>	
     
   </div>  
   </div>

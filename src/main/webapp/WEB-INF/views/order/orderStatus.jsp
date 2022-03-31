@@ -23,6 +23,7 @@ imgSize{width:0.5rem; height:0.5rem;}
 <%@include file="../header.jsp" %>
 <br>
 <br>
+${msg}
 <div class="col-md-5">
 	<div class="accordion accordion-flush" id="accordionFlushExample">
 		<c:forEach var="info" items="${info}" varStatus="n">
@@ -31,6 +32,12 @@ imgSize{width:0.5rem; height:0.5rem;}
 			      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#b${n.count}" aria-expanded="false" aria-controls="b${n.count}">
 			        ${info.order_number} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatDate value="${info.order_regdate}" pattern="yyyy-MM-dd" /> <br>
 			        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;돈모양 ${info.order_price} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${info.order_status}
+			        <c:if test="${info.order_status=='배송완료'}">
+	      				<br><a href="/order/status/${info.order_number}">구매확정</a>
+	      			</c:if>
+	      			<c:if test="${info.order_status=='구매확정'}">
+	      				<br><a href="#">리뷰쓰기</a>
+	      			</c:if>
 			      </button>
 	    		</h2>
 	    		<div id="b${n.count}" class="accordion-collapse collapse" aria-labelledby="a${n.count}" data-bs-parent="#accordionFlushExample">
@@ -53,6 +60,10 @@ imgSize{width:0.5rem; height:0.5rem;}
 						수령인 : ${info.recipient} <br>
 						연락처 : ${info.recipient_phone} <br>
 						주소 : ${info.recipient_address}
+						
+						<c:if test="${info.order_status=='배송준비중'}">
+	      				<br><br><a href="/order/paymentCancle/${info.order_number}">결제취소</a>
+	      				</c:if>
 					</div>
 				</div>
 	  		</div>

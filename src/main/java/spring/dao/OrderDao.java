@@ -75,6 +75,14 @@ public class OrderDao {
 		return sqlSession.selectOne("mybatis.mapper.order.option_join_number",order_join_number);
 	}
 	
+	public String search_uid(int orderNum) { 
+		return sqlSession.selectOne("mybatis.mapper.order.search_uid",orderNum);
+	}
+	
+	public String payment_status(int orderNum) { 
+		return sqlSession.selectOne("mybatis.mapper.order.payment_status",orderNum);
+	}
+	
 	public void insertOptionList(Option option) {
 		sqlSession.insert("mybatis.mapper.order.insertOptionList", option);
 	}
@@ -83,18 +91,37 @@ public class OrderDao {
 		sqlSession.update("mybatis.mapper.order.pointDeduction", order);
 	}
 	
+	public void pointRollBack(Order order) {
+		sqlSession.update("mybatis.mapper.order.pointRollBack", order);
+	}
+	
 	public List<Order> selectOrderinfo(long member_number) { 
 		List<Order> list = sqlSession.selectList("mybatis.mapper.order.selectOrderinfo",member_number);
 		return list;
 	}
+	public Order orderinfo(int orderNum) {
+		return sqlSession.selectOne("mybatis.mapper.order.orderinfo",orderNum);
+	}
+	
 	public void productDeduction(OrderSub orderSub) {
 		sqlSession.update("mybatis.mapper.order.productDeduction", orderSub);
+	}
+	
+	public void productRollBack(OrderSub orderSub) {
+		sqlSession.update("mybatis.mapper.order.productRollBack", orderSub);
 	}
 	
 	public void optionDeduction(Option option) {
 		sqlSession.update("mybatis.mapper.order.optionDeduction", option);
 	}
 	
+	public void optionRollBack(Option option) {
+		sqlSession.update("mybatis.mapper.order.optionRollBack", option);
+	}
+	
+	public void payment_status_edit(int orderNum) {
+		sqlSession.update("mybatis.mapper.order.payment_status_edit", orderNum);
+	}
 	
 	public String recipient(long member_number) { 
 		return sqlSession.selectOne("mybatis.mapper.order.recipient",member_number);
