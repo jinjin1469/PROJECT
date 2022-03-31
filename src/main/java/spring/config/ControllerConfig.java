@@ -98,6 +98,7 @@ public class ControllerConfig {
 	public MyPageController myPageController() {
 		MyPageController myPageController = new MyPageController();
 		myPageController.setManageService(manageService);
+		myPageController.setDao(odao);		
 		return myPageController;
 	}
 	
@@ -174,6 +175,7 @@ public class ControllerConfig {
 	public AdminController adminController() {
 		AdminController adminController = new AdminController();
 		adminController.setDao(adao);
+		adminController.setDao(odao);
 		return adminController;
 	}
 }

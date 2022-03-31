@@ -157,6 +157,13 @@ public class OrderController {
 		
 		return "redirect:/product/cart/list.do";
 	}
+	@RequestMapping(value = "/status/{orderNum}", method = RequestMethod.GET)
+	 public String deliveryG(@PathVariable("orderNum") int orderNum,Model model) {
+			
+			dao.purchaseConfirm(orderNum);
+			
+			return "redirect:/mypage/orderStatus";
+	}
 	
 	@RequestMapping(value = "/paymentCancle/{order_number}", method = RequestMethod.GET)
 	public String paymentCancelG(@PathVariable("order_number") int orderNum,Model model,HttpSession session, HttpServletRequest request) throws IamportResponseException, IOException{
@@ -168,7 +175,7 @@ public class OrderController {
 			api.cancelPaymentByImpUid(cancel);
 		}else {
 			model.addAttribute("msg", "결제가 취소되어 있는 상품입니다.");
-			return "redirect:/order/orderStatus";
+			return "redirect:/mypage/orderStatus";
 		}
 		
 		order.setOrder_sub((ArrayList<OrderSub>) dao.productListinfo(order.getOrder_join_number()));
@@ -195,12 +202,50 @@ public class OrderController {
 		//결제취소로 변경
 		dao.payment_status_edit(orderNum);
 		
-		return "redirect:/order/orderStatus";
+		return "redirect:/mypage/orderStatus";
+	}
+	@RequestMapping(value = "/adminCancle/{order_number}", method = RequestMethod.GET)
+	public String ApaymentCancelG(@PathVariable("order_number") int orderNum,Model model,HttpSession session, HttpServletRequest request) throws IamportResponseException, IOException{
+		
+		Order order = dao.orderinfo(orderNum);
+
+		if(order.getPay_status().equals("결제완료")) {
+			CancelData cancel = new CancelData(order.getImp_uid(),true);
+			api.cancelPaymentByImpUid(cancel);
+		}else {
+			model.addAttribute("msg", "결제가 취소되어 있는 상품입니다.");
+			return "redirect:/admin/orderStatus";
+		}
+		
+		order.setOrder_sub((ArrayList<OrderSub>) dao.productListinfo(order.getOrder_join_number()));
+		ArrayList<Option> optionData = new ArrayList<Option>();
+		for(int i=0; i<order.getOrder_sub().size();i++) {
+			optionData = (ArrayList<Option>) dao.optionListinfo(order.getOrder_sub().get(i).getOption_join_number());
+			order.getOrder_sub().get(i).setOption_sub(optionData);
+		}
+	
+		//수량 원복
+		for(int i=0; i < order.getOrder_sub().size();i++) {
+			dao.productRollBack(order.getOrder_sub().get(i));
+			for(Option option : order.getOrder_sub().get(i).getOption_sub()) {
+				if(option.getOption_Count() !=0) {
+					dao.optionRollBack(option);
+				}
+			}
+		}
+		//포인트 원복
+		if(order.getUse_point()!=0) {
+			dao.pointRollBack(order);
+		}
+		
+		//결제취소로 변경
+		dao.payment_status_edit(orderNum);
+		
+		return "redirect:/admin/orderStatus";
 	}
 	
 	@RequestMapping(value = "/orderInsert", method = RequestMethod.POST)
 	public String OrderInsertP(Model model, Order order,HttpSession session, HttpServletRequest request) {
-		
 
 		for(OrderSub deleteData : order.getOrder_sub()) {
 			dao.deleteCart(deleteData.getCartoption_number());
@@ -238,41 +283,65 @@ public class OrderController {
 		
 		
 
-		return "redirect:/order/orderStatus";
+		return "redirect:/mypage/orderStatus";
 	}
 	
-	@RequestMapping(value = "/orderStatus", method = RequestMethod.GET)
-	public String orderStatusG(Model model,HttpSession session, HttpServletRequest request) {
-		
-		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
-		long member_number = authinfo.getMember_number();
-		List<Order> info = dao.selectOrderinfo(member_number);
+//	@RequestMapping(value = "/orderStatus", method = RequestMethod.GET)
+//	public String orderStatusG(Model model,HttpSession session, HttpServletRequest request) {
+//		
+//		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+//		long member_number = authinfo.getMember_number();
+//		List<Order> info = dao.selectOrderinfo(member_number);
+//		String data = "";
+//		ArrayList<OrderSub> productData = new ArrayList<OrderSub>();
+//		ArrayList<Option> optionData = new ArrayList<Option>();
+//
+//		for(int i=0;i<info.size();i++) {
+//			if(info.get(i).getRecipient()==null) {
+//				data = dao.recipient(member_number);
+//				info.get(i).setRecipient(data);
+//				data = dao.recipient_phone(member_number);
+//				info.get(i).setRecipient_phone(data);
+//				data = dao.recipient_address(member_number);
+//				info.get(i).setRecipient_address(data);
+//			}
+//			productData = (ArrayList<OrderSub>) dao.productListinfo(info.get(i).getOrder_join_number());
+//			info.get(i).setOrder_sub(productData);
+//			for(int j=0; j<info.get(i).getOrder_sub().size();j++) {
+//				optionData = (ArrayList<Option>) dao.optionListinfo(info.get(i).getOrder_sub().get(j).getOption_join_number());
+//				info.get(i).getOrder_sub().get(j).setOption_sub(optionData);
+//
+//			}
+//		}
+//
+//		model.addAttribute("info", info);
+//
+//		return "order/orderStatus";
+//	}
+	
+	@RequestMapping(value = "/orderDetail/{order_number}", method = RequestMethod.GET)
+	public String orderStatusG(@PathVariable("order_number") int order_number,Model model,HttpSession session, HttpServletRequest request) {
+		Order info = dao.aaselectOrderinfo(order_number);
 		String data = "";
 		ArrayList<OrderSub> productData = new ArrayList<OrderSub>();
 		ArrayList<Option> optionData = new ArrayList<Option>();
-
-		for(int i=0;i<info.size();i++) {
-			if(info.get(i).getRecipient()==null) {
-				data = dao.recipient(member_number);
-				info.get(i).setRecipient(data);
-				data = dao.recipient_phone(member_number);
-				info.get(i).setRecipient_phone(data);
-				data = dao.recipient_address(member_number);
-				info.get(i).setRecipient_address(data);
-			}
-			productData = (ArrayList<OrderSub>) dao.productListinfo(info.get(i).getOrder_join_number());
-			info.get(i).setOrder_sub(productData);
-			for(int j=0; j<info.get(i).getOrder_sub().size();j++) {
-				optionData = (ArrayList<Option>) dao.optionListinfo(info.get(i).getOrder_sub().get(j).getOption_join_number());
-				if(info.get(i).getOrder_sub().get(j).getOption_sub()!=null) {
-					info.get(i).getOrder_sub().get(j).setOption_sub(optionData);
-				}
-			}
+		if(info.getRecipient()==null) {
+			data = dao.recipient(info.getMember_number());
+			info.setRecipient(data);
+			data = dao.recipient_phone(info.getMember_number());
+			info.setRecipient_phone(data);
+			data = dao.recipient_address(info.getMember_number());
+			info.setRecipient_address(data);
 		}
-
+		productData = (ArrayList<OrderSub>) dao.productListinfo(info.getOrder_join_number());
+		info.setOrder_sub(productData);
+		for(int j=0; j<info.getOrder_sub().size();j++) {
+			optionData = (ArrayList<Option>) dao.optionListinfo(info.getOrder_sub().get(j).getOption_join_number());
+			info.getOrder_sub().get(j).setOption_sub(optionData);
+		}
 		model.addAttribute("info", info);
 
-		return "order/orderStatus";
+		return "order/orderDetail";
 	}
-	 
+	
 }

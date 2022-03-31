@@ -25,6 +25,19 @@
 		SELECT * FROM m_order WHERE member_number=#{member_number} ORDER BY order_regdate DESC
 	</select>
 	
+	<select id="aaselectOrderinfo" resultMap="orderVo" parameterType="int">
+		SELECT * FROM m_order WHERE order_number=#{order_number}
+	</select>
+	
+	
+	<select id="orderwaitList" resultMap="orderVo" parameterType="long">
+		SELECT * FROM m_order WHERE order_status='배송준비중' ORDER BY order_regdate DESC
+	</select>
+	
+	<select id="deliveryCompleteList" resultMap="orderVo" parameterType="long">
+		SELECT * FROM m_order WHERE order_status IN ('배송완료','구매확정') ORDER BY order_regdate DESC
+	</select>
+	
 	<select id="orderinfo" resultMap="orderVo" parameterType="int">
 		SELECT * FROM m_order WHERE order_number=#{order_number}
 	</select>
@@ -99,6 +112,7 @@
   	</insert>
   	
   	
+  	
   	<update id="pointDeduction" parameterType="order">
 		update m_member set member_point = member_point - #{use_point} WHERE member_number=#{member_number}
 	</update>
@@ -135,6 +149,13 @@
 		update m_order set pay_status = '결제취소', order_status = '주문취소' WHERE order_number=#{orderNum}
 	</update>
 	
+	<update id="delivery" parameterType="int">
+		update m_order set order_status = '배송완료' WHERE order_number=#{orderNum}
+	</update>
+	
+	<update id="purchaseConfirm" parameterType="int">
+		update m_order set order_status = '구매확정' WHERE order_number=#{orderNum}
+	</update>
 	
 	
   

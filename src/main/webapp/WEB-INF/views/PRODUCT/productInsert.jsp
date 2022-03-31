@@ -78,11 +78,27 @@
 				</tr>
 				<tr>
 					<th>카테고리1</th>
-					<td><form:input path="category_1"/></td>
+					<td><select name="category_1" class="choice1">
+							<option class="delete1">선택하세요</option>
+								<c:forEach var="menu1" items="${menu1}">
+									<option value="${menu1.category_title}">${menu1.category_title}</option>
+							 	</c:forEach>
+							 	<c:forEach var="menu2" items="${menu2}">
+									<option value="${menu2.category_title}">${menu2.category_title}</option>
+						 		</c:forEach>
+			  			</select>
+			  		</td>
 				</tr>
 				<tr>
 					<th>카테고리2</th>
-					<td><form:input path="category_2"/></td>
+					<td><select name="category_2" class="choice2">
+							<option class="delete2">선택하세요</option>
+							<c:forEach var="menu3" items="${menu3}">
+								<option value="${menu3.category_title}">${menu3.category_title}</option>
+							</c:forEach>
+							<option value=""></option>
+			  			</select>
+			  		</td>
 				</tr>
 				<tr>
 					<th>상품가격</th>
@@ -138,6 +154,12 @@ $(document).ready(function(){
 	let maxSize = 5242880; //5MB//5242880
 	
 	/* let optionCount = 0; */
+	$('.choice1').change(function(){
+		$('.delete1').remove();
+	});
+	$('.choice2').change(function(){
+		$('.delete2').remove();
+	});
 	
 	function checkExtension(fileName, fileSize){
 		if(fileSize >= maxSize){

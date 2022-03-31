@@ -55,7 +55,7 @@ imgSize{width:0.5rem; height:0.5rem;}
 						<br>
               		</c:forEach>
               		<br>
-              		😋${totalPrice} (돈모양으로 바꿔주세요ㅠ)
+              		💲${totalPrice}
 				</td>
 			</tr>
 			<tr>

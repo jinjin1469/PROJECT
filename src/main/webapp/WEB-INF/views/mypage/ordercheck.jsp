@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../../../resources/css/mypage.css">
-<title>My Page</title>
+<title>ADMIN</title>
 <style>
 
 
@@ -55,41 +57,49 @@
 
 <section>
 
-		<h2>MYPAGE📃</h2>
+		<h2>주문내역📃</h2>
 		<hr>
-		
-			<div class="user">
-			<p class="green"><strong>${member.member_name}[${member.member_id}]님</strong><p>
-			<p>전 화 : ${member.member_phone}</p>
-			<p>이메일 : ${member.member_email}</p>
-			<p>주 소 : ${member.member_address}</p>
-			</div>
-			<div class="order"></div>
 
-		
 		<table class="tbl">
 			<tr>
 				<th>주문일자</th>
-				<th>상품명</th>
-				<th>결제금액</th>
 				<th>주문상세</th>
+				<th>결제금액</th>
+				<th>주문현황</th>
+				<th>✅</th>
 			</tr>
+			<c:if test="${empty info}">
 			<tr>
 				<td colspan="4">주문 내역이 없습니다.</td>
 			</tr>
+			</c:if>
+			<c:if test="${!empty info}">
+				<c:forEach var="list" items="${info}">
+					<tr>
+						<td><fmt:formatDate value="${list.order_regdate}" pattern="yyyy-MM-dd" /></td>
+						<td><a href="javascript:orderDetail(${list.order_number});">상세보기</a></td>
+						<td>💲${list.order_price}원</td>
+						<td>${list.order_status}</td>
+						<c:choose>
+							<c:when test="${list.order_status=='배송준비중'}">
+								<td><a href="/order/paymentCancle/${list.order_number}">취소</a></td>
+							</c:when>
+							<c:when test="${list.order_status=='주문취소'}">
+								<td>-</td>
+							</c:when>
+							<c:when test="${list.order_status=='배송완료'}">
+								<td><a href="/order/status/${list.order_number}">구매확정</a></td>
+							</c:when>
+							<c:when test="${list.order_status=='구매확정'}">
+								<td><a href="#">리뷰쓰기</a></td>
+							</c:when>
+						</c:choose>
+					</tr>
+				</c:forEach>
+			</c:if>	
 		</table>
-		
-		<table class="tbl">
-			<tr>
-				<th>등록일자</th>
-				<th>리뷰 내용</th>
-				<th>상품명</th>
-			</tr>
-			<tr>
-				<td colspan="3">작성한 리뷰가 없습니다.</td>
-			</tr>
-		</table>
-		
+		<br>
+		<br>
 
 </section>
 	
@@ -97,9 +107,15 @@
 	
 </div>
 
+<script>
+function orderDetail(order_number){
+	open('/order/orderDetail/'+order_number,'주문 상세보기','width=300px,height=300px,status=false');
+}
+</script>
+<br>
+<br>
 
-<br>
-<br>
 <%@include file="../footer.jsp"%>
+
 </body>
 </html>
