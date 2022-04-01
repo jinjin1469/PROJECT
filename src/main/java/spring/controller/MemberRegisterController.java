@@ -2,6 +2,9 @@ package spring.controller;
 
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,10 +62,18 @@ public class MemberRegisterController {
 
 
 	@RequestMapping(value="/member/register", method=RequestMethod.POST)
-	public String register(Model model, RegisterRequest regReq,Errors errors,HttpServletResponse response) {
-	
+	public String register(Model model, RegisterRequest regReq,Errors errors,HttpServletResponse response) throws IOException {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		
 		if(!regReq.isPasswordEqualToConfirmPassword()) {
-			errors.reject("passwordMisMatch");
+			
+			out.println("<script>");
+			out.println("alert('비밀번호가 일치하지않습니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+			
 			return "member/join";
 		}
 		
@@ -71,9 +82,11 @@ public class MemberRegisterController {
 		
 		}catch(AlreadyExistingMemberException e) {
 
-			// 이미 회원이 존재하는 상태 =>  에러 
-//				errors.rejectValue("memberId", "duplicate","중복된 아이디입니다.");
-//				return "register/registerForm";
+			out.println("<script>");
+			out.println("alert('중복된 아이디입니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
 			
 			return "member/join";
 			}

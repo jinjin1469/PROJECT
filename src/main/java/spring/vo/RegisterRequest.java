@@ -10,6 +10,15 @@ public class RegisterRequest {
 	private String member_email;
 	private String member_address;
 	private String rePassword;
+	private String pwd;
+
+	public String getPwd() {
+		return pwd;
+	}
+
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
 
 	public boolean isPasswordEqualToConfirmPassword() {
 		return member_pwd.equals(rePassword);

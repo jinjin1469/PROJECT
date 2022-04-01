@@ -28,6 +28,7 @@ import spring.vo.Notice;
 import spring.vo.Option;
 import spring.vo.Product;
 import spring.vo.ProductCommand;
+import spring.vo.Qna;
 import spring.vo.RegisterRequest;
 
 @Controller
@@ -73,9 +74,11 @@ public class ProductController {
 		
 		Product product = dao.productSelect(num);
 		List<Option> productOption = dao.productOptionSelect(num);
-		//List<Qna> qnaList = dao.productNum(num);
+		long product_number = dao.productNum(num);
+		List<Qna> qnaList = dao.qnaList(product_number);
 		
-		//model.addAttribute("Qna",qnaList);
+		model.addAttribute("num", num);
+		model.addAttribute("Qna",qnaList);
 		model.addAttribute("Product", product);
 		model.addAttribute("ProductOption", productOption);
 		model.addAttribute("formData", new Cart()); 
@@ -84,6 +87,31 @@ public class ProductController {
 		
 		return "PRODUCT/productDetail";
 	}
+	
+
+	@RequestMapping("/detail/{num}#qna")
+	public String detailGQ(@PathVariable("num") int num,Model model) {
+		
+		Product product = dao.productSelect(num);
+		List<Option> productOption = dao.productOptionSelect(num);
+		long product_number = dao.productNum(num);
+		List<Qna> qnaList = dao.qnaList(product_number);
+		
+		model.addAttribute("num", num);
+		model.addAttribute("Qna",qnaList);
+		model.addAttribute("Product", product);
+		model.addAttribute("ProductOption", productOption);
+		model.addAttribute("formData", new Cart()); 
+		model.addAttribute("cartData", new Cart());
+		
+		return "PRODUCT/productDetail/{num}#qna";
+	}
+	
+	
+	
+	
+	
+	
 	
 	@RequestMapping(value="/update/{num}",method=RequestMethod.GET)
 	public String updateG(@PathVariable("num") int num,Model model) {

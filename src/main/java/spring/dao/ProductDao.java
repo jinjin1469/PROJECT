@@ -10,6 +10,7 @@ import spring.vo.Notice;
 import spring.vo.Option;
 import spring.vo.Product;
 import spring.vo.ProductCommand;
+import spring.vo.Qna;
 
 public class ProductDao {
 	private SqlSession sqlSession;
@@ -39,6 +40,7 @@ public class ProductDao {
 		sqlSession.insert("mybatis.mapper.product.insertProduct",product);
 	}
 	
+
 	public int selectJoinNumber(String name) { 
 		return sqlSession.selectOne("mybatis.mapper.product.selectJoinNumber",name);
 	}
@@ -61,6 +63,11 @@ public class ProductDao {
 		return list;
 	}
 	
+	public List<Qna> qnaList(long product_number){
+		List<Qna> list = sqlSession.selectList("mybatis.mapper.qna.qnaList", product_number);
+		return list;
+	}
+	
 	public void updateProduct(Product product) { 
 		sqlSession.update("mybatis.mapper.product.updateProduct",product);
 	}
@@ -76,4 +83,9 @@ public class ProductDao {
 	public ProductDao(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
+	
+	public long productNum(int num) {
+		return sqlSession.selectOne("mybatis.mapper.product.productNum",num);
+	}
+	
 }

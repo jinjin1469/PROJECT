@@ -34,8 +34,8 @@
 	.card-body{width:100%;height:30%; text-align:left;}
 	
 	.pInfo{margin: 0px; font-weight:bold; font-size: 15px; text-align:left; padding:0px;}
-	.card-text{margin:0px; font-size: 13px; text-align:left; padding:1rem;}
-
+	.card-text{margin:0px; font-size: 15px; text-align:left; font-weight:bold;}
+	.menu-name{padding:0rem;}
 	.wrap{
 	width:100%;
 	margin: 0auto;
@@ -60,8 +60,8 @@
 					<div class="card">
 						<a href="<c:url value='/product/detail/${product.option_join_number}'/>"><img src="/uploadedIMG/${product.product_m_image}" class="card-img-top imgSize" alt="..."></a>
 						    <div class="card-body">
-					      	<a href="<c:url value='/product/detail/${product.option_join_number}'/>"><label class="pInfo">${product.product_name}</label></a>
-					      	<p class="card-text">${product.product_price}원</p>
+					      	<a href="<c:url value='/product/detail/${product.option_join_number}'/>" class="menu-name"><label class="pInfo">${product.product_name}</label></a>
+					      	<p class="card-text"><fmt:formatNumber value="${product.product_price}" pattern="#,###,###" />원</p>
 					    	</div>
 				  	</div>
 			  	</div>

@@ -55,7 +55,7 @@ input[type="text"], input[type="password"] {
 
 		</table>
 		<br>
-		<input type="submit" class="btn1 btn-primary btn-lg btn-block" id="edit" name="edit" value="수정하기">
+		<input type="button" class="btn1 btn-primary btn-lg btn-block" id="edit" name="edit" value="수정하기">
 		<button class="btn2 btn-primary btn-lg btn-block" onclick="#">취소하기</button>
 	</form>
 	<br>
@@ -70,7 +70,7 @@ input[type="text"], input[type="password"] {
 
 	//비밀번호 유효성검사
 	$("#member_pwd").on("input",function(){
-	    var regex = /^[A-Za-z\d]{8,21}$/;
+		var regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
 	    var result = regex.exec($("#member_pwd").val())
 	    
 	    if(result != null){
@@ -100,18 +100,13 @@ input[type="text"], input[type="password"] {
 
 	
 	
-/* 	//폼 제출전 유효성 검사
+ 	//폼 제출전 유효성 검사
 	  $("#edit").on("click",function(){
 		  
-	  /*  var id = $("#id").val();
-   	   var pw = $("#pw").val();
-   	   var name = $("#name").val();
-   	   var phone = $("#phone").val();
-   	   var email = $("#email").val();	   */
-		  
-/*   	   var pw =  document.getElementById('member_pwd').value
+	
+   	   var pw = $("#member_pwd").val();
    	  
-   	   var pwregex = /^[A-Za-z\d]{8,21}$/;
+   	   var pwregex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
    	   
    	   var pwregex = pwregex.exec(pw);
    	   if(pwregex == null){
@@ -124,7 +119,7 @@ input[type="text"], input[type="password"] {
        	   
 
    })
-    */
+    
   
 
 

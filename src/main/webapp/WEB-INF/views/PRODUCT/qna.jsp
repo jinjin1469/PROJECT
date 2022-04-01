@@ -15,9 +15,10 @@
 
  textarea {
     width: 100%;
-    height: 10rem;
+    height: 20rem;
     border: none;
     resize: none;
+    text-align:left;
   }
 .btn {
 	margin-left:1rem;
@@ -84,47 +85,71 @@
 
 
 .name{font-weight:bold;}
-
-
+table{border: 0.7px solid #DCDCDC;}
+td, th{border: 0.7px solid #DCDCDC;}
+.center{text-align:center;}
+.subbtn2{widhth:600px;}
 </style>
 </head>
 <body>
 <%@include file="../header.jsp" %>
 <br>
 <br>
-<h3>상품질문작성</h3>
+<h3>상품 질문 작성✍</h3>
 <br>
-<form:form commandName="Qna" action="qnainsert" method="POST" enctype="multipart/form-data">
-<table>
-
-<tr>
-	<th><label class="name">문의남기는 상품 이름</label></th>
+<form:form commandName="Qna" action="qnainsert" method="POST" name="qnaForm" id="qnaForm">
+	<table>
 	
-		<td>${product_name}</td>
-</tr>
-<tr>
-	<th>제목</th>
-		<td><input type="text" class="title" name="qna_title" id="qna_title"></td>
-</tr>
-<tr>
-	<th>내용</th>
-		<td><textarea name="qna_content" id="qna_content"></textarea></td>
-</tr>
-<tr>
-	<th>작성 글 비밀번호</th>
-		<td><input type="text" class="pwd" id="qna_pwd" name="qna_pwd"><label class="pwdlabel">*비밀번호는 숫자 4글자로만 설정해주세요.</label>
-		<input type="hidden" value="${product_number}" id="product_number" name="product_number"></td>
-</tr>
-</table>
+	<tr>
+		<th><label class="name">문의남기는 상품 이름</label></th>
+		
+			<td>${product_name}</td>
+	</tr>
+	<tr>
+		<th>제목</th>
+			<td><input type="text" class="title" name="qna_title" id="qna_title"></td>
+	</tr>
+	<tr>
+		<th colspan="2" class="center">내용</th>
+		
+	</tr>
+	<tr>
+		<td colspan="2"><textarea name="qna_content" id="qna_content"></textarea></td>
+	</tr>
+	
+	</table>
 
-<br>
-<div class="subbtn">
-<input type="submit" class="btn3 btn-primary btn-lg btn-block" value="작성하기">
-<input type="reset" class="btn3 btn-primary btn-lg btn-block" value="취소하기">
-</div>
+	<br>
+	<div class="subbtn2">
+	<input type="hidden" value="${product_number}" id="product_number" name="product_number">
+	<input type="button" name="insertbtn" id="insertbtn" class="btn3 btn-primary btn-lg btn-block" value="작성하기">	
+	<input type="reset" class="btn3 btn-primary btn-lg btn-block" onclick="history.back(-1); return false;" value="목록으로">
+	</div>
 </form:form>
 <br>
 <br>
+<script>
+$("#insertbtn").on("click",function(){
+ var text = $("#qna_title").val();
+ var text2 = $("#qna_content").val(); 
+ var str_space = /\s/;
+ 
+ 	if(text.replace(/\s| /gi,'').length == 0) {
+ 		alert("제목을 입력해주세요.");
+ 		$("#qna_title").focus();
+ 		return;
+ 	}
+ 	
+ 	if(text2.replace(/\s| /gi,'').length == 0) {
+ 		alert("내용을 입력해주세요.");
+ 		$("#qna_content").focus();
+ 		return;
+ 	}
+ 	
+ 	
+	   $("#qnaForm").submit();
+});
+</script>
 <%@include file="../footer.jsp" %>
 </body>
 </html>

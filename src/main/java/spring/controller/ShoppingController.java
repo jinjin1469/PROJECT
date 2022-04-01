@@ -57,14 +57,15 @@ public class ShoppingController {
 		// �쁽�옱濡쒓렇�씤�맂 �젙蹂댁븣�븘�삤湲�
 
 		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
-		long member_number = authinfo.getMember_number();
 		ArrayList<CartOption> option = new ArrayList<CartOption>();
 
 		// 濡쒓렇�씤 �뿬遺�瑜� 泥댄겕�븯湲� �쐞�빐 �꽭�뀡�뿉 ���옣�맂 �븘�씠�뵒 �솗�씤
 
-		if (member_number == 0) {
+		if (authinfo == null) {
 			return "redirect:/member/login";
 		}
+		
+		long member_number = authinfo.getMember_number();
 		cart.setMember_number(member_number);
 		shoppingService.insert(cart); // �옣諛붽뎄�땲 �뀒�씠釉붿뿉 ���옣�맖
 		
@@ -88,43 +89,38 @@ public class ShoppingController {
 	public ModelAndView list(HttpSession session, ModelAndView mav, Cart cart, Model model) {
 
 		Map<String, Object> map = new HashMap<>();
-		
-
 		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
-		long member_number = authinfo.getMember_number();
-		if (member_number != 0) {
-
+	
+		
+		if (authinfo == null){
+			return new ModelAndView("member/login", "", null);
+		}	
 			
-			List<Cart> list = shoppingService.listCart(member_number);// �옣諛붽뎄�땲 紐⑸줉
-		//	                  list.getCartoption_number();
-		//	int sumMenuOption = shoppingService.sumMenuOption()
-			int sumMoney = shoppingService.sumMoney(member_number);// 湲덉븸 �빀怨�
-			int fee = sumMoney >= 30000 ? 0 : 3000; // 諛곗넚猷� 怨꾩궛 30000�썝�씠 �꽆�쑝硫� 諛곗넚猷뚭� 0�썝, �븞�꽆�쑝硫� 3000�썝
 
-			// hasp map�뿉 媛믩뱾�쓣 ���옣
+		    long member_number = authinfo.getMember_number();
+				
+			int sumMoney = shoppingService.sumMoney(member_number);// 금액 합계
+			int fee = sumMoney >= 30000 ? 0 : 3000; // 배송료 계산 30000원이 넘으면 배송료가 0원, 안넘으면 3000원
+			List<Cart> list = shoppingService.listCart(member_number);
+
 			map.put("sumMoney", sumMoney);
-			map.put("fee", fee); // 諛곗넚猷�
-			map.put("sum", sumMoney + fee); // �쟾泥� 湲덉븸
-			map.put("list", list); // �옣諛붽뎄�땲 紐⑸줉
-			map.put("count", list.size()); // �젅肄붾뱶 媛��닔
+			map.put("fee", fee); //배송료
+			map.put("sum", sumMoney + fee); // 합계
+			map.put("list", list); // 리스트
+			map.put("count", list.size()); // 수량
 
-			mav.setViewName("PRODUCT/cart"); // �씠�룞�븷 �럹�씠吏��쓽 �씠由�
-			mav.addObject("map", map); // �뜲�씠�꽣 ���옣
+			mav.setViewName("PRODUCT/cart"); 
+			mav.addObject("map", map);
 			mav.addObject("aa" , 100);
 			
 			long waitingPayment = shoppingService.waitingPayment(member_number);
 			model.addAttribute("waitingPayment", waitingPayment);
 			model.addAttribute("Order", new Order());
 
-			return mav; // �솕硫� �씠�룞
+			return mav; 
 
-		} else { // 濡쒓렇�씤�븯吏� �븡�� �긽�깭
 
-			return new ModelAndView("member/login", "", null);
-
-		}
-	
-	}
+}
 	
 	//�옣諛붽뎄�땲 �긽�뭹 �궘�젣
 	@RequestMapping("/product/delete")
@@ -212,14 +208,6 @@ public class ShoppingController {
 	
 
 	}
-	
-	//�긽�뭹 �궘�젣
-	
-	
-	
-	
-	
-	
 	
 	
 	

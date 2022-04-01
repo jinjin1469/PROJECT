@@ -24,6 +24,7 @@
 				spring.config.ServiceConfig
 				spring.config.WebConfig
 				spring.config.ServletConfig
+				spring.config.SecurityConfig
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

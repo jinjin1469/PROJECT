@@ -72,9 +72,15 @@ public class MemberDao {
 		return member;
 	}
 	
-	//鍮꾨�踰덊샇 �닔�젙
-		public void updatePwd(Member member) {
+	//비밀번호 업데이트
+	public void updatePwd(Member member) {
 			sqlSession.update("mybatis.mapper.member.updatePwd",member);
+		}
+
+
+   public String pwdFind(Long member_number) {
+		String member_pwd =  sqlSession.selectOne("mybatis.mapper.member.pwdFind", member_number);
+	   return member_pwd;
 		}
 	
 	

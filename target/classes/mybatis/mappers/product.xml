@@ -49,6 +49,10 @@
 		SELECT * FROM m_product WHERE option_join_number=#{num}
 	</select>
 	
+	<select id="productNum" resultType="long" parameterType="int">
+	    SELECT PRODUCT_NUMBER FROM M_PRODUCT WHERE option_join_number = #{option_join_number}
+	</select>
+
 	<insert id="insertProduct" parameterType="product">
 		INSERT INTO m_product(product_number,option_join_number,product_name,product_price,
 		product_count,product_cookingTime,product_weight,product_storage,product_m_image,

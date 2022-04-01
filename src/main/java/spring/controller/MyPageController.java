@@ -1,8 +1,13 @@
 package spring.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +87,7 @@ public class MyPageController {
 			
 			return "mypage/modify";
 		}
-	//�뜮袁⑨옙甕곕뜇�깈 占쎈땾占쎌젟 占쎈쨲 占쎈염野껓옙
+
 		 @RequestMapping(value="/mypage/modifyPwd/{member_number}",method=RequestMethod.GET)
 			public String modifyPwdForm(@PathVariable("member_number") Long member_number, RegisterRequest regReq, Model model) {
 			 
@@ -94,13 +99,25 @@ public class MyPageController {
 				return "mypage/modifyPwd";
 			}
 		 
-		 
-		 //�뜮袁⑨옙甕곕뜇�깈 占쎈땾占쎌젟占쎈릭疫뀐옙	
-		 @RequestMapping(value="/mypage/modifyPwd/modifying/{member_number}",method=RequestMethod.POST)
-			public String modifyPwd(@PathVariable("member_number") Long member_number, RegisterRequest regReq,  Model model, HttpSession session) {
 
+		 @RequestMapping(value="/mypage/modifyPwd/modifying/{member_number}",method=RequestMethod.POST)
+			public String modifyPwd(@PathVariable("member_number") Long member_number, RegisterRequest regReq,  HttpServletResponse response, Model model, HttpSession session) throws IOException {
+			 	response.setContentType("text/html;charset=utf-8");
+				PrintWriter out = response.getWriter();
+			 	String pwd = regReq.getPwd();
+			 	String member_pwd = manageService.pwdFind(member_number);
+			 	
+				if(pwd != member_pwd) {
+					
+					out.println("<script>");
+					out.println("alert('현재 비밀번호가 일치않습니다.');");
+					out.println("history.go(-1);");
+					out.println("</script>");
+					out.close();
+					
+				}
+				
 				manageService.pwdModify(member_number,regReq);
-				System.out.println("member_number");
 				Member memVo = dao.selectByMemberNum(member_number);
 				model.addAttribute("member", memVo);
 				
@@ -108,7 +125,7 @@ public class MyPageController {
 			}
 		 
 		
-		 //占쎌돳占쎌뜚占쎌젟癰귨옙 占쎈땾占쎌젟
+
 		 @RequestMapping(value="/mypage/modify/{member_number}",method=RequestMethod.POST)
 			public String modifyForm2(@PathVariable("member_number") Long member_number, Model model) {
 			 
@@ -116,6 +133,9 @@ public class MyPageController {
 				model.addAttribute("member", memVo);
 				return "/";
 			}
+		 
+
+		
 	    
 		 @RequestMapping(value = "/admin/orderStatus", method = RequestMethod.GET)
 			public String orderStatusG(Model model) {

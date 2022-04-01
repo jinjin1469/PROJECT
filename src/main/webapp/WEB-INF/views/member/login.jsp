@@ -82,6 +82,8 @@
 	height:20px;
 	margin: 0.5rem;
 	}
+	
+	.fo{color:red;}
 
 
     </style>
@@ -99,21 +101,28 @@
 
    
     <h1 class="h3 mb-3 fw-normal"><strong>🍀로그인🍀</strong></h1>
-	 <form action="login" method="post" commandName="login">
+	<%-- <form action="login" method="post" commandName="login"> --%>
+	<form:form commandName="login">
+   <form:errors class="fo"/>
     <div class="form-floating">
       <input type="text" class="form-control" id="floatingInput" name="member_id" placeholder="name@example.com">
       <label for="floatingInput">ID</label>
     </div>
+   		<form:errors path="member_id" class="fo"/>
     <br> 
+   
     <div class="form-floating">
       <input type="password" class="form-control" id="floatingPassword" name="member_pwd" placeholder="Password">
       <label for="floatingPassword">Password</label>
     </div>
+    	<form:errors path="member_pwd" class="fo" htmlEscape="false"/>
+   
     <div class="checkbox mb-301">
       <label>
         <input type="checkbox" value="remember-me"> Remember ID
       </label>      
     </div>
+   
     <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
     <div class="loginWrap">
       <button class="kakaoLogin w-50 btn btn-lg" type="button" 
@@ -122,7 +131,7 @@
       <button class="naverLogin w-50 btn btn-lg" type="submit"></button>
     </div>
   
-  </form>
+  </form:form>
   <br>
   <label>
     <a href="<c:url value='/member/findId' />">[아이디/비밀번호 찾기]</a>
