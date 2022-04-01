@@ -101,5 +101,11 @@ public class QnaService {
 		long qna_number = dao.selectCommentNumber(comment_number);
 		return qna_number;
 	}
+
+
+	public long selectProNum(long product_number) {
+		long num = dao.selectProNUM(product_number);
+		return num;
+	}
 	
 }

@@ -85,6 +85,10 @@ public class QnaDao {
 		System.out.println("dao comment 값" + comment_number);
 		return sqlSession.selectOne("mybatis.mapper.qna.selectCommentNumber", comment_number);
 	}
+
+	public long selectProNUM(long product_number) {
+		return sqlSession.selectOne("mybatis.mapper.qna.selectProNUM", product_number);
+	}
 	
 	
 }

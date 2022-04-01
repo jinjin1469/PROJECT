@@ -53,11 +53,11 @@ imgSize{width:0.5rem; height:0.5rem;}
          	  <input type="hidden" name="order_sub[${status.index}].cart_number" value="${row.cart_number}">
                 <div class="row data">
                     <div class="subdiv">
-<<<<<<< HEAD
+
                         <div class="check"><input type="checkbox" name="buy" onclick="javascript:basket.checkItem();" checked>&nbsp;</div>
-=======
+
                         <div class="check"><input type="checkbox" class="buy" name="order_sub[${status.index}].check_box" value="1" onclick="javascript:basket.checkItem();" checked>&nbsp;</div>
->>>>>>> ad7a9539bb51849743f2f8bbd56123937569d78e
+
                         <div class="img"><img src="/uploadedIMG/${row.product_m_image}" class="p_img"></div>
                         <div class="pname">
                             <span>${row.product_name}</span> 

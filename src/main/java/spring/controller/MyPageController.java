@@ -4,11 +4,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-<<<<<<< HEAD
 import javax.servlet.http.HttpServletResponse;
-=======
+
 import javax.servlet.http.HttpServletRequest;
->>>>>>> ad7a9539bb51849743f2f8bbd56123937569d78e
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,11 +87,7 @@ public class MyPageController {
 			
 			return "mypage/modify";
 		}
-<<<<<<< HEAD
-	//비밀번호 수정페이지 연결
-=======
-	//�뜮袁⑨옙甕곕뜇�깈 占쎈땾占쎌젟 占쎈쨲 占쎈염野껓옙
->>>>>>> ad7a9539bb51849743f2f8bbd56123937569d78e
+
 		 @RequestMapping(value="/mypage/modifyPwd/{member_number}",method=RequestMethod.GET)
 			public String modifyPwdForm(@PathVariable("member_number") Long member_number, RegisterRequest regReq, Model model) {
 			 
@@ -104,12 +99,7 @@ public class MyPageController {
 				return "mypage/modifyPwd";
 			}
 		 
-		 
-<<<<<<< HEAD
-	//비밀번호 수정
-=======
-		 //�뜮袁⑨옙甕곕뜇�깈 占쎈땾占쎌젟占쎈릭疫뀐옙	
->>>>>>> ad7a9539bb51849743f2f8bbd56123937569d78e
+
 		 @RequestMapping(value="/mypage/modifyPwd/modifying/{member_number}",method=RequestMethod.POST)
 			public String modifyPwd(@PathVariable("member_number") Long member_number, RegisterRequest regReq,  HttpServletResponse response, Model model, HttpSession session) throws IOException {
 			 	response.setContentType("text/html;charset=utf-8");
@@ -135,11 +125,7 @@ public class MyPageController {
 			}
 		 
 		
-<<<<<<< HEAD
-	//개인정보 수정
-=======
-		 //占쎌돳占쎌뜚占쎌젟癰귨옙 占쎈땾占쎌젟
->>>>>>> ad7a9539bb51849743f2f8bbd56123937569d78e
+
 		 @RequestMapping(value="/mypage/modify/{member_number}",method=RequestMethod.POST)
 			public String modifyForm2(@PathVariable("member_number") Long member_number, Model model) {
 			 

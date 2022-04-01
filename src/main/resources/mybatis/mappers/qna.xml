@@ -29,6 +29,12 @@
 		<result column="comment_regdate" property="comment_regdate"/>	
 	</resultMap>
 	
+	<select id="selectProNUM" resultType="long" parameterType="long">
+	 	select option_join_number
+		from m_product
+		where product_number = #{product_number}
+	</select>
+	
 	<select id="selectList" resultMap = "qnaVo">
 	 select qna_title, m.member_nickname, qna_regdate, qna_number, p.product_number, qna_state, product_name
 	 from m_qna q , m_member m , m_product p
