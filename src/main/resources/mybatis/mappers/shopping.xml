@@ -75,7 +75,7 @@
  		select sum(optionmoney) from( 
 		select cart_number, t.cartoption_number, o.option_number, option_selectcount, option_price, p.product_number, m.member_number, member_name, product_name, product_selectcount, product_price, product_m_image,(option_price*option_selectcount) optionmoney
 		from m_member m, m_cart c, m_product p, m_cartoption t, m_option o
-		where m.member_number=c.member_number and c.product_number=p.product_number and c.cartoption_number=t.cartoption_number and o.option_number=t.option_number and c.cart_number=1007 order by cart_number);
+		where m.member_number=c.member_number and c.product_number=p.product_number and c.cartoption_number=t.cartoption_number and o.option_number=t.option_number and c.cart_number=1007 order by cart_number)
     </select> -->
     
     <select id="selectNumber" resultType="long">

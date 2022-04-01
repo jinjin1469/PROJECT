@@ -1,17 +1,19 @@
 package spring.controller;
 
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
 import org.springframework.stereotype.Controller;
-
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.exception.IdPasswordNotMatchingException;
 import spring.service.AuthService;
+import spring.validator.LoginCommandValidator;
 import spring.vo.AuthInfo;
 import spring.vo.Login;
 
@@ -26,29 +28,37 @@ public class LoginController {
 		
 	 //로그인 폼으로 연결
     @RequestMapping(value="/member/login",method=RequestMethod.GET)
-	public String form(Login login) {
+	public String form(Login login, HttpServletRequest request, Model model) {
 		
+    	model.addAttribute("login", new Login());
+    	String referrer = request.getHeader("Referer");
+    	request.getSession().setAttribute("prevPage", referrer);
+    	
 		return "member/login";
 	}
     
     //로그인
     @RequestMapping(value="/member/login",method=RequestMethod.POST)
-	public String submit(Login login, Errors errors, HttpSession session) { 
-			
+	public String submit(Login login, Errors errors, HttpSession session, HttpServletRequest request, String url) { 
+    	new LoginCommandValidator().validate(login, errors);
+    	if(errors.hasErrors()) {
+			return "member/login";
+		}
+    	
 		try {
 			AuthInfo authInfo = authService.authenticate(login.getMember_id(), login.getMember_pwd());
-			
-			// 로그인 정보를 기록할 세션 코드
 			session.setAttribute("authInfo", authInfo);
 			
 		}catch(IdPasswordNotMatchingException e) {
 			
 			errors.reject("idPasswordNotMatching");
-			return "login/loginForm";
+			return "member/login";
+			
 		}
 		return "redirect:/";
 	}
     
+   
 
     //로그아웃
     @RequestMapping("/logout")

@@ -17,6 +17,7 @@
   	<typeAlias type="spring.vo.Cart" alias="cart"/>
   	<typeAlias type="spring.vo.Review" alias="review"/>
   	<typeAlias type="spring.vo.Qna" alias="qna"/>
+  	<typeAlias type="spring.vo.CommentWrite" alias="commentWrite"/>
   </typeAliases>
 
 </configuration>

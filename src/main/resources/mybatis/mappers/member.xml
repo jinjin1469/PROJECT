@@ -52,6 +52,9 @@
 		<include refid="selectAllMember" />
 		WHERE member_id=#{member_id}
 	</select>
+	<select id="pwdFind" parameterType="long" resultType="String">
+	 	select member_pwd from m_member where member_number = #{member_number} 
+	</select>
 	
 	<!-- 아이디 찾기 -->
 	<select id="findId" parameterType="String" resultType="String">

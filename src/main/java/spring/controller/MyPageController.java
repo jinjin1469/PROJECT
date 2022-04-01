@@ -1,7 +1,10 @@
 package spring.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +67,7 @@ public class MyPageController {
 			
 			return "mypage/modify";
 		}
-	//鍮꾨�踰덊샇 �닔�젙 �뤌 �뿰寃�
+	//비밀번호 수정페이지 연결
 		 @RequestMapping(value="/mypage/modifyPwd/{member_number}",method=RequestMethod.GET)
 			public String modifyPwdForm(@PathVariable("member_number") Long member_number, RegisterRequest regReq, Model model) {
 			 
@@ -77,12 +80,25 @@ public class MyPageController {
 			}
 		 
 		 
-		 //鍮꾨�踰덊샇 �닔�젙�븯湲�	
+	//비밀번호 수정
 		 @RequestMapping(value="/mypage/modifyPwd/modifying/{member_number}",method=RequestMethod.POST)
-			public String modifyPwd(@PathVariable("member_number") Long member_number, RegisterRequest regReq,  Model model, HttpSession session) {
-
+			public String modifyPwd(@PathVariable("member_number") Long member_number, RegisterRequest regReq,  HttpServletResponse response, Model model, HttpSession session) throws IOException {
+			 	response.setContentType("text/html;charset=utf-8");
+				PrintWriter out = response.getWriter();
+			 	String pwd = regReq.getPwd();
+			 	String member_pwd = manageService.pwdFind(member_number);
+			 	
+				if(pwd != member_pwd) {
+					
+					out.println("<script>");
+					out.println("alert('현재 비밀번호가 일치않습니다.');");
+					out.println("history.go(-1);");
+					out.println("</script>");
+					out.close();
+					
+				}
+				
 				manageService.pwdModify(member_number,regReq);
-				System.out.println("member_number");
 				Member memVo = dao.selectByMemberNum(member_number);
 				model.addAttribute("member", memVo);
 				
@@ -90,7 +106,7 @@ public class MyPageController {
 			}
 		 
 		
-		 //�쉶�썝�젙蹂� �닔�젙
+	//개인정보 수정
 		 @RequestMapping(value="/mypage/modify/{member_number}",method=RequestMethod.POST)
 			public String modifyForm2(@PathVariable("member_number") Long member_number, Model model) {
 			 
@@ -98,6 +114,9 @@ public class MyPageController {
 				model.addAttribute("member", memVo);
 				return "/";
 			}
+		 
+
+		
 	    
 	
 	

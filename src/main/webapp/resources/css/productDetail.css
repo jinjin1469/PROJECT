@@ -320,16 +320,13 @@ table {
 
 th, td {
 	border-bottom: 1px solid #444444;
-	padding: 10px;
-	text-align: left;
+	text-align: center;
 }
 
-.th-1{width: 400px;}
+.th-1{width: 400px; height:40px;border-bottom: 1px solid #E6E6E6;}
 
-
-td {
-	width: 50%;
-}
+.td-1{height:40px;
+border-bottom: 1px solid #E6E6E6;}
 
 th {
 	background-color: #F5F5F5;

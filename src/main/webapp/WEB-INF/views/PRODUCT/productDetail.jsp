@@ -105,7 +105,9 @@
 	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
 		border-color 0.15s ease-in-out;
 }
-
+.th-2{border-bottom: 0.7px solid #DCDCDC;}
+.qnaInfo{width: 800px; text-align: right;}
+.qInfo{color:red; font-size:13px; margin:0px;}
 </style>
 <body>
 <%@include file="../header.jsp" %>
@@ -113,6 +115,7 @@
 <br>
 <div class="Product">
 <form action="addCart" method="POST" commandName="cartData" >
+<input type="hidden" name="num" id="num" value="${num}">
 		<div class="Product_img">
 			<img src="/uploadedIMG/${Product.product_m_image}" class="imgSize" alt="...">
 		</div>
@@ -224,9 +227,9 @@
 <div class="tab-content" id="nav-tabContent">	
 <!-- 탭메뉴 -->
   <div class="nav nav-tabs centered" id="nav-tab" role="tablist">
-    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">상품 상세</button>
-    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">후기</button>
-     <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">문의</button>
+    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true" onclick="location.href = '#image'">상품 상세</button>
+    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false" onclick="location.href = '#rebivew'">후기</button>
+    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false" onclick="location.href = '#qna'">문의</button>
   </div>
   
   
@@ -254,16 +257,32 @@
 		<!-- 상품 문의 보이는곳-->
 		<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
 		 <!-- content3 -->
+		 
 		  	<div class="text-center">
-		 		  <h3>Q&A🧐</h3>
+		 		  <h3>Q&A🙋</h3>
+		 		 
 		 		  <br>
-		 		  <br>
-		 		  <table>
-			 		  	<tr>	
+		 		  	<div class="qnaInfo"><label class="qInfo">*질문은 작성자 본인&관리자만 확인할 수 있습니다.</label></div>
+		 		  <table class="qna">
+			 		  	<tr class="qna">
+			 		  		<th class="th-2">답변 등록 상태</th>
 			 		  		<th class="th-1">제목</th>
-			 		  		<th>작성자</th>
-			 		  		<th>작성일</th>
+			 		  		<th class="th-2">작성자</th>
+			 		  		<th class="th-2">작성일</th>
 			 		 	</tr>
+			 		 	<c:forEach var="qna" items="${Qna}" varStatus="status">
+			 		 	<tr>
+			 		 		<td class="td-1">${qna.qna_state}</td>
+			 		 		<td class="td-1">
+			 		 			<input type="hidden" value="${qna.qna_number}">
+			 		 			<%-- <a href="javascript:void(0);" id="showPwd(${status.count})" onclick="showPwd(${status.count});">🔒${qna.qna_title}</a> --%>
+			 		 			<a href="<c:url value='/product/qna/${qna.qna_number}' />" >🔒${qna.qna_title}</a>
+			 		 		 </td>
+			 		 		<td class="td-1">${qna.member_nickname}</td>
+			 		 		<td class="td-1">${qna.qna_regdate}</td>
+			 		 	</tr>
+			 					
+			 		 	</c:forEach>
 		 		  </table>
 		 		 <br>
 		 			<input type="button" class="btn3 btn-primary btn-lg3 btn-block" value="질문작성" onclick="qna();">
@@ -403,11 +422,15 @@
 				location.assign("/PRODUCT/cart");
 			} 
 		});
- 
+ 	
+	//글 작성 페이지로 이동
  	 function qna(){
 		 var product_number = document.getElementById("product_number").value;	
 		 location.href='/product/qna?product_number= '+ product_number;
  	 }
+ 	 
+   
+ 	  
  	 
 </script>
 </body>

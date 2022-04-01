@@ -53,7 +53,7 @@ imgSize{width:0.5rem; height:0.5rem;}
          	  
                 <div class="row data">
                     <div class="subdiv">
-                        <div class="check"><input type="checkbox" name="buy" value="260" onclick="javascript:basket.checkItem();" checked>&nbsp;</div>
+                        <div class="check"><input type="checkbox" name="buy" onclick="javascript:basket.checkItem();" checked>&nbsp;</div>
                         <div class="img"><img src="/uploadedIMG/${row.product_m_image}" class="p_img"></div>
                         <div class="pname">
                             <span>${row.product_name}</span>

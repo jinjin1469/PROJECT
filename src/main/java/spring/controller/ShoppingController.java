@@ -56,14 +56,15 @@ public class ShoppingController {
 		// 현재로그인된 정보알아오기
 
 		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
-		long member_number = authinfo.getMember_number();
 		ArrayList<CartOption> option = new ArrayList<CartOption>();
 
 		// 로그인 여부를 체크하기 위해 세션에 저장된 아이디 확인
 
-		if (member_number == 0) {
+		if (authinfo == null) {
 			return "redirect:/member/login";
 		}
+		
+		long member_number = authinfo.getMember_number();
 		cart.setMember_number(member_number);
 		shoppingService.insert(cart); // 장바구니 테이블에 저장됨
 		
@@ -87,16 +88,17 @@ public class ShoppingController {
 	public ModelAndView list(HttpSession session, ModelAndView mav, Cart cart) {
 
 		Map<String, Object> map = new HashMap<>();
-		
-
 		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
-		long member_number = authinfo.getMember_number();
-		if (member_number != 0) {
-
+	
+		
+		if (authinfo == null){
+			return new ModelAndView("member/login", "", null);
+		}	
 			
+		    long member_number = authinfo.getMember_number();
 			List<Cart> list = shoppingService.listCart(member_number);// 장바구니 목록
-		//	                  list.getCartoption_number();
-		//	int sumMenuOption = shoppingService.sumMenuOption()
+			
+			
 			int sumMoney = shoppingService.sumMoney(member_number);// 금액 합계
 			int fee = sumMoney >= 30000 ? 0 : 3000; // 배송료 계산 30000원이 넘으면 배송료가 0원, 안넘으면 3000원
 
@@ -115,13 +117,8 @@ public class ShoppingController {
 
 			return mav; // 화면 이동
 
-		} else { // 로그인하지 않은 상태
-
-			return new ModelAndView("member/login", "", null);
-
 		}
-	
-	}
+
 	
 	//장바구니 상품 삭제
 	@RequestMapping("/product/delete")
@@ -210,7 +207,7 @@ public class ShoppingController {
 
 	}
 	
-	//상품 삭제
+
 	
 	
 	

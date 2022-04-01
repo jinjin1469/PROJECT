@@ -19,7 +19,7 @@
 
 	<h2 class="cen">🆕회원 정보 입력🆕</h2>
 <br>
-	<div class="modifyInfo">*모든 회원정보는 필수로 입력해야됩니다.</div>
+	<div class="modifyInfo">*모든 정보는 필수로 입력 부탁드립니다.</div>
 	<form name="register" id="signform" action="register" commandName="formData" class="validation-form" method="post">
 
 		<table>
@@ -37,7 +37,7 @@
 				placeholder="한글/영문/숫자 포함  2~10자 " required>
 				<br>
 				<span class="point successNameChk"></span>
-				<input type="hidden" id="nicknameDoubleChk"></td>
+				<input type="hidden" id="nicknameDoubleChk" value=""></td>
 
 
 			</tr>
@@ -71,10 +71,10 @@
 				<th>이메일</th>
 				<td><input type="text" name="email" id="email" value="" style="width:100px; text-align:left;">
 				<span id="middle">@</span>
-				<input type="text" name="domain" id="domain" value="" style="width: 100px;"> 
+				<input type="text" name="domain" id="domain" value="" style="width: 100px;" readonly> 
 				<select style="width: 100px; margin-right: 10px" name="selectEmail" id="selectEmail">
 						<option value="1">직접입력</option>
-						<option value="" selected>선택하세요</option>
+						<option value="2" selected>선택하세요</option>
 						<option value="naver.com">naver.com</option>
 						<option value="hanmail.net">hanmail.net</option>
 						<option value="hotmail.com">hotmail.com</option>
@@ -176,14 +176,14 @@
 
 	//비밀번호 유효성검사
 	$("#member_pwd").on("input",function(){
-	    var regex = /^[A-Za-z\d]{8,21}$/;
+	    var regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
 	    var result = regex.exec($("#member_pwd").val())
 	    
 	    if(result != null){
 	        $(".member_pwd.regex").html("");
 	    }else{
 	        $(".member_pwd.regex").html("비밀번호는 영문 대소문자,숫자 8자 이상 20자 이하로 설정해주세요.");
-	        $(".member_pwd.regex").css("color","	red")
+	        $(".member_pwd.regex").css("color","red")
 	    }
 	});
 	
@@ -229,12 +229,22 @@
 	$("select[name=selectEmail]").change(function(){
 		email();	
 	}); 
+	
+	$("input[name=domain]").blur(function(){
+		email();	
+	}); 
+	
+
+	$("input[name=domain]").change(function(){
+		email();	
+	}); 
 
 	function email() {
 		const email = $("#email").val();
 		const middle = $("#middle").text();
 		const domain = $("#domain").val();
-		if(email != "" && domain != "") {
+//		if(email != "" && domain != "") 
+			if(email != "")	{
 			$("#member_email").val(email+middle+domain);
 		}
 	};
@@ -414,10 +424,14 @@
 	 $(function(){ $('#selectEmail').change(function(){
 	   if($('#selectEmail').val() == "1"){
 	    $("#domain").val(""); //값 초기화
-	    $("#domain").prop("readonly",false); //활성화
-	   } else if($('#selectEmail').val() == ""){
+	    email();
+	    $("#domain").prop("readonly",false); 
+	    //활성화
+	   } else if($('#selectEmail').val() == "2"){
 	    $("#domain").val(""); //값 초기화
-	    $("#domain").prop("readonly",true); //textBox 비활성화
+	    email();
+	    $("#domain").prop("readonly",true); 
+	    //textBox 비활성화
 	   } else {
 	    $("#domain").val($('#selectEmail').val()); //선택값 입력
 	    $("#domain").prop("readonly",true); //비활성화
@@ -441,35 +455,38 @@
    	   var nickname = document.getElementById('member_nickname').value
    	   var email = document.getElementById('member_email').value
 	   var idDoubleChk = document.getElementById('idDoubleChk').value
-	   var nicknameDoubleChk = document.getElementById('nicknameDoubleChk').value
+	   var nicknameDoubleChk = document.getElementById('nicknameDoubleChk').value;
    	   
    		   	   
    	   var idregex = /^[a-z][a-z\d]{4,11}$/;
-   	   var pwregex = /^[A-Za-z\d]{8,21}$/;
+   	   var pwregex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
    	   var nameregex = /[가-힣]{2,}/;
    	   var nicknameregex = /[0-9]|[a-z]|[A-Z]|[가-힣]/;
    	   var emailregex = /.+@[a-z]+(\.[a-z]+){1,2}$/;
    	   var a = true;
    	   var b = false;
    	 
+   	   
+   	   
+   	   if(nicknameDoubleChk == false){
+		   alert("닉네임이 중복입니다.");
+		   return;   
+	   }
+	   
    	   var nameregex = nameregex.exec(name);
 	   if(nameregex == null){
 		   alert("이름양식을 다시 확인해주세요");
 		   retrun;
 	   }
 	   
+	  
 	   var nicknameregex = nicknameregex.exec(nickname);
    	   if(nicknameregex == null){
    		   alert("닉네임양식을 다시 확인해주세요");
    		   retrun;
    	   }
    	   
-   	   if(idDoubleChk === b){
-   	    	alert("아이디가 중복입니다.");
-   	    	return
-   	   }
-   	   
-   	   
+   	 
    	   var idregex = idregex.exec(id);
    	   if(idregex == null){
    		   alert("아이디양식을 다시 확인해주세요");
@@ -482,6 +499,7 @@
    		   alert("비밀번호양식을 다시 확인해주세요");
    		   retrun;
    	   }
+   	   
    	  var emailregex = emailregex.exec(email);
 	   if(emailregex == null){
 		   alert("이메일양식을 다시 확인해주세요");
