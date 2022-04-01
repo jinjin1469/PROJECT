@@ -15,9 +15,16 @@
   	<typeAlias type="spring.vo.Option" alias="option"/>
   	<typeAlias type="spring.vo.Category" alias="category"/>
   	<typeAlias type="spring.vo.Cart" alias="cart"/>
+  	<typeAlias type="spring.vo.ProductCategoryEditList" alias="ProductCategoryEditList"/>
+  	<typeAlias type="spring.vo.ProductCategoryEdit" alias="ProductCategoryEdit"/>
   	<typeAlias type="spring.vo.Review" alias="review"/>
   	<typeAlias type="spring.vo.Qna" alias="qna"/>
+<<<<<<< HEAD
   	<typeAlias type="spring.vo.CommentWrite" alias="commentWrite"/>
+=======
+  	<typeAlias type="spring.vo.Order" alias="order"/>
+  	<typeAlias type="spring.vo.OrderSub" alias="orderSub"/>
+>>>>>>> ad7a9539bb51849743f2f8bbd56123937569d78e
   </typeAliases>
 
 </configuration>

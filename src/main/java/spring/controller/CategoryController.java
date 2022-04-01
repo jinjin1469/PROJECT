@@ -7,17 +7,16 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import spring.dao.CategoryDao;
 import spring.vo.Category;
 import spring.vo.CategoryCommand;
 import spring.vo.ProductCategoryEdit;
+import spring.vo.ProductCategoryEditList;
 
 @Controller
 @RequestMapping("/category")
@@ -63,7 +62,7 @@ public class CategoryController {
 	@RequestMapping(value = "/categoryDelete", method = RequestMethod.POST)
 	public String categoryDeleteP(Model model, Category category) {
 
-		if (category.getClassification().equals("�뀒留덈퀎")) {
+		if (category.getClassification().equals("테마별")) {
 			int seq = dao.categorySeq(category);
 			dao.categoryDelete(category);
 			dao.productCategoryNameNull1(category);
@@ -73,7 +72,7 @@ public class CategoryController {
 					dao.deleteBysortNumUpdate(i + 1, category.getClassification());
 				}
 			}
-		} else if (category.getClassification().equals("�궗�씠�뱶�뵒�돩")) {
+		} else if (category.getClassification().equals("사이드디쉬")) {
 			int seq = dao.categorySeq(category);
 			dao.categoryDelete(category);
 			dao.productCategoryNameNull1(category);
@@ -83,7 +82,7 @@ public class CategoryController {
 					dao.deleteBysortNumUpdate(i + 1, category.getClassification());
 				}
 			}
-		} else if (category.getClassification().equals("釉뚮옖�뱶愿�")) {
+		} else if (category.getClassification().equals("브랜드관")) {
 			int seq = dao.categorySeq(category);
 			dao.categoryDelete(category);
 			dao.productCategoryNameNull2(category);
@@ -126,8 +125,8 @@ public class CategoryController {
 		return "CATEGORY/categoryClose";
 	}
 
-	@RequestMapping(value = "/productCategoryEdit1", method = RequestMethod.GET)
-	public String productCategoryEdit1G(Model model) {
+	@RequestMapping(value = "/productCategoryEdit", method = RequestMethod.GET)
+	public String productCategoryEditG(Model model) {
 
 		List<Category> menu1 = dao.menu1();
 		List<Category> menu2 = dao.menu2();
@@ -145,25 +144,47 @@ public class CategoryController {
 	
 	  //ajax
 	  
-	  @RequestMapping(value="/categoryCheck", method = RequestMethod.POST)
-	  public Map<String,Object> testaa(@RequestParam Map<String,Object> param,Model model){ 
+	@ResponseBody
+	@RequestMapping(value="/categoryCheck", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+	public Map<String,Object> testaa(@RequestBody Map<String,String> param,Model model){ 
 		  
-		  String aa = (String)param.get("category_title");
-		  String bb = (String)param.get("classification");
-		  System.out.println(aa);
-		  System.out.println(bb);
-		  
-		  //model.addAttribute("totalPrice",200); // 
-			/* List<HashMap<String, Object>> */
-			/*
-			 * Map resultMap = new HashMap(); resultMap.put("result1", "1");
-			 * resultMap.put("result2", "2"); ModelAndView mav = new
-			 * ModelAndView("jsonView",resultMap); mav.setViewName("jsonView");
-			 */
 		  Map<String,Object> list = new HashMap<String,Object>();
-		  list.put("1",0);
-		  list.put("2",1);
+		  List<ProductCategoryEditList> productList = new ArrayList<ProductCategoryEditList>();
+		  String category_title = String.valueOf(param.get("category_title"));
+		  String classification = String.valueOf(param.get("classification"));
+		  System.out.println(category_title+"1");
+		  System.out.println(classification+"2");
+		  ProductCategoryEdit input = new ProductCategoryEdit();
+		  input.setCategory_title(category_title);
+		  
+		  if(category_title.equals("NULL")) {
+			  if(classification.equals("category_1")) {
+				  input.setCategory_1(classification);
+			  }else if(classification.equals("category_2")) {
+				  input.setCategory_2(classification);
+			  }
+			  productList = dao.nullCategorySelect(input);
+		  }else{
+			  if(classification.equals("category_1")) {
+				  input.setCategory_1(classification);
+			  }else if(classification.equals("category_2")) {
+				  input.setCategory_2(classification);
+			  }
+			  productList = dao.categorySelect(input);
+		  }
+		  
+		  list.put("category_title",category_title);
+		  list.put("classification",classification);
+		  list.put("productList",productList);
+
 	  return list; 
 	  }
+	@RequestMapping(value = "/productCategoryEdit", method = RequestMethod.POST)
+	public String productCategoryEditP(ProductCategoryEdit editList,Model model) {
+
+		
+
+		return "redirect:/";
+	}
 	 
 }

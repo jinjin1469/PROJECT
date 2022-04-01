@@ -27,13 +27,17 @@ public class ShoppingService {
     public List<Cart> cartMoney() {
         return null;
     }
+    
+    public long waitingPayment(long member_number) {
+        return dao.waitingPayment(member_number);
+    }
 
-    //카트에 저장
+    //移댄듃�뿉 ���옣
     public void insert(Cart cart) {
         dao.insert(cart);
     }
  
-    //카트 목록 출력
+    //移댄듃 紐⑸줉 異쒕젰
     public List<Cart> listCart(long member_number) {
         return dao.listCart(member_number);
     }
@@ -57,7 +61,7 @@ public class ShoppingService {
  
     }
  
-    //카트에 담긴 레코트 합계
+    //移댄듃�뿉 �떞湲� �젅肄뷀듃 �빀怨�
     public int sumMoney(long member_number) {
         return dao.sumMoney(member_number);
     }

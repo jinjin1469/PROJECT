@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mybatis.mapper.orderSub">
+	
+	<resultMap type="orderSub" id="orderSubVo">
+		<result column="cartoption_number" property="cartoption_number"/>
+		<result column="product_name" property="product_name"/>
+		<result column="product_number" property="product_number"/>
+		<result column="product_count" property="product_count"/>
+		<result column="product_price" property="product_price"/>
+		<result column="product_m_image" property="product_m_image"/>
+		<result column="option_join_number" property="option_join_number"/>
+		<result column="order_join_number" property="order_join_number"/>
+	</resultMap>
+
+	<select id="productList" resultMap="orderSubVo" parameterType="long">
+		SELECT A.product_name product_name, A.product_number product_number, A.product_price product_price,
+			B.product_selectcount product_count, B.cartoption_number cartoption_number FROM m_product A JOIN 
+			(SELECT * FROM m_cart WHERE cart_status = '결제대기' AND member_number=#{member_number}) B
+			ON A.product_number=B.product_number
+	</select>
+	
+	<select id="productListinfo" resultMap="orderSubVo" parameterType="int">
+		SELECT A.product_name product_name, A.product_number product_number, A.product_m_image product_m_image, 
+		B.product_count product_count,B.option_join_number option_join_number 
+		FROM m_product A JOIN (SELECT * FROM m_order_list WHERE order_join_number=#{order_join_number}) B 
+		ON A.product_number=B.product_number
+	</select>
+	
+	
+	
+	
+   	 
+	
+</mapper>

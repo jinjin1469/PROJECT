@@ -11,6 +11,8 @@ import spring.vo.Category;
 import spring.vo.Notice;
 import spring.vo.Option;
 import spring.vo.Product;
+import spring.vo.ProductCategoryEdit;
+import spring.vo.ProductCategoryEditList;
 import spring.vo.ProductCommand;
 
 public class CategoryDao {
@@ -70,6 +72,16 @@ public class CategoryDao {
 		map.put("classification", classification);
 		sqlSession.update("mybatis.mapper.category.deleteBysortNumUpdate",map);
 	}
+	public List<ProductCategoryEditList> nullCategorySelect(ProductCategoryEdit pce) { 
+		List<ProductCategoryEditList> list = sqlSession.selectList("mybatis.mapper.ProductCategoryEditList.nullCategorySelect",pce);
+		return list;
+	}
+	public List<ProductCategoryEditList> categorySelect(ProductCategoryEdit pce) { 
+		List<ProductCategoryEditList> list = sqlSession.selectList("mybatis.mapper.ProductCategoryEditList.categorySelect",pce);
+		return list;
+	}
+	
+	
 	
 	public CategoryDao(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;

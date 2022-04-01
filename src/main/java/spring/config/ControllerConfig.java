@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import spring.controller.AdminController;
 import spring.controller.CategoryController;
 import spring.controller.LoginController;
 import spring.controller.MainController;
@@ -11,14 +12,17 @@ import spring.controller.MemberFindController;
 import spring.controller.MemberRegisterController;
 import spring.controller.MyPageController;
 import spring.controller.NoticeController;
+import spring.controller.OrderController;
 import spring.controller.PaymentController;
 import spring.controller.ProductController;
 import spring.controller.QnaController;
 import spring.controller.ReviewController;
 import spring.controller.ShoppingController;
+import spring.dao.AdminDao;
 import spring.dao.CategoryDao;
 import spring.dao.MemberDao;
 import spring.dao.NoticeDao;
+import spring.dao.OrderDao;
 import spring.dao.ProductDao;
 import spring.intercepter.AuthCheckIntercepter;
 import spring.intercepter.CategoryIntercepter;
@@ -52,6 +56,10 @@ public class ControllerConfig {
 	private ProductDao pdao;
 	@Autowired
 	private CategoryDao cdao;
+	@Autowired
+	private OrderDao odao;
+	@Autowired
+	private AdminDao adao;
 	@Autowired
 	private ReviewService reviewService;
 	@Autowired
@@ -90,6 +98,7 @@ public class ControllerConfig {
 	public MyPageController myPageController() {
 		MyPageController myPageController = new MyPageController();
 		myPageController.setManageService(manageService);
+		myPageController.setDao(odao);		
 		return myPageController;
 	}
 	
@@ -117,7 +126,7 @@ public class ControllerConfig {
 	@Bean
 	public PaymentController paymentController() {
 		PaymentController payController = new PaymentController();
-
+		payController.setDao(odao);
 		return payController;
 	}
 	
@@ -153,6 +162,21 @@ public class ControllerConfig {
 		QnaController qnaController = new QnaController();
 		qnaController.setQnaService(qnaService);
 		return qnaController;
+	}
+	
+	@Bean
+	public OrderController orderController() {
+		OrderController orderController = new OrderController();
+		orderController.setDao(odao);
+		return orderController;
+	}
+	
+	@Bean
+	public AdminController adminController() {
+		AdminController adminController = new AdminController();
+		adminController.setDao(adao);
+		adminController.setDao(odao);
+		return adminController;
 	}
 }
 

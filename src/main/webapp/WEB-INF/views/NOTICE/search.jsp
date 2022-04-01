@@ -15,37 +15,36 @@
 <body>
 <%@include file="../header.jsp" %>
 <div class="container d-flex flex-wrap d-flex align-items-center">
-<div class="col-md-2">
-<div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
-    <p class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none">
-      <svg class="bi me-2" width="30" height="24"></svg>
-      <span class="fs-5 fw-semibold">고객센터</span>
-    </p>
-    <ul class="list-unstyled ps-0">
-      <li class="mb-1">
-        <a class="d-flex align-items-center link-dark text-decoration-none" href="/notice/main">
-        <svg class="bi me-2" width="30" height="5"></svg>
-          공지사항
-        </a>
-        <a class="d-flex align-items-center link-dark text-decoration-none" href="/notice/faq">
-        <svg class="bi me-2" width="30" height="5"></svg>
-          자주 묻는 질문
-        </a>
-      </li>
-    </ul>
-  </div>
-  </div>
+	<aside>
+	    <p class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none">
+	      <svg class="bi me-2" width="30" height="24"></svg>
+	      <span class="fs-5 fw-semibold">고객센터</span>
+	    </p>
+	    <ul class="list-unstyled ps-0">
+	      <li class="mb-1">
+	        <a class="d-flex align-items-center link-dark text-decoration-none" href="/notice/main">
+	        <svg class="bi me-2" width="30" height="5"></svg>
+	          공지사항
+	        </a>
+	        <a class="d-flex align-items-center link-dark text-decoration-none" href="#">
+	        <svg class="bi me-2" width="30" height="5"></svg>
+	          자주 묻는 질문
+	        </a>
+	      </li>
+	    </ul>
+	</aside>
   <div class="col-md-10">
     <h3>공지사항</h3>
- <nav class="nav navbar navbar-light">
-  <div class="container-fluid">
-    <form class="d-flex" method="post">
-      <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search" name="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
-<a href="/notice/insert">글 등록</a>
+	<div class="row">
+			<div class="col-md-8"></div>
+			<div class="col-md-4">
+		    <form class="d-flex" action="/notice/main" method="post">
+		      <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search" name="Search">
+		      <button class="btn btn-outline-success" type="submit">Search</button>
+		    </form>
+			</div>
+	</div>
+
 
 <c:if test="${!empty Notice}">
 		<table border=1>
@@ -68,7 +67,7 @@
 		</table>
 </c:if>
 
-    
+    <a href="/notice/insert">글 등록</a>	
     
   </div>  
   </div>

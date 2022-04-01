@@ -41,7 +41,12 @@
 	<br>
 	<p><strong>쇼핑관리</strong></p>
 	<hr>
+<<<<<<< HEAD
 		<p><a href="<c:url value='/mypage/qnalist' />" class="menu">1:1 문의 모아보기</a></p>
+=======
+		<p><a href="<c:url value='/admin/orderStatus' />" class="menu">배송관리</a></p>
+		<p><a href="<c:url value='/member/login' />" class="menu">1:1게시판</a></p>
+>>>>>>> ad7a9539bb51849743f2f8bbd56123937569d78e
 		<p><a href="<c:url value='/member/login' />" class="menu">리뷰 모아보기</a></p>
 		<p><a href="<c:url value='/notice/main' />" class="menu">F&Q</a></p>
 	<br>

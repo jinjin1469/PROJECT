@@ -4,6 +4,7 @@
 
 ### Eclipse ###
 .metadata
+pom.properties
 bin/
 tmp/
 *.tmp

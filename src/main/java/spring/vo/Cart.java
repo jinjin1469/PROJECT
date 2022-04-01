@@ -22,6 +22,8 @@ public class Cart {
 	private int money;
 	private int sumoption;
 	private long cartoption_number;
+	private int order_join_number;
+	private String cart_status;
 	private ArrayList<CartOption> change_option;
 	private ArrayList<CartOption> optionList;
 	
@@ -136,6 +138,18 @@ public class Cart {
 	}
 	public void setOptionList(ArrayList<CartOption> optionList) {
 		this.optionList = optionList;
+	}
+	public int getOrder_join_number() {
+		return order_join_number;
+	}
+	public void setOrder_join_number(int order_join_number) {
+		this.order_join_number = order_join_number;
+	}
+	public String getCart_status() {
+		return cart_status;
+	}
+	public void setCart_status(String cart_status) {
+		this.cart_status = cart_status;
 	}
 	
 	

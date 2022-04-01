@@ -20,11 +20,38 @@
 </head>
 <body>
 <%@include file="../header.jsp" %>
-	<h3>파일 업로드</h3>
+	<h3>상품 수정</h3>
 	
 		<form:form id="ProductUpdate" commandName="ProductCommand" action="/product/update/${ProductCommand.option_join_number}" method="POST" enctype="multipart/form-data">
-			카테고리1 : <form:input path="category_1"/><br>
-			카테고리2 : <form:input path="category_2"/><br>
+			카테고리1 : <select name="category_1">
+							<c:forEach var="menu1" items="${menu1}">
+								<c:if test="${menu1.category_title==category_1}">
+									<option value="${menu1.category_title}" selected>${menu1.category_title}</option>
+								</c:if>
+								<c:if test="${menu1.category_title!=category_1}">
+									<option value="${menu1.category_title}">${menu1.category_title}</option>
+								</c:if>
+							</c:forEach>
+							<c:forEach var="menu2" items="${menu2}">
+								<c:if test="${menu2.category_title==category_1}">
+									<option value="${menu2.category_title}" selected>${menu2.category_title}</option>
+								</c:if>
+								<c:if test="${menu2.category_title!=category_1}">
+									<option value="${menu2.category_title}">${menu2.category_title}</option>
+								</c:if>
+							</c:forEach>
+			  		 </select><br>
+			카테고리2 : <select name="category_2">
+							<option value=""></option>
+							<c:forEach var="menu3" items="${menu3}">
+								<c:if test="${menu3.category_title==category_2}">
+									<option value="${menu3.category_title}" selected>${menu3.category_title}</option>
+								</c:if>
+								<c:if test="${menu3.category_title!=category_2}">
+									<option value="${menu3.category_title}">${menu3.category_title}</option>
+								</c:if>
+							</c:forEach>	
+			  		 </select><br>
 			상품이름 : <form:input path="product_Name"/><br>
 			상품가격 : <form:input path="product_Price"/><br>
 			상품수량 : <form:input path="product_Count"/><br>

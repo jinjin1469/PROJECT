@@ -85,6 +85,16 @@
    	  <delete id="delete">
         delete from m_cart where cart_number=#{cart_number}
     </delete>
+    
+    
+    <update id="paymentWait" parameterType="OrderSub">
+   	 	update m_cart set cart_status = '결제대기' where cartoption_number=#{cartoption_number}
+   	 </update>
+   	 
+   	 <select id="waitingPayment" resultType="long" parameterType="long">
+   	 	select count(*) FROM m_cart WHERE cart_status = '결제대기' AND member_number=#{member_number}
+   	 </select>
+   	 
    	 
 
 </mapper>

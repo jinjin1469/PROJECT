@@ -24,11 +24,6 @@
      	<ul class="navheader">
 	       <li class="navheader"><a href="<c:url value='/member/login' />"  aria-current="page">로그인</a></li>
 	       <li class="navheader"><a href="<c:url value='/member/joinChoice' />" >회원가입</a></li>
-	       <li class="navheader"><a href="javascript:categoryAdd();">카테고리추가</a></li>
-	       <li class="navheader"><a href="javascript:categoryRemove();">카테고리삭제</a></li>
-	       <li class="navheader"><a href="javascript:categoryEdit();">카테고리순서변경</a></li>
-	       <li class="navheader"><a href="<c:url value='/category/productCategoryEdit1' />" >상품분류카테고리변경</a></li>
-	       <li class="navheader"><a href="javascript:categoryEdit();">브랜드관카테고리변경</a></li>
      	</ul>
      </c:when>
     
@@ -36,7 +31,11 @@
      	 <ul class="navheader">
 	       <li class="navheader userinfo">관리자님 안녕하세요🙌</li>
 	       <li class="navheader"><a href="<c:url value='/logout' />"  aria-current="page">로그아웃</a></li>
+	       <li class="navheader"><a href="javascript:categoryAdd();">카테고리추가</a></li>
+	       <li class="navheader"><a href="javascript:categoryRemove();">카테고리삭제</a></li>
+	       <li class="navheader"><a href="javascript:categoryEdit();">카테고리순서변경</a></li>  
 	       <li class="navheader"><a href="<c:url value='/admin/admin/${authInfo.member_number}' />" >관리자페이지</a></li>
+	       <%-- <li class="navheader"><a href="<c:url value='/category/productCategoryEdit' />" >상품분류카테고리변경</a></li> --%>
      	</ul>
      </c:when>
      
@@ -45,11 +44,9 @@
 	       <li class="navheader userinfo">${authInfo.member_name}님 안녕하세요💗</li>
 	       <li class="navheader"><a href="<c:url value='/logout' />"  aria-current="page">로그아웃</a></li>
 	       <li class="navheader"><a href="<c:url value='/mypage/mypage/${authInfo.member_number}' />" >마이페이지</a></li>
-	       <li class="navheader"><a href="#" >주문조회</a></li>
-	        <li class="navheader"><a href="<c:url value='/product/cart/list.do' />">장바구니</a></li>
-     </ul>
-     
-     
+	       <li class="navheader"><a href="<c:url value='/product/cart/list.do' />">장바구니</a></li>
+	       <li class="navheader"><a href="<c:url value='/mypage/orderStatus' />" >주문내역</a></li>
+      </ul>
      </c:otherwise>
     </c:choose>
    </header>
@@ -108,13 +105,13 @@ $("#bookmark").click(function(){
 });
 
 function categoryEdit(){
-	open('http://localhost:8080/category/categorySequence','배너 추가','width=400px,height=400px,status=false');
+	open('/category/categorySequence','배너 추가','width=400px,height=400px,status=false');
 }
 function categoryAdd(){
-	open('http://localhost:8080/category/categoryInsert','배너 추가','width=400px,height=200px,status=false');
+	open('/category/categoryInsert','배너 추가','width=400px,height=200px,status=false');
 }
 function categoryRemove(){
-	open('http://localhost:8080/category/categoryDelete','배너 추가','width=400px,height=200px,status=false');
+	open('/category/categoryDelete','배너 추가','width=400px,height=200px,status=false');
 }
 
 </script>

@@ -46,7 +46,7 @@
 	</select>
 	
 	<select id="productSelect" resultMap="productVo" parameterType="int">
-		SELECT * FROM m_product WHERE delete_check=0 AND option_join_number=#{num}
+		SELECT * FROM m_product WHERE option_join_number=#{num}
 	</select>
 	
 	<select id="productNum" resultType="long" parameterType="int">

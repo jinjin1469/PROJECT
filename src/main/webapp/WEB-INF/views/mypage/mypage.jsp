@@ -34,7 +34,7 @@
 <div class="menu">
 	<p><strong>쇼핑정보</strong></p>
 	<hr>
-		<p><a href="<c:url value='/member/login' />" class="menu">주문내역</a></p>
+		<p><a href="<c:url value='/mypage/orderStatus' />" class="menu">주문내역</a></p>
 		<p><a href="<c:url value='/member/login' />" class="menu">포인트내역</a></p>
 		<p><a href="<c:url value='/member/login' />" class="menu">장바구니</a></p>
 		<p><a href="<c:url value='/member/login' />" class="menu">오늘본상품</a></p>

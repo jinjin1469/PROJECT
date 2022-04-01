@@ -12,44 +12,61 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
+<style>
+
+table {
+	align-items: center;
+	margin: 0 auto;
+	text-align: center;
+	border-top: 1px solid #444444;
+	border-bottom: 1px solid #444444;
+	border-collapse: collapse;
+	width: 600px;
+	font-size: 13px;
+	text-align: left;
+}
+
+th, td {
+	padding: 10px;
+	text-align: left;
+}
+
+
+
+</style>
 <body>
 <%@include file="../header.jsp" %>
 <div class="container d-flex flex-wrap d-flex align-items-center">
-<div class="col-md-2">
-<div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
-    <p class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none">
-      <svg class="bi me-2" width="30" height="24"></svg>
-      <span class="fs-5 fw-semibold">고객센터</span>
-    </p>
-    <ul class="list-unstyled ps-0">
-      <li class="mb-1">
-        <a class="d-flex align-items-center link-dark text-decoration-none" href="/notice/main">
-        <svg class="bi me-2" width="30" height="5"></svg>
-          공지사항
-        </a>
-        <a class="d-flex align-items-center link-dark text-decoration-none" href="/notice/faq">
-        <svg class="bi me-2" width="30" height="5"></svg>
-          자주 묻는 질문
-        </a>
-      </li>
-    </ul>
-  </div>
-  </div>
+	<aside>
+	    <p class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none">
+	      <svg class="bi me-2" width="30" height="24"></svg>
+	      <span class="fs-5 fw-semibold">고객센터</span>
+	    </p>
+	    <ul class="list-unstyled ps-0">
+	      <li class="mb-1">
+	        <a class="d-flex align-items-center link-dark text-decoration-none" href="/notice/main">
+	        <svg class="bi me-2" width="30" height="5"></svg>
+	          공지사항
+	        </a>
+	        <a class="d-flex align-items-center link-dark text-decoration-none" href="#">
+	        <svg class="bi me-2" width="30" height="5"></svg>
+	          자주 묻는 질문
+	        </a>
+	      </li>
+	    </ul>
+	</aside>
   <div class="col-md-10">
     <h3>공지사항</h3>
- <nav class="nav navbar navbar-light">
-  <div class="container-fluid">
-    <form class="d-flex">
-      <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
 
 <c:if test="${!empty Notice}">
 		<table border=1>
 				<tr>
-					<td>${Notice.NOTICE_TITLE}<br><br>
+					<th>
+						${Notice.NOTICE_TITLE}
+					</th>
+				</tr>
+				<tr>
+					<td>
 						${Notice.NOTICE_CONTENT}
 					</td>
 				</tr>

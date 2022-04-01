@@ -29,10 +29,10 @@ public class ShoppingDao {
 	 public List<Cart> cartMoney() {
 	        return null;
 	    }
-	    //장바구니에 담기
+	    //�옣諛붽뎄�땲�뿉 �떞湲�
 
 	    public void insert(Cart cart) {
-	    	//세션에 저장하고 cart.insert로 넘어감 mapper로.
+	    	//�꽭�뀡�뿉 ���옣�븯怨� cart.insert濡� �꽆�뼱媛� mapper濡�.
 	    sqlSession.insert("mybatis.mapper.shopping.insert", cart); 
 	    }
 	 
@@ -105,6 +105,9 @@ public class ShoppingDao {
 	    	return sqlSession.selectOne("mybatis.mapper.shopping.selectNumber");
 	    }
 	    
+	    public long waitingPayment(long member_number) {
+	    	return sqlSession.selectOne("mybatis.mapper.shopping.waitingPayment",member_number);
+	    }
 	    
 	    
 	    

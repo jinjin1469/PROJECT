@@ -27,7 +27,7 @@ imgSize{width:0.5rem; height:0.5rem;}
 			      	장바구니가 비었습니다. 얼른 쇼핑해보세요!
 			    </c:when>
 		<c:otherwise>
-   <form name="orderform" id="orderform" method="post" class="orderform" action="/" onsubmit="return false;">
+   <form commandName="Order" id="orderform" method="post" class="orderform" action="/order/payment">
    
 
    <input type="hidden" name="cmd" value="order">
@@ -47,16 +47,20 @@ imgSize{width:0.5rem; height:0.5rem;}
                     <div class="subdiv">
     					<div class="basketcmd">삭제</div>
                     </div>
-                   
                 </div>
          <c:forEach var="row" items="${map.list}" varStatus="status">
-         	  
+         	  <input type="hidden" name="order_sub[${status.index}].cartoption_number" value="${row.cartoption_number}">
+         	  <input type="hidden" name="order_sub[${status.index}].cart_number" value="${row.cart_number}">
                 <div class="row data">
                     <div class="subdiv">
+<<<<<<< HEAD
                         <div class="check"><input type="checkbox" name="buy" onclick="javascript:basket.checkItem();" checked>&nbsp;</div>
+=======
+                        <div class="check"><input type="checkbox" class="buy" name="order_sub[${status.index}].check_box" value="1" onclick="javascript:basket.checkItem();" checked>&nbsp;</div>
+>>>>>>> ad7a9539bb51849743f2f8bbd56123937569d78e
                         <div class="img"><img src="/uploadedIMG/${row.product_m_image}" class="p_img"></div>
                         <div class="pname">
-                            <span>${row.product_name}</span>
+                            <span>${row.product_name}</span> 
                         </div>
                     </div>
                     <div class="subdiv">
@@ -64,7 +68,7 @@ imgSize{width:0.5rem; height:0.5rem;}
                         <div class="num">
                             <div class="updown">
                             	<span onclick="javascript:basket.changePNum(${status.count});"class="top_arrow"><i class="arrow up">➕</i></span>
-                                <input type="text" name="p_num${status.count}" id="p_num(${status.count})" size="2" maxlength="4" class="p_number" value="${row.product_selectCount}" onkeyup="javascript:basket.changePNum(${status.count});"readonly>
+                                <input type="text" name="order_sub[${status.index}].product_count" id="p_num(${status.count})" size="2" maxlength="4" class="p_number" value="${row.product_selectCount}" onkeyup="javascript:basket.changePNum(${status.count});"readonly>
                             	 <span onclick="javascript:basket.changePNum(${status.count});" class="top_arrow"><i class="arrow down">➖</i></span>
                             </div>
                         </div>
@@ -98,7 +102,7 @@ imgSize{width:0.5rem; height:0.5rem;}
             <div id="goorder" class="">
                 <div class="clear"></div>
                 <div class="buttongroup center-align cmd">
-                    <a href="javascript:void(0);">선택한 상품 주문</a>
+                    <a href="javascript:void(0);" id="submit">선택한 상품 주문</a>
                 </div>
             </div>
    	     </form>
@@ -110,13 +114,20 @@ imgSize{width:0.5rem; height:0.5rem;}
 <%@include file="../footer.jsp" %>
 
 <script>
+$(document).ready(function(){
+	if(${waitingPayment}!=0){
+		alert("진행중인 결제페이지로 이동합니다.");
+		alert(${waitingPayment});
+		location.href='http://localhost:8081/order/paymentG';
+	}
+});
 
 	let basket = {
 	    totalCount: 0, 
 	    totalPrice: 0,
 	    //체크한 장바구니 상품 비우기
 	    delCheckedItem: function(){
-	    document.querySelectorAll("input[name=buy]:checked").forEach(function (item) {
+	    document.querySelectorAll("input[class=buy]:checked").forEach(function (item) {
 	    item.parentElement.parentElement.parentElement.remove();
 	        });
 	    this.reCalc();
@@ -162,7 +173,7 @@ imgSize{width:0.5rem; height:0.5rem;}
 	    showOption: function(pos){
 	    	 var show = document.getElementById('showOption('+pos+')');
 			 var cartoption_number =  show.parentElement.nextElementSibling.getAttribute('value');
-			 var url = 'http://localhost:8080/product/cartoption?cartoption_number='+ cartoption_number;
+			 var url = 'http://localhost:8081/product/cartoption?cartoption_number='+ cartoption_number;
 		     var name = "popup";	
 		     var option = "width=500,height=500,top=200,left=200,toolbar=no,menubar=no,scrollbars=no,resizable=no,status=no";
 		    
@@ -218,7 +229,9 @@ imgSize{width:0.5rem; height:0.5rem;}
 	    return nstr;
 	};
 	
-
+	$("#submit").on("click",function(){
+			$("#orderform").submit();
+	});
 	 
 </script>
 <%@include file="../footer.jsp" %>
