@@ -252,7 +252,6 @@ public class OrderController {
 			if(deleteData.getOption_sub()!=null) {
 				dao.deleteCartOption(deleteData.getCartoption_number());	
 			}
-			
 		}
 		dao.insertOrder(order);
 		//joinnum
@@ -274,15 +273,12 @@ public class OrderController {
 					}
 				}
 			}
-			
 		}
 		//포인트 차감
 		if(order.getUse_point()!=0) {
 			dao.pointDeduction(order);
 		}
 		
-		
-
 		return "redirect:/mypage/orderStatus";
 	}
 	

@@ -42,7 +42,7 @@
 							</c:forEach>
 			  		 </select><br>
 			카테고리2 : <select name="category_2">
-							<option value=""></option>
+							<option value="">NULL</option>
 							<c:forEach var="menu3" items="${menu3}">
 								<c:if test="${menu3.category_title==category_2}">
 									<option value="${menu3.category_title}" selected>${menu3.category_title}</option>

@@ -33,9 +33,9 @@
 	    <div class="carousel-item">
 	      <img src="./resources/IMG/banner4.jpg" class="d-block w-100" alt="...">
 	    </div>
-	    <div class="carousel-item">
+	    <!-- <div class="carousel-item">
 	      <img src="./resources/IMG/banner5.jpg" class="d-block w-100" alt="...">
-	    </div>
+	    </div> -->
 	 </div>
 	 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
 	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -74,7 +74,6 @@
 	  	</div>
 	</div>
 </div>
-	<button onclick="payment()" type="button">결제 테스트</button>
 <script>
 
 	
