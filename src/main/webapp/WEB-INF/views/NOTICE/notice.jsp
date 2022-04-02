@@ -56,7 +56,7 @@ right {
 	        <svg class="bi me-2" width="30" height="5"></svg>
 	          공지사항
 	        </a>
-	        <a class="d-flex align-items-center link-dark text-decoration-none" href="#">
+	        <a class="d-flex align-items-center link-dark text-decoration-none" href="/notice/faq">
 	        <svg class="bi me-2" width="30" height="5"></svg>
 	          자주 묻는 질문
 	        </a>
@@ -80,16 +80,20 @@ right {
 				<th>분류</th>
 				<th>제목</th>
 				<th>등록일</th>
+				<c:if test="${member_number==10022}">
 				<th>수정</th>
 				<th>삭제</th>
+				</c:if>
 			</tr>
 			<c:forEach var="Notice" items="${Notice}">
 				<tr>
 					<td>${Notice.CLASSIFICATION}</td>
 					<td><a href="<c:url value='/notice/detail/${Notice.NOTICE_NUMBER}' />">${Notice.NOTICE_TITLE}</a></td>
 					<td><fmt:formatDate value="${Notice.REGDATE}" pattern="yyyy-MM-dd" /></td>
+					<c:if test="${member_number==10022}">
 					<td><a href="<c:url value='/notice/update/${Notice.NOTICE_NUMBER}' />">수정</a></td>
 					<td><a href="<c:url value='/notice/delete/${Notice.NOTICE_NUMBER}' />">삭제</a></td>
+					</c:if>
 				</tr>
 			</c:forEach>
 		</table>

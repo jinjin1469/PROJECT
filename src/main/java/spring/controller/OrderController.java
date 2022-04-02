@@ -84,8 +84,10 @@ public class OrderController {
 			ArrayList<Option> optionSetData = new ArrayList<Option>();
 			if(optionOutput!=null) {
 				for(Option p : optionOutput) {
-					optionSetData.add(p);
-					totalPrice += p.getOption_Price()*p.getPayment_option_count();
+					if(p.getPayment_option_count()!=0) {
+						optionSetData.add(p);
+						totalPrice += p.getOption_Price()*p.getPayment_option_count();
+					}
 				}
 			}
 			//상품옵션리스트
@@ -128,8 +130,10 @@ public class OrderController {
 			ArrayList<Option> optionSetData = new ArrayList<Option>();
 			if(optionOutput!=null) {
 				for(Option p : optionOutput) {
-					optionSetData.add(p);
-					totalPrice += p.getOption_Price()*p.getPayment_option_count();
+					if(p.getPayment_option_count()!=0) {
+						optionSetData.add(p);
+						totalPrice += p.getOption_Price()*p.getPayment_option_count();
+					}
 				}
 			}
 			//상품옵션리스트
@@ -157,9 +161,11 @@ public class OrderController {
 		
 		return "redirect:/product/cart/list.do";
 	}
-	@RequestMapping(value = "/status/{orderNum}", method = RequestMethod.GET)
+	@RequestMapping(value = "/purchaseConfirm/{orderNum}", method = RequestMethod.GET)
 	 public String deliveryG(@PathVariable("orderNum") int orderNum,Model model) {
 			
+			Order order = dao.orderinfo(orderNum);
+			dao.pointEarn(order);
 			dao.purchaseConfirm(orderNum);
 			
 			return "redirect:/mypage/orderStatus";
@@ -170,12 +176,13 @@ public class OrderController {
 		
 		Order order = dao.orderinfo(orderNum);
 
-		if(order.getPay_status().equals("결제완료")) {
+		
+		if(order.getPay_status().equals("결제완료")&&order.getOrder_status().equals("배송준비중")) {
 			CancelData cancel = new CancelData(order.getImp_uid(),true);
 			api.cancelPaymentByImpUid(cancel);
 		}else {
-			model.addAttribute("msg", "결제가 취소되어 있는 상품입니다.");
-			return "redirect:/mypage/orderStatus";
+			/* model.addAttribute("msg", "결제가 취소되어 있는 상품입니다."); */
+			return "redirect:/mypage/orderStatus/"+"cancle";
 		}
 		
 		order.setOrder_sub((ArrayList<OrderSub>) dao.productListinfo(order.getOrder_join_number()));
@@ -200,7 +207,7 @@ public class OrderController {
 		}
 		
 		//결제취소로 변경
-		dao.payment_status_edit(orderNum);
+		dao.paymentStatusEdit(orderNum);
 		
 		return "redirect:/mypage/orderStatus";
 	}
@@ -209,12 +216,12 @@ public class OrderController {
 		
 		Order order = dao.orderinfo(orderNum);
 
-		if(order.getPay_status().equals("결제완료")) {
+		if(order.getPay_status().equals("결제완료")&&order.getOrder_status().equals("배송준비중")) {
 			CancelData cancel = new CancelData(order.getImp_uid(),true);
 			api.cancelPaymentByImpUid(cancel);
 		}else {
-			model.addAttribute("msg", "결제가 취소되어 있는 상품입니다.");
-			return "redirect:/admin/orderStatus";
+			/* model.addAttribute("msg", "결제가 취소되어 있는 상품입니다."); */
+			return "redirect:/admin/orderStatus/"+"cancle";
 		}
 		
 		order.setOrder_sub((ArrayList<OrderSub>) dao.productListinfo(order.getOrder_join_number()));
@@ -239,7 +246,7 @@ public class OrderController {
 		}
 		
 		//결제취소로 변경
-		dao.payment_status_edit(orderNum);
+		dao.adminPaymentStatusEdit(orderNum);
 		
 		return "redirect:/admin/orderStatus";
 	}
@@ -314,6 +321,23 @@ public class OrderController {
 //
 //		return "order/orderStatus";
 //	}
+	
+	@RequestMapping(value = "/review/{order_number}", method = RequestMethod.GET)
+	public String reviewG(@PathVariable("order_number") int order_number,Model model,HttpSession session, HttpServletRequest request) {
+		Order info = dao.aaselectOrderinfo(order_number);
+		ArrayList<OrderSub> productData = new ArrayList<OrderSub>();
+		ArrayList<Option> optionData = new ArrayList<Option>();
+
+		productData = (ArrayList<OrderSub>) dao.productListinfo(info.getOrder_join_number());
+		info.setOrder_sub(productData);
+		for(int j=0; j<info.getOrder_sub().size();j++) {
+			optionData = (ArrayList<Option>) dao.optionListinfo(info.getOrder_sub().get(j).getOption_join_number());
+			info.getOrder_sub().get(j).setOption_sub(optionData);
+		}
+		model.addAttribute("info", info);
+
+		return "PRODUCT/review";
+	}
 	
 	@RequestMapping(value = "/orderDetail/{order_number}", method = RequestMethod.GET)
 	public String orderStatusG(@PathVariable("order_number") int order_number,Model model,HttpSession session, HttpServletRequest request) {

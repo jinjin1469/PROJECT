@@ -3,6 +3,7 @@ package spring.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.dao.NoticeDao;
+import spring.vo.AuthInfo;
 import spring.vo.Notice;
 
 @Controller
@@ -23,19 +25,31 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/main",method=RequestMethod.GET)
-	public String noticeG(HttpServletRequest request,Model model) {
+	public String noticeG(Model model,HttpSession session, HttpServletRequest request) {
+		
+		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+		long member_number = authinfo.getMember_number();
 		
 		List<Notice> m = dao.noticeAll();
 		model.addAttribute("Notice",m);
+		model.addAttribute("member_number",member_number);
 		
+
 		return "NOTICE/notice";
 	}
 	
 	@RequestMapping(value="/main",method=RequestMethod.POST)
-	public String noticeP(HttpServletRequest request,Model model) {
+	public String noticeP(Model model,HttpSession session, HttpServletRequest request) {
+		
+		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+		long member_number = authinfo.getMember_number();
+		
 		String noticeSearch = request.getParameter("Search");
 		List<Notice> m = dao.noticeSearch(noticeSearch);
+		
 		model.addAttribute("Notice",m);
+		model.addAttribute("member_number",member_number);
+		
 		return "NOTICE/search";
 	}
 	
@@ -51,7 +65,7 @@ public class NoticeController {
 	@RequestMapping(value="/insert",method=RequestMethod.GET)
 	public String noticeInsertG(Model model) {
 		
-		//폼페이지를 처음보여줄때 문제발생 > 이유 : 커맨드객체를 사용하기 위한 빈객체가 필요하다. 컨트롤러 | 폼(커맨드객체) | 컨트롤러 
+		//�뤌�럹�씠吏�瑜� 泥섏쓬蹂댁뿬以꾨븣 臾몄젣諛쒖깮 > �씠�쑀 : 而ㅻ㎤�뱶媛앹껜瑜� �궗�슜�븯湲� �쐞�븳 鍮덇컼泥닿� �븘�슂�븯�떎. 而⑦듃濡ㅻ윭 | �뤌(而ㅻ㎤�뱶媛앹껜) | 而⑦듃濡ㅻ윭 
 		model.addAttribute("formData", new Notice());
 		
 		return "NOTICE/noticeInsert";
@@ -97,10 +111,5 @@ public class NoticeController {
 		return "NOTICE/faq";
 	}
 	
-	@RequestMapping(value="/faq",method=RequestMethod.POST)
-	public String faqP(HttpServletRequest request,Model model) {
-
-		return "NOTICE/faq";
-	}
 	
 }

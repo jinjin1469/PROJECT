@@ -137,6 +137,19 @@ public class MyPageController {
 
 		
 	    
+		 @RequestMapping(value = "/admin/orderStatus/{msg}", method = RequestMethod.GET)
+			public String orderStatusMsgG(@PathVariable("msg") String msg,Model model) {
+				
+				List<Order> orderwaitList = odao.orderwaitList();
+				List<Order> deliveryCompleteList = odao.deliveryCompleteList();
+				
+				model.addAttribute("orderwaitList", orderwaitList);
+				model.addAttribute("deliveryCompleteList", deliveryCompleteList);
+				model.addAttribute("msg", msg);
+				
+				return "admin/ordercheck";
+			}
+		 
 		 @RequestMapping(value = "/admin/orderStatus", method = RequestMethod.GET)
 			public String orderStatusG(Model model) {
 				
@@ -145,6 +158,7 @@ public class MyPageController {
 				
 				model.addAttribute("orderwaitList", orderwaitList);
 				model.addAttribute("deliveryCompleteList", deliveryCompleteList);
+
 				
 				return "admin/ordercheck";
 			}
@@ -155,6 +169,19 @@ public class MyPageController {
 				odao.delivery(orderNum);
 				
 				return "redirect:/admin/orderStatus";
+		}
+		 
+		 @RequestMapping(value = "/mypage/orderStatus/{msg}", method = RequestMethod.GET)
+			public String memOrderStatusMsgG(@PathVariable("msg") String msg, Model model,HttpSession session, HttpServletRequest request) {
+			 
+			 	AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+				long member_number = authinfo.getMember_number();
+				List<Order> info = odao.selectOrderinfo(member_number);
+				
+				model.addAttribute("info", info);
+				model.addAttribute("msg", msg);
+				
+				return "mypage/ordercheck";
 		}
 		 
 		 @RequestMapping(value = "/mypage/orderStatus", method = RequestMethod.GET)

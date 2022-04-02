@@ -111,7 +111,9 @@
 		VALUES(order_option_number.nextval,#{option_number},#{payment_option_count},#{option_Join_Number})
   	</insert>
   	
-  	
+  	<update id="pointEarn" parameterType="order">
+		update m_member set member_point = member_point + #{earn_point} WHERE member_number=#{member_number}
+	</update>
   	
   	<update id="pointDeduction" parameterType="order">
 		update m_member set member_point = member_point - #{use_point} WHERE member_number=#{member_number}
@@ -145,8 +147,12 @@
 		update m_option set option_count = option_count + #{option_Count}, option_salcount = option_salcount - #{option_Count} WHERE option_number=#{option_number}
 	</update>
 	
-	<update id="payment_status_edit" parameterType="int">
+	<update id="paymentStatusEdit" parameterType="int">
 		update m_order set pay_status = '결제취소', order_status = '주문취소' WHERE order_number=#{orderNum}
+	</update>
+	
+	<update id="adminPaymentStatusEdit" parameterType="int">
+		update m_order set pay_status = '결제취소', order_status = '관리자주문취소' WHERE order_number=#{orderNum}
 	</update>
 	
 	<update id="delivery" parameterType="int">
