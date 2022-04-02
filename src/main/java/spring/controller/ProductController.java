@@ -242,7 +242,7 @@ public class ProductController {
 	
 	@RequestMapping(value="/insert",method=RequestMethod.GET)
 	public String uploadG(Model model) {
-		model.addAttribute("ProductCommand", new ProductCommand());
+		
 		
 		return "PRODUCT/productInsert";
 	}
@@ -263,7 +263,6 @@ public class ProductController {
 		if(pic.getCategory_2()!=null) {
 			product.setCategory_2(pic.getCategory_2());
 		}
-		System.out.println(pic.getCategory_1());
 		
 		String uploadFolder = "C:\\upload\\temp";
 		
@@ -314,8 +313,6 @@ public class ProductController {
 			}
 		}
 		
-		
-		model.addAttribute("msg", "Please select a valid mediaFile..");
-		return "redirect:/";
+		return "redirect:/product/detail/"+join_number;
 	}
 }

@@ -75,7 +75,7 @@
 		product_name=#{product_name},
 		product_price=#{product_price},
 		product_count=#{product_count},
-		product_cookingTime=#{product_cookingTime},
+		<if test="#{product_cookingTime} != null"> product_cookingTime=#{product_cookingTime}, </if>
 		product_weight=#{product_weight},
 		product_storage=#{product_storage},
 		product_m_image=#{product_m_image},

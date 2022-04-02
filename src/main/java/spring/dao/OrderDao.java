@@ -95,6 +95,10 @@ public class OrderDao {
 		sqlSession.update("mybatis.mapper.order.pointRollBack", order);
 	}
 	
+	public void pointEarn(Order order) {
+		sqlSession.update("mybatis.mapper.order.pointEarn", order);
+	}
+	
 	
 	public List<Order> selectOrderinfo(long member_number) { 
 		List<Order> list = sqlSession.selectList("mybatis.mapper.order.selectOrderinfo",member_number);
@@ -146,8 +150,12 @@ public class OrderDao {
 		sqlSession.update("mybatis.mapper.order.optionRollBack", option);
 	}
 	
-	public void payment_status_edit(int orderNum) {
-		sqlSession.update("mybatis.mapper.order.payment_status_edit", orderNum);
+	public void paymentStatusEdit(int orderNum) {
+		sqlSession.update("mybatis.mapper.order.paymentStatusEdit", orderNum);
+	}
+	
+	public void adminPaymentStatusEdit(int orderNum) {
+		sqlSession.update("mybatis.mapper.order.adminPaymentStatusEdit", orderNum);
 	}
 	
 	public String recipient(long member_number) { 
