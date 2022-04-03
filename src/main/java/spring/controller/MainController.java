@@ -13,25 +13,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 import spring.dao.MemberDao;
+import spring.dao.OrderDao;
+import spring.dao.ProductDao;
 import spring.vo.Category;
 import spring.vo.Member;
+import spring.vo.Product;
 
 @Controller
 public class MainController {
 
-	private MemberDao dao;
-	public void setDao(MemberDao dao) {
+	private ProductDao dao;
+	public void setDao(ProductDao dao) {
 		this.dao = dao;
 	}
 
 	@RequestMapping("/")
 	public String main(HttpServletRequest request,Model model) {
 		
-
-
-		
-
-		model.addAttribute("totalPrice",200);
+		List<Product> bestProductList = dao.mainBest();
+		List<Product> randomProductList = dao.mainRandom();
+		List<Product> NewProductList = dao.mainNew();
+		System.out.println(bestProductList.get(0).getProduct_name());
+		model.addAttribute("Product1", bestProductList);
+		model.addAttribute("Product2", randomProductList);
+		model.addAttribute("Product3", NewProductList);
 		
 		return "main";
 	}
