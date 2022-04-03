@@ -69,12 +69,14 @@
   <br>
 	<h3>상품 등록✅</h3>
 	<br>
-	
-		<form:form id="ProductInsert" commandName="ProductCommand" action="/product/insert" method="POST" enctype="multipart/form-data">
+	<div class="Info">* 모든 정보는 필수로 입력 부탁드립니다.</div>
+		<form:form id="ProductInsert" name="ProductCommand" action="/product/insert" method="POST" enctype="multipart/form-data">
 			<table>
 				<tr>
 					<th>상품 이름</th>
-					<td><form:input path="product_Name"/></td>
+					<td><input type="text" name="product_Name" id="product_Name" value="">
+					<span class="name regex" style="text-align:left;"></span>
+					</td>
 				</tr>
 				<tr>
 					<th>카테고리1</th>
@@ -96,29 +98,35 @@
 							<c:forEach var="menu3" items="${menu3}">
 								<option value="${menu3.category_title}">${menu3.category_title}</option>
 							</c:forEach>
-							<option value=""></option>
+							<option value="">NULL</option>
 			  			</select>
 			  		</td>
 				</tr>
 				<tr>
 					<th>상품가격</th>
-					<td><form:input path="product_Price"/></td>
+					<td><input type="text" name="product_Price" id="product_Price" value="" required></td>
 				</tr>
 				<tr>
 					<th>상품수량</th>
-					<td><form:input path="product_Count"/></td>
+					<td><input type="text" name="product_Count" id="product_Count" value="" required></td>
 				</tr>
 				<tr>
-					<th>조리시간</th>
-					<td><form:input path="product_CookingTime"/></td>
+					<th>조리시간[육류생략]</th>
+					<td><input type="text" name="product_CookingTime" id="product_CookingTime" value=""></td>
 				</tr>
 				<tr>
 					<th>내용량</th>
-					<td> <form:input path="product_weight"/></td>
+					<td><input type="text" name="product_weight" id="product_weight" value="" required></td>
 				</tr>
 				<tr>
 					<th>보관방법</th>
-					<td><form:input path="product_Storage"/></td>
+					<td><select name="product_Storage" class="choice3">
+							<option class="delete3">선택하세요</option>
+							<option value="냉동">냉동</option>
+							<option value="냉장">냉장</option>
+							<option value="실온">실온</option>
+			  			</select>
+			  		</td>
 				</tr>
 				<tr>
 					<th>상품 메인 사진</th>
@@ -137,7 +145,6 @@
 			<input type="button" id="optionAdd" value="옵션상품추가">
 		 	<div id="option">
 		 	</div>
-		 ${msg}
 		 <button class="btn btn-primary btn-lg btn-block" type="button" id="uploadBtn" name="uploadBtn">상품 등록하기</button>
 
 		</form:form>
@@ -159,6 +166,9 @@ $(document).ready(function(){
 	});
 	$('.choice2').change(function(){
 		$('.delete2').remove();
+	});
+	$('.choice3').change(function(){
+		$('.delete3').remove();
 	});
 	
 	function checkExtension(fileName, fileSize){
@@ -186,10 +196,38 @@ $(document).ready(function(){
 			}
 		});
 		if(check==3){
-			$("#ProductInsert").submit();
+			
+			var regex = /^[0-9a-zA-Z가-힣,\\[\].\s]+$/g;
+			var result = regex.exec($("#product_Name").val());
+
+			if(result != null){
+				let category_1 = $(".choice1 option:selected").val();
+				let category_2 = $(".choice2 option:selected").val();
+				let product_Storage = $(".choice3 option:selected").val();
+				let product_Price = document.getElementById("product_Price").value;
+				let product_Count = document.getElementById("product_Count").value;
+				let product_weight = document.getElementById("product_weight").value;
+				if(category_1!='선택하세요'&&category_2!='선택하세요'&&product_Storage!='선택하세요'&&product_weight!=""){
+					 if(product_Price<100){
+						alert('판매가격을 100원이상으로 설정해주세요.');
+						return;
+					}else if(product_Count==0){
+						alert('판매수량을 1개 이상으로 설정해주세요.');
+						return;
+					}else{
+						$("#ProductInsert").submit();
+					}
+				}else{
+					alert('모든 정보를 정확히 설정해주세요.');
+				     return;
+				}
+			}else{
+				alert('모든 정보를 정확히 설정해주세요.');
+			    return;
+			}
 		}
 	});
-	
+
 	let number = 0;
 	 $("#optionAdd").on("click",function(){
 		 
@@ -240,6 +278,18 @@ $(document).ready(function(){
 	 }); 
 	 
 	 
+});
+
+$("#product_Name").on("input",function(){
+	   var regex = /^[0-9a-zA-Z가-힣,\\[\].\s]+$/g;
+	   var result = regex.exec($("#product_Name").val());
+	   if(result != null){
+	      $(".name.regex").html("");  
+	   }else{
+	       $(".name.regex").html("특수문자[],만 입력 가능");
+	       $(".name.regex").css("color","red");
+	   }
+	    
 });
 function remove(index){
 	 document.getElementById('div'+index).remove();

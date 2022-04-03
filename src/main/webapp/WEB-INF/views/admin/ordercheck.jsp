@@ -56,6 +56,11 @@
 </aside>
 
 <section>
+<c:if test="${!empty msg}">
+	<script> 
+		alert('잘못된 접근입니다.');
+	</script>
+</c:if>
 
 		<h2>배송대기📃</h2>
 		<hr>
@@ -125,6 +130,9 @@
 function orderDetail(order_number){
 	window.open('/order/orderDetail/'+order_number,'주문 상세보기',"width=500,height=600,top=200,left=200,toolbar=no,menubar=no,scrollbars=no,status=no");
 }
+
+
+
 </script>
 <br>
 <br>

@@ -8,6 +8,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="../../../resources/jquery/jquery-3.6.0.js"></script>
+<link rel="stylesheet" href="../../../resources/css/qna.css">
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -24,15 +26,13 @@
 .not{width:30%;height: 30px;
 	border: 1.5px solid gray;
 	text-align: left;}
-
-
- textarea {
+textarea {
     width: 100%;
-    height: 20rem;
+    height: 40rem;
     border: none;
     resize: none;
     text-align:left;
-  }
+ }
 .notice{
 	align-items: center;
 	margin-left:50px;
@@ -62,6 +62,16 @@ h3{text-align:left; margin-left:70px;}
 .btn {
 	margin-left:1rem;
 	width: 500px;
+}
+ textarea {
+    width: 100%;
+    height: 10rem;
+    border: 1;
+    resize: none;
+  }
+.btn {
+	margin-left:1rem;
+	width: 300px;
 	display: inline-block;
 	font-weight: 400;
 	line-height: 1.5;
@@ -90,6 +100,7 @@ h3{text-align:left; margin-left:70px;}
 .btn-lg, .btn-group-lg>.btn {
 	padding: 0.5rem 1rem;
 	font-size: 1rem;
+	font-size: 0.6rem;
 	border-radius: 0.3rem;
 }
 
@@ -98,10 +109,13 @@ h3{text-align:left; margin-left:70px;}
 	background-color: #a4e25e;
 	border-color: #d1f779;
 	float: right;
+
     margin-right: -50px;
     margin-top: 10px;
     width: 100px;
-   
+    margin-right: 1rem;
+    margin-top: -10px;
+
 }
 }
 
@@ -111,10 +125,25 @@ h3{text-align:left; margin-left:70px;}
 	border-color: #1ad123;
 }
 
-.subbtn{width: 600px;}
+.subbtn{width: 600px; margin-top:30px;}
+
+
+
+.ct{padding:0px;}
+
+.a_option{padding:0px;}
+
+.nav-link {
+	display: block;
+	padding: 0.5rem 1rem;
+	color: green;
+	text-decoration: none;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out;
+}
+
+.name{font-weight:bold;}
 </style>
-
-
 
 </head>
 <body>
@@ -131,18 +160,19 @@ h3{text-align:left; margin-left:70px;}
 	        <svg class="bi me-2" width="30" height="5"></svg>
 	          공지사항
 	        </a>
-	        <a class="d-flex align-items-center link-dark text-decoration-none" href="#">
+	        <a class="d-flex align-items-center link-dark text-decoration-none" href="/notice/faq">
 	        <svg class="bi me-2" width="30" height="5"></svg>
 	          자주 묻는 질문
 	        </a>
 	      </li>
 	    </ul>
 	</aside>
+
   	
   	<div class="col-md-10 sizee">
   	<br>
   	<br>
-    	<h3>🔹공지 작성🔹</h3>
+    	<h3>공지 작성</h3>
 	<br>
 	<br>
 		<form:form commandName="formData" method="post">
@@ -169,12 +199,16 @@ h3{text-align:left; margin-left:70px;}
 		</table>
 		<div class="subbtn">
 		<input type="submit" class="btn3 btn-primary btn-lg btn-block" value="등록">
+		<input type="button" onclick="javascript:history.back();"  class="btn3 btn-primary btn-lg btn-block" value="목록으로">
 		</div>
 		</form:form>
 	</div>  
 </div>
 <br>
 <br>
+
+	
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <%@include file="../footer.jsp" %>
 </body>

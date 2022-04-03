@@ -130,7 +130,7 @@ h3{text-align:left; margin-left:70px;}
 	        <svg class="bi me-2" width="30" height="5"></svg>
 	          공지사항
 	        </a>
-	        <a class="d-flex align-items-center link-dark text-decoration-none" href="#">
+	        <a class="d-flex align-items-center link-dark text-decoration-none" href="/notice/faq">
 	        <svg class="bi me-2" width="30" height="5"></svg>
 	          자주 묻는 질문
 	        </a>

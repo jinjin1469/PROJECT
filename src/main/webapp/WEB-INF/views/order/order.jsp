@@ -37,7 +37,7 @@
 						 <c:if test="${product.option_sub[0].payment_option_count!=0}">
 						 &nbsp;&nbsp;&nbsp;  - 옵션상품 
 							<c:forEach var="option" items="${product.option_sub}" varStatus="m">
-
+									
 									<input type="hidden" name="order_sub[${n.index}].option_sub[${m.index}].option_number" value="${option.option_number}">
 									<input type="hidden" name="order_sub[${n.index}].option_sub[${m.index}].payment_option_count" value="${option.payment_option_count}">
 									
@@ -297,44 +297,28 @@ $("#orderbtn").on("click",function(){
 	
 
 function payment(){
+	let totalPrice = ${totalPrice};
 	let point = document.getElementById('use_point').value
 	if(point==""){
 		point=0;
 		$("#use_point").val(point);
+		if(point==0&&totalPrice>=30000){
+			$("#delivery_cost").val(0);
+		}
 	}
-	let totalPrice = ${totalPrice};
-	if(totalPrice<30000){
-		totalPrice += 3000;
-		$("#delivery_cost").val(3000);
-	}
-
-	totalPrice -= point;
 	
-	if(${totalPrice}>=30000&&totalPrice<=3000){
-		if(totalPrice<100){
-			alert("100원미만의 금액은 결제가 불가능합니다.");
-			retrun;
-		}
-		if(totalPrice==0){
-			alert("주문금액을 포인트로만 결제할시 배송료는 별도부과되며 포인트는 적립되지 않습니다.");
-			$("#delivery_cost").val(3000);
-			$("#earn_point").val(0);
-			totalPrice=3000;
-		}
-	}else{
-		if(totalPrice<3000){
-			alert("배송료는 포인트로 결제할 수 없으며 주문금액보다 포인트사용금액이 큽니다.");
-			retrun;
-		}
-		if(totalPrice==3000){
-			alert("주문금액을 포인트로만 결제할시 배송료는 별도부과되며 포인트는 적립되지 않습니다.");
-			$("#delivery_cost").val(3000);
-			$("#earn_point").val(0);
-		}
+	totalPrice -= point;
+	if(totalPrice<0){
+		alert("결제금액보다 포인트사용금액이 큽니다.");
+		retrun;
 	}
-	if(${totalPrice}>=30000&&totalPrice>=100){
+	if(totalPrice<30000){ //주문금액이 3만원이하일때는 배송료3천원부과
+		totalPrice+=3000;
+		$("#delivery_cost").val(3000);
+	}else{
 		$("#delivery_cost").val(0);
 	}
+	
 	
 	let obj = {'point':point};
 	IMP.request_pay({

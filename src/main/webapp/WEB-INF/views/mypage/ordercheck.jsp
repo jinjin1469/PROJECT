@@ -56,7 +56,11 @@
 </aside>
 
 <section>
-
+<c:if test="${!empty msg}">
+	<script> 
+		alert('잘못된 접근입니다.');
+	</script>
+</c:if>
 		<h2>주문내역📃</h2>
 		<hr>
 
@@ -87,11 +91,14 @@
 							<c:when test="${list.order_status=='주문취소'}">
 								<td>-</td>
 							</c:when>
+							<c:when test="${list.order_status=='관리자주문취소'}">
+								<td>-</td>
+							</c:when>
 							<c:when test="${list.order_status=='배송완료'}">
-								<td><a href="/order/status/${list.order_number}">구매확정</a></td>
+								<td><a href="/order/purchaseConfirm/${list.order_number}">구매확정</a></td>
 							</c:when>
 							<c:when test="${list.order_status=='구매확정'}">
-								<td><a href="#">리뷰쓰기</a></td>
+								<td><a href="javascript:review(${list.order_number});">리뷰쓰기</a></td>
 							</c:when>
 						</c:choose>
 					</tr>
@@ -110,6 +117,9 @@
 <script>
 function orderDetail(order_number){
 	window.open('/order/orderDetail/'+order_number,'주문 상세보기',"width=500,height=800,top=200,left=200,toolbar=no,menubar=no,scrollbars=no,status=no");
+}
+function review(order_number){
+	open('/order/review/'+order_number,'리뷰 쓰기','width=300px,height=300px,status=false');
 }
 </script>
 <br>

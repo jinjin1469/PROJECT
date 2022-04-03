@@ -126,20 +126,20 @@ body {
 	<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
 	<div class="carousel-inner">
 	    <div class="carousel-item active">
-	      <img src="./resources/IMG/banner1.jpg" class="d-block w-100" alt="...">
+	      <a href="/notice/detail/10011" style="padding:0px;"><img src="./resources/IMG/banner1.jpg" class="d-block w-100" alt="..."></a>
 	    </div>
 	    <div class="carousel-item">
 	      <a href="https://fresheasy.co.kr/" style="padding:0px;"><img src="./resources/IMG/banner2.jpg" class="d-block w-100" alt="..."></a>
 	    </div>
 	    <div class="carousel-item">
-	      <img src="./resources/IMG/banner3.jpg" class="d-block w-100" alt="...">
+	      <a href="/product/categoryList/스미스푸줏간" style="padding:0px;"><img src="./resources/IMG/banner3.jpg" class="d-block w-100" alt="..."></a>
 	    </div>
 	    <div class="carousel-item">
-	      <img src="./resources/IMG/banner4.jpg" class="d-block w-100" alt="...">
+	      <a href="/product/detail/373" style="padding:0px;"><img src="./resources/IMG/banner4.jpg" class="d-block w-100" alt="..."></a>
 	    </div>
-	    <div class="carousel-item">
+	    <!-- <div class="carousel-item">
 	      <img src="./resources/IMG/banner5.jpg" class="d-block w-100" alt="...">
-	    </div>
+	    </div> -->
 	 </div>
 	 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
 	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -261,6 +261,7 @@ body {
 
 
 
+
 <!-- 신상품 시작 -->
 <br>
 <p class="newproduct">밀슐랭 신상품</p>
@@ -356,6 +357,7 @@ var swiper = new Swiper(".mySwiper2", {
       prevEl: ".swiper-button-prev2",
     },
   });
+
 
 </script>
 <%@include file="footer.jsp"%>

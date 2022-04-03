@@ -68,16 +68,17 @@ public class PaymentController {
 				}
 			}
 		}
-		if(totalPrice<30000) {
-			totalPrice += 3000;
-		}
+		
 		long membershipPoint = dao.membershipPoint(member_number);
 		
 		long point = Long.parseLong(param.get("point"));
-		System.out.println(point);
 		if(point!=0) {
 			totalPrice -= point;
 		}
+		if(totalPrice<30000) {
+			totalPrice += 3000;
+		}
+		
 
 		int DB_OrderTotalPrice = (int)totalPrice;
 		BigDecimal pay = new BigDecimal(DB_OrderTotalPrice);
