@@ -14,14 +14,13 @@
 </head>
 <style>
 
-table {
+.notice{
 	align-items: center;
 	margin: 0 auto;
 	text-align: center;
 	border-top: 1px solid #444444;
-	border-bottom: 1px solid #444444;
 	border-collapse: collapse;
-	width: 600px;
+	width: 700px;
 	font-size: 13px;
 	text-align: left;
 }
@@ -29,14 +28,15 @@ table {
 th, td {
 	padding: 10px;
 	text-align: left;
-}
-right {
-	float: right;
-	width: 300px;
-
+	border-bottom: 1px solid #444444;
+	text-align:center;
 }
 
-
+th{background-color: #F5F5F5; text-align:center;}
+.sizee{width:800px; margin-left:70px;}
+.sizeed{width:400px; margin-left: -20px;}
+.mar{margin-left:200px;}
+h3{text-align:left; margin-left:70px;}
 </style>
 
 
@@ -44,7 +44,8 @@ right {
 
 <body>
 <%@include file="../header.jsp" %>
-<div class="container d-flex flex-wrap d-flex align-items-center">
+<div class="container d-flex flex-wrap d-flex align-items-center mar">
+<br>
 	<aside>
 	    <p class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none">
 	      <svg class="bi me-2" width="30" height="24"></svg>
@@ -63,42 +64,51 @@ right {
 	      </li>
 	    </ul>
 	</aside>
-  <div class="col-md-10">
-    <h3>공지사항</h3>
-    <right>
-		    <form class="d-flex" action="/notice/main" method="post">
-		      <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search" name="Search">
-		      <button class="btn btn-outline-success" type="submit">Search</button>
-		    </form>
-	</right>
-
 	
-
-<c:if test="${!empty Notice}">
-		<table border=1>
-			<tr>
-				<th>분류</th>
-				<th>제목</th>
-				<th>등록일</th>
-				<th>수정</th>
-				<th>삭제</th>
-			</tr>
-			<c:forEach var="Notice" items="${Notice}">
+	  <div class="col-md-10 sizee">
+	  <br>
+	  <br>
+	  
+	    <h3>🔸공지사항🔸</h3>
+	    <br>
+	   
+	    
+			    <form class="d-flex sizeed" action="/notice/main" method="post">
+			      <input class="form-control me-1 sizee" type="search" placeholder="Search" aria-label="Search" name="Search">
+			      <button class="btn btn-outline-success" type="submit">Search</button>
+			    </form>
+			    <br>
+		
+	
+		
+	
+	<c:if test="${!empty Notice}">
+			<table class="notice">
 				<tr>
-					<td>${Notice.CLASSIFICATION}</td>
-					<td><a href="<c:url value='/notice/detail/${Notice.NOTICE_NUMBER}' />">${Notice.NOTICE_TITLE}</a></td>
-					<td><fmt:formatDate value="${Notice.REGDATE}" pattern="yyyy-MM-dd" /></td>
-					<td><a href="<c:url value='/notice/update/${Notice.NOTICE_NUMBER}' />">수정</a></td>
-					<td><a href="<c:url value='/notice/delete/${Notice.NOTICE_NUMBER}' />">삭제</a></td>
+					<th>분류</th>
+					<th>제목</th>
+					<th>등록일</th>
+					<th>수정</th>
+					<th>삭제</th>
 				</tr>
-			</c:forEach>
-		</table>
-</c:if>
-
-  <a href="/notice/insert">글 등록</a>  
-    
-  </div>  
-  </div>
+				<c:forEach var="Notice" items="${Notice}">
+					<tr>
+						<td>${Notice.CLASSIFICATION}</td>
+						<td><a href="<c:url value='/notice/detail/${Notice.NOTICE_NUMBER}' />">${Notice.NOTICE_TITLE}</a></td>
+						<td><fmt:formatDate value="${Notice.REGDATE}" pattern="yyyy-MM-dd" /></td>
+						<td><a href="<c:url value='/notice/update/${Notice.NOTICE_NUMBER}' />">수정</a></td>
+						<td><a href="<c:url value='/notice/delete/${Notice.NOTICE_NUMBER}' />">삭제</a></td>
+					</tr>
+				</c:forEach>
+			</table>
+	</c:if>
+		<br>
+	  <a href="/notice/insert">글 등록</a>  
+	 	   
+	  	</div>  
+ </div>
+ <br>
+ <br>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <%@include file="../footer.jsp" %>
 </body>

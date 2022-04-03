@@ -266,9 +266,12 @@
 		const postcode = $("#postcode").val();
 		const address = $("#address").val();
 		const detailAddress = $("#detailAddress").val();
-		if(postcode != "" && address != "") {
+		
+		if (detailAddress == ""){
+			$("#member_address").val(postcode+address);
+		}else if(postcode != "" && address != "" && detailAddress != "") {
 			$("#member_address").val(postcode+address+detailAddress);
-		}
+		}	
 	};
 	
 
@@ -413,10 +416,20 @@
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('postcode').value = data.zonecode;
                 document.getElementById("address").value = addr;
+              
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById("detailAddress").focus();
+            	
+                const postcode = $("#postcode").val();
+        		const address = $("#address").val();
+        		
+				$("#member_address").val(postcode+address);
+        		
+               
             }
+
         }).open();
+    
     }
 	
 
@@ -456,13 +469,14 @@
    	   var email = document.getElementById('member_email').value
 	   var idDoubleChk = document.getElementById('idDoubleChk').value
 	   var nicknameDoubleChk = document.getElementById('nicknameDoubleChk').value;
-   	   
+   	   var address = document.getElementById('member_address').value;
    		   	   
    	   var idregex = /^[a-z][a-z\d]{4,11}$/;
    	   var pwregex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
    	   var nameregex = /[가-힣]{2,}/;
    	   var nicknameregex = /[0-9]|[a-z]|[A-Z]|[가-힣]/;
    	   var emailregex = /.+@[a-z]+(\.[a-z]+){1,2}$/;
+   	   var str_space = /\s/;
    	   var a = true;
    	   var b = false;
    	 
@@ -506,6 +520,13 @@
 		   retrun;
 	   }
    	   
+	   if(address.replace(/\s| /gi,'').length == 0) {
+	 		alert("주소를 입력해주세요.");
+	 		return;
+	 	}
+	 	
+	   
+	   
         //빈칸 없을 때 제출.
    	   $("#signform").submit();
        	   
