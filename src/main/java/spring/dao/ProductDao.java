@@ -27,6 +27,18 @@ public class ProductDao {
 		List<Product> list = sqlSession.selectList("mybatis.mapper.product.category",category);
 		return list;
 	}
+	public List<Product> mainBest() { 
+		List<Product> list = sqlSession.selectList("mybatis.mapper.product.mainBest");
+		return list;
+	}
+	public List<Product> mainRandom() { 
+		List<Product> list = sqlSession.selectList("mybatis.mapper.product.mainRandom");
+		return list;
+	}
+	public List<Product> mainNew() { 
+		List<Product> list = sqlSession.selectList("mybatis.mapper.product.mainNew");
+		return list;
+	}
 	
 	public int seqNumber() { 
 		return sqlSession.selectOne("mybatis.mapper.product.seqNumber");

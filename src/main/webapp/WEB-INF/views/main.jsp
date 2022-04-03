@@ -159,41 +159,17 @@ body {
 	<div class="wrap swiper mySwiper">
 		<div class="swiper-wrapper">
 			
+		<c:forEach var="Product" items="${Product1}">
 		<div class="swiper-slide">
 		<div class="card-main">
-			<img src="/uploadedIMG/2022/03/220403.jpg" class="card-image" alt="...">
+			
+			<a href="<c:url value='/product/detail/${Product.option_join_number}'/>"><img src="/uploadedIMG/${Product.product_m_image}" class="card-image" alt="..."></a>
 				    <div class="card-body">
-				      <p class="menu-name pInfo">백년가게 가포옛날영도집 흑산도 장어탕</p>
-				      <p class="card-text pInfo">6500원</p> </div>
+				      <a href="<c:url value='/product/detail/${Product.option_join_number}'/>"><p class="menu-name pInfo">${Product.product_name}</p></a>
+				      <p class="card-text pInfo"><fmt:formatNumber value="${Product.product_price}" pattern="#,###,###" />원</p> </div>
 			</div>
 	  	 </div>
-  		
-	  	<div class="swiper-slide">
-	  	<div class="card-main">
-		    <img src="./resources/IMG/food2.PNG" class="card-image" alt="...">
-		    <div class="card-body">
-		      <p class="menu-name pInfo">부산집 언양식불고기</p>
-		      <p class="card-text pInfo">6900원</p></div>
-		     </div>
-		</div>
-		
-	  	<div class="swiper-slide">
-	  	<div class="card-main">
-		    <img src="./resources/IMG/food3.PNG" class="card-image" alt="...">
-		    <div class="card-body">
-		      <p class="menu-name pInfo">바를정육 LA갈비꽃선물세트</p>
-		      <p class="card-text pInfo">89900원</p></div>
-		     </div>
-		</div>
-		
-		 	<div class="swiper-slide">
-	  	<div class="card-main">
-		    <img src="/uploadedIMG/2022/03/2204032.jpg" class="card-image" alt="...">
-		    <div class="card-body">
-		      <p class="menu-name pInfo">바지락 듬뿍얼큰파스타</p>
-		      <p class="card-text pInfo">15900원</p></div>
-		     </div>
-		</div>
+	  	 </c:forEach>
 
 	 </div>
 	  
@@ -213,41 +189,16 @@ body {
 	<div class="wrap swiper mySwiper2">
 		<div class="swiper-wrapper">
 			
+		<c:forEach var="Product" items="${Product2}">
 		<div class="swiper-slide">
 		<div class="card-main">
-			<img src="/uploadedIMG/2022/03/220403.jpg" class="card-image2" alt="...">
+			<a href="<c:url value='/product/detail/${Product.option_join_number}'/>"><img src="/uploadedIMG/${Product.product_m_image}" class="card-image2" alt="..."></a>
 				    <div class="card-body">
-				      <p class="menu-name pInfo">백년가게 가포옛날영도집 흑산도 장어탕</p>
-				      <p class="card-text pInfo">6500원</p> </div>
+				      <a href="<c:url value='/product/detail/${Product.option_join_number}'/>"><p class="menu-name pInfo">${Product.product_name}</p></a>
+				      <p class="card-text pInfo"><fmt:formatNumber value="${Product.product_price}" pattern="#,###,###" />원</p> </div>
 			</div>
 	  	 </div>
-  		
-	  	<div class="swiper-slide">
-	  	<div class="card-main">
-		    <img src="./resources/IMG/food2.PNG" class="card-image2" alt="...">
-		    <div class="card-body">
-		      <p class="menu-name pInfo">부산집 언양식불고기</p>
-		      <p class="card-text pInfo">6900원</p></div>
-		     </div>
-		</div>
-		
-	  	<div class="swiper-slide">
-	  	<div class="card-main">
-		    <img src="./resources/IMG/food3.PNG" class="card-image2" alt="...">
-		    <div class="card-body">
-		      <p class="menu-name pInfo">바를정육 LA갈비꽃선물세트</p>
-		      <p class="card-text pInfo">89900원</p></div>
-		     </div>
-		</div>
-		
-		 	<div class="swiper-slide">
-	  	<div class="card-main">
-		    <img src="/uploadedIMG/2022/03/2204032.jpg" class="card-image2" alt="...">
-		    <div class="card-body">
-		      <p class="menu-name pInfo">바지락 듬뿍얼큰파스타</p>
-		      <p class="card-text pInfo">15900원</p></div>
-		     </div>
-		</div>
+  		</c:forEach>
 
 	 </div>
 	  
@@ -269,41 +220,16 @@ body {
 	<div class="wrap swiper mySwiper">
 		<div class="swiper-wrapper">
 			
+		<c:forEach var="Product" items="${Product3}">
 		<div class="swiper-slide">
 		<div class="card-main">
-			<img src="/uploadedIMG/2022/03/220403.jpg" class="card-image" alt="...">
+			<a href="<c:url value='/product/detail/${Product.option_join_number}'/>"><img src="/uploadedIMG/${Product.product_m_image}" class="card-image" alt="..."></a>
 				    <div class="card-body">
-				      <p class="menu-name pInfo">백년가게 가포옛날영도집 흑산도 장어탕</p>
-				      <p class="card-text pInfo">6500원</p> </div>
+				      <a href="<c:url value='/product/detail/${Product.option_join_number}'/>"><p class="menu-name pInfo">${Product.product_name}</p></a>
+				      <p class="card-text pInfo"><fmt:formatNumber value="${Product.product_price}" pattern="#,###,###" />원</p> </div>
 			</div>
 	  	 </div>
-  		
-	  	<div class="swiper-slide">
-	  	<div class="card-main">
-		    <img src="./resources/IMG/food2.PNG" class="card-image" alt="...">
-		    <div class="card-body">
-		      <p class="menu-name pInfo">부산집 언양식불고기</p>
-		      <p class="card-text pInfo">6900원</p></div>
-		     </div>
-		</div>
-		
-	  	<div class="swiper-slide">
-	  	<div class="card-main">
-		    <img src="./resources/IMG/food3.PNG" class="card-image" alt="...">
-		    <div class="card-body">
-		      <p class="menu-name pInfo">바를정육 LA갈비꽃선물세트</p>
-		      <p class="card-text pInfo">89900원</p></div>
-		     </div>
-		</div>
-		
-		 	<div class="swiper-slide">
-	  	<div class="card-main">
-		    <img src="/uploadedIMG/2022/03/2204032.jpg" class="card-image" alt="...">
-		    <div class="card-body">
-		      <p class="menu-name pInfo">바지락 듬뿍얼큰파스타</p>
-		      <p class="card-text pInfo">15900원</p></div>
-		     </div>
-		</div>
+  		</c:forEach>
 
 	 </div>
 	  
