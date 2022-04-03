@@ -61,6 +61,7 @@
 		 	Product Main Image : <input type="file" name="uploadFile" class="fileClass"><br>
 		 	Product DetailCut Image : <input type="file" name="uploadFile" class="fileClass"><br>
 		 	Product Information Image : <input type="file" name="uploadFile" class="fileClass"><br>
+		 	<form:hidden path="option_loop"/><br>
 		 	<c:if test="${!empty productOption}">
 			 	<c:forEach var="product_Option" items="${productOption}" varStatus="n">
 				 	<input type="hidden" name="product_Option[${n.index}].option_number" value="${product_Option.option_number}">
@@ -112,7 +113,7 @@ $(document).ready(function(){
 		
 	});
 	
-	let number = 51;
+	let number = ${option_loop};
 	 $("#optionAdd").on("click",function(){
 		 
 		let option = document.getElementById("option");
