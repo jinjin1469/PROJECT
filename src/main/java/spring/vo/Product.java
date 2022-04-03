@@ -21,6 +21,7 @@ public class Product {
 	private String category_2;
 	private int delete_check;
 	
+	
 	public Product() {}
 	
 	public Product(int option_join_number,String product_name, int product_price, int product_count, String product_cookingTime,
@@ -178,5 +179,6 @@ public class Product {
 	public void setProduct_i_image(String product_i_image) {
 		this.product_i_image = product_i_image;
 	}
+
 	
 }

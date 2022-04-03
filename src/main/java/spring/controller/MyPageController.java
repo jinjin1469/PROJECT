@@ -138,28 +138,67 @@ public class MyPageController {
 		
 	    
 		 @RequestMapping(value = "/admin/orderStatus/{msg}", method = RequestMethod.GET)
-			public String orderStatusMsgG(@PathVariable("msg") String msg,Model model) {
+			public String orderStatusMsgG(@PathVariable("msg") String msg, HttpServletRequest request, Model model) {
+			 	
+			 	String _sectionOne = request.getParameter("sectionOne");
+				String _pageNumOne = request.getParameter("pageNumOne");
+				String _sectionTwo = request.getParameter("sectionTwo");
+				String _pageNumTwo = request.getParameter("pageNumTwo");
 				
-				List<Order> orderwaitList = odao.orderwaitList();
-				List<Order> deliveryCompleteList = odao.deliveryCompleteList();
+				int sectionOne = Integer.parseInt((_sectionOne==null)?"1":_sectionOne);
+				int pageNumOne = Integer.parseInt((_pageNumOne==null)?"1":_pageNumOne);
+				int sectionTwo = Integer.parseInt((_sectionTwo==null)?"1":_sectionTwo);
+				int pageNumTwo = Integer.parseInt((_pageNumTwo==null)?"1":_pageNumTwo);		 
+			 
+			 
+				List<Order> orderwaitList = odao.orderwaitList(sectionOne,pageNumOne);
+				List<Order> deliveryCompleteList = odao.deliveryCompleteList(sectionTwo,pageNumTwo);
+				
+				int totalCntOne = odao.orderwaitCnt();
+				int totalCntTwo = odao.deliveryCompleteCnt();
 				
 				model.addAttribute("orderwaitList", orderwaitList);
+				model.addAttribute("totalCntOne", totalCntOne);
+				model.addAttribute("sectionOne", sectionOne);
+				model.addAttribute("pageNumOne", pageNumOne);
 				model.addAttribute("deliveryCompleteList", deliveryCompleteList);
+				model.addAttribute("totalCntTwo", totalCntTwo);
+				model.addAttribute("sectionTwo", sectionTwo);
+				model.addAttribute("pageNumTwo", pageNumTwo);
 				model.addAttribute("msg", msg);
 				
 				return "admin/ordercheck";
 			}
 		 
 		 @RequestMapping(value = "/admin/orderStatus", method = RequestMethod.GET)
-			public String orderStatusG(Model model) {
+			public String orderStatusG(HttpServletRequest request, Model model) {
 				
-				List<Order> orderwaitList = odao.orderwaitList();
-				List<Order> deliveryCompleteList = odao.deliveryCompleteList();
+			 
+			 	String _sectionOne = request.getParameter("sectionOne");
+				String _pageNumOne = request.getParameter("pageNumOne");
+				String _sectionTwo = request.getParameter("sectionTwo");
+				String _pageNumTwo = request.getParameter("pageNumTwo");
+				
+				int sectionOne = Integer.parseInt((_sectionOne==null)?"1":_sectionOne);
+				int pageNumOne = Integer.parseInt((_pageNumOne==null)?"1":_pageNumOne);
+				int sectionTwo = Integer.parseInt((_sectionTwo==null)?"1":_sectionTwo);
+				int pageNumTwo = Integer.parseInt((_pageNumTwo==null)?"1":_pageNumTwo);
+				
+				List<Order> orderwaitList = odao.orderwaitList(sectionOne,pageNumOne);
+				List<Order> deliveryCompleteList = odao.deliveryCompleteList(sectionTwo,pageNumTwo);
+				
+				int totalCntOne = odao.orderwaitCnt();
+				int totalCntTwo = odao.deliveryCompleteCnt();
+			 
 				
 				model.addAttribute("orderwaitList", orderwaitList);
+				model.addAttribute("totalCntOne", totalCntOne);
+				model.addAttribute("sectionOne", sectionOne);
+				model.addAttribute("pageNumOne", pageNumOne);
 				model.addAttribute("deliveryCompleteList", deliveryCompleteList);
-
-				
+				model.addAttribute("totalCntTwo", totalCntTwo);
+				model.addAttribute("sectionTwo", sectionTwo);
+				model.addAttribute("pageNumTwo", pageNumTwo);
 				return "admin/ordercheck";
 			}
 
@@ -174,10 +213,20 @@ public class MyPageController {
 		 @RequestMapping(value = "/mypage/orderStatus/{msg}", method = RequestMethod.GET)
 			public String memOrderStatusMsgG(@PathVariable("msg") String msg, Model model,HttpSession session, HttpServletRequest request) {
 			 
-			 	AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
-				long member_number = authinfo.getMember_number();
-				List<Order> info = odao.selectOrderinfo(member_number);
+			 	String _section = request.getParameter("section");
+				String _pageNum = request.getParameter("pageNum");
 				
+				int section = Integer.parseInt((_section==null)?"1":_section);
+				int pageNum = Integer.parseInt((_pageNum==null)?"1":_pageNum);
+			 
+			 	AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+			 	int member_number = (int)authinfo.getMember_number();
+				List<Order> info = odao.selectOrderinfo(member_number,section,pageNum);
+				int totalCnt = odao.selectOrderCnt(member_number);
+				
+				model.addAttribute("totalCnt", totalCnt);
+				model.addAttribute("section", section);
+				model.addAttribute("pageNum", pageNum);
 				model.addAttribute("info", info);
 				model.addAttribute("msg", msg);
 				
@@ -187,10 +236,21 @@ public class MyPageController {
 		 @RequestMapping(value = "/mypage/orderStatus", method = RequestMethod.GET)
 			public String memOrderStatusG(Model model,HttpSession session, HttpServletRequest request) {
 			 
-			 	AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
-				long member_number = authinfo.getMember_number();
-				List<Order> info = odao.selectOrderinfo(member_number);
+			 	String _section = request.getParameter("section");
+				String _pageNum = request.getParameter("pageNum");
 				
+				int section = Integer.parseInt((_section==null)?"1":_section);
+				int pageNum = Integer.parseInt((_pageNum==null)?"1":_pageNum);
+				
+			 	AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+				int member_number = (int)authinfo.getMember_number();
+				List<Order> info = odao.selectOrderinfo(member_number,section,pageNum);
+				
+				int totalCnt = odao.selectOrderCnt(member_number);
+				
+				model.addAttribute("totalCnt", totalCnt);
+				model.addAttribute("section", section);
+				model.addAttribute("pageNum", pageNum);
 				model.addAttribute("info", info);
 				
 				return "mypage/ordercheck";

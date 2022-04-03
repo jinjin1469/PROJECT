@@ -313,6 +313,7 @@ function payment(){
 		retrun;
 	}
 	if(totalPrice<30000){ //주문금액이 3만원이하일때는 배송료3천원부과
+		alert("총 주문금액이 30000원 미만이여서 배송료가 부과됩니다.");
 		totalPrice+=3000;
 		$("#delivery_cost").val(3000);
 	}else{

@@ -33,7 +33,6 @@ public class MainController {
 		List<Product> bestProductList = dao.mainBest();
 		List<Product> randomProductList = dao.mainRandom();
 		List<Product> NewProductList = dao.mainNew();
-		System.out.println(bestProductList.get(0).getProduct_name());
 		model.addAttribute("Product1", bestProductList);
 		model.addAttribute("Product2", randomProductList);
 		model.addAttribute("Product3", NewProductList);

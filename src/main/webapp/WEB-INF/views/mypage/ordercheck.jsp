@@ -105,6 +105,41 @@
 				</c:forEach>
 			</c:if>	
 		</table>
+		<c:if test="${totalCnt != null}">
+			<c:choose>
+				<c:when test="${totalCnt>150}">
+					<c:if test="${(section)*150<totalCnt}">
+						<c:forEach var="page" begin="1" end="10" step="1">
+							<c:if test="${section > 1 && page==1}">
+								<a href="?section=${section-1}&pageNum=10"> ⏪ </a>
+							</c:if>
+								<a href="?section=${section}&pageNum=${page}">${(section-1)*10+page}</a>
+							<c:if test="${page==10}">
+								<a href="?section=${section+1}&pageNum=1"> ⏩ </a>
+							</c:if>
+						</c:forEach>
+					</c:if>
+					<c:if test="${(section)*150>totalCnt}">
+						<c:forEach var="page" begin="1" end="${((totalCnt+14)-(section-1)*150)/10}" step="1">
+							<c:if test="${section > 1 && page==1}">
+								<a href="?section=${section-1}&pageNum=10"> ⏪ </a>
+							</c:if>
+								<a href="?section=${section}&pageNum=${page}">${(section-1)*10+page}</a>
+						</c:forEach>
+					</c:if>
+				</c:when>
+				<c:when test="${totalCnt==150}"> 
+					<c:forEach var="page" begin="1" end="10" step="1">
+						<a href="?section=${section}&pageNum=${page}">${page}</a>
+					</c:forEach>
+				</c:when>
+				<c:when test="${totalCnt<150}">
+					<c:forEach var="page" begin="1" end="${(totalCnt+14)/15}" step="1">
+						<a href="?section=${section}&pageNum=${page}">${page}</a>
+					</c:forEach>
+				</c:when>
+			</c:choose>
+		</c:if>
 		<br>
 		<br>
 
