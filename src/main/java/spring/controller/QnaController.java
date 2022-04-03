@@ -56,8 +56,6 @@ public class QnaController {
 		}
 		
 		String product_name = qnaService.selectByNumber(product_number);
-		System.out.println("product_name" + product_name);
-		
 		
 		model.addAttribute("qna", new Qna());
 		model.addAttribute("product_number", product_number);
@@ -80,8 +78,6 @@ public class QnaController {
 		qnaService.insert(qna);
 		long product_number = qna.getProduct_number();
 		long num = qnaService.selectProNum(product_number);
-		System.out.println("num" + num);
-			
 
 		return "redirect:/product/detail/"+ num;
 	}
@@ -117,7 +113,6 @@ public class QnaController {
 
 
     	int num = qnaService.selectByNum(qna_number);
-    	System.out.println("num값" + num);
     	Qna view = qnaService.selectQna(qna_number);
     	CommentWrite comment = qnaService.selectComment(qna_number);
     	
@@ -146,11 +141,9 @@ public class QnaController {
     public String deleteCom(@RequestParam("comment_number") long comment_number, Qna qna, CommentWrite commentWrite, Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
     	
     	long qna_number = qnaService.selectCommentNumber(comment_number);
-		System.out.println("삭제를 위해 가져오는 qna_number:" + qna_number);
 		qnaService.setStateWaiting(qna_number);
     	
 		qnaService.deleteCom(comment_number);
-		System.out.println("commnet_number" + comment_number);
 		
 		Qna view = qnaService.selectQna(qna_number);
     	CommentWrite comment = qnaService.selectComment(qna_number);

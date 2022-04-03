@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+* {font-family: 'Noto Sans KR', sans-serif;}
+
+.imgSize{width:5rem; height:5rem; margin-left: 20px;}
+
+.ordermain{font-size:15px; font-weight:bold; margin-top:15px;}
+.tbl{
+	width:490px;
+	border-collapse:collapse;
+	border-bottom: 0.5px solid black;
+	border-top: 0.5px solid black;
+	font-size: 13px;
+}
+*{box-sizing: border-box;}
+th{ 
+	background-color: #E6E6E6;
+	border-bottom: 0.5px solid black;
+	font-size:13px;
+	
+}
+
+td{font-size:13px;}
+.menuname{font-weight:bold; margin-left:10px;}
+.ordertbl{
+	width:400px; 
+	border-collapse:collapse;
+	border:none;
+	margin-top: 30px;
+}
+
+.orderth{background-color:white; border: none; text-align:left; width:40%;}
+
+hr{border: 0.5px solid #DADADA; margin:0px; width:80%; float:left;}
+.money{font-weight:bold;}
