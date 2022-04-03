@@ -8,29 +8,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../../../resources/css/join.css">
+<link rel="stylesheet" href="../../../resources/css/payment.css">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-<title>장바구니</title>
-<style>
-
-imgSize{width:0.5rem; height:0.5rem;}
-</style>
+<title>주문하기🛒</title>
 </head>
 <body>
 <%@include file="../header.jsp" %>
 <br>
 <br>
-<h2>장바구니🛒</h2>
+<h2>주문하기💳</h2>
 	<br>
 	<br>	
 	<form:form id="orderform" commandName="Order" method="POST" action="/order/orderInsert" enctype="multipart/form-data">
 		<table>
 			<tr>
-				<th>주문 List</th>
+				<th>주문 목록</th>
 				<td>
 					<c:forEach var="product" items="${Product}" varStatus="n">
-						${product.product_name} * ${product.product_count} EA
+					<label class="mainmenu">	✔️${product.product_name} * ${product.product_count} EA </label>
 						
 				 		<input type="hidden" name="order_sub[${n.index}].product_number" value="${product.product_number}">
 				 		<input type="hidden" name="order_sub[${n.index}].product_count" value="${product.product_count}">
@@ -39,7 +35,7 @@ imgSize{width:0.5rem; height:0.5rem;}
 						<c:if test="${!empty product.option_sub}">
 						 <br>
 						 <c:if test="${product.option_sub[0].payment_option_count!=0}">
-						 &nbsp;&nbsp;&nbsp; 옵션상품 (
+						 &nbsp;&nbsp;&nbsp;  - 옵션상품 
 							<c:forEach var="option" items="${product.option_sub}" varStatus="m">
 									
 									<input type="hidden" name="order_sub[${n.index}].option_sub[${m.index}].option_number" value="${option.option_number}">
@@ -49,24 +45,26 @@ imgSize{width:0.5rem; height:0.5rem;}
 									&nbsp;	[ ${option.option_Name} * ${option.payment_option_count} EA ]	
 								
 							</c:forEach>
-							)
-						 </c:if>
+							<br>
+							</c:if>
 						</c:if>
 						<br>
               		</c:forEach>
-              		<br>
-              		💲${totalPrice}
 				</td>
 			</tr>
 			<tr>
-				<th>포인트 사용 <c:if test="${!empty membershipPoint}">(사용가능포인트 : ${membershipPoint})</c:if></th>
+				<th>결제 금액</th>
+				<td class="sum"><fmt:formatNumber value="${totalPrice}" pattern="#,###,###" />원</td>
+			</tr>
+			<tr>
+				<th>포인트 사용 <c:if test="${!empty membershipPoint}"><p class="point">사용가능포인트 : ${membershipPoint}</p></c:if></th>
 				<td><input type="text" class="form-control" id="use_point" name="use_point" value="" required>
 				<span class="point regex" style="text-align:left;"></span>
 				<br>
 				</td>
 			</tr>
 			<tr>
-				<th>적립될 포인트</th>
+				<th>적립 예상 포인트</th>
 				<td><input type="text" class="form-control" id="earn_point" name="earn_point" value="" readonly>
 				<br>
 				</td>
@@ -111,8 +109,8 @@ imgSize{width:0.5rem; height:0.5rem;}
 		<input type="hidden" name="delivery_cost" id="delivery_cost" value="">
 		 <br>
 		 <br>
-		<button class="btn btn-primary btn-lg btn-block" type="button" id="orderbtn" name="order">결제하기</button>
-		<button class="btn btn-primary btn-lg btn-block" type="button" id="cancelbtn" name="order">결제취소</button>
+		<button class="btn3 btn-primary btn-lg btn-block" type="button" id="orderbtn" name="order">결제하기</button>
+		<button class="btn4 btn-primary btn-lg btn-block" type="button" id="cancelbtn" name="order">결제취소</button>
 	</form:form>
 <br>
 <br>
@@ -120,6 +118,23 @@ imgSize{width:0.5rem; height:0.5rem;}
 
 <script>
 IMP.init('imp43122025');
+
+
+//이름 유효성검사
+$("#recipient").on("input",function(){
+    var regex = /[가-힣]{2,}/;
+    var result = regex.exec($("#recipient").val());
+    
+    if(result != null){
+       $(".member_name.regex").html("");  
+    }else{
+        $(".member_name.regex").html("한글만 입력 가능합니다.");
+        $(".member_name.regex").css("color","red");
+    }
+    
+})
+
+
 
 //주소 합치기
 $("#postcode").change(function(){
@@ -138,9 +153,13 @@ function addr() {
 	const postcode = $("#postcode").val();
 	const address = $("#address").val();
 	const detailAddress = $("#detailAddress").val();
-	if(postcode != "" && address != "") {
+
+
+	if (detailAddress == ""){
+		$("#recipient_address").val(postcode+address);
+	}else if(postcode != "" && address != "" && detailAddress != "") {
 		$("#recipient_address").val(postcode+address+detailAddress);
-	}
+	}	
 };
 
 // 우편번호 서비스
@@ -187,6 +206,11 @@ function execDaumPostcode() {
             document.getElementById("address").value = addr;
             // 커서를 상세주소 필드로 이동한다.
             document.getElementById("detailAddress").focus();
+            
+            const postcode = $("#postcode").val();
+    		const address = $("#address").val();
+    		
+			$("#recipient_address").val(postcode+address);
         }
     }).open();
 }

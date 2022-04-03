@@ -18,25 +18,82 @@ table {
 	align-items: center;
 	margin: 0 auto;
 	text-align: center;
-	border-top: 1px solid #444444;
-	border-bottom: 1px solid #444444;
 	border-collapse: collapse;
+	border:none;
 	width: 600px;
 	font-size: 13px;
 	text-align: left;
+	margin-left:30px;
 }
 
 th, td {
 	padding: 10px;
 	text-align: left;
 }
+.btn {
+	margin-left:1rem;
+	width: 300px;
+	display: inline-block;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #212529;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: middle;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	background-color: transparent;
+	border: 1px solid transparent;
+	padding: 0.375rem 0.75rem;
+	font-size: 0.3rem;
+	border-radius: 0.25rem;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
 
 
+.w-100 {
+	width: 100% !important;
+}
 
+.btn-lg, .btn-group-lg>.btn {
+	padding: 0.5rem 1rem;
+	font-size: 1rem;
+	border-radius: 0.3rem;
+}
+
+.btn-primary {
+	color: #fff;
+	background-color: #a4e25e;
+	border-color: #d1f779;
+	float: right;
+    margin-right: -50px;
+    margin-top: 10px;
+    width: 100px;
+   
+}
+}
+
+.btn-primary:hover {
+	color: #fff;
+	background-color: #73c431;
+	border-color: #1ad123;
+}
+
+.sizee{width:800px; margin-left:70px;}
+.sizeed{width:400px; margin-left: -20px;}
+.mar{margin-left:200px;}
+h3{text-align:left; margin-left:40px;}
+
+p{text-align:left;}
+
+.subbtn{width: 600px;}
 </style>
 <body>
 <%@include file="../header.jsp" %>
-<div class="container d-flex flex-wrap d-flex align-items-center">
+<div class="container d-flex flex-wrap d-flex align-items-center mar">
 	<aside>
 	    <p class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none">
 	      <svg class="bi me-2" width="30" height="24"></svg>
@@ -55,11 +112,16 @@ th, td {
 	      </li>
 	    </ul>
 	</aside>
-  <div class="col-md-10">
+  
+  
+  <div class="col-md-10 sizee">
+  <br>
+  <br>
     <h3>공지사항</h3>
-
+<br>
+<br>
 <c:if test="${!empty Notice}">
-		<table border=1>
+		<table>
 				<tr>
 					<th>
 						${Notice.NOTICE_TITLE}
@@ -71,13 +133,17 @@ th, td {
 					</td>
 				</tr>
 		</table>
+	<div class="subbtn">
+	<input type="button" onclick="javascript:history.back();"  class="btn3 btn-primary btn-lg btn-block" value="목록으로">
+	</div>
 </c:if>
     
     
     
   </div>  
   </div>
-
+<br>
+<br>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <%@include file="../footer.jsp" %>
 </body>

@@ -6,8 +6,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="../../../resources/css/mypage.css">
 <title>고객 1:1 질문🙌</title>
 <style>
+
+
+.menu{
+	text-align: left;
+	font-size: 12px;
+	margin: 0 auto;
+	padding: 0px;
+	color: #696969;
+}
+
 
 .th-2{border-bottom: 0.7px solid #DCDCDC;}
 table {
@@ -35,6 +46,7 @@ th {
 	background-color: #F5F5F5;
 }
 
+.line{border:none; margin: 4px;}
 </style>
 
 </head>
@@ -42,13 +54,38 @@ th {
 <%@include file="../header.jsp"%>
 <br>
 <br>
+<div id="content"> 
 
-  <h3>고객 1:1 질문</h3>
+<aside>
+<div class="menu">
+	<p><strong>상품관리</strong></p>
+	<hr>
+		<p><a href="<c:url value='/product/insert'/>" class="menu">상품등록</a></p>
+		<p><a href="<c:url value='/product/totalList' />" class="menu">상품전체보기</a></p>
+		<p><a href="<c:url value='/member/login' />" class="menu">장바구니</a></p>
+	<br>
+	<p><strong>쇼핑관리</strong></p>
+	<hr>
+
+		<p><a href="<c:url value='/mypage/qnalist' />" class="menu">1:1 문의 모아보기</a></p>
+		<p><a href="<c:url value='/admin/orderStatus' />" class="menu">배송관리</a></p>
+		<p><a href="<c:url value='/member/login' />" class="menu">리뷰 모아보기</a></p>
+		<p><a href="<c:url value='/notice/main' />" class="menu">F&Q</a></p>
+	<br>
+	<p><strong>회원관리</strong></p>
+	<hr>
+		<p><a href="<c:url value='/mypage/modify/${member.member_number}' />" class="menu">회원정보변경</a></p>
+		<p><a href="<c:url value='/member/login' />" class="menu">회원정보 탈퇴신청</a></p>
+</div>
+</aside>
+
+<section>
+  <h2>고객 1:1 질문</h2>
 		 		 
-		 		  <br>
+		 		<hr class="line">
 	
-		 		  <table class="qna">
-			 		  	<tr class="qna">
+		 		  <table>
+			 		  	<tr>
 			 		  		<th class="th-2">답변 등록 상태</th>
 			 		  		<th class="th-2">상품이름</th>
 			 		  		<th class="th-1">제목</th>
@@ -73,8 +110,8 @@ th {
 
 
 
-
-
+</section>
+</div>
 <br>
 <br>
 <%@include file="../footer.jsp"%>

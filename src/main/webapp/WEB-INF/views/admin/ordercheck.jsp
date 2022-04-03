@@ -43,8 +43,8 @@
 	<br>
 	<p><strong>쇼핑관리</strong></p>
 	<hr>
+		<p><a href="<c:url value='/mypage/qnalist' />" class="menu">1:1 문의 모아보기</a></p>
 		<p><a href="<c:url value='/admin/orderStatus' />" class="menu">배송관리</a></p>
-		<p><a href="<c:url value='/member/login' />" class="menu">1:1게시판</a></p>
 		<p><a href="<c:url value='/member/login' />" class="menu">리뷰 모아보기</a></p>
 		<p><a href="<c:url value='/notice/main' />" class="menu">F&Q</a></p>
 	<br>
@@ -83,7 +83,7 @@
 					<tr>
 						<td><fmt:formatDate value="${list.order_regdate}" pattern="yyyy-MM-dd" /></td>
 						<td><a href="javascript:orderDetail(${list.order_number});">상세보기</a></td>
-						<td>💲${list.order_price}원</td>
+						<td>💲<fmt:formatNumber value="${list.order_price}" pattern="#,###,###"/>원</td>
 						<td><a href="/order/adminCancle/${list.order_number}">취소</a></td>
 						<td><a href="/admin/delivery/${list.order_number}"><c:if test="${list.order_status=='배송준비중'}">배송</c:if></a></td>
 					</tr>
@@ -113,7 +113,7 @@
 					<tr>
 						<td><fmt:formatDate value="${list.order_regdate}" pattern="yyyy-MM-dd" /></td>
 						<td><a href="javascript:orderDetail(${list.order_number});">상세보기</a></td>
-						<td>💲${list.order_price}원</td>
+						<td>💲<fmt:formatNumber value="${list.order_price}" pattern="#,###,###"/>원</td>
 						<td>${list.order_status}</td>
 					</tr>
 				</c:forEach>
@@ -128,7 +128,7 @@
 
 <script>
 function orderDetail(order_number){
-	open('/order/orderDetail/'+order_number,'주문 상세보기','width=300px,height=300px,status=false');
+	window.open('/order/orderDetail/'+order_number,'주문 상세보기',"width=500,height=600,top=200,left=200,toolbar=no,menubar=no,scrollbars=no,status=no");
 }
 
 
