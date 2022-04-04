@@ -58,7 +58,7 @@ imgSize{width:0.5rem; height:0.5rem;}
 
                         <div class="img"><img src="/uploadedIMG/${row.product_m_image}" class="p_img"></div>
                         <div class="pname">
-                            <span>${row.product_name}</span> 
+                           <a href="<c:url value='/product/detail/${row.option_join_number}'/>"><span>${row.product_name}</span></a> 
                         </div>
                     </div>
                     <div class="subdiv">

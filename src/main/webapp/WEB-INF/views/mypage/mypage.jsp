@@ -77,17 +77,29 @@
 			<tr>
 				<td colspan="4">주문 내역이 없습니다.</td>
 			</tr>
+
 		</table>
 		
 		<table class="tbl">
 			<tr>
-				<th>등록일자</th>
-				<th>리뷰 내용</th>
 				<th>상품명</th>
+				<th>리뷰 내용</th>
+				<th>작성일</th>
 			</tr>
+		<c:if test="${empty list}">
 			<tr>
-				<td colspan="3">작성한 리뷰가 없습니다.</td>
+				<td colspan="3">아직 작성한 리뷰가 없습니다.</td>
 			</tr>
+		</c:if>
+			
+		<c:forEach var="review" items="${list}">
+			<tr>
+				<td>${review.product_name}</td>
+				<td>${review.review_content}</td>
+				<td>${review.review_regdate}</td>
+			</tr>
+		</c:forEach>
+			
 		</table>
 		
 

@@ -1,8 +1,11 @@
 package spring.service;
 
+import java.util.List;
+
 import spring.dao.MemberDao;
 import spring.vo.Member;
 import spring.vo.RegisterRequest;
+import spring.vo.Review;
 
 public class ManageService {
 
@@ -30,6 +33,11 @@ public class ManageService {
 		public String pwdFind(Long member_number) {
 		    String member_pwd = dao.pwdFind(member_number);
 			return member_pwd;
+		}
+
+		public List<Review> myReview(Long member_number) {
+			List<Review> list = dao.myReview(member_number);
+			return list;
 		}
 	
 	

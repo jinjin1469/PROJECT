@@ -263,6 +263,11 @@ public class QnaController {
  	   
 	   return "mypage/myqnalist";
    }
+   
+   
+
+   
+   
 
 }
 	
