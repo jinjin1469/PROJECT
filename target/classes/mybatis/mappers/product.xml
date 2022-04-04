@@ -97,7 +97,8 @@
 		product_m_image=#{product_m_image},
 		product_d_image=#{product_d_image},
 		product_i_image=#{product_i_image}
-		<if test="#{product_count==0}"> , delete_check=1 </if>
+		<if test="product_count==0"> , delete_check=1 </if>
+		<if test="product_count>=1"> , delete_check=0 </if>
 		WHERE option_join_number = #{option_join_number}
 	</update>
 
