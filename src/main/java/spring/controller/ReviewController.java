@@ -88,7 +88,7 @@ public class ReviewController {
 		   return "mypage/myreviewlist";
 	   }
 
-	
+
 	
 
 }

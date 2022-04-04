@@ -37,7 +37,11 @@
 		from m_review r, m_product p, m_member m
 		where p.product_number = r.product_number and m.member_number= #{member_numbe}
 	</select>
-	
+	<select id="myReview" resultMap="reviewVo"  parameterType="long">
+		<![CDATA[select review_content, review_regdate, product_name
+		from m_review r, m_product p, m_member m
+		where p.product_number = r.product_number and m.member_number= #{member_numbe} and ROWNUM <= 3 ORDER BY review_regdate]]>
+	</select>
 	
 	
 </mapper>

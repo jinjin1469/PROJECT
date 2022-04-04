@@ -22,6 +22,7 @@
 		<result column="cartoption_number" property="cartoption_number"/>
 		<result column="product_selectCount" property="product_selectCount"/>
 		<result column="product_m_image" property="product_m_image"/>
+		<result column="option_join_number" property="option_join_number"/>
 	</resultMap>
 	
 	
@@ -54,7 +55,7 @@
 	  </select> -->
 	  
 	   <select id="listCart" resultType="cart">
-	   select DISTINCT cart_number, c.cartoption_number, p.product_number, m.member_number, member_name, product_name, product_selectcount, product_price, product_m_image, (product_price*product_selectcount) money
+	   select DISTINCT cart_number, c.cartoption_number, p.product_number, p.option_join_number, m.member_number, member_name, product_name, product_selectcount, product_price, product_m_image, (product_price*product_selectcount) money
 	   from m_member m, m_cart c, m_product p, m_cartoption t, m_option o
 	   where m.member_number=c.member_number and c.product_number=p.product_number and c.member_number=#{member_number} order by cart_number
 	 	</select>

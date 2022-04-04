@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import spring.vo.Category;
 import spring.vo.Member;
 import spring.vo.RegisterRequest;
+import spring.vo.Review;
 
 public class MemberDao { 
 	
@@ -82,6 +83,11 @@ public class MemberDao {
 		String member_pwd =  sqlSession.selectOne("mybatis.mapper.member.pwdFind", member_number);
 	   return member_pwd;
 		}
+
+	
+   public List<Review> myReview(Long member_number) {
+		return sqlSession.selectList("mybatis.mapper.review.myReview", member_number);
+}
 	
 	
 }

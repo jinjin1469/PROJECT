@@ -27,6 +27,7 @@ import spring.vo.Login;
 import spring.vo.Member;
 import spring.vo.Order;
 import spring.vo.RegisterRequest;
+import spring.vo.Review;
 
 @Controller
 public class MyPageController {
@@ -54,18 +55,23 @@ public class MyPageController {
 		this.api = new IamportClient("5478353111638089","38c701ccf0c5e1bb14f091d942224863eebfa6b285a8195735b0eaae973d6339abf549d563d49cf8");
 	}
 	
-	//留덉씠�럹�씠吏� �뿰寃�
+
 	 @RequestMapping(value="/mypage/mypage/{member_number}",method=RequestMethod.GET)
 		public String myPage(@PathVariable("member_number") Long member_number, Model model) {
 		 
 			Member memVo = manageService.myPage(member_number);
+			List<Review> list = manageService.myReview(member_number);
 			
+			model.addAttribute("list",list);
 			model.addAttribute("member", memVo);
+			
+			
+			
 			
 			return "mypage/mypage";
 		}
 	 
-	//愿�由ъ옄 �럹�씠吏� �뿰寃�
+	
 		 @RequestMapping(value="/admin/admin/{member_number}",method=RequestMethod.GET)
 			public String myPageAdmin(@PathVariable("member_number") Long member_number, Model model) {
 			 
@@ -77,7 +83,7 @@ public class MyPageController {
 			}
 		 
 	 
-	//�쉶�썝�젙蹂� �닔�젙 �뤌 �뿰寃�
+
 	 @RequestMapping(value="/mypage/modify/{member_number}",method=RequestMethod.GET)
 		public String modifyForm(@PathVariable("member_number") Long member_number, Model model) {
 		 
