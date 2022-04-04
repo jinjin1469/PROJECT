@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import spring.intercepter.AdminCheckIntercepter;
 import spring.intercepter.AuthCheckIntercepter;
 import spring.intercepter.CategoryIntercepter;
 
@@ -57,6 +58,11 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 	public AuthCheckIntercepter authCheckIntercepter() {
 		return new AuthCheckIntercepter();
 	}
+	
+	@Bean   //�궗�슜�븷 �씤�꽣�뀎�꽣 鍮�
+	public AdminCheckIntercepter adminCheckIntercepter() {
+		return new AdminCheckIntercepter();
+	}
 
 	@Bean   //�궗�슜�븷 �씤�꽣�뀎�꽣 鍮�
 	public CategoryIntercepter categoryIntercepter() {
@@ -79,7 +85,39 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 	public void addInterceptors(InterceptorRegistry registry) {
 		//registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/edit/**");
 		
-
+		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/category/**");
+		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/admin/**");
+		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/notice/insert");
+		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/notice/update");
+		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/notice/delete/**");
+		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/order/adminCancle/**");
+		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/product/update/**");
+		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/order/adminCancle/**");
+		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/product/update/**");
+		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/product/insert");
+		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/product/deleteCom");
+		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/mypage/qnalist");
+		
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/logout");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/verifyIamport/**");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/mypage/mypage/**");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/mypage/modify/**");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/mypage/modifyPwd/**");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/mypage/orderStatus**");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/mypage/pointStatus");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/order/paymentG");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/order/cancel");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/order/purchaseConfirm");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/order/paymentCancle/**");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/order/review/**");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/order/orderDetail/**");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/product/qna**");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/product/DeleteQue/**");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/mypage/myqnalist");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/mypage/myreviewlist");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/product/cart/**");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/product/delete");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/product/cartoption**");
 		
 		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/");
 		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/category/categoryInsert");
