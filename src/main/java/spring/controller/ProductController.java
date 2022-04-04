@@ -53,9 +53,25 @@ public class ProductController {
 	
 	
 	
-	@RequestMapping("/totalList")
-	public String total(Model model) {
-		List<Product> product = dao.productAll();
+//	@RequestMapping("/totalList")
+//	public String total(Model model) {
+//		List<Product> product = dao.productAll();
+//		model.addAttribute("Product", product);
+//		
+//		return "PRODUCT/totalProductList";
+//	}
+	
+	@RequestMapping("/List/{menu}")
+	public String total(@PathVariable("menu") String menu,Model model) {
+		List<Product> product = null;
+		if(menu.equals("totalList")) {
+			product = dao.productAll();
+		}else if(menu.equals("bestList")) {
+			product = dao.productBest();
+		}else if(menu.equals("newList")) {
+			product = dao.productNew();
+		}
+		
 		model.addAttribute("Product", product);
 		
 		return "PRODUCT/totalProductList";

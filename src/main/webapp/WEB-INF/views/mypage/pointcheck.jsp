@@ -66,11 +66,11 @@
 
 		<table class="tbl">
 			<tr>
-				<th>주문일자</th>
+				<th>날짜</th>
+				<th>포인트사용</th>
+				<th>포인트적립</th>
 				<th>주문상세</th>
-				<th>결제금액</th>
-				<th>주문현황</th>
-				<th>✅</th>
+				<th>비고</th>
 			</tr>
 			<c:if test="${empty info}">
 			<tr>

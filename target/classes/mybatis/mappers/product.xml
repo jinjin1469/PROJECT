@@ -28,6 +28,18 @@
 		SELECT * FROM m_product WHERE delete_check=0
 	</select>
 	
+	<select id="productBest" resultMap="productVo">
+		SELECT option_join_number,product_name,product_price,product_m_image 
+		FROM (SELECT * FROM m_product WHERE delete_check=0 ORDER BY product_salcount DESC) 
+		WHERE rownum <![CDATA[<=]]> 20
+	</select>
+	
+	<select id="productNew" resultMap="productVo">
+		SELECT option_join_number,product_name,product_price,product_m_image,product_regdate 
+		FROM (SELECT * FROM m_product WHERE delete_check=0 ORDER BY product_number DESC) 
+		WHERE rownum <![CDATA[<=]]> 20
+	</select>
+	
 	<select id="category" resultMap="productVo" parameterType="String">
 		SELECT * FROM m_product WHERE category_1=#{category} OR category_2=#{category} AND delete_check=0
 	</select>
