@@ -37,7 +37,7 @@
 	<p><strong>쇼핑정보</strong></p>
 	<hr>
 		<p><a href="<c:url value='/mypage/orderStatus' />" class="menu">주문내역</a></p>
-		<p><a href="<c:url value='/member/login' />" class="menu">포인트내역</a></p>
+		<p><a href="<c:url value='/mypage/pointStatus' />" class="menu">포인트현황</a></p>
 		<p><a href="<c:url value='/member/login' />" class="menu">장바구니</a></p>
 		<p><a href="<c:url value='/member/login' />" class="menu">오늘본상품</a></p>
 	<br>
@@ -61,13 +61,16 @@
 		alert('잘못된 접근입니다.');
 	</script>
 </c:if>
-		<h2>주문내역📃</h2>
+		<h2>포인트현황📃</h2>
 		<hr>
-
+		<c:if test="${!empty memberPoint}">
+			<div style="float:right;">현재 포인트 : ${memberPoint}</div>
+			<br>
+		</c:if>
 		<table class="tbl">
 			<tr>
 				<th>날짜</th>
-				<th>포인트사용</th>
+				<th>포인트차감</th>
 				<th>포인트적립</th>
 				<th>주문상세</th>
 				<th>비고</th>
@@ -81,24 +84,32 @@
 				<c:forEach var="list" items="${info}">
 					<tr>
 						<td><fmt:formatDate value="${list.order_regdate}" pattern="yyyy-MM-dd" /></td>
+						<td><c:if test="${list.use_point==0}">-</c:if>
+						<c:if test="${list.use_point!=0}">
+						<fmt:formatNumber value="${list.use_point}" pattern="#,###,###"/>
+						</c:if>
+						</td>
+						<td><c:if test="${list.earn_point==0}">-</c:if>
+						<c:if test="${list.earn_point!=0}">
+						<fmt:formatNumber value="${list.earn_point}" pattern="#,###,###"/>
+						</c:if>
+						</td>
 						<td><a href="javascript:orderDetail(${list.order_number});">상세보기</a></td>
-						<td><fmt:formatNumber value="${list.order_price}" pattern="#,###,###"/>원</td>
-						<td>${list.order_status}</td>
 						<c:choose>
 							<c:when test="${list.order_status=='배송준비중'}">
-								<td><a href="/order/paymentCancle/${list.order_number}">취소</a></td>
+								<td>주문확정시 적립[배송준비중]</td>
 							</c:when>
 							<c:when test="${list.order_status=='주문취소'}">
-								<td>-</td>
+								<td>주문취소[포인트원복]</td>
 							</c:when>
 							<c:when test="${list.order_status=='관리자주문취소'}">
-								<td>-</td>
+								<td>주문취소[포인트원복]</td>
 							</c:when>
 							<c:when test="${list.order_status=='배송완료'}">
-								<td><a href="/order/purchaseConfirm/${list.order_number}">구매확정</a></td>
+								<td>주문확정시 적립[배송완료]</td>
 							</c:when>
 							<c:when test="${list.order_status=='구매확정'}">
-								<td><a href="javascript:review(${list.order_number});">리뷰쓰기</a></td>
+								<td>적립완료</td>
 							</c:when>
 						</c:choose>
 					</tr>

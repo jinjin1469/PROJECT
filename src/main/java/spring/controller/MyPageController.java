@@ -255,5 +255,28 @@ public class MyPageController {
 				
 				return "mypage/ordercheck";
 		}
+		 @RequestMapping(value = "/mypage/pointStatus", method = RequestMethod.GET)
+			public String mempointStatusG(Model model,HttpSession session, HttpServletRequest request) {
+			 
+			 	String _section = request.getParameter("section");
+				String _pageNum = request.getParameter("pageNum");
+				
+				int section = Integer.parseInt((_section==null)?"1":_section);
+				int pageNum = Integer.parseInt((_pageNum==null)?"1":_pageNum);
+				
+			 	AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+				long member_number = authinfo.getMember_number();
+				long memberPoint = odao.membershipPoint(member_number);
+				List<Order> info = odao.selectPointinfo((int)member_number,section,pageNum);
+				int totalCnt = odao.selectOrderCnt((int)member_number);
+				
+				model.addAttribute("totalCnt", totalCnt);
+				model.addAttribute("section", section);
+				model.addAttribute("pageNum", pageNum);
+				model.addAttribute("info", info);
+				model.addAttribute("memberPoint", memberPoint);
+				
+				return "mypage/pointcheck";
+		}
 	
 }

@@ -48,7 +48,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 		registry.addViewController("/kakaologin").setViewName("main");
 		registry.addViewController("/mXember/findIdSuccess").setViewName("/member/findIdSuccess");
 		registry.addViewController("/admin/admin").setViewName("/admin/admin");
-		
+
 	}
 	
 	
@@ -91,6 +91,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/admin/**");
 		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/notice/**");
 		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/product/**");
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/order/**");
 		
 		
 
