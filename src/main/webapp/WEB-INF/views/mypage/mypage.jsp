@@ -35,13 +35,8 @@
 	<p><strong>쇼핑정보</strong></p>
 	<hr>
 		<p><a href="<c:url value='/mypage/orderStatus' />" class="menu">주문내역</a></p>
-<<<<<<< HEAD
-		<p><a href="<c:url value='/member/login' />" class="menu">포인트내역</a></p>
 		<p><a href="<c:url value='/product/cart/list.do' />" class="menu">장바구니</a></p>
-=======
 		<p><a href="<c:url value='/mypage/pointStatus' />" class="menu">포인트현황</a></p>
-		<p><a href="<c:url value='/member/login' />" class="menu">장바구니</a></p>
->>>>>>> a51580688884ac2e342513a943d817646bb86d3f
 		<p><a href="<c:url value='/member/login' />" class="menu">오늘본상품</a></p>
 	<br>
 	<p><strong>쇼핑문의</strong></p>

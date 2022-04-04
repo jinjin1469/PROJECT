@@ -53,28 +53,28 @@ th {
 <br>
 <div id="content"> 
 
-	<aside>
-	<div class="menu">
-		<p><strong>쇼핑정보</strong></p>
-		<hr>
-			<p><a href="<c:url value='/mypage/orderStatus' />" class="menu">주문내역</a></p>
-			<p><a href="<c:url value='/member/login' />" class="menu">포인트내역</a></p>
-			<p><a href="<c:url value='/product/cart/list.do' />" class="menu">장바구니</a></p>
-			<p><a href="<c:url value='/member/login' />" class="menu">오늘본상품</a></p>
-		<br>
-		<p><strong>쇼핑문의</strong></p>
-		<hr>
-			<p><a href="<c:url value='/mppage/myqnalist' />" class="menu">1:1게시판</a></p>
-			<p><a href="<c:url value='/mypage/myreviewlist' />" class="menu">내 리뷰 모아보기</a></p>
-			<p><a href="<c:url value='/notice/main' />" class="menu">F&Q</a></p>
-		<br>
-		<p><strong>회원정보</strong></p>
-		<hr>
-			<p><a href="<c:url value='/mypage/modify/${member.member_number}' />" class="menu">회원정보변경</a></p>
-			<p><a href="<c:url value='/mypage/modifyPwd/${member.member_number}' />" class="menu">비밀번호변경</a></p>
-			<p><a href="<c:url value='/member/login' />" class="menu">회원탈퇴</a></p>
-	</div>
-	</aside>
+<aside>
+<div class="menu">
+	<p><strong>쇼핑정보</strong></p>
+	<hr>
+		<p><a href="<c:url value='/mypage/orderStatus' />" class="menu">주문내역</a></p>
+		<p><a href="<c:url value='/product/cart/list.do' />" class="menu">장바구니</a></p>
+		<p><a href="<c:url value='/mypage/pointStatus' />" class="menu">포인트현황</a></p>
+		<p><a href="<c:url value='/member/login' />" class="menu">오늘본상품</a></p>
+	<br>
+	<p><strong>쇼핑문의</strong></p>
+	<hr>
+		<p><a href="<c:url value='/mypage/myqnalist' />" class="menu">1:1게시판</a></p>
+		<p><a href="<c:url value='/mypage/myreviewlist' />" class="menu">내 리뷰 모아보기</a></p>
+		<p><a href="<c:url value='/notice/main' />" class="menu">F&Q</a></p>
+	<br>
+	<p><strong>회원정보</strong></p>
+	<hr>
+		<p><a href="<c:url value='/mypage/modify/${member.member_number}' />" class="menu">회원정보변경</a></p>
+		<p><a href="<c:url value='/mypage/modifyPwd/${member.member_number}' />" class="menu">비밀번호변경</a></p>
+		<p><a href="<c:url value='/member/login' />" class="menu">회원탈퇴</a></p>
+</div>
+</aside>
 
 <section>
 	<h2>내 질문 모아보기</h2>
