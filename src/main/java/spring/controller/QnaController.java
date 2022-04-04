@@ -235,7 +235,7 @@ public class QnaController {
     
     
     
-    //마이페이지에서 qna 리뷰 모아보기
+    //마이페이지에서 관리자가 qna 모아보기
     @RequestMapping(value="/mypage/qnalist")
     public String qnaList(Model model) {
     	
@@ -244,7 +244,25 @@ public class QnaController {
     	return "mypage/qnalist";
     }
     
- 
+  
+    //마이페이지에서 내가 작성한 qna 모아보기 
+   @RequestMapping(value="/mypage/myqnalist")
+   public String myqnaList(Model model, HttpSession session) {
+	   
+	   AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+		
+		if (authinfo == null) {
+			return "redirect:/member/login";
+		}
+    	
+		long member_number = authinfo.getMember_number();
+	   
+	   
+	   List<Qna> qna=qnaService.selectMylist(member_number);
+	   model.addAttribute("qna", qna);
+ 	   
+	   return "mypage/myqnalist";
+   }
 
 }
 	

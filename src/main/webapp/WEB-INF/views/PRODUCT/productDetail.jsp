@@ -50,7 +50,7 @@
 	line-height: 1.5;
 	color: #212529;
 	text-align: center;
-	text-decoration: none;
+	text-decoration: none;f
 	vertical-align: middle;
 	cursor: pointer;
 	-webkit-user-select: none;
@@ -108,6 +108,10 @@
 .th-2{border-bottom: 0.7px solid #DCDCDC;}
 .qnaInfo{width: 800px; text-align: right;}
 .qInfo{color:red; font-size:13px; margin:0px;}
+.reviewcontent{height:10rem;}
+.reviewinfo{height:2rem; background-color:white; border-bottom:0.5px solid #C1C1C1; }
+.review{border: 0.5px solid #C1C1C1; margin-top:20px;}
+.qna{width:1000px;}
 </style>
 <body>
 <%@include file="../header.jsp" %>
@@ -247,10 +251,28 @@
 		<!-- 상품 후기 보이는곳-->
 		<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 		 <!-- content2 -->
-		  	<div class="text-center">n
-		 		  
-		 		  
-		 		  
+		  	<div class="text-center">
+		  		 <h3>고객 생생 리뷰🗣</h3>
+		  		<br>
+		  	<c:forEach var="review" items="${review}">
+		  		<table class="review">
+		  			<tr class="reviewinfo">
+		  				<th class="reviewinfo">작성자</th>
+		  					<td>${review.member_nickname}</td>
+		  				<th class="reviewinfo">작성일</th>
+		  					<td>${review.review_regdate}</td>
+		  			</tr>
+		  			<tr>
+		  				<td colspan="4" class="reviewcontent">${review.review_content}</td>
+		  			</tr>
+		  		
+		  		</table>
+		  	</c:forEach>
+		  	<c:if test="${empty review}">
+		  		<p> 아직 등록되어 있는 리뷰가 없습니다. </p>
+		  	</c:if>
+		  
+ 		  
 			</div>
 		</div>
 		
@@ -281,7 +303,7 @@
 			 		 		<td class="td-1">${qna.member_nickname}</td>
 			 		 		<td class="td-1">${qna.qna_regdate}</td>
 			 		 	</tr>
-			 					
+			 				
 			 		 	</c:forEach>
 		 		  </table>
 		 		 <br>
@@ -363,6 +385,7 @@
 	  $("#product_selectCount").val(this_qty);
 	  $("#it_pay").val(show_total_amount);
 	  $("#total_amount").html(show_total_amount.format());
+	  $("#total_amount").val(show_total_amount.format());
 	  
 	
 	//옵션, 메인매뉴 합한 총 금액
@@ -395,23 +418,52 @@
 	        item.value = newval;
 
 	        var price =  item.parentElement.nextSibling.nextSibling.nextSibling.nextSibling.firstElementChild.getAttribute('value');
-	        console.log(price);
-	        console.log(newval); 
-	        item.parentElement.nextSibling.nextSibling.nextSibling.nextSibling.firstElementChild.nextSibling.nextSibling.textContent = (newval * price).format();
+	        var amount = newval * price;
 	        
-	        reCal();
+	        console.log("가격" + price);
+	        console.log("갯수" + newval); 
+	        console.log("합계" + amount);
+	        
+	        item.parentElement.nextSibling.nextSibling.nextSibling.nextSibling.firstElementChild.nextSibling.nextSibling.textContent = (newval * price).format();
+	    	item.parentElement.nextSibling.nextSibling.nextSibling.nextSibling.firstElementChild.nextSibling.nextSibling.setAttribute('value',amount);
+	    	
+	       	
+	    	reCal();
 	 }
 	}
 	
  	 // 재계산하기
- 	 function reCal(){
+ /* 	 function reCal(){
 		let sum = 0;
 		 var main_price =  $("#total_amount").val();
 		 var option_price =  $("option_amount").val();
 		 var show_total_price = main_price + option_price;
 		  $("#total_price").html(show_total_price.format());
 		  
-	 }
+	 } */
+	
+	 function reCal(){
+			 var sum = 0;
+			 var main_price =  $("#total_amount").val();
+			  $("#option_amount").each(function(){
+				  sum += parseInt($(this).val()); 
+			  });
+			 var show_total_price = main_price + sum;
+			  $("#total_price").html(show_total_price.format());
+			console.log("옵션합계:"+ sum);
+			console.log("토탈어마운트값" + main_price);
+		 }
+		
+/* 	
+	$('.opt2').change(function(){
+		var seip = 0;
+		$('.opt2').each(function(){
+			seip += parseInt($(this).val());
+		});
+		
+		$("#total_price").html(seip.format());
+	});
+	 */
 	
 
 

@@ -12,6 +12,7 @@ import spring.vo.Order;
 import spring.vo.OrderSub;
 import spring.vo.Product;
 import spring.vo.Qna;
+import spring.vo.Review;
 
 public class OrderDao {
 	
@@ -177,6 +178,10 @@ public class OrderDao {
 	
 	public OrderDao(SqlSession sqlSession){
 		this.sqlSession = sqlSession;
+	}
+
+	public List<Review> listReview(int order_number) {
+		 return sqlSession.selectList("mybatis.mapper.review.listReview", order_number);
 	}
 	
 }

@@ -26,9 +26,9 @@
 .not{width:30%;height: 30px;
 	border: 1.5px solid gray;
 	text-align: left;}
-textarea {
+.textare {
     width: 100%;
-    height: 40rem;
+    height: 20rem;
     border: none;
     resize: none;
     text-align:left;
@@ -193,7 +193,7 @@ h3{text-align:left; margin-left:70px;}
 				<th colspan="2" class="content">내용</th>
 			</tr>
 			<tr>
-				<td colspan="2"><form:textarea path="NOTICE_CONTENT"/></td>
+				<td colspan="2"><form:textarea path="NOTICE_CONTENT" class="textare"/></td>
 			</tr>
 
 		</table>

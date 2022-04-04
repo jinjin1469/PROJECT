@@ -105,7 +105,7 @@
 	<form:form commandName="login">
    <form:errors class="fo"/>
     <div class="form-floating">
-      <input type="text" class="form-control" id="floatingInput" name="member_id" placeholder="name@example.com">
+      	<form:input path="member_id" class="form-control" id="floatingInput"  placeholder="name@example.com"/>
       <label for="floatingInput">ID</label>
     </div>
    		<form:errors path="member_id" class="fo"/>
@@ -119,7 +119,7 @@
    
     <div class="checkbox mb-301">
       <label>
-        <input type="checkbox" value="remember-me"> Remember ID
+       	<form:checkbox path="rememberId"/>&nbsp;아이디 기억하기
       </label>      
     </div>
    

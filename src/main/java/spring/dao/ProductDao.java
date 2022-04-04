@@ -11,6 +11,7 @@ import spring.vo.Option;
 import spring.vo.Product;
 import spring.vo.ProductCommand;
 import spring.vo.Qna;
+import spring.vo.Review;
 
 public class ProductDao {
 	private SqlSession sqlSession;
@@ -86,6 +87,11 @@ public class ProductDao {
 	
 	public long productNum(int num) {
 		return sqlSession.selectOne("mybatis.mapper.product.productNum",num);
+	}
+
+	public List<Review> reviewList(long product_number) {
+		List<Review> list = sqlSession.selectList("mybatis.mapper.review.reviewList", product_number);
+		return list;
 	}
 	
 }

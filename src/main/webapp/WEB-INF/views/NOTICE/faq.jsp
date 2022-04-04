@@ -18,8 +18,12 @@ font-weight: bold;
 top-margin:0.5rem;
 bottom-margin:0.5rem;
 }
-
-
+.mar{margin-left:200px;}
+.sizee{width:800px; margin-left:70px;}
+.sizeed{width:400px; margin-left: -20px;}
+.mar{margin-left:200px;}
+h3{text-align:left; margin-left:70px;}
+.accordion-body{text-align:left;}
 
 </style>
 
@@ -28,7 +32,7 @@ bottom-margin:0.5rem;
 <%@include file="../header.jsp" %>
 <br>
 <br>
-<div class="container d-flex flex-wrap d-flex align-items-center">
+<div class="container d-flex flex-wrap d-flex align-items-center mar">
 	<aside>
 	    <p class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none">
 	      <svg class="bi me-2" width="30" height="24"></svg>
@@ -47,9 +51,9 @@ bottom-margin:0.5rem;
 	      </li>
 	    </ul>
 	</aside>
-	<div class="col-md-10">
+	<div class="col-md-10 sizee">
 	    <h3>자주 묻는 질문</h3>
-
+	<br>
 		<div class="accordion accordion-flush" id="accordionFlushExample">
 	  		<div class="accordion-item">
 			    <h2 class="accordion-header" id="flush-headingOne">

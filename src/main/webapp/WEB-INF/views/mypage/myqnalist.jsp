@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../../../resources/css/mypage.css">
-<title>고객 1:1 질문🙌</title>
+<title>내 질문 모아보기</title>
 <style>
 .menu{
 	text-align: left;
@@ -44,7 +46,6 @@ th {
 
 .line{border:none; margin: 4px;}
 </style>
-
 </head>
 <body>
 <%@include file="../header.jsp"%>
@@ -52,33 +53,33 @@ th {
 <br>
 <div id="content"> 
 
-<aside>
-<div class="menu">
-	<p><strong>상품관리</strong></p>
-	<hr>
-		<p><a href="<c:url value='/product/insert'/>" class="menu">상품등록</a></p>
-		<p><a href="<c:url value='/product/totalList' />" class="menu">상품전체보기</a></p>
-		<p><a href="<c:url value='/member/login' />" class="menu">장바구니</a></p>
-	<br>
-	<p><strong>쇼핑관리</strong></p>
-	<hr>
-
-		<p><a href="<c:url value='/mypage/qnalist' />" class="menu">1:1 문의 모아보기</a></p>
-		<p><a href="<c:url value='/admin/orderStatus' />" class="menu">배송관리</a></p>
-		<p><a href="<c:url value='/member/login' />" class="menu">리뷰 모아보기</a></p>
-		<p><a href="<c:url value='/notice/main' />" class="menu">F&Q</a></p>
-	<br>
-	<p><strong>회원관리</strong></p>
-	<hr>
-		<p><a href="<c:url value='/mypage/modify/${member.member_number}' />" class="menu">회원정보변경</a></p>
-		<p><a href="<c:url value='/member/login' />" class="menu">회원정보 탈퇴신청</a></p>
-</div>
-</aside>
+	<aside>
+	<div class="menu">
+		<p><strong>쇼핑정보</strong></p>
+		<hr>
+			<p><a href="<c:url value='/mypage/orderStatus' />" class="menu">주문내역</a></p>
+			<p><a href="<c:url value='/member/login' />" class="menu">포인트내역</a></p>
+			<p><a href="<c:url value='/product/cart/list.do' />" class="menu">장바구니</a></p>
+			<p><a href="<c:url value='/member/login' />" class="menu">오늘본상품</a></p>
+		<br>
+		<p><strong>쇼핑문의</strong></p>
+		<hr>
+			<p><a href="<c:url value='/mppage/myqnalist' />" class="menu">1:1게시판</a></p>
+			<p><a href="<c:url value='/mypage/myreviewlist' />" class="menu">내 리뷰 모아보기</a></p>
+			<p><a href="<c:url value='/notice/main' />" class="menu">F&Q</a></p>
+		<br>
+		<p><strong>회원정보</strong></p>
+		<hr>
+			<p><a href="<c:url value='/mypage/modify/${member.member_number}' />" class="menu">회원정보변경</a></p>
+			<p><a href="<c:url value='/mypage/modifyPwd/${member.member_number}' />" class="menu">비밀번호변경</a></p>
+			<p><a href="<c:url value='/member/login' />" class="menu">회원탈퇴</a></p>
+	</div>
+	</aside>
 
 <section>
-  <h2>고객 1:1 질문</h2>
-		 		 
-		 		<hr class="line">
+	<h2>내 질문 모아보기</h2>
+	
+			<hr class="line">
 	
 		 		  <table>
 			 		  	<tr>
@@ -93,8 +94,7 @@ th {
 			 		 		<td class="td-1">${qna.qna_state}</td>
 			 		 		<td class="td-1">${qna.product_name}</td>
 			 		 		<td class="td-1">
-			 		 			<input type="hidden" value="${qna.qna_number}">
-			 		 			<%-- <a href="javascript:void(0);" id="showPwd(${status.count})" onclick="showPwd(${status.count});">🔒${qna.qna_title}</a> --%>
+			 		 			<input type="hidden" name="qna_number" id="qna_number" value="${qna.qna_number}">
 			 		 			<a href="<c:url value='/product/qna/${qna.qna_number}' />" >${qna.qna_title}</a>
 			 		 		 </td>
 			 		 		<td class="td-1">${qna.member_nickname}</td>
@@ -105,8 +105,12 @@ th {
 		 		  </table>
 
 
-
 </section>
+
+
+
+
+
 </div>
 <br>
 <br>

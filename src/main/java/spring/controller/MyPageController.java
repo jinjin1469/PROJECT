@@ -195,5 +195,7 @@ public class MyPageController {
 				
 				return "mypage/ordercheck";
 		}
+		 
+	
 	
 }

@@ -11,8 +11,6 @@
 <link rel="stylesheet" href="../../../resources/css/mypage.css">
 <title>ADMIN</title>
 <style>
-
-
 .menu{
 	text-align: left;
 	font-size: 12px;
@@ -20,8 +18,6 @@
 	padding: 0px;
 	color: #696969;
 }
-
-
 </style>
 
 
@@ -78,7 +74,7 @@
 			</tr>
 			</c:if>
 			<c:if test="${!empty info}">
-				<c:forEach var="list" items="${info}">
+				<c:forEach var="list" items="${info}" varStatus="s">
 					<tr>
 						<td><fmt:formatDate value="${list.order_regdate}" pattern="yyyy-MM-dd" /></td>
 						<td><a href="javascript:orderDetail(${list.order_number});">상세보기</a></td>
@@ -95,7 +91,11 @@
 								<td>-</td>
 							</c:when>
 							<c:when test="${list.order_status=='배송완료'}">
-								<td><a href="/order/purchaseConfirm/${list.order_number}">구매확정</a></td>
+								<td>
+								<input type="hidden" name="ordernum" id="ordernum" value="${list.order_number}">
+								<a href="javascript:void(0)" onclick="purchaseConfirm(${s.count});" id="purchaseConfirm(${s.count})">구매확정</a>
+								</td>
+							<!-- <a href="/order/purchaseConfirm/${list.order_number}">구매확정</a> -->	
 							</c:when>
 							<c:when test="${list.order_status=='구매확정'}">
 								<td><a href="javascript:review(${list.order_number});">리뷰쓰기</a></td>
@@ -115,11 +115,25 @@
 </div>
 
 <script>
+function purchaseConfirm(pos){
+	var item = document.getElementById('purchaseConfirm('+pos+')');
+	var orderNum = item.previousElementSibling.getAttribute('value');
+	console.log(orderNum);
+	
+ 	if(!confirm("구매확정 시 취소,환불이 불가능합니다. 구매확정 하시겠습니까?")){
+ 		return false;
+ 	}else{
+ 			location.href='/order/purchaseConfirm?orderNum=' + orderNum;	
+ 		}
+ 	}
+	
+
+
 function orderDetail(order_number){
 	window.open('/order/orderDetail/'+order_number,'주문 상세보기',"width=500,height=800,top=200,left=200,toolbar=no,menubar=no,scrollbars=no,status=no");
 }
 function review(order_number){
-	open('/order/review/'+order_number,'리뷰 쓰기','width=300px,height=300px,status=false');
+	open('/order/review/'+order_number,'리뷰 쓰기','width=550px,height=600px,status=false');
 }
 </script>
 <br>
