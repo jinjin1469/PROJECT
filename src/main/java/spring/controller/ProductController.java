@@ -155,7 +155,6 @@ public class ProductController {
 	public String updateP(@PathVariable("num") int num,ProductCommand pic, 
 		     Model model) throws IllegalStateException, IOException {
 		int productNum = dao.updateProductNumber(num);
-		System.out.println(pic.getProduct_Count());
 		Product productIMG = dao.productSelect(num);
 		ArrayList<MultipartFile> file = pic.getUploadFile();
 		
@@ -239,7 +238,7 @@ public class ProductController {
 				roop++;
 			}	
 		}
-		return "redirect:/";
+		return "redirect:/product/detail/"+join_number;
 	}
 	
 	@RequestMapping(value="/insert",method=RequestMethod.GET)

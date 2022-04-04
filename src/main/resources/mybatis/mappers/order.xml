@@ -27,8 +27,9 @@
 	
 	<select id="selectOrderinfo" resultMap="orderVo" parameterType="hashMap">
 		SELECT order_number,order_regdate,order_price,order_status 
-		FROM (SELECT ROWNUM num,order_number,order_regdate,order_price,order_status FROM m_order WHERE member_number=#{member_number}) 
-		WHERE num BETWEEN (#{section}-1)*150+(#{pageNum}-1)*15+1 AND (#{section}-1)*150+(#{pageNum})*15 ORDER BY order_regdate DESC
+		FROM (SELECT ROWNUM num,order_number,order_regdate,order_price,order_status 
+		FROM (SELECT order_number,order_regdate,order_price,order_status FROM m_order WHERE member_number=10013 ORDER BY order_regdate DESC)) 
+		WHERE num BETWEEN (#{section}-1)*150+(#{pageNum}-1)*15+1 AND (#{section}-1)*150+(#{pageNum})*15
 	</select>
 	
 	<select id="aaselectOrderinfo" resultMap="orderVo" parameterType="int">
@@ -42,14 +43,16 @@
 		SELECT COUNT(*) FROM m_order WHERE order_status IN ('배송완료','구매확정') ORDER BY order_regdate DESC
 	</select>
 	<select id="orderwaitList" resultMap="orderVo" parameterType="hashMap">
-		SELECT order_number,order_regdate,order_price,order_status 
-		FROM ( SELECT ROWNUM num,order_number,order_regdate,order_price,order_status FROM m_order WHERE order_status = '배송준비중') 
-		WHERE num BETWEEN (#{section}-1)*100+(#{pageNum}-1)*10+1 AND (#{section}-1)*100+(#{pageNum})*10 ORDER BY order_regdate DESC
+		SELECT order_number,order_regdate,order_price,order_status
+		FROM (SELECT ROWNUM num,order_number,order_regdate,order_price,order_status
+		FROM (SELECT order_number,order_regdate,order_price,order_status FROM m_order WHERE order_status = '배송준비중' ORDER BY order_regdate DESC))
+		WHERE num BETWEEN (#{section}-1)*100+(#{pageNum}-1)*10+1 AND (#{section}-1)*100+(#{pageNum})*10
 	</select>
 	<select id="deliveryCompleteList" resultMap="orderVo" parameterType="hashMap">
-		SELECT order_number,order_regdate,order_price,order_status FROM (
-		SELECT ROWNUM num,order_number,order_regdate,order_price,order_status FROM m_order WHERE order_status IN ('배송완료','구매확정'))
-		WHERE num BETWEEN (#{section}-1)*100+(#{pageNum}-1)*10+1 AND (#{section}-1)*100+(#{pageNum})*10 ORDER BY order_regdate DESC
+		SELECT order_number,order_regdate,order_price,order_status
+		FROM (SELECT ROWNUM num,order_number,order_regdate,order_price,order_status 
+		FROM (SELECT order_number,order_regdate,order_price,order_status FROM m_order WHERE order_status IN ('배송완료','구매확정') ORDER BY order_regdate DESC))
+		WHERE num BETWEEN (#{section}-1)*100+(#{pageNum}-1)*10+1 AND (#{section}-1)*100+(#{pageNum})*10
 	</select>
 	
 	<select id="orderinfo" resultMap="orderVo" parameterType="int">
