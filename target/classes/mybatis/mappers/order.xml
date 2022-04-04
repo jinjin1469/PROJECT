@@ -187,6 +187,10 @@
 		update m_order set order_status = '구매확정' WHERE order_number=#{orderNum}
 	</update>
 	
+	<update id="reviewConfirm" parameterType="int">
+		update m_order set order_status = '완료' WHERE order_number=#{orderNum}
+	</update>
+	
 	
   
 </mapper>

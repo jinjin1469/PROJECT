@@ -255,6 +255,10 @@ public class MyPageController {
 				
 				return "mypage/ordercheck";
 		}
+
+		 
+	
+
 		 @RequestMapping(value = "/mypage/pointStatus", method = RequestMethod.GET)
 			public String mempointStatusG(Model model,HttpSession session, HttpServletRequest request) {
 			 
@@ -278,5 +282,6 @@ public class MyPageController {
 				
 				return "mypage/pointcheck";
 		}
+
 	
 }

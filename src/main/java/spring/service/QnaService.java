@@ -55,6 +55,12 @@ public class QnaService {
 		List<Qna> list = dao.selectlist();
 		return list;
 	}
+	
+	public List<Qna> selectMylist(long member_number) {
+		List<Qna> list = dao.selectMylist(member_number);
+		return list;
+	}
+	
 
 	public void insertCom(CommentWrite commentWrite) {
 		dao.insertCom(commentWrite);		
@@ -107,5 +113,7 @@ public class QnaService {
 		long num = dao.selectProNUM(product_number);
 		return num;
 	}
-	
+
+
+
 }

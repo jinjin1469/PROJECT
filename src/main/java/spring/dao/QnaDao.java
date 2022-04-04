@@ -50,6 +50,11 @@ public class QnaDao {
 		List<Qna> list = sqlSession.selectList("mybatis.mapper.qna.selectList");
 		return list;
 	}
+	
+	public List<Qna> selectMylist(long member_number) {
+		List<Qna> list = sqlSession.selectList("mybatis.mapper.qna.selectMyList", member_number);
+		return list;
+	}
 
 	public void insertCom(CommentWrite commentWrite) {
 		sqlSession.insert("mybatis.mapper.qna.insertCom", commentWrite);
@@ -89,6 +94,8 @@ public class QnaDao {
 	public long selectProNUM(long product_number) {
 		return sqlSession.selectOne("mybatis.mapper.qna.selectProNUM", product_number);
 	}
+
+
 	
 	
 }

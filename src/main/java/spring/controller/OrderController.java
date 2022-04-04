@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.siot.IamportRestClient.IamportClient;
@@ -32,6 +33,7 @@ import spring.vo.Order;
 import spring.vo.OrderSub;
 import spring.vo.ProductCategoryEdit;
 import spring.vo.ProductCategoryEditList;
+import spring.vo.Review;
 
 @Controller
 @RequestMapping("/order")
@@ -161,8 +163,8 @@ public class OrderController {
 		
 		return "redirect:/product/cart/list.do";
 	}
-	@RequestMapping(value = "/purchaseConfirm/{orderNum}", method = RequestMethod.GET)
-	 public String deliveryG(@PathVariable("orderNum") int orderNum,Model model) {
+	@RequestMapping(value = "/purchaseConfirm", method = RequestMethod.GET)
+	 public String deliveryG(@RequestParam("orderNum") int orderNum,Model model) {
 			
 			Order order = dao.orderinfo(orderNum);
 			dao.pointEarn(order);
@@ -323,10 +325,11 @@ public class OrderController {
 //	}
 	
 	@RequestMapping(value = "/review/{order_number}", method = RequestMethod.GET)
-	public String reviewG(@PathVariable("order_number") int order_number,Model model,HttpSession session, HttpServletRequest request) {
+	public String reviewG(@PathVariable("order_number") int order_number, Review review, Model model,HttpSession session, HttpServletRequest request) {
 		Order info = dao.aaselectOrderinfo(order_number);
 		ArrayList<OrderSub> productData = new ArrayList<OrderSub>();
 		ArrayList<Option> optionData = new ArrayList<Option>();
+		List<Review> list = dao.listReview(order_number);
 
 		productData = (ArrayList<OrderSub>) dao.productListinfo(info.getOrder_join_number());
 		info.setOrder_sub(productData);
@@ -334,8 +337,10 @@ public class OrderController {
 			optionData = (ArrayList<Option>) dao.optionListinfo(info.getOrder_sub().get(j).getOption_join_number());
 			info.getOrder_sub().get(j).setOption_sub(optionData);
 		}
+		model.addAttribute("list", list);
+		model.addAttribute("order_number", order_number);
 		model.addAttribute("info", info);
-
+		model.addAttribute("Review", new Review());
 		return "PRODUCT/review";
 	}
 	

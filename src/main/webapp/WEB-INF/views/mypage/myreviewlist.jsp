@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../../../resources/css/mypage.css">
-<title>My Page</title>
+<title>내 리뷰 모아보기</title>
 <style>
-
-
 .menu{
 	text-align: left;
 	font-size: 12px;
@@ -18,11 +18,34 @@
 	padding: 0px;
 	color: #696969;
 }
+.th-2{border-bottom: 0.7px solid #DCDCDC;}
+table {
+	align-items: center;
+	margin: 0 auto;
+	text-align: center;
+	border-top: 1px solid #444444;
+	border-collapse: collapse;
+	width: 900px;
+	font-size: 13px;
+	text-align: left;
+}
 
+th, td {
+	border-bottom: 1px solid #444444;
+	text-align: center;
+}
 
+.th-1{width: 400px; height:40px;border-bottom: 1px solid #E6E6E6;}
+
+.td-1{height:40px;
+border-bottom: 1px solid #E6E6E6;}
+
+th {
+	background-color: #F5F5F5;
+}
+
+.line{border:none; margin: 4px;}
 </style>
-
-
 </head>
 <body>
 <%@include file="../header.jsp"%>
@@ -54,50 +77,34 @@
 </aside>
 
 <section>
+	<h2>내 리뷰 모아보기</h2>
+	
+			<hr class="line">
+	
+		 		  <table>
+			 		  	<tr>
+			 		  		<th class="th-2">상품 이름</th>
+			 		  		<th class="th-2">리뷰 내용</th>
+			 		  		<th class="th-2">작성일</th>
+			 		 	</tr>
+			 		 	<c:forEach var="review" items="${review}" varStatus="status">
+			 		 	<tr>
+			 		 		<td class="td-1">${review.product_name}</td>
+			 		 		<td class="td-1">${review.review_content}</td>
+			 		 		<td class="td-1">${review.review_regdate}</td>
+			 		 	</tr>
+			 					
+			 		 	</c:forEach>
+		 		  </table>
 
-		<h2>MYPAGE📃</h2>
-		<hr>
-		
-			<div class="user">
-			<p class="green"><strong>${member.member_name}[${member.member_id}]님</strong><p>
-			<p>전 화 : ${member.member_phone}</p>
-			<p>이메일 : ${member.member_email}</p>
-			<p>주 소 : ${member.member_address}</p>
-			</div>
-			<div class="order"></div>
-
-		
-		<table class="tbl">
-			<tr>
-				<th>주문일자</th>
-				<th>상품명</th>
-				<th>결제금액</th>
-				<th>주문상세</th>
-			</tr>
-			<tr>
-				<td colspan="4">주문 내역이 없습니다.</td>
-			</tr>
-		</table>
-		
-		<table class="tbl">
-			<tr>
-				<th>등록일자</th>
-				<th>리뷰 내용</th>
-				<th>상품명</th>
-			</tr>
-			<tr>
-				<td colspan="3">작성한 리뷰가 없습니다.</td>
-			</tr>
-		</table>
-		
 
 </section>
-	
-	
-	
+
+
+
+
+
 </div>
-
-
 <br>
 <br>
 <%@include file="../footer.jsp"%>

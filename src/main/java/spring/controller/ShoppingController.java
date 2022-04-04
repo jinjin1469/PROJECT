@@ -50,16 +50,16 @@ public class ShoppingController {
 	}
 
 	
-	//�옣諛붽뎄�땲 �긽�뭹 ���옣
+	
 	@RequestMapping(value = "/product/detail/addCart", method = RequestMethod.POST)
 	public String insert(Cart cart, HttpSession session, HttpServletRequest request) {
 
-		// �쁽�옱濡쒓렇�씤�맂 �젙蹂댁븣�븘�삤湲�
+		
 
 		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
 		ArrayList<CartOption> option = new ArrayList<CartOption>();
 
-		// 濡쒓렇�씤 �뿬遺�瑜� 泥댄겕�븯湲� �쐞�빐 �꽭�뀡�뿉 ���옣�맂 �븘�씠�뵒 �솗�씤
+		
 
 		if (authinfo == null) {
 			return "redirect:/member/login";
@@ -67,11 +67,11 @@ public class ShoppingController {
 		
 		long member_number = authinfo.getMember_number();
 		cart.setMember_number(member_number);
-		shoppingService.insert(cart); // �옣諛붽뎄�땲 �뀒�씠釉붿뿉 ���옣�맖
+		shoppingService.insert(cart); 
 		
 		
 		long cartoption_number = dao.selectCartNumber()-1;
-		System.out.println("移댄듃�샃�뀡媛�" + cartoption_number);
+
 
 		if(cart.getOptionList()!=null) {
 			for(CartOption cartOption : cart.getOptionList()) {
@@ -81,10 +81,10 @@ public class ShoppingController {
 		}
 		  
 
-		return "redirect:/product/cart/list.do"; // �옣諛붽뎄�땲 紐⑸줉�쑝濡� �씠�룞
+		return "redirect:/product/cart/list.do"; //
 	}
 
-	// �옣諛붽뎄�땲 �뿰寃�
+
 	@RequestMapping("/product/cart/list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav, Cart cart, Model model) {
 
@@ -122,7 +122,7 @@ public class ShoppingController {
 
 }
 	
-	//�옣諛붽뎄�땲 �긽�뭹 �궘�젣
+	
 	@RequestMapping("/product/delete")
 	public String deleteCart(@RequestParam("cart_number") long cart_number, HttpSession session, ModelAndView mav, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html;charset=utf-8");
@@ -140,7 +140,7 @@ public class ShoppingController {
 		
 	}
 
-	//�샃�뀡 �젙蹂� 遺덈윭�삤湲�
+
 	@RequestMapping("/product/cartoption")
 		public String optionlist(@RequestParam("cartoption_number") long cartoption_number, Model model, HttpSession session, ModelAndView mav) {
 			
@@ -150,7 +150,7 @@ public class ShoppingController {
 			if (member_number != 0) {
 
 				
-				List<Cart> list1 = dao.listOptionCart(cartoption_number);// �옣諛붽뎄�땲 紐⑸줉
+				List<Cart> list1 = dao.listOptionCart(cartoption_number);// 
 				
 
 				ArrayList<Cart> cartOption = new ArrayList<Cart>();
@@ -160,7 +160,7 @@ public class ShoppingController {
 						cartOption.add(c);
 					}
 				}
-				map.put("count", list1.size()); // �젅肄붾뱶 媛��닔
+				map.put("count", list1.size()); // 
 				
 				model.addAttribute("Cart", new Cart());
 				model.addAttribute("cartOption",cartOption);
@@ -168,7 +168,7 @@ public class ShoppingController {
 				
 				return "PRODUCT/cartoption"; 
 
-			} else { // 濡쒓렇�씤�븯吏� �븡�� �긽�깭
+			} else { 
 
 				return "member/login";
 
@@ -176,10 +176,10 @@ public class ShoppingController {
 
 		}
 	
-	// �샃�뀡�닔�젙
+
 	@RequestMapping("/product/cartoption/modifyOption")
 	public String modifyOption(Model model, Cart cart, HttpSession session, ModelAndView mav, HttpServletResponse response) throws IOException {
-		// �쁽�옱濡쒓렇�씤�맂 �젙蹂댁븣�븘�삤湲�
+
 				response.setContentType("text/html;charset=utf-8");
 				PrintWriter out = response.getWriter();
 			
@@ -187,8 +187,7 @@ public class ShoppingController {
 				long member_number = authinfo.getMember_number();
 				ArrayList<CartOption> option = new ArrayList<CartOption>();
 
-				// 濡쒓렇�씤 �뿬遺�瑜� 泥댄겕�븯湲� �쐞�빐 �꽭�뀡�뿉 ���옣�맂 �븘�씠�뵒 �솗�씤
-
+			
 				if (member_number == 0) {
 					return "redirect:/member/login";
 				}
@@ -198,7 +197,7 @@ public class ShoppingController {
 					  dao.updateOption(cartOption);
 					}
 					out.println("<script>");
-					out.println("alert('�닔�웾�씠 蹂�寃쎈릺�뿀�뒿�땲�떎.');");
+					out.println("alert('옵션이 삭제되었습니다');");
 					out.println("history.go(-1);");
 					out.println("</script>");
 					out.close();

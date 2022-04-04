@@ -8,9 +8,29 @@ public class Review {
 	private long member_number;
 	private String review_content;
 	private Date review_regdate;
+	private long order_number;
+	private String member_nickname;
+	private String product_name;
 	
-	
-	
+
+	public String getProduct_name() {
+		return product_name;
+	}
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
+	public String getMember_nickname() {
+		return member_nickname;
+	}
+	public void setMember_nickname(String member_nickname) {
+		this.member_nickname = member_nickname;
+	}
+	public long getOrder_number() {
+		return order_number;
+	}
+	public void setOrder_number(long order_number) {
+		this.order_number = order_number;
+	}
 	public long getReview_number() {
 		return review_number;
 	}

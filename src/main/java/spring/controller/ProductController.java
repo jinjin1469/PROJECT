@@ -30,6 +30,7 @@ import spring.vo.Product;
 import spring.vo.ProductCommand;
 import spring.vo.Qna;
 import spring.vo.RegisterRequest;
+import spring.vo.Review;
 
 @Controller
 @RequestMapping("/product")
@@ -92,7 +93,9 @@ public class ProductController {
 		List<Option> productOption = dao.productOptionSelect(num);
 		long product_number = dao.productNum(num);
 		List<Qna> qnaList = dao.qnaList(product_number);
+		List<Review> reviewList = dao.reviewList(product_number);
 		
+		model.addAttribute("review", reviewList);
 		model.addAttribute("num", num);
 		model.addAttribute("Qna",qnaList);
 		model.addAttribute("Product", product);

@@ -29,10 +29,10 @@ public class ShoppingDao {
 	 public List<Cart> cartMoney() {
 	        return null;
 	    }
-	    //�옣諛붽뎄�땲�뿉 �떞湲�
+	
 
 	    public void insert(Cart cart) {
-	    	//�꽭�뀡�뿉 ���옣�븯怨� cart.insert濡� �꽆�뼱媛� mapper濡�.
+	   
 	    sqlSession.insert("mybatis.mapper.shopping.insert", cart); 
 	    }
 	 
