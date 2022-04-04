@@ -18,6 +18,7 @@ public class ProductCommand {
 	private String product_Storage;
 	private ArrayList<MultipartFile> uploadFile;
 	private ArrayList<Option> product_Option;
+	private int option_loop;
 	
 	public ProductCommand() {}
 	
@@ -35,7 +36,7 @@ public class ProductCommand {
 	}
 	
 	public ProductCommand(String category_1, String category_2, String product_Name,int option_join_number, int product_Price,
-			int product_Count, String product_CookingTime, String product_weight, String product_Storage, ArrayList<Option> product_Option) {
+			int product_Count, String product_CookingTime, String product_weight, String product_Storage, ArrayList<Option> product_Option,int option_loop) {
 		this.category_1 = category_1;
 		this.category_2 = category_2;
 		this.product_Name = product_Name;
@@ -46,6 +47,7 @@ public class ProductCommand {
 		this.product_weight = product_weight;
 		this.product_Storage = product_Storage;
 		this.product_Option = product_Option;
+		this.option_loop = option_loop;
 	}
 	
 	public ProductCommand(String category_1, String category_2, String product_Name, int product_Price,
@@ -131,6 +133,14 @@ public class ProductCommand {
 	}
 	public void setProduct_Option(ArrayList<Option> product_Option) {
 		this.product_Option = product_Option;
+	}
+
+	public int getOption_loop() {
+		return option_loop;
+	}
+
+	public void setOption_loop(int option_loop) {
+		this.option_loop = option_loop;
 	}
 	
 	

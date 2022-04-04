@@ -1,6 +1,8 @@
 package spring.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -101,27 +103,59 @@ public class OrderDao {
 	}
 	
 	
-	public List<Order> selectOrderinfo(long member_number) { 
-		List<Order> list = sqlSession.selectList("mybatis.mapper.order.selectOrderinfo",member_number);
-	return list; 
+	/*
+	 * public List<Order> (long member_number) { List<Order> list =
+	 * sqlSession.selectList("mybatis.mapper.order.selectOrderinfo",member_number);
+	 * return list; }
+	 */
+	public int selectOrderCnt(int member_number) { 
+		return  sqlSession.selectOne("mybatis.mapper.order.selectOrderCnt",member_number);
 	}
 	
+	public List<Order> selectOrderinfo(int member_number, int sectionOne, int pageNumOne) { 
+		Map<String, Integer> map = new HashMap<>();
+		map.put("member_number", member_number);
+		map.put("section", sectionOne);
+		map.put("pageNum", pageNumOne);
+		List<Order> list = sqlSession.selectList("mybatis.mapper.order.selectOrderinfo",map);
+		return list;
+	}
+	public List<Order> selectPointinfo(int member_number, int sectionOne, int pageNumOne) { 
+		Map<String, Integer> map = new HashMap<>();
+		map.put("member_number", member_number);
+		map.put("section", sectionOne);
+		map.put("pageNum", pageNumOne);
+		List<Order> list = sqlSession.selectList("mybatis.mapper.order.selectPointinfo",map);
+		return list;
+	}
 	
 	public Order aaselectOrderinfo(int order_number) { 
 		Order list = sqlSession.selectOne("mybatis.mapper.order.aaselectOrderinfo",order_number);
 		return list;
 	}
 	
-	public List<Order> orderwaitList() { 
-		List<Order> list = sqlSession.selectList("mybatis.mapper.order.orderwaitList");
-		return list;
+	public int orderwaitCnt() { 
+		return  sqlSession.selectOne("mybatis.mapper.order.orderwaitCnt");
 	}
+	public int deliveryCompleteCnt() { 
+		return  sqlSession.selectOne("mybatis.mapper.order.deliveryCompleteCnt");
+	}
+	
 	public Order orderinfo(int orderNum) {
 		return sqlSession.selectOne("mybatis.mapper.order.orderinfo",orderNum);
 	}
-	
-	public List<Order> deliveryCompleteList() { 
-		List<Order> list = sqlSession.selectList("mybatis.mapper.order.deliveryCompleteList");
+	public List<Order> orderwaitList(int sectionOne, int pageNumOne) { 
+		Map<String, Integer> map1 = new HashMap<>();
+		map1.put("section", sectionOne);
+		map1.put("pageNum", pageNumOne);
+		List<Order> list = sqlSession.selectList("mybatis.mapper.order.orderwaitList",map1);
+		return list;
+	}
+	public List<Order> deliveryCompleteList(int sectionTwo, int pageNumTwo) { 
+		Map<String, Integer> map2 = new HashMap<>();
+		map2.put("section", sectionTwo);
+		map2.put("pageNum", pageNumTwo);
+		List<Order> list = sqlSession.selectList("mybatis.mapper.order.deliveryCompleteList",map2);
 		return list;
 	}
 	

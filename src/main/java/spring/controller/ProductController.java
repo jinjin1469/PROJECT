@@ -54,9 +54,25 @@ public class ProductController {
 	
 	
 	
-	@RequestMapping("/totalList")
-	public String total(Model model) {
-		List<Product> product = dao.productAll();
+//	@RequestMapping("/totalList")
+//	public String total(Model model) {
+//		List<Product> product = dao.productAll();
+//		model.addAttribute("Product", product);
+//		
+//		return "PRODUCT/totalProductList";
+//	}
+	
+	@RequestMapping("/List/{menu}")
+	public String total(@PathVariable("menu") String menu,Model model) {
+		List<Product> product = null;
+		if(menu.equals("totalList")) {
+			product = dao.productAll();
+		}else if(menu.equals("bestList")) {
+			product = dao.productBest();
+		}else if(menu.equals("newList")) {
+			product = dao.productNew();
+		}
+		
 		model.addAttribute("Product", product);
 		
 		return "PRODUCT/totalProductList";
@@ -125,9 +141,10 @@ public class ProductController {
 		List<Option> productOption1 = dao.productOptionSelect(num);
 
 		ArrayList<Option> productOption = new ArrayList<Option>();
-		
+		int option_loop = 0;
 		if(productOption1!=null) {
 			for(Option p : productOption1) {
+				option_loop++;
 				productOption.add(p);
 			}
 		}
@@ -142,11 +159,13 @@ public class ProductController {
 				product.getProduct_cookingTime(),
 				product.getProduct_weight(),
 				product.getProduct_storage(),
-				productOption));
+				productOption,
+				option_loop));
 
 		model.addAttribute("category_1",product.getCategory_1());
 		model.addAttribute("category_2",product.getCategory_2());
 		model.addAttribute("productOption",productOption);
+		model.addAttribute("option_loop",option_loop);
 		
 		return "PRODUCT/productUpdate";
 	}
@@ -155,9 +174,7 @@ public class ProductController {
 	public String updateP(@PathVariable("num") int num,ProductCommand pic, 
 		     Model model) throws IllegalStateException, IOException {
 		int productNum = dao.updateProductNumber(num);
-		
 		Product productIMG = dao.productSelect(num);
-		
 		ArrayList<MultipartFile> file = pic.getUploadFile();
 		
 		Product product = new Product(num,pic.getProduct_Name(),pic.getProduct_Price(),pic.getProduct_Count(),pic.getProduct_CookingTime(),pic.getProduct_weight(),pic.getProduct_Storage());
@@ -228,7 +245,7 @@ public class ProductController {
 				if(option.getDelete_check()==1) { 
 					option.setOption_Join_Number(join_number);				
 					dao.optionDelete(option);	
-				}else if(roop>50) { 
+				}else if(roop>=pic.getOption_loop()) { 
 					if(option.getOption_Name()!=null) {
 						option.setOption_Join_Number(join_number);
 						dao.insertOption(option);
@@ -240,7 +257,7 @@ public class ProductController {
 				roop++;
 			}	
 		}
-		return "redirect:/";
+		return "redirect:/product/detail/"+join_number;
 	}
 	
 	@RequestMapping(value="/insert",method=RequestMethod.GET)

@@ -24,8 +24,28 @@ public class ProductDao {
 		List<Product> list = sqlSession.selectList("mybatis.mapper.product.productAll");
 		return list;
 	}
+	public List<Product> productBest() { 
+		List<Product> list = sqlSession.selectList("mybatis.mapper.product.productBest");
+		return list;
+	}
+	public List<Product> productNew() { 
+		List<Product> list = sqlSession.selectList("mybatis.mapper.product.productNew");
+		return list;
+	}
 	public List<Product> category(String category) { 
 		List<Product> list = sqlSession.selectList("mybatis.mapper.product.category",category);
+		return list;
+	}
+	public List<Product> mainBest() { 
+		List<Product> list = sqlSession.selectList("mybatis.mapper.product.mainBest");
+		return list;
+	}
+	public List<Product> mainRandom() { 
+		List<Product> list = sqlSession.selectList("mybatis.mapper.product.mainRandom");
+		return list;
+	}
+	public List<Product> mainNew() { 
+		List<Product> list = sqlSession.selectList("mybatis.mapper.product.mainNew");
 		return list;
 	}
 	

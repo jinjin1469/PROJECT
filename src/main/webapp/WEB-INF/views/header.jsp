@@ -59,13 +59,13 @@
 
 <nav role="navigation">
   <ul id="main-menu">
-    <li><a href="/product/totalList">전체보기</a></li>
+    <li><a href="/product/List/totalList">전체보기</a></li>
     
-      <li><a href="#">베스트</a></li>
+      <li><a href="/product/List/bestList">베스트</a></li>
       
       <!-- <li><a href="#">재구매Best</a></li> -->
       
-       <li><a href="#">신제품</a></li>
+       <li><a href="/product/List/newList">신제품</a></li>
     <c:if test="${!empty menu1}">
 	    <li><a href="#">&nbsp;&nbsp;&nbsp;테마별&nbsp;&nbsp;</a>
 	    	<ul id="sub-menu">

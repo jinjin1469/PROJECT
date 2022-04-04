@@ -69,7 +69,7 @@ public class ControllerConfig {
 	@Bean
 	public MainController mainController() {
 		MainController mController = new MainController();
-		mController.setDao(mdao);
+		mController.setDao(pdao);
 		return mController;
 	}
  	

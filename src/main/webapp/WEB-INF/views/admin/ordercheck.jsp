@@ -90,6 +90,41 @@
 				</c:forEach>
 			</c:if>	
 		</table>
+		<c:if test="${totalCntOne != null}">
+			<c:choose>
+				<c:when test="${totalCntOne>100}"> 
+					<c:if test="${(sectionOne)*100<totalCntOne}">
+						<c:forEach var="pageOne" begin="1" end="10" step="1"> 
+							<c:if test="${sectionOne > 1 && pageOne==1}"> 
+								<a href="?sectionOne=${sectionOne-1}&pageNumOne=10"> ⏪ </a> 
+							</c:if>
+								<a href="?sectionOne=${sectionOne}&pageNumOne=${pageOne}">${(sectionOne-1)*10+pageOne}</a>
+							<c:if test="${pageOne==10}">
+								<a href="?sectionOne=${sectionOne+1}&pageNumOne=1"> ⏩ </a>
+							</c:if>
+						</c:forEach>
+					</c:if>
+					<c:if test="${(sectionOne)*100>totalCntOne}">
+						<c:forEach var="pageOne" begin="1" end="${((totalCntOne+9)-(sectionOne-1)*100)/10}" step="1">
+							<c:if test="${sectionOne > 1 && pageOne==1}">
+								<a href="?sectionOne=${sectionOne-1}&pageNumOne=10"> ⏪ </a>
+							</c:if>
+								<a href="?sectionOne=${sectionOne}&pageNumOne=${pageOne}">${(sectionOne-1)*10+pageOne}</a>
+						</c:forEach>
+					</c:if>
+				</c:when>
+				<c:when test="${totalCntOne==100}">
+					<c:forEach var="pageOne" begin="1" end="10" step="1">
+						<a href="?sectionOne=${sectionOne}&pageNumOne=${pageOne}">${pageOne}</a>
+					</c:forEach>
+				</c:when>
+				<c:when test="${totalCntOne<100}">
+					<c:forEach var="pageOne" begin="1" end="${(totalCntOne+9)/10}" step="1">
+						<a href="?sectionOne=${sectionOne}&pageNumOne=${pageOne}">${pageOne}</a>
+					</c:forEach>
+				</c:when>
+			</c:choose>
+		</c:if>
 		<br>
 		<br>
 		
@@ -119,7 +154,41 @@
 				</c:forEach>
 			</c:if>	
 		</table>
-
+		<c:if test="${totalCntTwo != null}">
+			<c:choose>
+				<c:when test="${totalCntTwo>100}"> // 100개이상일시 실행
+					<c:if test="${(sectionTwo)*100<totalCntTwo}"> // 100개이상일시 실행
+						<c:forEach var="pageTwo" begin="1" end="10" step="1"> 
+							<c:if test="${sectionTwo > 1 && pageTwo==1}"> 
+								<a href="?sectionTwo=${sectionTwo-1}&pageNumTwo=10"> ⏪ </a> 
+							</c:if>
+								<a href="?sectionTwo=${sectionTwo}&pageNumTwo=${pageTwo}">${(sectionTwo-1)*10+pageTwo}</a>
+							<c:if test="${pageTwo==10}">
+								<a href="?sectionTwo=${sectionTwo+1}&pageNumTwo=1"> ⏩ </a>
+							</c:if>
+						</c:forEach>
+					</c:if>
+					<c:if test="${(sectionTwo)*100>totalCntTwo}">
+						<c:forEach var="pageTwo" begin="1" end="${((totalCntTwo+9)-(sectionTwo-1)*100)/10}" step="1">
+							<c:if test="${sectionTwo > 1 && pageTwo==1}">
+								<a href="?sectionTwo=${sectionTwo-1}&pageNumTwo=10"> ⏪ </a>
+							</c:if>
+								<a href="?sectionTwo=${sectionTwo}&pageNumTwo=${pageTwo}">${(sectionTwo-1)*10+pageTwo}</a>
+						</c:forEach>
+					</c:if>
+				</c:when>
+				<c:when test="${totalCntTwo==100}"> 
+					<c:forEach var="pageTwo" begin="1" end="10" step="1">
+						<a href="?sectionTwo=${sectionTwo}&pageNumTwo=${pageTwo}">${pageTwo}</a>
+					</c:forEach>
+				</c:when>
+				<c:when test="${totalCntTwo<100}">
+					<c:forEach var="pageTwo" begin="1" end="${(totalCntTwo+9)/10}" step="1">
+						<a href="?sectionTwo=${sectionTwo}&pageNumTwo=${pageTwo}">${pageTwo}</a>
+					</c:forEach>
+				</c:when>
+			</c:choose>
+		</c:if>
 </section>
 	
 	

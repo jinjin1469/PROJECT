@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="../../../resources/css/mypage.css">
 <title>ADMIN</title>
 <style>
+
+
 .menu{
 	text-align: left;
 	font-size: 12px;
@@ -18,6 +20,8 @@
 	padding: 0px;
 	color: #696969;
 }
+
+
 </style>
 
 
@@ -57,16 +61,19 @@
 		alert('잘못된 접근입니다.');
 	</script>
 </c:if>
-		<h2>주문내역📃</h2>
+		<h2>포인트현황📃</h2>
 		<hr>
-
+		<c:if test="${!empty memberPoint}">
+			<div style="float:right;">현재 포인트 : ${memberPoint}</div>
+			<br>
+		</c:if>
 		<table class="tbl">
 			<tr>
-				<th>주문일자</th>
+				<th>날짜</th>
+				<th>포인트차감</th>
+				<th>포인트적립</th>
 				<th>주문상세</th>
-				<th>결제금액</th>
-				<th>주문현황</th>
-				<th>✅</th>
+				<th>비고</th>
 			</tr>
 			<c:if test="${empty info}">
 			<tr>
@@ -74,31 +81,35 @@
 			</tr>
 			</c:if>
 			<c:if test="${!empty info}">
-				<c:forEach var="list" items="${info}" varStatus="s">
+				<c:forEach var="list" items="${info}">
 					<tr>
 						<td><fmt:formatDate value="${list.order_regdate}" pattern="yyyy-MM-dd" /></td>
+						<td><c:if test="${list.use_point==0}">-</c:if>
+						<c:if test="${list.use_point!=0}">
+						<fmt:formatNumber value="${list.use_point}" pattern="#,###,###"/>
+						</c:if>
+						</td>
+						<td><c:if test="${list.earn_point==0}">-</c:if>
+						<c:if test="${list.earn_point!=0}">
+						<fmt:formatNumber value="${list.earn_point}" pattern="#,###,###"/>
+						</c:if>
+						</td>
 						<td><a href="javascript:orderDetail(${list.order_number});">상세보기</a></td>
-						<td><fmt:formatNumber value="${list.order_price}" pattern="#,###,###"/>원</td>
-						<td>${list.order_status}</td>
 						<c:choose>
 							<c:when test="${list.order_status=='배송준비중'}">
-								<td><a href="/order/paymentCancle/${list.order_number}">취소</a></td>
+								<td>주문확정시 적립[배송준비중]</td>
 							</c:when>
 							<c:when test="${list.order_status=='주문취소'}">
-								<td>-</td>
+								<td>주문취소[포인트원복]</td>
 							</c:when>
 							<c:when test="${list.order_status=='관리자주문취소'}">
-								<td>-</td>
+								<td>주문취소[포인트원복]</td>
 							</c:when>
 							<c:when test="${list.order_status=='배송완료'}">
-								<td>
-								<input type="hidden" name="ordernum" id="ordernum" value="${list.order_number}">
-								<a href="javascript:void(0)" onclick="purchaseConfirm(${s.count});" id="purchaseConfirm(${s.count})">구매확정</a>
-								</td>
-							<!-- <a href="/order/purchaseConfirm/${list.order_number}">구매확정</a> -->	
+								<td>주문확정시 적립[배송완료]</td>
 							</c:when>
 							<c:when test="${list.order_status=='구매확정'}">
-								<td><a href="javascript:review(${list.order_number});">리뷰쓰기</a></td>
+								<td>적립완료</td>
 							</c:when>
 						</c:choose>
 					</tr>
@@ -150,25 +161,11 @@
 </div>
 
 <script>
-function purchaseConfirm(pos){
-	var item = document.getElementById('purchaseConfirm('+pos+')');
-	var orderNum = item.previousElementSibling.getAttribute('value');
-	console.log(orderNum);
-	
- 	if(!confirm("구매확정 시 취소,환불이 불가능합니다. 구매확정 하시겠습니까?")){
- 		return false;
- 	}else{
- 			location.href='/order/purchaseConfirm?orderNum=' + orderNum;	
- 		}
- 	}
-	
-
-
 function orderDetail(order_number){
 	window.open('/order/orderDetail/'+order_number,'주문 상세보기',"width=500,height=800,top=200,left=200,toolbar=no,menubar=no,scrollbars=no,status=no");
 }
 function review(order_number){
-	open('/order/review/'+order_number,'리뷰 쓰기','width=550px,height=600px,status=false');
+	open('/order/review/'+order_number,'리뷰 쓰기','width=300px,height=300px,status=false');
 }
 </script>
 <br>

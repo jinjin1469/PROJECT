@@ -27,12 +27,9 @@ public class NoticeController {
 	@RequestMapping(value="/main",method=RequestMethod.GET)
 	public String noticeG(Model model,HttpSession session, HttpServletRequest request) {
 		
-		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
-		long member_number = authinfo.getMember_number();
 		
 		List<Notice> m = dao.noticeAll();
 		model.addAttribute("Notice",m);
-		model.addAttribute("member_number",member_number);
 		
 
 		return "NOTICE/notice";
@@ -41,14 +38,11 @@ public class NoticeController {
 	@RequestMapping(value="/main",method=RequestMethod.POST)
 	public String noticeP(Model model,HttpSession session, HttpServletRequest request) {
 		
-		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
-		long member_number = authinfo.getMember_number();
 		
 		String noticeSearch = request.getParameter("Search");
 		List<Notice> m = dao.noticeSearch(noticeSearch);
 		
 		model.addAttribute("Notice",m);
-		model.addAttribute("member_number",member_number);
 		
 		return "NOTICE/search";
 	}

@@ -89,7 +89,7 @@ h3{text-align:left; margin-left:70px;}
 					<th>분류</th>
 					<th>제목</th>
 					<th>등록일</th>
-					<c:if test="${member_number==10022}">
+					<c:if test="${authInfo.member_id  eq 'MEALADMIN' }">
 					<th>수정</th>
 					<th>삭제</th>
 					</c:if>
@@ -99,7 +99,7 @@ h3{text-align:left; margin-left:70px;}
 						<td>${Notice.CLASSIFICATION}</td>
 						<td><a href="<c:url value='/notice/detail/${Notice.NOTICE_NUMBER}' />">${Notice.NOTICE_TITLE}</a></td>
 						<td><fmt:formatDate value="${Notice.REGDATE}" pattern="yyyy-MM-dd" /></td>
-					<c:if test="${member_number==10022}">
+					<c:if test="${authInfo.member_id  eq 'MEALADMIN' }">
 						<td><a href="<c:url value='/notice/update/${Notice.NOTICE_NUMBER}' />">수정</a></td>
 						<td><a href="<c:url value='/notice/delete/${Notice.NOTICE_NUMBER}' />">삭제</a></td>
 					</c:if>
@@ -108,8 +108,9 @@ h3{text-align:left; margin-left:70px;}
 			</table>
 	</c:if>
 		<br>
+		<c:if test="${authInfo.member_id  eq 'MEALADMIN' }">
 	  <a href="/notice/insert">글 등록</a>  
-	 	   
+	 	</c:if>
 	  	</div>  
  </div>
  <br>

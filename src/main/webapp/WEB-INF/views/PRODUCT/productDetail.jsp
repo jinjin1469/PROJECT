@@ -245,7 +245,9 @@
 				<img src="/uploadedIMG/${Product.product_d_image}" class="imgSize2" alt="...">
 				<img src="/uploadedIMG/${Product.product_i_image}" class="imgSize2" alt="...">
 			</div>
+			<c:if test="${authInfo.member_id  eq 'MEALADMIN' }">
 				<a href="<c:url value='/product/update/${Product.option_join_number}'/>">수정</a>
+			</c:if>
   		</div>
   		
 		<!-- 상품 후기 보이는곳-->
