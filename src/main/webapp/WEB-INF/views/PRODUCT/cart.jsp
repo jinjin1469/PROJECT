@@ -115,7 +115,6 @@ imgSize{width:0.5rem; height:0.5rem;}
 $(document).ready(function(){
 	if(${waitingPayment}!=0){
 		alert("진행중인 결제페이지로 이동합니다.");
-		alert(${waitingPayment});
 		location.href='http://localhost:8081/order/paymentG';
 	}
 });

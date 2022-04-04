@@ -306,7 +306,10 @@ function payment(){
 			$("#delivery_cost").val(0);
 		}
 	}
-	
+	if(${totalPrice}<point){
+		alert("주문금액보다 포인트가 클 수 없으며 배송료는 포인트를 사용할 수 없습니다.");
+		retrun;
+	}
 	totalPrice -= point;
 	if(totalPrice<0){
 		alert("결제금액보다 포인트사용금액이 큽니다.");

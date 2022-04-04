@@ -119,6 +119,14 @@ public class OrderDao {
 		List<Order> list = sqlSession.selectList("mybatis.mapper.order.selectOrderinfo",map);
 		return list;
 	}
+	public List<Order> selectPointinfo(int member_number, int sectionOne, int pageNumOne) { 
+		Map<String, Integer> map = new HashMap<>();
+		map.put("member_number", member_number);
+		map.put("section", sectionOne);
+		map.put("pageNum", pageNumOne);
+		List<Order> list = sqlSession.selectList("mybatis.mapper.order.selectPointinfo",map);
+		return list;
+	}
 	
 	public Order aaselectOrderinfo(int order_number) { 
 		Order list = sqlSession.selectOne("mybatis.mapper.order.aaselectOrderinfo",order_number);
