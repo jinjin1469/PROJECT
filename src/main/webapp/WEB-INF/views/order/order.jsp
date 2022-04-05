@@ -266,7 +266,7 @@ $("#orderbtn").on("click",function(){
 	   if($("#recipient_check").is(':checked')){
 		   if(point > ${membershipPoint}){
 			   alert("포인트한도내 사용바랍니다");
-			   retrun;
+			   return;
 		   }
 		   payment();
 	   }else{
@@ -279,16 +279,16 @@ $("#orderbtn").on("click",function(){
 	 	   nameregex = nameregex.exec(name);
 		   if(nameregex == null){
 			   alert("이름양식을 다시 확인해주세요");
-			   retrun;
+			   return;
 		   }
 		   if(address == null){
 			   alert("주소를 입력해주세요");
-			   retrun;
+			   return;
 		   }
 		   
 		   if(point > ${membershipPoint}){
 			   alert("포인트한도내 사용바랍니다");
-			   retrun;
+			   return;
 		   }
 		   payment();
 	   }
@@ -308,12 +308,12 @@ function payment(){
 	}
 	if(${totalPrice}<point){
 		alert("주문금액보다 포인트가 클 수 없으며 배송료는 포인트를 사용할 수 없습니다.");
-		retrun;
+		return;
 	}
 	totalPrice -= point;
 	if(totalPrice<0){
 		alert("결제금액보다 포인트사용금액이 큽니다.");
-		retrun;
+		return;
 	}
 	if(totalPrice<30000){ //주문금액이 3만원이하일때는 배송료3천원부과
 		alert("총 주문금액이 30000원 미만이여서 배송료가 부과됩니다.");
