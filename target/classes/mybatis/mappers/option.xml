@@ -39,7 +39,7 @@
 		option_Name=#{option_Name},
 		option_Price=#{option_Price},
 		option_Count=#{option_Count}
-		<if test="#{option_Count==0}"> , delete_check=1 </if>
+		<if test="option_Count==0"> , delete_check=1 </if>
 		WHERE option_number = #{option_number}
 	</update>
 	

@@ -322,7 +322,16 @@
 <br>
 <%@include file="../footer.jsp" %>
 <script>
-
+function total_price() {
+	let product_price = ${Product.product_price};
+	let product_count = $("#product_selectCount").val();
+	let total_price = 0;
+	<c:forEach var="ProductOption" items="${ProductOption}" varStatus="status">
+		total_price += $("#p_num${status.count}").val()*${ProductOption.option_Price};
+	</c:forEach>
+	total_price += product_price*product_count;
+	$("#total_price").html(total_price);
+};
 
 	// 숫자 콤마찍기
 	Number.prototype.format = function(){
@@ -382,7 +391,7 @@
 	        return;
 		  }     
 	    }
-	  
+	  total_price();
 	var show_total_amount = basic_amount * this_qty;
 	  $("#product_selectCount").val(this_qty);
 	  $("#it_pay").val(show_total_amount);
@@ -425,7 +434,7 @@
 	        console.log("가격" + price);
 	        console.log("갯수" + newval); 
 	        console.log("합계" + amount);
-	        
+	        total_price();
 	        item.parentElement.nextSibling.nextSibling.nextSibling.nextSibling.firstElementChild.nextSibling.nextSibling.textContent = (newval * price).format();
 	    	item.parentElement.nextSibling.nextSibling.nextSibling.nextSibling.firstElementChild.nextSibling.nextSibling.setAttribute('value',amount);
 	    	
@@ -451,7 +460,6 @@
 				  sum += parseInt($(this).val()); 
 			  });
 			 var show_total_price = main_price + sum;
-			  $("#total_price").html(show_total_price.format());
 			console.log("옵션합계:"+ sum);
 			console.log("토탈어마운트값" + main_price);
 		 }

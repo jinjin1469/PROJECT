@@ -194,9 +194,6 @@
  <%@include file="../footer.jsp" %>    	
 <script>
 $(document).ready(function(){
-	let regex = new RegExp('(.*?)\.(jpeg|jpg|png|gip|svg)$','i');
-	let maxSize = 5242880; //5MB//5242880
-	
 	/* let optionCount = 0; */
 	$('.choice1').change(function(){
 		$('.delete1').remove();
@@ -207,6 +204,9 @@ $(document).ready(function(){
 	$('.choice3').change(function(){
 		$('.delete3').remove();
 	});
+	
+	let regex = new RegExp('(.*?)\.(jpeg|jpg|png|gip|svg)$','i');
+	let maxSize = 5242880; //5MB//5242880
 	
 	function checkExtension(fileName, fileSize){
 		if(fileSize >= maxSize){
@@ -296,7 +296,6 @@ $(document).ready(function(){
 	 	removeBtn.setAttribute("type","button");
 	 	removeBtn.setAttribute("value","삭제");
 	 	removeBtn.setAttribute("onclick","remove("+number+")");
-	 	
 	 	
 	 	p.appendChild(span1);
 	 	p.appendChild(productName);

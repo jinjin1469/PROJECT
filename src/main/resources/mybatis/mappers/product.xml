@@ -49,11 +49,13 @@
 		FROM (SELECT * FROM m_product WHERE delete_check=0 ORDER BY product_salcount DESC) 
 		WHERE rownum <![CDATA[<=]]> 6 
 	</select>
+	
 	<select id="mainRandom" resultMap="productVo">
 		SELECT option_join_number,product_name,product_price,product_m_image 
-		FROM (SELECT MOD(ABS(DBMS_RANDOM.RANDOM),6) + 1 AS num,option_join_number,product_name,product_price,product_m_image 
+		FROM (SELECT MOD(ABS(DBMS_RANDOM.RANDOM),8) + 1 AS num,option_join_number,product_name,product_price,product_m_image 
 		FROM m_product WHERE delete_check=0 ORDER BY num ASC) WHERE rownum <![CDATA[<=]]> 8
 	</select>
+	
 	<select id="mainNew" resultMap="productVo">
 		SELECT option_join_number,product_name,product_price,product_m_image,product_regdate 
 		FROM (SELECT * FROM m_product WHERE delete_check=0 ORDER BY product_number DESC) 

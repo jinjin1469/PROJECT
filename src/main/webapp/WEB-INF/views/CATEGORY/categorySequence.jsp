@@ -151,6 +151,14 @@ $(document).ready(function(){
 		$(".indexcheck").each(function (idx,item){	
 			seqList.push(item.value);
 		});
+		for (let i = 0; i < seqList.length - 1;i++) {
+			for (let j = i+1; j < seqList.length; j++) {
+				if(seqList[i]==seqList[j]){
+					check = 1;
+				}
+			}
+		}
+		
 		heapSort(seqList);
 		if(choiceNum==1){
 			for(let i=0;i<${menu1Count};i++){
@@ -190,37 +198,29 @@ function swap(input, i, j) {
   input[i] = input[j];
   input[j] = temp;
 }
-
 function heapRoot(input, i) {
   let left = 2 * i + 1;
   let right = 2 * i + 2;
   let max = i;
-
   if (left < arrLen && input[left] > input[max]) {
     max = left;
   }
-
   if (right < arrLen && input[right] > input[max]) {
     max = right;
   }
-
   if (max != i) {
     swap(input, i, max);
     heapRoot(input, max);
   }
 }
-
 function heapSort(input) {
   arrLen = input.length;
-
   for (let i = Math.floor(arrLen / 2); i >= 0; i--) {
     heapRoot(input, i);
   }
-
   for (let i = input.length - 1; i > 0; i--) {
     swap(input, 0, i);
     arrLen--;
-
     heapRoot(input, 0);
   }
 }

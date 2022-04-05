@@ -141,8 +141,10 @@ member_number : ${info.member_number}
 
 
 function reviewConfirm(pos){
+	console.log(pos);
+	alert(pos);
 	var send = document.getElementById('confirmbtn('+pos+')');
-	var form = document.getElementById('reviewForm('+pos+')');
+	/* var form = document.getElementById('reviewForm('+pos+')'); */
 	var text = document.getElementById('review_content('+pos+')').value;
 	var str_space = /\s/;
 		if(text.replace(/\s| /gi,'').length == 0) {
@@ -150,7 +152,7 @@ function reviewConfirm(pos){
 	 		return false;
 	 	}	
 		   
-		   form.submit();
+		$('#reviewForm('+pos+')').submit();
 }
 
 </script>
