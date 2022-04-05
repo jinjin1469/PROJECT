@@ -375,6 +375,7 @@ function total_price() {
 	  
 	  if(t=="m"){
 		this_qty -= 1;
+		$("#product_selectCount").val(this_qty);
 		$('input[name=product_selectCount]').attr('value',this_qty);
 		console.log(product_selectCount);
 		console.log(this_qty);
