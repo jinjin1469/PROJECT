@@ -147,7 +147,8 @@ $(document).ready(function(){
 	
 	$("#checkBtn").on("click",function(){
 		let seqList = [];
-		
+		let check = 0;
+		let checkList = [];
 		$(".indexcheck").each(function (idx,item){	
 			seqList.push(item.value);
 		});
@@ -159,26 +160,31 @@ $(document).ready(function(){
 			}
 		}
 		
-		heapSort(seqList);
-		if(choiceNum==1){
+		checkList = heapSort(seqList);
+		for (let i = 1; i <= seqList.length;i++) {
+			if(checkList[i-1]!=i){
+				check = 1;
+			}
+		}
+		/* if(choiceNum==1){
 			for(let i=0;i<${menu1Count};i++){
-				if(seqList[i]!=i+1){
+				if(check[i]!=i){
 					check = 1;
 				}
 			}
 		}else if(choiceNum==2){
 			for(let i=0;i<${menu2Count};i++){
-				if(seqList[i]!=i+1){
+				if(check[i]!=i){
 					check = 1;
 				}
 			}
 		}else if(choiceNum==3){
 			for(let i=0;i<${menu3Count};i++){
-				if(seqList[i]!=i+1){
+				if(check[i]!=i){
 					check = 1;
 				}
 			}
-		}
+		} */
 		
 		if(check==0){
 			$("#CategoryEdit").submit();
@@ -212,17 +218,20 @@ function heapRoot(input, i) {
     swap(input, i, max);
     heapRoot(input, max);
   }
+  return input;
 }
 function heapSort(input) {
   arrLen = input.length;
+  let data = [];
   for (let i = Math.floor(arrLen / 2); i >= 0; i--) {
-    heapRoot(input, i);
+	  data = heapRoot(input, i);
   }
   for (let i = input.length - 1; i > 0; i--) {
     swap(input, 0, i);
     arrLen--;
-    heapRoot(input, 0);
+    data = heapRoot(input, 0);
   }
+  return data;
 }
 
 </script>
