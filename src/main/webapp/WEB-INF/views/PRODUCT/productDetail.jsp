@@ -372,11 +372,13 @@ function total_price() {
 	  var min_qty = 1;
 	  var this_qty = $("#product_selectCount").val()*1;
 	  var max_qty = '200'; 
+	  
 	  if(t=="m"){
 		this_qty -= 1;
 		$('input[name=product_selectCount]').attr('value',this_qty);
 		console.log(product_selectCount);
 		console.log(this_qty);
+		total_price();
 	    if(this_qty<min_qty){
 	      alert("수량은 1개 이상 입력해 주십시오.");
 	      return;
@@ -386,12 +388,13 @@ function total_price() {
 	      this_qty += 1;
 	      $("#product_selectCount").val(this_qty);
 	      $('input[name=product_selectCount]').attr('value',this_qty);
+	      total_price();
 		  if(this_qty>max_qty){
 	        alert("죄송합니다. 재고가 부족합니다.");
 	        return;
 		  }     
 	    }
-	  total_price();
+	  
 	var show_total_amount = basic_amount * this_qty;
 	  $("#product_selectCount").val(this_qty);
 	  $("#it_pay").val(show_total_amount);
