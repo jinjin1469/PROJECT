@@ -143,7 +143,7 @@ background: #F5F5F5;
 .swiper-pagination2{color:#DEDEDE;}
 .best{text-align:left; font-weight:bold; float:left; margin-left:-950px;}
 .new{background-color:#F5F5F5; width:100%; height:500px; margin-top:100px;}
-.recom{text-align:left; font-weight:bold; margin-top: 30px; margin-left:150px;}
+.recom{text-align:left; font-weight:bold; margin-top: 30px; margin-left:250px;}
 .newproduct{text-align:left; font-weight:bold; float:left; margin-left:-1000px; margin-top:50px;}
 .bestPro{padding:0px;}
 .pInfo{margin: 0px; font-weight:bold; font-size: 15px; text-align:left; padding:0px;}
