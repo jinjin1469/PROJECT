@@ -21,28 +21,6 @@
 	  width: 18rem;
 	  height: 18rem;
 	  margin: 0px;
-
-	}
-	
-	.card{
-	border: none;
-	width: 20rem;
-	height: 25rem;
-	margin:0auto;
-	text-align:left;
-	float:left;
-	}
-	.card-body{width:100%;height:30%; text-align:left;}
-	
-	.pInfo{margin: 0px; font-weight:bold; font-size: 15px; text-align:left; padding:0px;}
-	.card-text{margin:0px; font-size: 13px; text-align:left; padding:1rem;}
-
-	.wrap{
-	width:100%;
-	margin: 0auto;
-	overflow: hidden;
-	padding-top:10px;
-
 	}
 	
 	.card{
@@ -65,10 +43,17 @@
 	padding-top:10px;
 	}
 	
+	
+	
+	
+	
+	
 </style>
 </head>
 <body>
 <%@include file="../header.jsp" %>
+<br>
+<br>
 <div class="container">
 	<div class="wrap">
 		<c:forEach var="product" items="${Product}">
