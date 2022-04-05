@@ -2,6 +2,7 @@ package spring.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,7 @@ import spring.dao.MemberDao;
 import spring.dao.OrderDao;
 import spring.service.ManageService;
 import spring.vo.AuthInfo;
+import spring.vo.CartOption;
 import spring.vo.Login;
 import spring.vo.Member;
 import spring.vo.Order;
@@ -90,9 +92,27 @@ public class MyPageController {
 			Member memVo = manageService.myPage(member_number);
 			
 			model.addAttribute("member", memVo);
+			model.addAttribute("modifyInfo", new RegisterRequest());
 			
 			return "mypage/modify";
 		}
+	 
+
+	 @RequestMapping(value="/mypage/modify/modifyInfo",method=RequestMethod.GET)
+		public String modifyInfo(Model model, HttpSession session) {
+		 	
+		 AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+		 	
+		 if (authinfo == null) {
+				return "redirect:/member/login";
+			}
+			
+			long member_number = authinfo.getMember_number();
+			manageService.update(member_number);
+			
+			return "redirect:/mypage/mypage/" + member_number;
+		}
+
 
 		 @RequestMapping(value="/mypage/modifyPwd/{member_number}",method=RequestMethod.GET)
 			public String modifyPwdForm(@PathVariable("member_number") Long member_number, RegisterRequest regReq, Model model) {

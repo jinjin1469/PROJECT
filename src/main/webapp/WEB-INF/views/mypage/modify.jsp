@@ -25,9 +25,9 @@ input[type="text"], input[type="password"] {
 
 	<h2 class="cen">회원 정보 수정🔏</h2>
 <br>
-	<div class="modifyInfo">*아이디를 제외한 회원정보만 수정가능합니다.</div>
-	<form id="modifyform" action="modify" commandName="formData" class="validation-form" method="post">
-		
+	<div class="modifyInfo">*아이디와 닉네임을 제외한 회원정보만 수정가능합니다.</div>
+	<form id="modifyform" action="modifyInfo" commandName="modifyInfo" class="validation-form" method="post">
+		<input type="hidden" id="member_number" name="member_number" value="${member.member_number}">
 		<table>
 			<tr>
 				<th>이름</th>
@@ -39,8 +39,7 @@ input[type="text"], input[type="password"] {
 			</tr>
 			<tr>
 				<th>닉네임</th>
-				<td><input type="text" class="form-control" id="member_nickname" name="member_nickname" 
-				placeholder="한글/영문/숫자 포함  2~10자 " value="${member.member_nickname}" required>
+				<td>${member.member_nickname}
 				<br>
 				<span class="point successNameChk"></span>
 				<input type="hidden" id="nicknameDoubleChk"></td>
@@ -120,7 +119,7 @@ input[type="text"], input[type="password"] {
 		</table>
 		<br>
 		<button class="btn1 btn-primary btn-lg btn-block" type="button" id="signupbtn" name="signup">수정하기</button>
-		<button class="btn2 btn-primary btn-lg btn-block" onclick="#">취소하기</button>
+		<button type="button" class="btn2 btn-primary btn-lg btn-block" onclick="location.href='/mypage/mypage/${member.member_number}';">목록으로</button>
 	</form>
 	<br>
 	<br>
@@ -143,36 +142,6 @@ input[type="text"], input[type="password"] {
 	    }
 	    
 	})
-	
-
-	//비밀번호 유효성검사
-	$("#member_pwd").on("input",function(){
-	    var regex = /^[A-Za-z\d]{8,21}$/;
-	    var result = regex.exec($("#member_pwd").val())
-	    
-	    if(result != null){
-	        $(".member_pwd.regex").html("");
-	    }else{
-	        $(".member_pwd.regex").html("비밀번호는 영문 대소문자,숫자 8자 이상 20자 이하로 설정해주세요.");
-	        $(".member_pwd.regex").css("color","	red")
-	    }
-	});
-	
-	//비밀번호 확인    
-	   $("#rePassword").on("input",function(){
-		   
-		   let member_pwd = document.getElementById("member_pwd").value
-		   let rePassword = document.getElementById("rePassword").value 		   
-
-	        if(rePassword.length > 2 && member_pwd == rePassword){
-	        	$(".rePassword.regex").html("비밀번호가 일치합니다"); 
-	        	  $(".rePassword.regex").css("color","green"); 
-	          
-	        }else{
-	         $(".rePassword.regex").html("비밀번호가 일치하지않습니다"); 
-	         $(".rePassword.regex").css("color","red"); 
-	        }
-	   });
 	
 
 	//전화번호 유효성검사
@@ -227,12 +196,15 @@ input[type="text"], input[type="password"] {
 		const postcode = $("#postcode").val();
 		const address = $("#address").val();
 		const detailAddress = $("#detailAddress").val();
-		if(postcode != "" && address != "") {
+		
+		if (detailAddress == ""){
+			$("#member_address").val(postcode+address);
+		}else if(postcode != "" && address != "" && detailAddress != "") {
 			$("#member_address").val(postcode+address+detailAddress);
-		}
+		}	
 	};
 	
-
+	
 	//닉네임 중복 체크
 	$("#member_nickname").blur(function(){ 
 		var member_nickname = $("#member_nickname").val();
@@ -327,6 +299,12 @@ input[type="text"], input[type="password"] {
                 document.getElementById("address").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById("detailAddress").focus();
+                
+
+                const postcode = $("#postcode").val();
+        		const address = $("#address").val();
+        		
+				$("#member_address").val(postcode+address);
             }
         }).open();
     }
@@ -357,44 +335,25 @@ input[type="text"], input[type="password"] {
    	   var phone = $("#phone").val();
    	   var email = $("#email").val();	   */
 		  
-   	   var pw =  document.getElementById('member_pwd').value
    	   var name =  document.getElementById('member_name').value
-   	   var nickname = document.getElementById('member_nickname').value
-   	   var email = document.getElementById('member_email').value
-	   var idDoubleChk = document.getElementById('idDoubleChk').value
-	   var nicknameDoubleChk = document.getElementById('nicknameDoubleChk').value
-   	   
-   		   	   
-   	   var pwregex = /^[A-Za-z\d]{8,21}$/;
+   	   var phone = document.getElementById('member_phone').value;
+	
    	   var nameregex = /[가-힣]{2,}/;
-   	   var nicknameregex = /[0-9]|[a-z]|[A-Z]|[가-힣]/;
-   	   var emailregex = /.+@[a-z]+(\.[a-z]+){1,2}$/;
-   	   var a = true;
-   	   var b = false;
+   	   var str_space = /\s/;
+   	   var phoneregex = /^01\d\d{3,4}\d{4}$/;
    	 
    	   var nameregex = nameregex.exec(name);
 	   if(nameregex == null){
 		   alert("이름양식을 다시 확인해주세요");
 		   retrun;
 	   }
-	   
-	   var nicknameregex = nicknameregex.exec(nickname);
-   	   if(nicknameregex == null){
-   		   alert("닉네임양식을 다시 확인해주세요");
-   		   retrun;
-   	   }
-   	   
-   	   
-   	   var pwregex = pwregex.exec(pw);
-   	   if(pwregex == null){
-   		   alert("비밀번호양식을 다시 확인해주세요");
-   		   retrun;
-   	   }
-   	  var emailregex = emailregex.exec(email);
-	   if(emailregex == null){
-		   alert("이메일양식을 다시 확인해주세요");
-		   retrun;
+	 	
+	   var phoneregex = phoneregex.exec(phone);
+	   if(phoneregex == null){
+		   alert("핸드폰 번호 양식을 다시 확인해주세요");
+		   return;
 	   }
+	 
    	   
         //빈칸 없을 때 제출.
    	   $("#modifyform").submit();

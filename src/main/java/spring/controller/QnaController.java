@@ -73,6 +73,8 @@ public class QnaController {
 		PrintWriter out = response.getWriter();
 		
 		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+
+		
 		long member_number = authinfo.getMember_number();
 		qna.setMember_number(member_number);
 		qnaService.insert(qna);

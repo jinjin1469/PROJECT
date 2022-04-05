@@ -50,21 +50,41 @@ body {
 
 .swiper {
   width: 80%;
-  height: 100%;
+  height: 80%;
 }
 
 .swiper2 {
   width: 80%;
-  height: 100%;
+  height: 80%;
 }
 
 
 .swiper-slide {
   text-align: center;
   font-size: 18px;
-  background: #fff;
   width:20rem; 
   height: 25rem;
+
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.swiper-slide3 {
+  text-align: center;
+  font-size: 18px;
+  width:20rem; 
+  height: 28rem;
 
   /* Center slide text vertically */
   display: -webkit-box;
@@ -103,21 +123,36 @@ body {
   align-items: center;
 }
 
+.slidecolor{
+background: #F5F5F5;
+}
+
 
 .swiper-slide img {
   display: block;
   object-fit: cover;
 }
 
-.card-image{width:20rem; height:20rem;}
-.card-image2{width:10rem; height:10rem;}
+.card-image{width:18rem; height:18rem;}
+.card-image2{width:10rem; height:10rem; margin-top: -50px;}
 .swiper-button-next{color:#DEDEDE; margin-right:-5px;}
 .swiper-button-prev{color:#DEDEDE;  margin-left:-10px;}
 .swiper-pagination{color:#DEDEDE;}
+.swiper-button-next2{color:#DEDEDE; margin-right:-5px;}
+.swiper-button-prev2{color:#DEDEDE;  margin-left:-10px;}
+.swiper-pagination2{color:#DEDEDE;}
 .best{text-align:left; font-weight:bold; float:left; margin-left:-950px;}
-.new{background-color:#F5F5F5; width:100%; height:600px; margin-top:100px;}
+.new{background-color:#F5F5F5; width:100%; height:500px; margin-top:100px;}
 .recom{text-align:left; font-weight:bold; margin-top: 30px; margin-left:150px;}
 .newproduct{text-align:left; font-weight:bold; float:left; margin-left:-1000px; margin-top:50px;}
+.bestPro{padding:0px;}
+.pInfo{margin: 0px; font-weight:bold; font-size: 15px; text-align:left; padding:0px;}
+.card-text{margin:0px; font-size: 15px; text-align:left; font-weight:bold;}
+.menu-name{padding:0rem;}
+.card-body2{padding:0rem;}
+.card-text2{margin:0px; font-size: 15px; text-align:left; font-weight:bold; margin-top:-20px;}
+.newProduct{padding:0px;}
+.recomprice{margin-top:-20px;}
 </style>
 </head>
 <body>
@@ -164,8 +199,8 @@ body {
 		<div class="card-main">
 			
 			<a href="<c:url value='/product/detail/${Product.option_join_number}'/>"><img src="/uploadedIMG/${Product.product_m_image}" class="card-image" alt="..."></a>
-				    <div class="card-body">
-				      <a href="<c:url value='/product/detail/${Product.option_join_number}'/>"><p class="menu-name pInfo">${Product.product_name}</p></a>
+				    <div>
+				      <a href="<c:url value='/product/detail/${Product.option_join_number}'/>" class="bestPro"><p class="menu-name pInfo">${Product.product_name}</p></a>
 				      <p class="card-text pInfo"><fmt:formatNumber value="${Product.product_price}" pattern="#,###,###" />원</p> </div>
 			</div>
 	  	 </div>
@@ -193,18 +228,18 @@ body {
 		<div class="swiper-slide">
 		<div class="card-main">
 			<a href="<c:url value='/product/detail/${Product.option_join_number}'/>"><img src="/uploadedIMG/${Product.product_m_image}" class="card-image2" alt="..."></a>
-				    <div class="card-body">
+				    <div class="card-body2">
 				      <a href="<c:url value='/product/detail/${Product.option_join_number}'/>"><p class="menu-name pInfo">${Product.product_name}</p></a>
-				      <p class="card-text pInfo"><fmt:formatNumber value="${Product.product_price}" pattern="#,###,###" />원</p> </div>
+				      <p class="card-text pInfo recomprice"><fmt:formatNumber value="${Product.product_price}" pattern="#,###,###" />원</p> </div>
 			</div>
 	  	 </div>
   		</c:forEach>
 
 	 </div>
 	  
-	  <div class="swiper-button-next2"></div>
-      <div class="swiper-button-prev2"></div>
-      <div class="swiper-pagination2"></div>
+	  <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
 	   
 	  </div>
 
@@ -225,7 +260,7 @@ body {
 		<div class="card-main">
 			<a href="<c:url value='/product/detail/${Product.option_join_number}'/>"><img src="/uploadedIMG/${Product.product_m_image}" class="card-image" alt="..."></a>
 				    <div class="card-body">
-				      <a href="<c:url value='/product/detail/${Product.option_join_number}'/>"><p class="menu-name pInfo">${Product.product_name}</p></a>
+				      <a href="<c:url value='/product/detail/${Product.option_join_number}'/>" class="bestPro newProduct"><p class="menu-name pInfo">${Product.product_name}</p></a>
 				      <p class="card-text pInfo"><fmt:formatNumber value="${Product.product_price}" pattern="#,###,###" />원</p> </div>
 			</div>
 	  	 </div>
@@ -275,12 +310,12 @@ var swiper = new Swiper(".mySwiper2", {
     loop: true,
     loopFillGroupWithBlank: true,
     pagination: {
-      el: ".swiper-pagination2",
+      el: ".swiper-pagination",
       clickable: true,
     },
     navigation: {
-      nextEl: ".swiper-button-next2",
-      prevEl: ".swiper-button-prev2",
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
     },
   });
 

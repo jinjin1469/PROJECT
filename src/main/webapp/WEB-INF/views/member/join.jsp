@@ -470,6 +470,7 @@
 	   var idDoubleChk = document.getElementById('idDoubleChk').value
 	   var nicknameDoubleChk = document.getElementById('nicknameDoubleChk').value;
    	   var address = document.getElementById('member_address').value;
+   	   var phone = document.getElementById('member_phone').value;
    		   	   
    	   var idregex = /^[a-z][a-z\d]{4,11}$/;
    	   var pwregex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
@@ -477,6 +478,7 @@
    	   var nicknameregex = /[0-9]|[a-z]|[A-Z]|[가-힣]/;
    	   var emailregex = /.+@[a-z]+(\.[a-z]+){1,2}$/;
    	   var str_space = /\s/;
+   	   var phoneregex = /^01\d\d{3,4}\d{4}$/;
    	   var a = true;
    	   var b = false;
    	 
@@ -520,6 +522,13 @@
 		   retrun;
 	   }
    	   
+	   var phoneregex = phoneregex.exec(phone);
+	   if(phoneregex == null){
+		   alert("핸드폰 번호 양식을 다시 확인해주세요");
+		   return;
+	   }
+	   
+	   
 	   if(address.replace(/\s| /gi,'').length == 0) {
 	 		alert("주소를 입력해주세요.");
 	 		return;

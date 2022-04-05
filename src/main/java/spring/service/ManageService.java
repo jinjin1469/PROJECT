@@ -15,18 +15,18 @@ public class ManageService {
 		this.dao = dao;
 	}
 	
-	//회원 정보 읽어오기
-	public Member myPage(Long member_number) {
-		Member memInfo = dao.selectByMemberNum(member_number);
-			return memInfo;
-	}
-	
-	// 비밀번호
+		//회원 정보 읽어오기
+		public Member myPage(Long member_number) {
+			Member memInfo = dao.selectByMemberNum(member_number);
+				return memInfo;
+		}
+		
+		// 비밀번호
 		public void pwdModify(Long member_number, RegisterRequest regReq) {
 
-			Member member = dao.selectByMemberNum(member_number); 
-			member.setMember_pwd(regReq.getMember_pwd());
-			dao.updatePwd(member);
+		Member member = dao.selectByMemberNum(member_number); 
+		member.setMember_pwd(regReq.getMember_pwd());
+		dao.updatePwd(member);
 
 		}
 
@@ -38,6 +38,10 @@ public class ManageService {
 		public List<Review> myReview(Long member_number) {
 			List<Review> list = dao.myReview(member_number);
 			return list;
+		}
+
+		public void update(long member_number) {
+			dao.updateInfo(member_number);
 		}
 	
 	

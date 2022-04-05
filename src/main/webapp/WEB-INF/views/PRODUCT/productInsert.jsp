@@ -17,7 +17,30 @@
 <style>
 
 .btn {
+	margin-top:20px;
 	width: 600px;
+	display: inline-block;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #212529;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: middle;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	background-color: transparent;
+	border: 1px solid transparent;
+	padding: 0.375rem 0.75rem;
+	font-size: 1rem;
+	border-radius: 0.25rem;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn2 {
+	width: 300px;
 	display: inline-block;
 	font-weight: 400;
 	line-height: 1.5;
@@ -54,9 +77,23 @@
 	border-color: #d1f779;
 }
 
+.btn-primary2 {
+	color: #fff;
+	background-color: #89BC4E;
+	border-color: #d1f779;
+}
+
+
 .btn-primary:hover {
 	color: #fff;
 	background-color: #73c431;
+	border-color: #1ad123;
+}
+
+.btn-primary2:hover {
+	color: #fff;
+	background-color: #75A142
+;
 	border-color: #1ad123;
 }
 
@@ -141,8 +178,8 @@
 					<td><input type="file" name="uploadFile" class="fileClass"></td>
 				</tr>
 			</table>
-
-			<input type="button" id="optionAdd" value="옵션상품추가">
+			<br>
+			<input type="button" id="optionAdd"  class="btn2 btn-primary2 btn-lg btn-block" value="옵션상품추가">
 		 	<div id="option">
 		 	</div>
 		 <button class="btn btn-primary btn-lg btn-block" type="button" id="uploadBtn" name="uploadBtn">상품 등록하기</button>

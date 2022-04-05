@@ -87,8 +87,13 @@ public class MemberDao {
 	
    public List<Review> myReview(Long member_number) {
 		return sqlSession.selectList("mybatis.mapper.review.myReview", member_number);
-}
+   }
+
 	
+	public void updateInfo(long member_number) {
+		sqlSession.update("mybatis.mapper.member.updateInfo", member_number);
+	}
+		
 	
 }
 

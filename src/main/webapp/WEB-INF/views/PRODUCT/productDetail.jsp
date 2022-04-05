@@ -202,7 +202,7 @@
 						  		<div class="opt_amount"> 
 						  			
 						  			<input type="hidden" class="option_price" id="option_price" value="${ProductOption.option_Price}">	
-						  			<label class="opt2" id="option_amount" class="option_amount${status.count}">0</label><label>원</label> </div>
+						  			<label class="opt2" id="option_amount" class="option_amount(${status.count})">0</label><label>원</label> </div>
 						  		</div>
 				 			</div> 
 					 </div>
@@ -211,7 +211,7 @@
 	  
 		  
 		 <div class="totalamount">
-			<label class="amount">총 상품 금액</label>&nbsp;&nbsp; <label class="amount2" id="total_price"><fmt:formatNumber value="${Product.product_price}" pattern="#,###,###" /></label><label class="amount2">원</label> 
+			<label class="amount">총 상품 금액</label>&nbsp;&nbsp; <label class="amount2" id="total_price"><fmt:formatNumber value="${Product.product_price}" pattern="#,###,###"/></label><label class="amount2">원</label> 
 		</div>
 		<hr>
 		<c:if test="${Product.delete_check==0}">
@@ -362,7 +362,7 @@
 	function change_qty2(t){
 	  var min_qty = 1;
 	  var this_qty = $("#product_selectCount").val()*1;
-	  var max_qty = '200'; // 현재 재고 나중에 수정할것.
+	  var max_qty = '200'; 
 	  if(t=="m"){
 		this_qty -= 1;
 		$('input[name=product_selectCount]').attr('value',this_qty);

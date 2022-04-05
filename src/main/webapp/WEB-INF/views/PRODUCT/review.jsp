@@ -88,6 +88,7 @@ member_number : ${info.member_number}
 
 <c:forEach var="productList" items="${info.order_sub}" varStatus="form">
 
+
 	<form commandName="Review" method="POST" action="insertReview" id="reviewForm(${form.count})" name="revireForm(${form.count})">
 	<input type="hidden" name="product_number" id="product_number" value="${productList.product_number}">
 	<input type="hidden" name="order_number" id="order_number" value="${order_number}">
@@ -107,36 +108,33 @@ member_number : ${info.member_number}
 	 			&nbsp;&nbsp;${optionList.option_Name} * ${optionList.option_Count} EA 
 	 		</c:forEach></td>
 	</tr>
-	<c:forEach var="review" items="${list}">
-	<c:if test="${!empty list}">
+ 	<c:forEach var="review" items="${list}">
 			<tr>
 		 	 	<th colspan="2">리뷰작성</th>
 			</tr>
 			<tr>
 		 	 	<td colspan="2"><textarea readonly>${review.review_content}</textarea></td>
 			</tr>	
-	</c:if>
 	</c:forEach>
+	
 	<c:if test="${empty list}">
 		<tr>
 		 	 <th colspan="2">리뷰작성</th>
 		</tr>
 		<tr>
 		 	 <td colspan="2"><textarea id="review_content(${form.count})" name="review_content"></textarea></td>
-		</tr>	
+		</tr>
 	</c:if>
-	
 		</table>
 	<c:if test="${empty list}">	
 		<div class="subbtn">
 			<input type="button" name="confirmbtn(${form.count})" id="confirmbtn(${form.count})" class="btn btn-primary btn-lg btn-block" id="confirmbtn(${form.count})" onclick="reviewConfirm(${form.count});" value="작성하기">
 		</div>
 	</c:if>
-	
-	</form>
+</form>
 	
 	<br>
-		
+
 </c:forEach>
 	
 <script>

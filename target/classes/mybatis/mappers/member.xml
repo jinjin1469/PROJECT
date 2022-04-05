@@ -66,6 +66,15 @@
 		select member_id from M_MEMBER where member_name = #{member_name} AND member_email = #{member_email} AND member_id = #{member_id}
 	</select>
 	
+	<update id="updateInfo">
+	 	update m_member where 
+	 	<trim prefix="set" suffixOverrides=",">
+	 	<if test="member_name ! = null">member_name = #{member_name}</if>
+	 	<if test="member_phone ! = null"> member_phone = #{member_phone}</if>
+	 	<if test="member_email ! = null"> member_email = #{member_email}</if>
+	 	<if test="member_address ! = null"> member_address = #{member_address}</if>
+	 	</trim>where member_number = #{member_number}
+	</update>
 		    
     <update id="updatePw">
 		update m_member set member_pwd = #{member_pwd} where member_id = #{member_id}

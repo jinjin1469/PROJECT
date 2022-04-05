@@ -58,10 +58,13 @@ public class ReviewController {
 			
 			model.addAttribute("list", list);
 			
-			/*
-			 * out.println("<script>"); out.println("alert('리뷰가 등록되었습니다.');");
-			 * out.println("</script>"); out.flush();
-			 */
+			
+			 out.println("<script>"); 
+			 out.println("alert('리뷰가 등록되었습니다.');");
+			 out.println("history.go(-1);");
+			 out.println("</script>"); 
+			 out.close();
+			 
 			 
 //		long product_number = qna.getProduct_number();
 //			long num = qnaService.selectProNum(product_number);
