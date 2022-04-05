@@ -151,6 +151,14 @@ $(document).ready(function(){
 		$(".indexcheck").each(function (idx,item){	
 			seqList.push(item.value);
 		});
+		for (let i = 0; i < seqList.length - 1;i++) {
+			for (let j = i+1; j < seqList.length; j++) {
+				if(seqList[i]==seqList[j]){
+					check = 1;
+				}
+			}
+		}
+		
 		heapSort(seqList);
 		if(choiceNum==1){
 			for(let i=0;i<${menu1Count};i++){
