@@ -168,17 +168,29 @@ public class OrderDao {
 		sqlSession.update("mybatis.mapper.order.purchaseConfirm", orderNum);
 	}
 	
-		
+	public void productZero(OrderSub orderSub) {
+		sqlSession.update("mybatis.mapper.order.productZero", orderSub);
+	}	
 	public void productDeduction(OrderSub orderSub) {
 		sqlSession.update("mybatis.mapper.order.productDeduction", orderSub);
 	}
+	public int productCountCheck(OrderSub orderSub) {
+		return sqlSession.selectOne("mybatis.mapper.order.productCountCheck", orderSub);
+	}
+	
 	
 	public void productRollBack(OrderSub orderSub) {
 		sqlSession.update("mybatis.mapper.order.productRollBack", orderSub);
 	}
 	
+	public void optionZero(Option option) {
+		sqlSession.update("mybatis.mapper.order.optionZero", option);
+	}
 	public void optionDeduction(Option option) {
 		sqlSession.update("mybatis.mapper.order.optionDeduction", option);
+	}
+	public int optionCountCheck(Option option) {
+		return sqlSession.selectOne("mybatis.mapper.order.optionCountCheck", option);
 	}
 	
 	public void optionRollBack(Option option) {

@@ -28,6 +28,7 @@
 					<c:forEach var="product" items="${Product}" varStatus="n">
 					<label class="mainmenu">	✔️${product.product_name} * ${product.product_count} EA </label>
 						
+						<input type="hidden" name="order_sub[${n.index}].product_name" value="${product.product_name}">
 				 		<input type="hidden" name="order_sub[${n.index}].product_number" value="${product.product_number}">
 				 		<input type="hidden" name="order_sub[${n.index}].product_count" value="${product.product_count}">
 				 		<input type="hidden" name="order_sub[${n.index}].cartoption_number" value="${product.cartoption_number}">
@@ -39,6 +40,7 @@
 							<c:forEach var="option" items="${product.option_sub}" varStatus="m">
 									
 									<input type="hidden" name="order_sub[${n.index}].option_sub[${m.index}].option_number" value="${option.option_number}">
+									<input type="hidden" name="order_sub[${n.index}].option_sub[${m.index}].option_Name" value="${option.option_Name}">
 									<input type="hidden" name="order_sub[${n.index}].option_sub[${m.index}].payment_option_count" value="${option.payment_option_count}">
 									
 									<c:if test="${m.index/2==1}"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</c:if>

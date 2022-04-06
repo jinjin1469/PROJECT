@@ -43,6 +43,14 @@
 		SELECT * FROM m_order WHERE order_number=#{order_number}
 	</select>
 	
+	<select id="productCountCheck" resultType="int" parameterType="orderSub">
+		SELECT product_count FROM m_product WHERE product_number=#{product_number}
+	</select>
+	
+	<select id="optionCountCheck" resultType="int" parameterType="Option">
+		SELECT option_count FROM m_option WHERE option_number=#{option_number}
+	</select>
+	
 	<select id="orderwaitCnt" resultType="int">
 		SELECT COUNT(*) FROM m_order WHERE order_status='배송준비중' ORDER BY order_regdate DESC
 	</select>
@@ -154,6 +162,9 @@
 		DELETE FROM m_cartoption WHERE cartoption_number=#{cartoption_number}
 	</delete>
 	
+	<update id="productZero" parameterType="orderSub">
+		update m_product set product_count = product_count - #{product_count}, product_salcount = product_salcount + #{product_count}, delete_check=1 WHERE product_number=#{product_number}
+	</update>
 	<update id="productDeduction" parameterType="orderSub">
 		update m_product set product_count = product_count - #{product_count}, product_salcount = product_salcount + #{product_count} WHERE product_number=#{product_number}
 	</update>
@@ -163,6 +174,9 @@
 	</update>
 	
 	
+	<update id="optionZero" parameterType="Option">
+		update m_option set option_count = option_count - #{payment_option_count}, option_salcount = option_salcount + #{payment_option_count}, delete_check=1 WHERE option_number=#{option_number}
+	</update>
 	<update id="optionDeduction" parameterType="Option">
 		update m_option set option_count = option_count - #{payment_option_count}, option_salcount = option_salcount + #{payment_option_count} WHERE option_number=#{option_number}
 	</update>
