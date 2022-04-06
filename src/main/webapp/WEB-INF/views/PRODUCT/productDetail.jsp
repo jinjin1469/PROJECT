@@ -211,7 +211,7 @@
 	  
 		  
 		 <div class="totalamount">
-			<label class="amount">총 상품 금액</label>&nbsp;&nbsp; <label class="amount2" id="total_price"><fmt:formatNumber value="${Product.product_price}" pattern="#,###,###"/></label><label class="amount2">원</label> 
+			<label class="amount">총 상품 금액</label>&nbsp;&nbsp; <label class="amount2" id="total_price"><fmt:formatNumber value="${Product.product_price}" pattern="#######"/></label><label class="amount2">원</label> 
 		</div>
 		<hr>
 		<c:if test="${Product.delete_check==0}">
@@ -393,7 +393,7 @@ function total_price() {
 		  if(this_qty>max_qty){
 	        alert("죄송합니다. 재고가 부족합니다.");
 	        return;
-		  }     
+		  }    
 	    }
 	  
 	var show_total_amount = basic_amount * this_qty;
@@ -467,6 +467,7 @@ function total_price() {
 			console.log("옵션합계:"+ sum);
 			console.log("토탈어마운트값" + main_price);
 		 }
+	 
 		
 /* 	
 	$('.opt2').change(function(){

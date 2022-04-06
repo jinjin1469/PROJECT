@@ -1,12 +1,14 @@
 package spring.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -31,6 +33,7 @@ import spring.vo.Member;
 import spring.vo.Option;
 import spring.vo.Order;
 import spring.vo.OrderSub;
+import spring.vo.Product;
 import spring.vo.ProductCategoryEdit;
 import spring.vo.ProductCategoryEditList;
 import spring.vo.Review;
@@ -254,8 +257,109 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/orderInsert", method = RequestMethod.POST)
-	public String OrderInsertP(Model model, Order order,HttpSession session, HttpServletRequest request) {
+	public String OrderInsertP(Model model, Order order,HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException, IamportResponseException {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		
+		
+		boolean p_countCheck = false;  // 남은수량보다 많이 주문한 경우
+		boolean o_countCheck = false;  // 남은수량보다 많이 주문한 경우
+		int product_countCheck = 0; // DB수량
+		int option_countCheck = 0; // DB수량
+		int product_result_count = 0; // DB수량에 주문수량을 뺀 수
+		int option_result_count = 0; // DB수량에 주문수량을 뺀 수
+		Order cancelList = new Order(); // List
+		
+		
+		int p_i_n = 0; // 배열index
+		int o_i_n = 0; // 배열index
+		ArrayList<OrderSub> pdata = new ArrayList<OrderSub>();
+		ArrayList<Option> odata;
+		
+		//수량 0개 체크
+		for(int i=0; i < order.getOrder_sub().size();i++) {
+			OrderSub cancelProduct = new OrderSub();
+			p_countCheck = false;
+			product_countCheck = dao.productCountCheck(order.getOrder_sub().get(i));
+			product_result_count = product_countCheck - order.getOrder_sub().get(i).getProduct_count();
+			
+			if(product_result_count<0) {
+				cancelProduct.setProduct_name(order.getOrder_sub().get(i).getProduct_name());
+				cancelProduct.setProduct_count(Math.abs(product_result_count));
+				p_countCheck = true;
+			}
+			o_i_n = 0;
+			odata = new ArrayList<Option>();
+			if(order.getOrder_sub().get(i).getOption_sub()!=null) {	
+				for(Option option : order.getOrder_sub().get(i).getOption_sub()) {
+					Option cancelOption = new Option();
+					o_countCheck = false;
+					option_countCheck =  dao.optionCountCheck(option);
+					option_result_count = option_countCheck - option.getPayment_option_count();
+					if(option_result_count<0) {
+						if(o_i_n>0) {
+							
+							cancelOption.setOption_Name(option.getOption_Name());
+							cancelOption.setOption_Count(Math.abs(option_result_count));
+							p_countCheck = true;
+							o_countCheck = true;
+						}else {
+							cancelProduct.setProduct_name(order.getOrder_sub().get(i).getProduct_name());
+							cancelProduct.setProduct_count(Math.abs(product_result_count));
+							cancelOption.setOption_Name(option.getOption_Name());
+							cancelOption.setOption_Count(Math.abs(option_result_count));
+							
+							p_countCheck = true;
+							o_countCheck = true;
+						}
+					}
+					if(o_countCheck) {
+						odata.add(cancelOption);
+						o_i_n += 1;
+					}
+				}
+			}
+			if(p_countCheck) {
+				if(odata!=null) {
+					cancelProduct.setOption_sub(odata);
+				}
+				pdata.add(cancelProduct);
+				p_i_n += 1;
+			}
+		}
+		if(pdata!=null) {
+			cancelList.setOrder_sub(pdata);
+		}
+		if(cancelList.getOrder_sub().size() != 0) {
+			
+			CancelData cancel = new CancelData(order.getImp_uid(),true);
+			api.cancelPaymentByImpUid(cancel);
 
+			out.println("<script>");
+			out.print("alert('");
+			out.print("재고부족으로 인한 결제취소List\\n\\n\\t[상품명](재고초과개수)\\n");
+			for(int i = 0;i<cancelList.getOrder_sub().size();i++) {
+				if(cancelList.getOrder_sub().get(i).getProduct_count()>0) {
+				out.print("\\n["+cancelList.getOrder_sub().get(i).getProduct_name()+"]("+cancelList.getOrder_sub().get(i).getProduct_count()+"EA)");
+				}else {
+				out.print("\\n["+cancelList.getOrder_sub().get(i).getProduct_name()+"]");
+				}
+				if(cancelList.getOrder_sub().get(i).getOption_sub()!=null) {
+					for(int j = 0;j<cancelList.getOrder_sub().get(i).getOption_sub().size();j++) {
+						out.print("\\n\\t["+cancelList.getOrder_sub().get(i).getOption_sub().get(j).getOption_Name()+"]("+cancelList.getOrder_sub().get(i).getOption_sub().get(j).getOption_Count()+"EA)");
+					}
+				}
+			}
+			out.print("');");
+		
+			out.println("history.go(-1);");
+			out.println("</script>");			
+			out.flush();
+			out.close();
+			return "order/ordererror";
+		}
+		
+		
 		for(OrderSub deleteData : order.getOrder_sub()) {
 			dao.deleteCart(deleteData.getCartoption_number());
 			if(deleteData.getOption_sub()!=null) {
@@ -266,19 +370,33 @@ public class OrderController {
 		//joinnum
 		int order_join_number = dao.order_join_number(order.getImp_uid());
 		int option_join_number = 0;
+		int product_zero_check = 0;
+		int option_zero_check = 0;
 		//list insert
 		//수량 차감
 		for(int i=0; i < order.getOrder_sub().size();i++) {
 			order.getOrder_sub().get(i).setOrder_join_number(order_join_number);
 			dao.insertProductList(order.getOrder_sub().get(i));
-			dao.productDeduction(order.getOrder_sub().get(i));
+			product_zero_check = dao.productCountCheck(order.getOrder_sub().get(i));
+			if(product_zero_check==order.getOrder_sub().get(i).getProduct_count()) {
+				dao.productZero(order.getOrder_sub().get(i));
+			}else {
+				dao.productDeduction(order.getOrder_sub().get(i));
+			}
+			
 			option_join_number = dao.option_join_number(order_join_number);
 			if(order.getOrder_sub().get(i).getOption_sub()!=null) {
 				for(Option option : order.getOrder_sub().get(i).getOption_sub()) {
 					if(option.getPayment_option_count() !=0) {
 						option.setOption_Join_Number(option_join_number);
 						dao.insertOptionList(option);
-						dao.optionDeduction(option);
+						option_zero_check = dao.optionCountCheck(option);
+						if(option_zero_check==option.getPayment_option_count()) {
+							dao.optionZero(option);
+						}else {
+							dao.optionDeduction(option);
+						}
+						
 					}
 				}
 			}
@@ -287,7 +405,6 @@ public class OrderController {
 		if(order.getUse_point()!=0) {
 			dao.pointDeduction(order);
 		}
-		
 		return "redirect:/mypage/orderStatus";
 	}
 	

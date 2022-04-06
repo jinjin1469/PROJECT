@@ -284,7 +284,6 @@ background: #F5F5F5;
 	
 <br>
 <br>
-
 <script>
 
 var swiper = new Swiper(".mySwiper", {
