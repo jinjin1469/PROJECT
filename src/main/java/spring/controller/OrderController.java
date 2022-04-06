@@ -337,6 +337,8 @@ public class OrderController {
 			optionData = (ArrayList<Option>) dao.optionListinfo(info.getOrder_sub().get(j).getOption_join_number());
 			info.getOrder_sub().get(j).setOption_sub(optionData);
 		}
+		
+
 		model.addAttribute("list", list);
 		model.addAttribute("order_number", order_number);
 		model.addAttribute("info", info);

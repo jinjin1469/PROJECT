@@ -197,7 +197,7 @@ public class ShoppingController {
 					  dao.updateOption(cartOption);
 					}
 					out.println("<script>");
-					out.println("alert('옵션이 삭제되었습니다');");
+					out.println("alert('옵션 수량이 변경되었습니다');");
 					out.println("history.go(-1);");
 					out.println("</script>");
 					out.close();
