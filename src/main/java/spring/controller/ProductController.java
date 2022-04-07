@@ -87,12 +87,29 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/detail/{num}")
-	public String detailG(@PathVariable("num") int num,Model model) {
+	public String detailG(@PathVariable("num") int num,Model model,HttpServletRequest request) {
 		
 		Product product = dao.productSelect(num);
 		List<Option> productOption = dao.productOptionSelect(num);
+		
+//		int product_num = dao.productNum2(num);
 		long product_number = dao.productNum(num);
-		List<Qna> qnaList = dao.qnaList(product_number);
+
+		
+		String _section = request.getParameter("section");
+		String _pageNum = request.getParameter("pageNum");
+		
+		int section = Integer.parseInt((_section==null)?"1":_section);
+		int pageNum = Integer.parseInt((_pageNum==null)?"1":_pageNum);
+		
+		int totalCnt = dao.selectAllNumBoard(product_number);
+		List<Qna> qnaList = dao.selectTargetBoard(section, pageNum, product_number);
+		
+		request.setAttribute("totalCnt", totalCnt);
+		request.setAttribute("section", section);
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("qna", qnaList);
+		//List<Qna> qnaList = dao.qnaList(product_number);
 		List<Review> reviewList = dao.reviewList(product_number);
 		
 		model.addAttribute("review", reviewList);

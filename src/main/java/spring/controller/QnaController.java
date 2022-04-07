@@ -239,9 +239,26 @@ public class QnaController {
     
     //마이페이지에서 관리자가 qna 모아보기
     @RequestMapping(value="/mypage/qnalist")
-    public String qnaList(Model model) {
+    public String qnaList(Model model, HttpServletRequest request) {
     	
-    	List<Qna> qna=qnaService.selectlist();
+    	
+    	String _section = request.getParameter("section");
+		String _pageNum = request.getParameter("pageNum");
+		
+		int section = Integer.parseInt((_section==null)?"1":_section);
+		int pageNum = Integer.parseInt((_pageNum==null)?"1":_pageNum);
+		
+		int totalCnt = dao.selectAllNumBoard();
+		List<Qna> qna = dao.selectTargetBoard(section, pageNum);
+    	
+    	
+		request.setAttribute("totalCnt", totalCnt);
+		request.setAttribute("section", section);
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("qna", qna);
+		
+		
+//    	List<Qna> qna=qnaService.selectlist();
     	model.addAttribute("qna", qna);
     	return "mypage/qnalist";
     }
@@ -266,6 +283,8 @@ public class QnaController {
 	   return "mypage/myqnalist";
    }
    
+   
+   //검색기능 ajax
    
 
    

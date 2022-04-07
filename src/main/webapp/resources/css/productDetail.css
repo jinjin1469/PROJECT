@@ -16,14 +16,14 @@
 }
 
 .imgSize2 {
-	width: 75rem;
+	width: 70rem;
 	height: 70%;
 	margin-left: 50px;
 }
 
 
 .Product_img {
-	width: 33rem;
+	width: 33rem;	
 	height: 33rem;
 	float: left;
 	margin-left: 8rem;
@@ -42,7 +42,7 @@
 	width: 110rem;
 	height: 55rem;
 	margin: 0 auto;
-	margin-left: 50px;
+	margin-left: 8rem;
 }
 
 .name {

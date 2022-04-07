@@ -1,7 +1,9 @@
 package spring.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -108,10 +110,31 @@ public class ProductDao {
 	public long productNum(int num) {
 		return sqlSession.selectOne("mybatis.mapper.product.productNum",num);
 	}
+	
+	public int productNum2(int num) {
+		return sqlSession.selectOne("mybatis.mapper.product.productNum",num);
+	}
 
 	public List<Review> reviewList(long product_number) {
 		List<Review> list = sqlSession.selectList("mybatis.mapper.review.reviewList", product_number);
 		return list;
 	}
+
+	public int selectAllNumBoard(long product_number) {
+		System.out.println("첫번째 값" + product_number);
+		return sqlSession.selectOne("mybatis.mapper.qna.selectProductNum",product_number);
+	}
+
+	public List<Qna> selectTargetBoard(int section, int pageNum, long product_number) {
+		Map<String, Integer> map1 = new HashMap<>();
+		map1.put("section", section);
+		map1.put("pageNum", pageNum);
+		map1.put("product_number", (int) product_number);
+		System.out.println("프로값" + product_number);
+		List<Qna> list = sqlSession.selectList("mybatis.mapper.qna.qnaPorudctPagingList",map1);
+		return list;
+	}
+	
+	
 	
 }

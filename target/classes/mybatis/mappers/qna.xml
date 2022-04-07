@@ -72,7 +72,7 @@
 	</select>
 	
 	<select id="selectQna" resultMap="qnaVo">
-	select qna_title, m.member_nickname, qna_regdate, qna_number, p.product_number, m.member_number, qna_content
+	select qna_title, m.member_nickname, qna_regdate, qna_number, product_name, p.product_number, m.member_number, qna_content
 	from m_qna q , m_member m , m_product p
 	where p.product_number = q.product_number and m.member_number=q.member_number and q.qna_number=#{qna_number} ORDER BY QNA_NUMBER DESC
 	</select>
@@ -112,7 +112,6 @@
 	
 	</update>
 	
-	
 	<update id="setWaiting" parameterType="long">
 	 	UPDATE M_QNA
 	 	SET QNA_STATE = '답변대기' WHERE qna_number = #{qna_number}	
@@ -122,4 +121,35 @@
 		SET QNA_STATE = '답변완료' WHERE qna_number = #{qna_number}
 	</update>
 	
+	
+	<select id="selectAllNumBoard" resultType="int" >
+	select COUNT(*)
+	from m_qna q , m_member m , m_product p
+	where p.product_number = q.product_number and m.member_number=q.member_number ORDER BY QNA_NUMBER DESC
+	</select>
+	
+	<select id="qnaPagingList" resultMap="qnaVo" parameterType="hashMap">
+	 select qna_title, member_nickname, qna_regdate, qna_number, product_number, qna_state, product_name
+	 from(SELECT ROWNUM num, qna_title, member_nickname, qna_regdate, qna_number, product_number, qna_state, product_name
+	 from (SELECT qna_title, m.member_nickname, qna_regdate, qna_number, p.product_number, qna_state, product_name FROM m_qna q , m_member m , m_product p
+	 where p.product_number = q.product_number and m.member_number=q.member_number ORDER BY QNA_NUMBER DESC))
+	 WHERE num BETWEEN (#{section}-1)*100+(#{pageNum}-1)*10+1 AND (#{section}-1)*100+(#{pageNum})*10
+	</select>
+	
+	<select id="selectProductNum" resultType="int" parameterType="long">
+	select COUNT(*)
+	from m_qna q , m_member m , m_product p
+	where p.product_number = q.product_number and m.member_number=q.member_number and q.product_number=#{product_number} ORDER BY QNA_NUMBER DESC
+	</select>
+	
+	<select id="qnaPorudctPagingList" resultMap="qnaVo" parameterType="hashMap">
+	select qna_title, member_nickname, qna_regdate, qna_number, product_number, qna_state
+	from(SELECT ROWNUM num, qna_title, member_nickname, qna_regdate, qna_number, product_number, qna_state
+	from(SELECT qna_title, m.member_nickname, qna_regdate, qna_number, p.product_number, qna_state FROM m_qna q , m_member m , m_product p
+	where p.product_number = q.product_number and m.member_number=q.member_number and q.product_number=#{product_number} ORDER BY QNA_NUMBER DESC)) 
+	WHERE num BETWEEN (#{section}-1)*100+(#{pageNum}-1)*10+1 AND (#{section}-1)*100+(#{pageNum})*10
+	</select>
+	
+
+
 </mapper>

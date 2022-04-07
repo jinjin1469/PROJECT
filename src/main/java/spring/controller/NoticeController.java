@@ -59,7 +59,7 @@ public class NoticeController {
 	@RequestMapping(value="/insert",method=RequestMethod.GET)
 	public String noticeInsertG(Model model) {
 		
-		//�뤌�럹�씠吏�瑜� 泥섏쓬蹂댁뿬以꾨븣 臾몄젣諛쒖깮 > �씠�쑀 : 而ㅻ㎤�뱶媛앹껜瑜� �궗�슜�븯湲� �쐞�븳 鍮덇컼泥닿� �븘�슂�븯�떎. 而⑦듃濡ㅻ윭 | �뤌(而ㅻ㎤�뱶媛앹껜) | 而⑦듃濡ㅻ윭 
+		
 		model.addAttribute("formData", new Notice());
 		
 		return "NOTICE/noticeInsert";

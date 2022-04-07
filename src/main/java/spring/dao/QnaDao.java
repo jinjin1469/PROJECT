@@ -1,10 +1,13 @@
 package spring.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import spring.vo.CommentWrite;
+import spring.vo.Order;
 import spring.vo.Qna;
 
 public class QnaDao {
@@ -94,7 +97,18 @@ public class QnaDao {
 	public long selectProNUM(long product_number) {
 		return sqlSession.selectOne("mybatis.mapper.qna.selectProNUM", product_number);
 	}
+	
+	public int selectAllNumBoard() {
+		return sqlSession.selectOne("mybatis.mapper.qna.selectAllNumBoard");
+	}
 
+	public List<Qna> selectTargetBoard(int section, int pageNum) {
+		Map<String, Integer> map1 = new HashMap<>();
+		map1.put("section", section);
+		map1.put("pageNum", pageNum);
+		List<Qna> list = sqlSession.selectList("mybatis.mapper.qna.qnaPagingList",map1);
+		return list;
+	}
 
 	
 	
