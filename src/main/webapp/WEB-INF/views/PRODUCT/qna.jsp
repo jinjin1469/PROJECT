@@ -15,7 +15,7 @@
 
  textarea {
     width: 100%;
-    height: 20rem;
+    height: 25rem;
     border: none;
     resize: none;
     text-align:left;
@@ -85,8 +85,6 @@
 
 
 .name{font-weight:bold;}
-table{border: 0.7px solid #DCDCDC;}
-td, th{border: 0.7px solid #DCDCDC;}
 .center{text-align:center;}
 .subbtn2{widhth:600px;}
 </style>

@@ -109,16 +109,16 @@
 .t-3{width:150px;}
 .t-4{width:150px;}
 
-td{border: 1px solid black;}
-.product{text-align:center; font-weight:bold; background-color: #F5F5F5; font-size:17px;}
+/* td{border: 1px solid black;} */
+.product{text-align:left; font-weight:bold; font-size:20px; border-bottom: 2px solid black;}
 .content1{text-align:center;}
 .content2{height:400px; text-align:left; vertical-align:top;}
-table{border: 0.7px solid #DCDCDC;}
-td, th{border: 0.7px solid #DCDCDC;}
+/* table{border: 0.7px solid #DCDCDC;}
+td, th{border: 0.7px solid #DCDCDC;} */
 .subbtn{width:500px;}
 .subbtn2{margin: 20px; margin-right: 0px;}
 .subbtn3{}
-input[type="text"]{border:none;}
+input[type="text"]{border:none; height:30px; text-align:left; font-weight: bold;}
 .subbtn4{width:710px; margin-top: 20px;}
 
 </style>
@@ -132,19 +132,22 @@ input[type="text"]{border:none;}
 <form commandName="Qna" name="qnaForm" id="qnaForm" action="/qnaModify/${view.qna_number}" method="POST" enctype="multipart/form-data">
 <input type="hidden" name="product_number" id="product number" value="${view.product_number}">
 <input type="hidden" name="num" id="num" value="${num}">
+
 <table>
 
 <tr>	
-		<td colspan="4" class="product">상품 이름 - ${view.product_name}</td>
+		<td colspan="2" class="product">상품 이름 - ${view.product_name}</td>
 </tr>
 
 <tr>
 	<th>제목</th>
-		<td colspan="3"><input type="text" id="qna_title" name="qna_title" value="${view.qna_title}" readonly class="focused-input"></td>
+		<td><input type="text" id="qna_title" name="qna_title" value="${view.qna_title}" readonly class="focused-input"></td>
 </tr>
 <tr>
 <th class="t-1">작성자</th>
 	<td class="t-2">${view.member_nickname}</td>
+</tr>
+<tr>
 <th class="t-3">작성일</th>
 	<td class="t-4">${view.qna_regdate}</td>
 </tr>
@@ -154,7 +157,7 @@ input[type="text"]{border:none;}
 	
 </tr>
 <tr>
-	<td colspan="4"><textarea readonly name="qna_content" id="qna_content">${view.qna_content}</textarea></td>
+	<td colspan="2"><textarea readonly name="qna_content" id="qna_content">${view.qna_content}</textarea></td>
 </tr>
 </table>
 
@@ -167,13 +170,13 @@ input[type="text"]{border:none;}
 	<input type="button" class="btn3 btn-primary btn-lg btn-block" onclick="deleteConfirm();" value="삭제하기">
 	<input type="button" id="updatebtn" name="updatebtn" class="btn3 btn-primary btn-lg btn-block" onclick="Modify();" value="수정하기">
 	<input type="hidden" id="updateToController" name="updateToController" class="btn3 btn-primary btn-lg btn-block" onclick="Modify();" value="수정완료">
-	<input type="button" class="btn3 btn-primary btn-lg btn-block" onclick="location.href='/product/detail/${num}#qna';" value="목록으로">
+	<input type="button" class="btn3 btn-primary btn-lg btn-block" onclick="location.href='/product/detail/${num}';" value="목록으로">
 </div>
 </c:if>
 
 <c:if test="${view.member_number != authInfo.member_number}">
 <div class="subbtn3">
- 	<input type="button" class="btn3 btn-primary btn-lg btn-block" onclick="location.href='/product/detail/${num}#qna';" value="목록으로">
+ 	<input type="button" class="btn3 btn-primary btn-lg btn-block" onclick="location.href='/product/detail/${num}';" value="목록으로">
 </div>
 </c:if>	
 
@@ -195,6 +198,7 @@ input[type="text"]{border:none;}
 					<td><textarea rows="5" cols="30" id="comment_content" name="comment_content" class="focused-input3" style="text-align:left;" readonly>${comment.comment_content}</textarea></td>
 				</tr>
 		</table>
+	<c:if test="${authInfo.member_number == 10022}">
 			<div class="subbtn4">
 				<input type="hidden" name="comment_number" id="comment_number" value="${comment.comment_number}">
 				<input type="reset" value="취소" class="btn3 btn-primary btn-lg btn-block">
@@ -202,6 +206,7 @@ input[type="text"]{border:none;}
 				<input type="hidden" value="수정완료" id="updateCommentToController" name="updateCommentToController" class="btn3 btn-primary btn-lg btn-block">
 				<input type="button" value="삭제하기" onclick="deleteComment();" class="btn3 btn-primary btn-lg btn-block">
 			</div>
+	</c:if>
 		</form>
 	</c:when>
 </c:choose>
