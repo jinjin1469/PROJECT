@@ -24,7 +24,9 @@
 	</insert>
 	
 	<select id="listReview" resultMap="reviewVo">
-		select * from m_review where order_number = #{order_number}
+		select review_content, product_name
+		from m_review r, m_product p
+		where r.product_number = p.product_number and order_number = #{order_number}
 	</select>	
 	
 	<select id="reviewList" resultMap="reviewVo" parameterType="long">

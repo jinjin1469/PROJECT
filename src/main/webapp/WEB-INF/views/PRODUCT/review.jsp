@@ -88,7 +88,7 @@ member_number : ${info.member_number}
 
 <c:forEach var="productList" items="${info.order_sub}" varStatus="form">
 
-
+<c:if test="${empty list}">
 	<form commandName="Review" method="POST" action="insertReview" id="reviewForm(${form.count})" name="revireForm(${form.count})">
 	<input type="hidden" name="product_number" id="product_number" value="${productList.product_number}">
 	<input type="hidden" name="order_number" id="order_number" value="${order_number}">
@@ -108,51 +108,89 @@ member_number : ${info.member_number}
 	 			&nbsp;&nbsp;${optionList.option_Name} * ${optionList.option_Count} EA 
 	 		</c:forEach></td>
 	</tr>
- 	<c:forEach var="review" items="${list}">
+
 			<tr>
 		 	 	<th colspan="2">리뷰작성</th>
 			</tr>
 			<tr>
-		 	 	<td colspan="2"><textarea readonly>${review.review_content}</textarea></td>
+		 	 	<td colspan="2"><textarea id="review_content(${form.count})" name="review_content"></textarea></td>
 			</tr>	
-	</c:forEach>
-	
-	<c:if test="${empty list}">
-		<tr>
-		 	 <th colspan="2">리뷰작성</th>
-		</tr>
-		<tr>
-		 	 <td colspan="2"><textarea id="review_content(${form.count})" name="review_content"></textarea></td>
-		</tr>
-	</c:if>
+
 		</table>
-	<c:if test="${empty list}">	
+
 		<div class="subbtn">
 			<input type="button" name="confirmbtn(${form.count})" id="confirmbtn(${form.count})" class="btn btn-primary btn-lg btn-block" id="confirmbtn(${form.count})" onclick="reviewConfirm(${form.count});" value="작성하기">
 		</div>
-	</c:if>
+
 </form>
-	
+</c:if>
 	<br>
 
 </c:forEach>
-	
+
+
+<c:if test="${!empty list}">
+
+
+
+<table class="tbl">
+
+	<tr>
+
+		<th>구매 상품정보</th>
+		<th>구매 상품내역</th>
+	</tr>
+<c:forEach var="productList" items="${info.order_sub}">
+	<tr>
+		<td><img src="/uploadedIMG/${productList.product_m_image}" class="imgSize"></td>
+	 	<td><label class="menuname">${productList.product_name} * ${productList.product_count} EA </label><br>
+	 		<c:if test="${!empty productList.option_sub}">
+	  			&nbsp;&nbsp;&nbsp;&nbsp;[추가상품]
+	  		</c:if> 
+	  	
+	 		<c:forEach var="optionList" items="${productList.option_sub}">
+	 			&nbsp;&nbsp;${optionList.option_Name} * ${optionList.option_Count} EA 
+	 		</c:forEach></td>
+	</tr>
+</c:forEach>
+<c:forEach var="review" items="${list}" varStatus="status">
+			<tr>
+		 	 	<th colspan="2">${review.product_name} 리뷰</th>
+			</tr>
+			<tr>
+		 	 	<td colspan="2"><textarea readonly>${review.review_content}</textarea></td>
+			</tr>	
+</c:forEach>
+</table>
+
+
+
+
+
+
+
+
+
+
+</c:if>
+
 <script>
 
 
 function reviewConfirm(pos){
-	console.log(pos);
-	alert(pos);
+/* 	console.log(pos);
+	alert(pos); */
 	var send = document.getElementById('confirmbtn('+pos+')');
-	/* var form = document.getElementById('reviewForm('+pos+')'); */
+	var form = document.getElementById('reviewForm('+pos+')'); 
 	var text = document.getElementById('review_content('+pos+')').value;
 	var str_space = /\s/;
 		if(text.replace(/\s| /gi,'').length == 0) {
 	 		alert("내용을 입력해주세요.");
 	 		return false;
 	 	}	
-		   
-		$('#reviewForm('+pos+')').submit();
+		  
+		send.remove();
+		form.submit();
 }
 
 </script>

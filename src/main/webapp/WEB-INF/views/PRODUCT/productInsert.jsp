@@ -39,6 +39,30 @@
 		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+.btnDelete {
+	margin-top:20px;
+	width: 300px;
+	display: inline-block;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #212529;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: middle;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	background-color: transparent;
+	border: 1px solid transparent;
+	padding: 0.375rem 0.75rem;
+	font-size: 1rem;
+	border-radius: 0.25rem;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+
 .btn2 {
 	width: 300px;
 	display: inline-block;
@@ -83,6 +107,18 @@
 	border-color: #d1f779;
 }
 
+.btn-primary3 {
+	color: #fff;
+	background-color: #FF8A8E;
+	border-color: #d1f779;
+}
+
+.btn-primary3:hover {
+	color: #fff;
+	background-color: #FF8A8E;
+;
+	border-color: #1ad123;
+}
 
 .btn-primary:hover {
 	color: #fff;
@@ -295,6 +331,7 @@ $(document).ready(function(){
 	 	let removeBtn = document.createElement('input');
 	 	removeBtn.setAttribute("type","button");
 	 	removeBtn.setAttribute("value","삭제");
+	 	removeBtn.setAttribute("class","btnDelete btn-primary3 btn-lg btn-block");
 	 	removeBtn.setAttribute("onclick","remove("+number+")");
 	 	
 	 	p.appendChild(span1);
