@@ -10,6 +10,7 @@ public class ProductCategoryEditList {
 	private int product_number;
 	private int edit_check;
 	private String product_name;
+	private String classification;
 	public int getProduct_number() {
 		return product_number;
 	}
@@ -27,6 +28,12 @@ public class ProductCategoryEditList {
 	}
 	public void setProduct_name(String product_name) {
 		this.product_name = product_name;
+	}
+	public String getClassification() {
+		return classification;
+	}
+	public void setClassification(String classification) {
+		this.classification = classification;
 	}
 	
 }

@@ -69,7 +69,7 @@
 	</script>
 </c:if>
 
-		<h2>배송대기📃</h2>
+		<h2>전체매출📃</h2>
 		<hr>
 
 		<table class="tbl">

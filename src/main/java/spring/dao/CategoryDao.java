@@ -56,6 +56,10 @@ public class CategoryDao {
 		sqlSession.delete("mybatis.mapper.category.categoryDelete",category);
 	}
 	
+	public void categoryUpdate(ProductCategoryEditList list) { 
+		sqlSession.update("mybatis.mapper.category.categoryUpdate",list);
+	}
+	
 	public void categorySeqUpdate(Category category) { 
 		sqlSession.update("mybatis.mapper.category.categorySeqUpdate",category);
 	}
@@ -66,6 +70,11 @@ public class CategoryDao {
 	public void productCategoryNameNull2(Category category) { 
 		sqlSession.update("mybatis.mapper.category.productCategoryNameNull2",category);
 	}
+	
+	public void productSuspension(ProductCategoryEditList list) { 
+		sqlSession.update("mybatis.mapper.category.productSuspension",list);
+	}
+	
 	public void deleteBysortNumUpdate(int num,String classification) { 
 		Map<String, Object> map = new HashMap<>();
 		map.put("num", num);

@@ -138,69 +138,17 @@ $(document).ready(function(){
 					let form = document.createElement('form');
 					form.setAttribute("charset","UTF-8");
 					form.setAttribute("method","POST");
-					form.setAttribute("id","PCEdit");
+					form.setAttribute("id","Suspension");
 					form.setAttribute("class","delete4");
-					form.setAttribute("action","/category/productCategoryEdit");
+					form.setAttribute("action","/category/productSuspension");
 					form.setAttribute("commandName","ProductCategoryEdit");
-					
-					let category_title = document.createElement('input');
-					category_title.setAttribute("type","hidden");
-					category_title.setAttribute("class","delete4");
-					category_title.setAttribute("name","category_title");
-					category_title.setAttribute("value",data.category_title);
-					
-					let category_n = document.createElement('input');
-					category_n.setAttribute("type","hidden");
-					category_n.setAttribute("class","delete4");
-					category_n.setAttribute("name","classification");
-					category_n.setAttribute("value",data.classification);
 					
 					let span = document.createElement('span');
 				 	span.setAttribute("class","name");
 				 	span.setAttribute("class","delete4");
-				 	span.innerHTML="변경할 카테고리명 : ";
+				 	span.innerHTML="판매중지할 List 선택(수량은 0개로 변경) ";
 					
-					let category_title_change = document.createElement('select');
-					category_title_change.setAttribute("name","category_title_change");
-					category_title_change.setAttribute("class","op2");
-
-					let opt = document.createElement('option');
-				 	opt.setAttribute("class","delete3");
-				 	opt.innerHTML="선택하세요";
-				 	category_title_change.appendChild(opt);
-				 	
-				 	let optN = document.createElement('option');
-					optN.setAttribute("value","");
-					optN.innerHTML="NULL";
-					category_title_change.appendChild(optN);
-					
-					let classification = $(".choice option:selected").val();
-					if(classification=="category_1"){
-						<c:forEach var="menu1" items="${menu1}" varStatus="n">
-							let optT${n.index} = document.createElement('option');
-							optT${n.index}.setAttribute("value","${menu1.category_title}");
-							optT${n.index}.innerHTML="${menu1.category_title}";
-							category_title_change.appendChild(optT${n.index});
-				 		</c:forEach>
-				 		<c:forEach var="menu2" items="${menu2}" varStatus="n">
-							let optS${n.index} = document.createElement('option');
-							optS${n.index}.setAttribute("value","${menu2.category_title}");
-							optS${n.index}.innerHTML="${menu2.category_title}";
-							category_title_change.appendChild(optS${n.index});
-			 			</c:forEach>
-					}else if(classification=="category_2"){
-						<c:forEach var="menu3" items="${menu3}" varStatus="n">
-							let opt${n.index} = document.createElement('option');
-							opt${n.index}.setAttribute("value","${menu3.category_title}");
-							opt${n.index}.innerHTML="${menu3.category_title}";
-							category_title_change.appendChild(opt${n.index});
-				 		</c:forEach>
-					}
-					
-					form.appendChild(category_title);
-					form.appendChild(category_n);
 				 	form.appendChild(span);
-				 	form.appendChild(category_title_change);
 				 	
 					for(let key in data.productList){
 						let checkbox = document.createElement('input');
@@ -228,7 +176,6 @@ $(document).ready(function(){
 					submit.setAttribute("class","delete4");
 					submit.setAttribute("id","uploadBtn");
 					submit.setAttribute("value","변경하기");
-					submit.setAttribute("style","display:none;");
 
 					form.appendChild(submit);
 				 	edit.appendChild(form);
@@ -239,18 +186,15 @@ $(document).ready(function(){
 			}
 		});    
 	});
-	$(document).on('change','.op2',function(){
-		$('.delete3').remove();
-		document.getElementById("uploadBtn").style.display='block';
-	}); 
 	$(document).on('click','#uploadBtn',function(){
-		let category_title = $(".op option:selected").val();
+		$("#Suspension").submit();
+		/* let category_title = $(".op option:selected").val();
 		let category_title_change = $(".op2 option:selected").val();
 		if(category_title!=category_title_change){
-			$("#PCEdit").submit();
+			$("#Suspension").submit();
 		}else{
 			alert("동일한 카테고리 선택은 불가합니다.");
-		}
+		} */
 		
 	});
 });

@@ -140,7 +140,21 @@ public class CategoryController {
 
 		return "CATEGORY/productCategoryEdit";
 	}
+	@RequestMapping(value = "/productSuspension", method = RequestMethod.GET)
+	public String productSuspensionG(Model model) {
 
+		List<Category> menu1 = dao.menu1();
+		List<Category> menu2 = dao.menu2();
+		List<Category> menu3 = dao.menu3();
+
+		model.addAttribute("menu1", menu1);
+		model.addAttribute("menu2", menu2);
+		model.addAttribute("menu3", menu3);
+
+		model.addAttribute("CategoryCommand", new CategoryCommand());
+
+		return "CATEGORY/productSuspension";
+	}
 	
 	  //ajax
 	  
@@ -152,8 +166,7 @@ public class CategoryController {
 		  List<ProductCategoryEditList> productList = new ArrayList<ProductCategoryEditList>();
 		  String category_title = String.valueOf(param.get("category_title"));
 		  String classification = String.valueOf(param.get("classification"));
-		  System.out.println(category_title+"1");
-		  System.out.println(classification+"2");
+
 		  ProductCategoryEdit input = new ProductCategoryEdit();
 		  input.setCategory_title(category_title);
 		  
@@ -179,11 +192,26 @@ public class CategoryController {
 
 	  return list; 
 	  }
+	@RequestMapping(value = "/productSuspension", method = RequestMethod.POST)
+	public String productSuspensionP(ProductCategoryEdit editList,Model model) {
+		for(ProductCategoryEditList list : editList.getCategory_editList()) {
+			if(list.getEdit_check()==1){
+				dao.productSuspension(list);
+			}
+		}
+		return "redirect:/";
+	}
 	@RequestMapping(value = "/productCategoryEdit", method = RequestMethod.POST)
 	public String productCategoryEditP(ProductCategoryEdit editList,Model model) {
-
-		
-
+		String classification = editList.getClassification();
+		for(ProductCategoryEditList list : editList.getCategory_editList()) {
+			if(list.getEdit_check()==1){
+				list.setProduct_name(editList.getCategory_title_change());
+				list.setClassification(classification);
+				dao.categoryUpdate(list);
+			}
+		}		
+			
 		return "redirect:/";
 	}
 	 
