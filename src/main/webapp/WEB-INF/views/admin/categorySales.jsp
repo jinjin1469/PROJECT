@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,12 +37,12 @@
 	<p><strong>상품관리</strong></p>
 	<hr>
 		<p><a href="<c:url value='/product/insert'/>" class="menu">상품등록</a></p>
-		<p><a href="<c:url value='/product/totalList' />" class="menu">상품전체보기</a></p>
-		<%-- <p><a href="<c:url value='/member/login' />" class="menu">장바구니</a></p> --%>
+		<p><a href="<c:url value='/member/login' />" class="menu">상품전체보기</a></p>
+		<%-- <p><a href="<c:url value='/member/login' />" class="menu">장바구니</a></p>
+		<p><a href="<c:url value='/member/login' />" class="menu">오늘본상품</a></p> --%>
 	<br>
 	<p><strong>쇼핑관리</strong></p>
 	<hr>
-
 		<p><a href="<c:url value='/mypage/qnalist' />" class="menu">1:1 문의 모아보기</a></p>
 		<p><a href="<c:url value='/admin/orderStatus' />" class="menu">배송관리</a></p>
 		<p><a href="<c:url value='/member/login' />" class="menu">리뷰 모아보기</a></p>
@@ -61,42 +63,18 @@
 </aside>
 
 <section>
+<c:if test="${!empty msg}">
+	<script> 
+		alert('잘못된 접근입니다.');
+	</script>
+</c:if>
 
-		<h2>MYPAGE📃</h2>
+		<h2>카테고리별 매출📃</h2>
 		<hr>
-		
-			<div class="user">
-			<p class="green"><strong>${member.member_name}[${member.member_id}]님</strong><p>
-			<p>전 화 : ${member.member_phone}</p>
-			<p>이메일 : ${member.member_email}</p>
-			<p>주 소 : ${member.member_address}</p>
-			</div>
-			<div class="order"></div>
 
-		
-		<table class="tbl">
-			<tr>
-				<th>주문일자</th>
-				<th>상품명</th>
-				<th>결제금액</th>
-				<th>주문상세</th>
-			</tr>
-			<tr>
-				<td colspan="4">주문 내역이 없습니다.</td>
-			</tr>
-		</table>
-		
-		<table class="tbl">
-			<tr>
-				<th>등록일자</th>
-				<th>리뷰 내용</th>
-				<th>상품명</th>
-			</tr>
-			<tr>
-				<td colspan="3">작성한 리뷰가 없습니다.</td>
-			</tr>
-		</table>
-		
+		<div>
+  <canvas id="myChart"></canvas>
+</div>
 
 </section>
 	
@@ -104,9 +82,46 @@
 	
 </div>
 
+<script>
+function orderDetail(order_number){
+	window.open('/order/orderDetail/'+order_number,'주문 상세보기',"width=500,height=600,top=200,left=200,toolbar=no,menubar=no,scrollbars=no,status=no");
+}
 
+  const labels = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+  ];
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: 'My First dataset',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: [0, 10, 5, 2, 20, 30, 45],
+    }]
+  };
+
+  const config = {
+    type: 'line',
+    data: data,
+    options: {}
+  };
+
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+
+</script>
 <br>
 <br>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <%@include file="../footer.jsp"%>
+
 </body>
 </html>

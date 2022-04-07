@@ -41,7 +41,7 @@
 	</select>
 	
 	<select id="category" resultMap="productVo" parameterType="String">
-		SELECT * FROM m_product WHERE category_1=#{category} OR category_2=#{category} AND delete_check=0
+		SELECT * FROM m_product WHERE delete_check=0 AND category_1=#{category} OR category_2=#{category} 
 	</select>
 	
 	<select id="mainBest" resultMap="productVo">

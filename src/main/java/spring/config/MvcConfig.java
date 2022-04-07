@@ -85,7 +85,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 	public void addInterceptors(InterceptorRegistry registry) {
 		//registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/edit/**");
 		
-		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/category/**");
+		//registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/category/**");
 		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/admin/**");
 		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/notice/insert");
 		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/notice/update");

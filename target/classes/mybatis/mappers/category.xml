@@ -44,6 +44,21 @@
 		DELETE FROM m_category WHERE category_title=#{category_title}
 	</delete>
 	
+	<update id="categoryUpdate" parameterType="ProductCategoryEditList">
+		UPDATE m_product SET
+		<if test="classification == 'category_1'">  category_1 </if> 
+		<if test="classification == 'category_2'">  category_2 </if> 
+		<if test="#{product_name} != null">  = #{product_name} </if> 
+		<if test="#{product_name} == null">  is null </if> 
+		WHERE product_number = #{product_number}
+	</update>
+	
+	<update id="productSuspension" parameterType="ProductCategoryEditList">
+		UPDATE m_product SET
+		product_count=0, delete_check=1
+		WHERE product_number = #{product_number}
+	</update>
+	
 	<update id="categorySeqUpdate" parameterType="Category">
 		UPDATE m_category SET 
 		category_sort=#{category_sort}
@@ -51,12 +66,12 @@
 	</update>
 	<update id="productCategoryNameNull1" parameterType="Category">
 		UPDATE m_product SET 
-		category_1=NULL
+		category_1 is null
 		WHERE category_1 = #{category_title}
 	</update>
 	<update id="productCategoryNameNull2" parameterType="Category">
 		UPDATE m_product SET 
-		category_2=NULL
+		category_2 is null
 		WHERE category_2 = #{category_title}
 	</update>
 	<update id="deleteBysortNumUpdate" parameterType="hashMap">
