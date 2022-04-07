@@ -10,23 +10,116 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="../../../resources/jquery/jquery-3.6.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<style>
+.nav-tabs .nav-link{width:250px;}
+.nav{width:500px;}
+.delete4{font-weight: bold;
+    padding: 5px;
+    margin-bottom: 10px;}
+.listinfo{font-weight:bold;}
+
+input[type="checkbox"]{
+        width: 20px;
+        height: 15px;
+        border:2px solid #707070;
+      }
+      
+.change input{
+  accent-color: #666666;
+}
+
+.selectname{
+text-align:left;
+width:400px;}
+
+.line{border:2px solid #666666;}
+.btn{
+    background:transparent;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+    margin: 18px;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display:inline-block;
+    outline:none;
+    position:relative;
+    top:0;
+    text-shadow:0 1px 1px rgba(0, 0, 0, 0.5);
+    -webkit-transition: all 0.2s ease-in-out 0s;
+    -moz-transition: all 0.2s ease-in-out 0s;
+    -ms-transition: all 0.2s ease-in-out 0s;
+     transition: all 0.2s ease-in-out 0s;
+}
+
+.light-green{
+    background:#87bc58;
+    color:#fff;
+    box-shadow: 0 3px 0 #6ea140;    
+}
+.light-green:hover{
+    background:#c0da82;    
+}
+.light-green:active, .light-green:focus{
+    background:#7fb84d;    
+}
+.choice{width:200px;}
+.op{width:200px;}
+</style>
+
 
 </head>
 <body>
 <%@include file="../header.jsp" %>
 <br>
 <br>
-<form:form commandName="Category">
-		구분 : <select name="classification" class="choice">
-				<option class="delete">선택하세요</option>
-				<option value="category_1">테마별&&사이드디쉬</option>
-				<option value="category_2">브랜드관</option>
-			  </select><br>
-		<div id="select">
-		 </div>
-</form:form>
-<div id="edit">
-</div>
+<h3>상품 관리📌</h3>
+<br>
+  
+  <div class="nav nav-tabs centered" id="nav-tab" role="tablist">
+    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">상품판매중지</button>
+    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">상품판매재개</button>
+  </div>
+  
+  
+  
+  <div class="tab-content" id="nav-tabContent">
+	 
+	  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+		<br>
+			<form:form commandName="Category">
+			구분 &nbsp; &nbsp; &nbsp; <select name="classification" class="choice">
+					<option class="delete">선택하세요</option>
+					<option value="category_1">테마별&&사이드디쉬</option>
+					<option value="category_2">브랜드관</option>
+				  </select>
+				  <br>
+			<div id="select">
+			 </div><br>
+			</form:form>
+						
+			<div id="edit" class="selectname">
+			</div>
+	 </div>
+	 
+ 	<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+  	<!-- 콘텐트2 -->
+  	<div class="text-center">
+  	 <h5>상품 판매 재개</h5>
+    		
+ 	</div>
+ 		<!-- 여기에 내용 넣으시면돼요 -->
+ 	</div>
+ 
+ 
+  </div>
+
 <script>
 $(document).ready(function(){
 	
@@ -39,10 +132,11 @@ $(document).ready(function(){
 			
 			let select = document.getElementById("select");
 		    let p = document.createElement('p');
-		    
+		    let br = document.createElement('br');
 			let span = document.createElement('span');
+			
 		 	span.setAttribute("class","name");
-		 	span.innerHTML="카테고리명 : ";
+		 	span.innerHTML="카테고리명  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;";
 		 	
 		 	let CategoryName = document.createElement('select');
 		 	CategoryName.setAttribute("name","category_title");
@@ -69,7 +163,7 @@ $(document).ready(function(){
 				optS${n.index}.innerHTML="${menu2.category_title}";
 				CategoryName.appendChild(optS${n.index});
 	 		</c:forEach>
-		 
+	 		p.appendChild(br);
 		 	p.appendChild(span);
 		 	p.appendChild(CategoryName);
 
@@ -81,10 +175,11 @@ $(document).ready(function(){
 			
 			let select = document.getElementById("select");
 		    let p = document.createElement('p');
+		    let br = document.createElement('br');
 		    
 			let span = document.createElement('span');
 		 	span.setAttribute("class","name");
-		 	span.innerHTML="카테고리명 : ";
+		 	span.innerHTML="카테고리명 ";
 		 	
 		 	let CategoryName = document.createElement('select');
 		 	CategoryName.setAttribute("name","category_title");
@@ -105,7 +200,7 @@ $(document).ready(function(){
 				opt${n.index}.innerHTML="${menu3.category_title}";
 				CategoryName.appendChild(opt${n.index});
 		 	</c:forEach>
-		 
+		 	p.appendChild(br);
 		 	p.appendChild(span);
 		 	p.appendChild(CategoryName);
 
@@ -144,18 +239,32 @@ $(document).ready(function(){
 					form.setAttribute("commandName","ProductCategoryEdit");
 					
 					let span = document.createElement('span');
-				 	span.setAttribute("class","name");
-				 	span.setAttribute("class","delete4");
-				 	span.innerHTML="판매중지할 List 선택(수량은 0개로 변경) ";
+					let p = document.createElement('p');
+					let hr = document.createElement('hr');
 					
-				 	form.appendChild(span);
+				 	p.setAttribute("class","name");
+				 	p.setAttribute("class","listinfo");
+				 	p.innerHTML="판매 중지할 상품을 선택하세요(수량이 0개로 변경됩니다) ";
+					hr.setAttribute("class","line");
+				 	
+				 	form.appendChild(p);
+				 	form.appendChild(hr);
 				 	
 					for(let key in data.productList){
+						
+						let div = document.createElement('div');
+						div.setAttribute("class","box");
+						
 						let checkbox = document.createElement('input');
 						checkbox.setAttribute("type","checkbox");
 						checkbox.setAttribute("class","delete4");
+//						checkbox.setAttribute("id","check1");
 						checkbox.setAttribute("name","category_editList["+key+"].edit_check");
 						checkbox.setAttribute("value","1");
+						
+// 						let label = document.createElement('label');
+//						label.setAttribute("for","check1");   
+						
 						
 						let product_number = document.createElement('input');
 						product_number.setAttribute("type","hidden");
@@ -167,18 +276,25 @@ $(document).ready(function(){
 						product_name.setAttribute("class","delete4");
 						product_name.innerHTML=data.productList[key].product_name;
 						
+						form.appendChild(div);
 						form.appendChild(checkbox);
+//						form.appendChild(label);
 						form.appendChild(product_number);
 						form.appendChild(product_name);
 					}
+					
+					let br = document.createElement('br');
 					let submit = document.createElement('input');
 					submit.setAttribute("type","button");
-					submit.setAttribute("class","delete4");
+					submit.setAttribute("class","btn light-green");
 					submit.setAttribute("id","uploadBtn");
 					submit.setAttribute("value","변경하기");
-
+					
+					form.appendChild(br);
 					form.appendChild(submit);
+					
 				 	edit.appendChild(form);
+				 	
 					
 				}
 			},error:function(){
@@ -186,6 +302,7 @@ $(document).ready(function(){
 			}
 		});    
 	});
+	
 	$(document).on('click','#uploadBtn',function(){
 		$("#Suspension").submit();
 		/* let category_title = $(".op option:selected").val();
@@ -200,6 +317,8 @@ $(document).ready(function(){
 });
 
 </script>
+<br>
+<br>
 <%@include file="../footer.jsp" %>
 </body>
 </html>
