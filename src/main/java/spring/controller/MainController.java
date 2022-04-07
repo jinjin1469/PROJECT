@@ -36,6 +36,7 @@ public class MainController {
 		model.addAttribute("Product1", bestProductList);
 		model.addAttribute("Product2", randomProductList);
 		model.addAttribute("Product3", NewProductList);
+		model.addAttribute("price", 123);
 		
 		return "main";
 	}

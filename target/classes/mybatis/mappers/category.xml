@@ -66,12 +66,12 @@
 	</update>
 	<update id="productCategoryNameNull1" parameterType="Category">
 		UPDATE m_product SET 
-		category_1 is null
+		category_1=null
 		WHERE category_1 = #{category_title}
 	</update>
 	<update id="productCategoryNameNull2" parameterType="Category">
 		UPDATE m_product SET 
-		category_2 is null
+		category_2=null
 		WHERE category_2 = #{category_title}
 	</update>
 	<update id="deleteBysortNumUpdate" parameterType="hashMap">
