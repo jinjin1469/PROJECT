@@ -41,7 +41,7 @@ public class ReviewController {
 		this.reviewService = reviewService;
 	}
 	
-	//리뷰 작성
+	//由щ럭 �옉�꽦
 	@RequestMapping(value="/order/review/insertReview", method=RequestMethod.POST)
 		 public String reviewRegister(Model model, Review review ,Errors errors,HttpServletResponse response, HttpServletRequest request, HttpSession session) throws IOException {
 			
@@ -52,17 +52,12 @@ public class ReviewController {
 			long member_number = authinfo.getMember_number();
 			review.setMember_number(member_number);
 			long order_number = review.getOrder_number();
+			reviewService.reviewConfirm(order_number);
 			
 			reviewService.insert(review);
 			List<Review> list = reviewService.listReview(order_number);
 			
 			
-			
-			out.println("<script>");
-			out.println("alert('리뷰가 등록되었습니다.');");
-			out.println("history.go(-1);");
-			out.println("</script>");
-			out.close();
 			
 			
 			model.addAttribute("list", list);
@@ -71,10 +66,10 @@ public class ReviewController {
 //		long product_number = qna.getProduct_number();
 //			long num = qnaService.selectProNum(product_number);
 
-			return "redirect:/order/review/"+ order_number;
+			return "CATEGORY/categoryClose";
 		}
 	
-	//내 리뷰 모아보기
+	//�궡 由щ럭 紐⑥븘蹂닿린
 	@RequestMapping(value="/mypage/myreviewlist")
 	   public String myreviewList(Model model, HttpSession session) {
 		   

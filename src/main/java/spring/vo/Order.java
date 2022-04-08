@@ -20,6 +20,7 @@ public class Order {
 	private int order_join_number;
 	private int recipient_check;
 	private int delivery_cost;
+	private String sales_regdate;
 	
 	private ArrayList<OrderSub> order_sub;
 	
@@ -129,6 +130,14 @@ public class Order {
 
 	public void setDelivery_cost(int delivery_cost) {
 		this.delivery_cost = delivery_cost;
+	}
+
+	public String getSales_regdate() {
+		return sales_regdate;
+	}
+
+	public void setSales_regdate(String sales_regdate) {
+		this.sales_regdate = sales_regdate;
 	}
 	
 	

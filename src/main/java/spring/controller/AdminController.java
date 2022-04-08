@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +21,7 @@ import com.siot.IamportRestClient.IamportClient;
 import spring.dao.AdminDao;
 import spring.dao.CategoryDao;
 import spring.dao.OrderDao;
+import spring.vo.AuthInfo;
 import spring.vo.Category;
 import spring.vo.CategoryCommand;
 import spring.vo.Option;
@@ -41,5 +45,17 @@ public class AdminController {
 	public void setDao(OrderDao odao) {
 		this.odao = odao;
 	}
-	 
+	
+	@RequestMapping(value = "/Sales", method = RequestMethod.GET)
+	public String cancelG(Model model,HttpSession session, HttpServletRequest request) {
+		
+		List<Order> confirmationSales = adao.confirmationSales();
+		List<Order> allSales = adao.allSales();
+		
+		model.addAttribute("allSales", allSales);
+		model.addAttribute("confirmationSales", confirmationSales);
+		
+		return "/admin/Sales";
+	}
+	
 }

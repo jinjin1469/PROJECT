@@ -53,9 +53,15 @@
 		WHERE product_number = #{product_number}
 	</update>
 	
-	<update id="productSuspension" parameterType="ProductCategoryEditList">
+	<update id="stopSelling" parameterType="ProductCategoryEditList">
 		UPDATE m_product SET
 		product_count=0, delete_check=1
+		WHERE product_number = #{product_number}
+	</update>
+	
+	<update id="startSelling" parameterType="ProductCategoryEditList">
+		UPDATE m_product SET
+		product_count=#{product_count}, delete_check=0
 		WHERE product_number = #{product_number}
 	</update>
 	

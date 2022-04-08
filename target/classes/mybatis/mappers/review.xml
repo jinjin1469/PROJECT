@@ -44,6 +44,9 @@
 		from m_review r, m_product p, m_member m
 		where p.product_number = r.product_number and m.member_number= #{member_numbe} and ROWNUM <= 3 ORDER BY review_regdate]]>
 	</select>
+	<update id="reviewConfirm" parameterType="long">
+		update m_order set order_status = '리뷰완료' WHERE order_number=#{order_number}
+	</update>
 	
 	
 </mapper>

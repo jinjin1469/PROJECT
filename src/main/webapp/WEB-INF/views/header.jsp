@@ -24,8 +24,8 @@
      	<ul class="navheader">
 	       <li class="navheader"><a href="<c:url value='/member/login' />"  aria-current="page">로그인</a></li>
 	       <li class="navheader"><a href="<c:url value='/member/joinChoice' />" >회원가입</a></li>
-	       <li class="navheader"><a href="<c:url value='/category/productCategoryEdit' />" >상품분류카테고리변경</a></li>
-	       <li class="navheader"><a href="<c:url value='/category/productSuspension' />" >상품판매중지/상품판매재개</a></li>
+	       <li class="navheader"><a href="<c:url value='/category/productCategoryEdit' />" >상품카테고리변경</a></li>
+	       <li class="navheader"><a href="<c:url value='/category/stopOrStartSelling' />" >상품판매중지/상품판매재개</a></li>
      	</ul>
      </c:when>
     
@@ -36,8 +36,10 @@
 	       <li class="navheader"><a href="javascript:categoryAdd();">카테고리추가</a></li>
 	       <li class="navheader"><a href="javascript:categoryRemove();">카테고리삭제</a></li>
 	       <li class="navheader"><a href="javascript:categoryEdit();">카테고리순서변경</a></li>  
+	       <li class="navheader"><a href="<c:url value='/category/productCategoryEdit' />" >상품카테고리변경</a></li>
+	       <li class="navheader"><a href="<c:url value='/category/stopOrStartSelling' />" >상품판매중지/상품판매재개</a></li>
 	       <li class="navheader"><a href="<c:url value='/admin/admin/${authInfo.member_number}' />" >관리자페이지</a></li>
-	       <li class="navheader"><a href="<c:url value='/category/productCategoryEdit' />" >상품분류카테고리변경</a></li>
+	       
      	</ul>
      </c:when>
      

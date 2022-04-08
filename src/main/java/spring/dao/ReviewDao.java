@@ -22,6 +22,11 @@ public class ReviewDao {
 		sqlSession.insert("mybatis.mapper.review.insertReview", review);
 		
 	}
+	
+	public void reviewConfirm(long order_number) {
+		sqlSession.update("mybatis.mapper.review.reviewConfirm", order_number);
+		
+	}
 
 	public List<Review> listReview(long order_number) {
 		 return sqlSession.selectList("mybatis.mapper.review.listReview", order_number);

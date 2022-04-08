@@ -11,6 +11,7 @@ public class ProductCategoryEditList {
 	private int edit_check;
 	private String product_name;
 	private String classification;
+	private int product_count;
 	public int getProduct_number() {
 		return product_number;
 	}
@@ -34,6 +35,12 @@ public class ProductCategoryEditList {
 	}
 	public void setClassification(String classification) {
 		this.classification = classification;
+	}
+	public int getProduct_count() {
+		return product_count;
+	}
+	public void setProduct_count(int product_count) {
+		this.product_count = product_count;
 	}
 	
 }

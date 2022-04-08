@@ -71,9 +71,13 @@ public class CategoryDao {
 		sqlSession.update("mybatis.mapper.category.productCategoryNameNull2",category);
 	}
 	
-	public void productSuspension(ProductCategoryEditList list) { 
-		sqlSession.update("mybatis.mapper.category.productSuspension",list);
+	public void stopSelling(ProductCategoryEditList list) { 
+		sqlSession.update("mybatis.mapper.category.stopSelling",list);
 	}
+	public void startSelling(ProductCategoryEditList list) { 
+		sqlSession.update("mybatis.mapper.category.startSelling",list);
+	}
+	
 	
 	public void deleteBysortNumUpdate(int num,String classification) { 
 		Map<String, Object> map = new HashMap<>();
@@ -89,7 +93,14 @@ public class CategoryDao {
 		List<ProductCategoryEditList> list = sqlSession.selectList("mybatis.mapper.ProductCategoryEditList.categorySelect",pce);
 		return list;
 	}
-	
+	public List<ProductCategoryEditList> nullCategorySelect1(ProductCategoryEdit pce) { 
+		List<ProductCategoryEditList> list = sqlSession.selectList("mybatis.mapper.ProductCategoryEditList.nullCategorySelect1",pce);
+		return list;
+	}
+	public List<ProductCategoryEditList> categorySelect1(ProductCategoryEdit pce) { 
+		List<ProductCategoryEditList> list = sqlSession.selectList("mybatis.mapper.ProductCategoryEditList.categorySelect1",pce);
+		return list;
+	}
 	
 	
 	public CategoryDao(SqlSession sqlSession) {

@@ -19,6 +19,7 @@
 		<result column="order_status" property="order_status"/>
 		<result column="order_join_number" property="order_join_number"/>
 		<result column="delivery_cost" property="delivery_cost"/>
+		<result column="sales_regdate" property="sales_regdate"/>
 	</resultMap>
 	
 	<select id="selectOrderCnt" resultType="int" parameterType="int">
@@ -55,7 +56,7 @@
 		SELECT COUNT(*) FROM m_order WHERE order_status='배송준비중' ORDER BY order_regdate DESC
 	</select>
 	<select id="deliveryCompleteCnt" resultType="int" >
-		SELECT COUNT(*) FROM m_order WHERE order_status IN ('배송완료','구매확정') ORDER BY order_regdate DESC
+		SELECT COUNT(*) FROM m_order WHERE order_status IN ('배송완료','구매확정','리뷰완료') ORDER BY order_regdate DESC
 	</select>
 	<select id="orderwaitList" resultMap="orderVo" parameterType="hashMap">
 		SELECT order_number,order_regdate,order_price,order_status
@@ -104,6 +105,16 @@
 	
 	<select id="payment_status" resultType="String" parameterType="int">
 		SELECT pay_status FROM m_order WHERE order_number=#{orderNum}
+	</select>
+	
+	<select id="confirmationSales" resultMap="orderVo">
+		SELECT TO_CHAR(order_regdate, 'YYYY/MM/DD') sales_regdate,SUM(order_price) order_price 
+		FROM m_order WHERE pay_status='결제완료' AND order_status NOT IN('배송완료','배송준비중') 
+		GROUP BY TO_CHAR(order_regdate, 'YYYY/MM/DD')
+	</select>
+	<select id="allSales" resultMap="orderVo">
+		SELECT TO_CHAR(order_regdate, 'YYYY/MM/DD') sales_regdate,SUM(order_price) order_price 
+		FROM m_order WHERE pay_status='결제완료' GROUP BY TO_CHAR(order_regdate, 'YYYY/MM/DD')
 	</select>
 	
 	<update id="paymentCancel" parameterType="long">
