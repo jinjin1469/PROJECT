@@ -12,7 +12,6 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="../../../resources/js/calendar.js"></script>
 <meta charset="UTF-8">
 <title>밀슐랭</title>
 <style>
@@ -276,50 +275,6 @@ background: #F5F5F5;
 	  </div>
 
 <br>
-<div id="chartDiv">
-	<div>
-	  <canvas id="monthSalesChart"></canvas>
-	</div>
-</div>
-
-<input type="month" id="selectMonth" onchange="selectMonth()">
-
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-function monthSalesChart(Cnt){
-
-  let labels1 = [];
-	  for (let i = 0; i < Cnt.length;i++) {
-		  labels1.push(Cnt[i]);
-	  }
-  let data1 = {
-    labels: labels1,
-    datasets: [{
-      label: '이번달 매출금액',
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
-      data: [0, 10, 5, 2, 20, 30, 200]},
-     {
-        label: '전달 매출금액',
-        backgroundColor: 'rgb(75, 127, 205)',
-        borderColor: 'rgb(75, 127, 205)',
-        data: [${price}, 100, 50, 22, 2, 3, 200]}
-    ]
-  };
-
-  let config1 = {
-    type: 'line',
-    data: data1,
-    options: {}
-  };
-  
-  const myChart1 = new Chart(
-		    document.getElementById('monthSalesChart'),
-		    config1
-		  );
-}
-</script>
 
 <br>
 <br>
