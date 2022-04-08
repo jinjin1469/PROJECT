@@ -21,6 +21,10 @@ public class ReviewService {
 		dao.insert(review);
 	}
 
+	public void reviewConfirm(long order_number) {
+		dao.reviewConfirm(order_number);
+	}
+	
 	public List<Review> listReview(long order_number) {
 		return dao.listReview(order_number);
 	}

@@ -58,6 +58,7 @@ th {
 	<hr>
 		<p><a href="<c:url value='/product/insert'/>" class="menu">상품등록</a></p>
 		<p><a href="<c:url value='/product/totalList' />" class="menu">상품전체보기</a></p>
+		<p><a href="<c:url value='/product/List/totalList' />" class="menu">상품전체보기</a></p>
 	<br>
 	<p><strong>쇼핑관리</strong></p>
 	<hr>
@@ -67,6 +68,7 @@ th {
 		<p><a href="<c:url value='/admin/adminReviewList' />" class="menu">리뷰 모아보기</a></p>
 		<p><a href="<c:url value='/notice/main' />" class="menu">F&Q</a></p>
 	<br>
+
 	<p><strong>매출관리</strong></p>
 	<hr>
 		<p><a href="<c:url value='/admin/totalSales' />" class="menu">전체매출</a></p>
@@ -74,6 +76,16 @@ th {
 		<p><a href="<c:url value='/admin/productSales' />" class="menu">상품별 매출</a></p>
 		
 	<br>
+
+	<c:if test="${authInfo.member_id  eq 'MEALADMIN' }">
+	<p><strong>매출관리</strong></p>
+	<hr>
+		<p><a href="<c:url value='/admin/Sales' />" class="menu">매출현황</a></p>
+		
+	<br>
+	</c:if>
+
+
 </div>
 </aside>
 <section>

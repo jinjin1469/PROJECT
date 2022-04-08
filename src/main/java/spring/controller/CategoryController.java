@@ -140,7 +140,7 @@ public class CategoryController {
 
 		return "CATEGORY/productCategoryEdit";
 	}
-	@RequestMapping(value = "/productSuspension", method = RequestMethod.GET)
+	@RequestMapping(value = "/stopOrStartSelling", method = RequestMethod.GET)
 	public String productSuspensionG(Model model) {
 
 		List<Category> menu1 = dao.menu1();
@@ -153,11 +153,11 @@ public class CategoryController {
 
 		model.addAttribute("CategoryCommand", new CategoryCommand());
 
-		return "CATEGORY/productSuspension";
+		return "CATEGORY/stopOrStartSelling";
 	}
 	
 	  //ajax
-	  
+	
 	@ResponseBody
 	@RequestMapping(value="/categoryCheck", method = RequestMethod.POST, produces = "application/json; charset=utf8")
 	public Map<String,Object> testaa(@RequestBody Map<String,String> param,Model model){ 
@@ -192,11 +192,57 @@ public class CategoryController {
 
 	  return list; 
 	  }
-	@RequestMapping(value = "/productSuspension", method = RequestMethod.POST)
-	public String productSuspensionP(ProductCategoryEdit editList,Model model) {
+	@ResponseBody
+	@RequestMapping(value="/categoryRemoveCheck", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+	public Map<String,Object> testab(@RequestBody Map<String,String> param,Model model){ 
+		  
+		  Map<String,Object> list = new HashMap<String,Object>();
+		  List<ProductCategoryEditList> productList = new ArrayList<ProductCategoryEditList>();
+		  String category_title = String.valueOf(param.get("category_title"));
+		  String classification = String.valueOf(param.get("classification"));
+
+		  ProductCategoryEdit input = new ProductCategoryEdit();
+		  input.setCategory_title(category_title);
+		  
+		  if(category_title.equals("NULL")) {
+			  if(classification.equals("category_1")) {
+				  input.setCategory_1(classification);
+			  }else if(classification.equals("category_2")) {
+				  input.setCategory_2(classification);
+			  }
+			  productList = dao.nullCategorySelect1(input);
+		  }else{
+			  if(classification.equals("category_1")) {
+				  input.setCategory_1(classification);
+			  }else if(classification.equals("category_2")) {
+				  input.setCategory_2(classification);
+			  }
+			  productList = dao.categorySelect1(input);
+		  }
+		  
+		  list.put("category_title",category_title);
+		  list.put("classification",classification);
+		  list.put("productList",productList);
+
+	  return list; 
+	  }
+	@RequestMapping(value = "/stopSelling", method = RequestMethod.POST)
+	public String stopSellingP(ProductCategoryEdit editList,Model model) {
 		for(ProductCategoryEditList list : editList.getCategory_editList()) {
 			if(list.getEdit_check()==1){
-				dao.productSuspension(list);
+				dao.stopSelling(list);
+			}
+		}
+		return "redirect:/";
+	}
+	@RequestMapping(value = "/startSelling", method = RequestMethod.POST)
+	public String startSellingP(ProductCategoryEdit editList,Model model) {
+		for(ProductCategoryEditList list : editList.getCategory_editList()) {
+			if(list.getEdit_check()==1){
+				if(list.getProduct_count()!=0) {
+					dao.startSelling(list);
+				}
+				
 			}
 		}
 		return "redirect:/";

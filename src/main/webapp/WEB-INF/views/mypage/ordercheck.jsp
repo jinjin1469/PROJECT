@@ -100,6 +100,9 @@
 							<c:when test="${list.order_status=='구매확정'}">
 								<td><a href="javascript:review(${list.order_number});">리뷰쓰기</a></td>
 							</c:when>
+							<c:when test="${list.order_status=='리뷰완료'}">
+								<td><a href="javascript:review(${list.order_number});">리뷰확인하기</a></td>
+							</c:when>
 						</c:choose>
 					</tr>
 				</c:forEach>

@@ -73,7 +73,7 @@
 			
 			</div>
 	<br>
-	<div class="recentBox">*최근 3개 내역에 대한 내용입니다.</div>
+	<div class="recentBox">*최근 구매 내역 3건에 대한 조회 내용입니다.</div>
 		<table class="tbl">
 			<tr>
 				<th>주문일자</th>
@@ -84,8 +84,8 @@
 			<tr>
 				<td colspan="4">주문 내역이 없습니다.</td>
 			</tr>
-
 		</table>
+
 		
 		<table class="tbl">
 			<tr>
@@ -108,7 +108,8 @@
 			</tr>
 		</c:forEach>
 		</c:if>
-		</table>
+
+	</table>
 		
 
 </section>

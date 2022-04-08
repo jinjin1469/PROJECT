@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import spring.vo.Category;
 import spring.vo.Notice;
 import spring.vo.Option;
+import spring.vo.Order;
 import spring.vo.Product;
 import spring.vo.ProductCategoryEdit;
 import spring.vo.ProductCategoryEditList;
@@ -21,10 +22,16 @@ public class AdminDao {
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
+
+	public List<Order> confirmationSales() { 
+		List<Order> list = sqlSession.selectList("mybatis.mapper.order.confirmationSales");
+		return list;
+	}
 	
-	
-	
-	
+	public List<Order> allSales() { 
+		List<Order> list = sqlSession.selectList("mybatis.mapper.order.allSales");
+		return list;
+	}
 	
 	public AdminDao(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;

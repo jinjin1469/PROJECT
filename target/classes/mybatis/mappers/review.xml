@@ -49,6 +49,7 @@
 		from m_member m, m_review r, m_product p
 		where m.member_number = r.member_number and r.product_number = p.product_number order by review_number DESC
 	</select>
+
 	<select id="selectAllNumBoard" resultType="int">
 		select COUNT(*)
 		from m_member m, m_review r, m_product p
@@ -61,9 +62,11 @@
 		from(select member_nickname, review_content, review_regdate,  product_name from m_member m, m_review r, m_product p
 		where m.member_number = r.member_number and r.product_number = p.product_number order by review_number DESC))
 		 WHERE num BETWEEN (#{section}-1)*100+(#{pageNum}-1)*10+1 AND (#{section}-1)*100+(#{pageNum})*10
-	
 	</select>
-	
+	<update id="reviewConfirm" parameterType="long">
+		update m_order set order_status = '리뷰완료' WHERE order_number=#{order_number}
+	</update>
+
 	<select id="selectAllNumReview" resultType="int" parameterType="long">
 		select COUNT(*)
 		from m_review r, m_product p, m_member m

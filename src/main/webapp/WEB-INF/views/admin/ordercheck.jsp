@@ -37,8 +37,7 @@
 	<p><strong>상품관리</strong></p>
 	<hr>
 		<p><a href="<c:url value='/product/insert'/>" class="menu">상품등록</a></p>
-		<p><a href="<c:url value='/product/totalList' />" class="menu">상품전체보기</a></p>
-		<%-- <p><a href="<c:url value='/member/login' />" class="menu">장바구니</a></p> --%>
+		<p><a href="<c:url value='/product/List/totalList' />" class="menu">상품전체보기</a></p>
 	<br>
 	<p><strong>쇼핑관리</strong></p>
 	<hr>
@@ -50,15 +49,10 @@
 	<br>
 	<p><strong>매출관리</strong></p>
 	<hr>
-		<p><a href="<c:url value='/admin/totalSales' />" class="menu">전체매출</a></p>
-		<p><a href="<c:url value='/admin/categorySales' />" class="menu">카테고리별 매출</a></p>
-		<p><a href="<c:url value='/admin/productSales' />" class="menu">상품별 매출</a></p>
+		<p><a href="<c:url value='/admin/Sales' />" class="menu">매출현황</a></p>
 		
 	<br>
-	<%-- <p><strong>회원관리</strong></p>
-	<hr>
-		<p><a href="<c:url value='/mypage/modify/${member.member_number}' />" class="menu">회원정보변경</a></p>
-		<p><a href="<c:url value='/member/login' />" class="menu">회원정보 탈퇴신청</a></p> --%>
+
 </div>
 </aside>
 

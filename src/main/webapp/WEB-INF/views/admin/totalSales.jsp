@@ -38,7 +38,6 @@
 	<hr>
 		<p><a href="<c:url value='/product/insert'/>" class="menu">상품등록</a></p>
 		<p><a href="<c:url value='/product/totalList' />" class="menu">상품전체보기</a></p>
-		<%-- <p><a href="<c:url value='/member/login' />" class="menu">장바구니</a></p> --%>
 	<br>
 	<p><strong>쇼핑관리</strong></p>
 	<hr>
