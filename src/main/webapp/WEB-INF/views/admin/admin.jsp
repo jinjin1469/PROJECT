@@ -18,6 +18,9 @@
 	padding: 0px;
 	color: #696969;
 }
+.th-1{width:300px;}
+.th-2{width:400px;}
+.th-3{width:200px;}
 
 
 </style>
@@ -36,14 +39,14 @@
 	<hr>
 		<p><a href="<c:url value='/product/insert'/>" class="menu">상품등록</a></p>
 		<p><a href="<c:url value='/product/totalList' />" class="menu">상품전체보기</a></p>
-		<%-- <p><a href="<c:url value='/member/login' />" class="menu">장바구니</a></p> --%>
+		
 	<br>
 	<p><strong>쇼핑관리</strong></p>
 	<hr>
 
 		<p><a href="<c:url value='/mypage/qnalist' />" class="menu">1:1 문의 모아보기</a></p>
 		<p><a href="<c:url value='/admin/orderStatus' />" class="menu">배송관리</a></p>
-		<p><a href="<c:url value='/member/login' />" class="menu">리뷰 모아보기</a></p>
+		<p><a href="<c:url value='/admin/adminReviewList' />" class="menu">리뷰 모아보기</a></p>
 		<p><a href="<c:url value='/notice/main' />" class="menu">F&Q</a></p>
 	<br>
 	<p><strong>매출관리</strong></p>
@@ -53,10 +56,7 @@
 		<p><a href="<c:url value='/admin/productSales' />" class="menu">상품별 매출</a></p>
 		
 	<br>
-	<%-- <p><strong>회원관리</strong></p>
-	<hr>
-		<p><a href="<c:url value='/mypage/modify/${member.member_number}' />" class="menu">회원정보변경</a></p>
-		<p><a href="<c:url value='/member/login' />" class="menu">회원정보 탈퇴신청</a></p> --%>
+
 </div>
 </aside>
 
@@ -72,8 +72,8 @@
 			<p>주 소 : ${member.member_address}</p>
 			</div>
 			<div class="order"></div>
-
-		
+		<br>
+		<div class="recentBox">*최근 3개 내역에 대한 내용입니다.</div>
 		<table class="tbl">
 			<tr>
 				<th>주문일자</th>
@@ -88,13 +88,25 @@
 		
 		<table class="tbl">
 			<tr>
-				<th>등록일자</th>
-				<th>리뷰 내용</th>
-				<th>상품명</th>
+				<th class="th-1">상품이름</th>
+				<th class="th-2">리뷰 내용</th>
+				<th class="th-3">등록일자</th>
 			</tr>
+			<c:if test="${empty list}">
 			<tr>
-				<td colspan="3">작성한 리뷰가 없습니다.</td>
+				<td colspan="3">아직 작성한 리뷰가 없습니다.</td>
 			</tr>
+		</c:if>
+	
+		<c:if test="${!empty list}">
+		<c:forEach var="review" items="${list}">
+			<tr>
+				<td>${review.product_name}</td>
+				<td>${review.review_content}</td>
+				<td>${review.review_regdate}</td>
+			</tr>
+		</c:forEach>
+		</c:if>
 		</table>
 		
 

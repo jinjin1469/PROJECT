@@ -150,6 +150,13 @@
 	WHERE num BETWEEN (#{section}-1)*100+(#{pageNum}-1)*10+1 AND (#{section}-1)*100+(#{pageNum})*10
 	</select>
 	
+	<select id="selectByQnaNum" resultType="int" parameterType="long">
+	select option_join_number 
+	from m_product p, m_qna q
+	where p.product_number = q.product_number and q.qna_number = #{qna_number}
+	</select>
+
+	
 
 
 </mapper>

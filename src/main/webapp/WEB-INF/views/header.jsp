@@ -45,7 +45,7 @@
        <ul class="navheader">
 	       <li class="navheader userinfo">${authInfo.member_name}님 안녕하세요💗</li>
 	       <li class="navheader"><a href="<c:url value='/logout' />"  aria-current="page">로그아웃</a></li>
-	       <li class="navheader"><a href="<c:url value='/mypage/mypage/${authInfo.member_number}' />" >마이페이지</a></li>
+	       <li class="navheader"><a href="<c:url value='/mypage/mypage' />" >마이페이지</a></li>
 	       <li class="navheader"><a href="<c:url value='/product/cart/list.do' />">장바구니</a></li>
 	   <%--     <li class="navheader"><a href="<c:url value='/mypage/orderStatus' />" >주문내역</a></li> --%>
       </ul>

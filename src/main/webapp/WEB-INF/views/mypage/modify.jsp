@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="stylesheet" href="../../../resources/css/join.css">
 <title>회원정보 수정</title>
 </head>
@@ -119,7 +120,7 @@ input[type="text"], input[type="password"] {
 		</table>
 		<br>
 		<button class="btn1 btn-primary btn-lg btn-block" type="button" id="signupbtn" name="signup">수정하기</button>
-		<button type="button" class="btn2 btn-primary btn-lg btn-block" onclick="location.href='/mypage/mypage/${member.member_number}';">목록으로</button>
+		<button type="button" class="btn2 btn-primary btn-lg btn-block" onclick="location.href='/mypage/mypage';">목록으로</button>
 	</form>
 	<br>
 	<br>
@@ -169,12 +170,22 @@ input[type="text"], input[type="password"] {
 	$("select[name=selectEmail]").change(function(){
 		email();	
 	}); 
+	
+	$("input[name=domain]").blur(function(){
+		email();	
+	}); 
+	
+
+	$("input[name=domain]").change(function(){
+		email();	
+	}); 
 
 	function email() {
 		const email = $("#email").val();
 		const middle = $("#middle").text();
 		const domain = $("#domain").val();
-		if(email != "" && domain != "") {
+//		if(email != "" && domain != "") 
+			if(email != "")	{
 			$("#member_email").val(email+middle+domain);
 		}
 	};
@@ -203,55 +214,6 @@ input[type="text"], input[type="password"] {
 			$("#member_address").val(postcode+address+detailAddress);
 		}	
 	};
-	
-	
-	//닉네임 중복 체크
-	$("#member_nickname").blur(function(){ 
-		var member_nickname = $("#member_nickname").val();
-		var regex = /[0-9]|[a-z]|[A-Z]|[가-힣]/;
-		var result = regex.exec($("#member_nickname").val());
-		
-		if(member_nickname == "" || member_nickname.length<2){ 
-			
-			$(".successNameChk").text("닉네임은 한글, 영문, 숫자만 가능하며 2-10자리 가능합니다.");
-			$(".successNameChk").css("color", "red"); 
-			$("#nicknameDoubleChk").val("false"); 
-			$("#nicknameDoubleChk").val("false"); 
-		
-		}else{ 
-			 
-			$.ajax({ 
-					
-					 url : '${pageContext.request.contextPath}/nameCheck?member_nickname='+ member_nickname, 
-					 type : 'post', 
-					 dataType: "json",
-					 cache : false, 
-					 success : function(data) { 
-						 if (data == 0 && result != null) {
-							 $(".successNameChk").text("사용가능한 닉네임입니다."); 
-						 	 $(".successNameChk").css("color", "green"); 
-						 	 $("#nicknameDoubleChk").val("true"); 
-						
-						 } else if(result == null){
-			
-							 $(".successNameChk").text("닉네임은 한글, 영문, 숫자만 가능하며 2-10자리 가능합니다.");
-							 $(".successNameChk").css("color", "red"); 
-							 $("#nicknameDoubleChk").val("false"); 
-							 
-						 }else{ 
-							 $(".successNameChk	").text("사용중인 닉네임입니다.");
-							 $(".successNameChk").css("color", "red"); 
-							 $("#nicknameDoubleChk").val("false"); 
-							 } 
-						 }, error : function() {
-							 console.log(member_nickname);
-							 console.log("실패"); 
-							 $(".successNameChk").text("특수문자 입력 불가능합니다.");
-							 $(".successNameChk").css("color", "red"); 
-							 $("#nicknameDoubleChk").val("false"); 
-							 }
-						 });
-					} });
 	
 	
 	

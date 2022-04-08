@@ -1,7 +1,8 @@
 package spring.vo;
 
 public class RegisterRequest {
-
+	
+	private long member_number;
 	private String member_id;
 	private String member_pwd;
 	private String member_name;
@@ -11,7 +12,14 @@ public class RegisterRequest {
 	private String member_address;
 	private String rePassword;
 	private String pwd;
+	
+	public long getMember_number() {
+		return member_number;
+	}
 
+	public void setMember_number(long member_number) {
+		this.member_number = member_number;
+	}
 	public String getPwd() {
 		return pwd;
 	}
@@ -20,6 +28,10 @@ public class RegisterRequest {
 		this.pwd = pwd;
 	}
 
+	public boolean isPasswordEqualToConfirmPwd() {
+		return member_pwd.equals(pwd);
+	}
+	
 	public boolean isPasswordEqualToConfirmPassword() {
 		return member_pwd.equals(rePassword);
 	}

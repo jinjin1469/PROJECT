@@ -38,6 +38,10 @@ public class MyPageController {
 	@Autowired
 	MemberDao dao;
 
+	public void setDao(MemberDao dao) {
+		this.dao = dao;
+	}
+
 	@Autowired
 	private ManageService manageService;
 
@@ -58,12 +62,25 @@ public class MyPageController {
 	}
 	
 
-	 @RequestMapping(value="/mypage/mypage/{member_number}",method=RequestMethod.GET)
-		public String myPage(@PathVariable("member_number") Long member_number, Model model) {
+	 @RequestMapping(value="/mypage/mypage",method=RequestMethod.GET)
+		public String myPage(Model model, HttpSession session) {
+		 	
 		 
+		 AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+		 	
+		 if (authinfo == null) {
+				return "redirect:/member/login";
+			}
+			
+			long member_number = authinfo.getMember_number();
+		 	
 			Member memVo = manageService.myPage(member_number);
 			List<Review> list = manageService.myReview(member_number);
-			
+			int count = manageService.myPurchasesCount(member_number);
+			int amount = manageService.myAmount(member_number);
+				
+			model.addAttribute("count", count);
+			model.addAttribute("amount", amount);
 			model.addAttribute("list",list);
 			model.addAttribute("member", memVo);
 			
@@ -78,17 +95,25 @@ public class MyPageController {
 			public String myPageAdmin(@PathVariable("member_number") Long member_number, Model model) {
 			 
 				Member memVo = manageService.myPage(member_number);
+				List<Review> list = manageService.ReviewList();
 				
 				model.addAttribute("member", memVo);
-				
+				model.addAttribute("list",list);
 				return "admin/admin";
 			}
 		 
 	 
 
-	 @RequestMapping(value="/mypage/modify/{member_number}",method=RequestMethod.GET)
-		public String modifyForm(@PathVariable("member_number") Long member_number, Model model) {
-		 
+	 @RequestMapping(value="/mypage/modify",method=RequestMethod.GET)
+		public String modifyForm(Model model, HttpSession session) {
+		 	
+		 	AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+		 	
+		 if (authinfo == null) {
+				return "redirect:/member/login";
+			}
+			
+			long member_number = authinfo.getMember_number();
 			Member memVo = manageService.myPage(member_number);
 			
 			model.addAttribute("member", memVo);
@@ -98,8 +123,8 @@ public class MyPageController {
 		}
 	 
 
-	 @RequestMapping(value="/mypage/modify/modifyInfo",method=RequestMethod.GET)
-		public String modifyInfo(Model model, HttpSession session) {
+	 @RequestMapping(value="/mypage/modifyInfo",method=RequestMethod.POST)
+		public String modifyInfo(Model model, HttpSession session, RegisterRequest regReq) {
 		 	
 		 AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
 		 	
@@ -108,15 +133,22 @@ public class MyPageController {
 			}
 			
 			long member_number = authinfo.getMember_number();
-			manageService.update(member_number);
+			manageService.update(regReq);
 			
-			return "redirect:/mypage/mypage/" + member_number;
+			return "redirect:/mypage/mypage/";
 		}
 
 
-		 @RequestMapping(value="/mypage/modifyPwd/{member_number}",method=RequestMethod.GET)
-			public String modifyPwdForm(@PathVariable("member_number") Long member_number, RegisterRequest regReq, Model model) {
-			 
+		 @RequestMapping(value="/mypage/modifyPwd",method=RequestMethod.GET)
+			public String modifyPwdForm(HttpSession session,RegisterRequest regReq, Model model) {
+			 	
+			 AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+			 	
+			 	if (authinfo == null) {
+					return "redirect:/member/login";
+				}
+				
+				long member_number = authinfo.getMember_number();
 				Member memVo = manageService.myPage(member_number);
 				
 				model.addAttribute("member", memVo);
@@ -126,29 +158,37 @@ public class MyPageController {
 			}
 		 
 
-		 @RequestMapping(value="/mypage/modifyPwd/modifying/{member_number}",method=RequestMethod.POST)
-			public String modifyPwd(@PathVariable("member_number") Long member_number, RegisterRequest regReq,  HttpServletResponse response, Model model, HttpSession session) throws IOException {
-			 	response.setContentType("text/html;charset=utf-8");
+		 @RequestMapping(value="/mypage/modifying",method=RequestMethod.POST)
+			public String modifyPwd(RegisterRequest regReq,  HttpServletResponse response, Model model, HttpSession session) throws IOException {
+				response.setContentType("text/html;charset=utf-8");
 				PrintWriter out = response.getWriter();
+			 	AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+			 	
+				long member_number = authinfo.getMember_number();
+				
 			 	String pwd = regReq.getPwd();
 			 	String member_pwd = manageService.pwdFind(member_number);
+			 	System.out.println("pwd" + pwd);
+			 	System.out.println("member_pwd" + member_pwd);
 			 	
-				if(pwd != member_pwd) {
+				if(pwd.equals(member_pwd)) {
+					manageService.pwdModify(member_number,regReq);
+					Member memVo = dao.selectByMemberNum(member_number);
+					model.addAttribute("member", memVo);
 					
+					return "/mypage/mypage";	
+				}else if(!pwd.equals(member_pwd)) {
 					out.println("<script>");
-					out.println("alert('현재 비밀번호가 일치않습니다.');");
+					out.println("alert('현재 비밀번호가 일치하지않습니다.');");
 					out.println("history.go(-1);");
 					out.println("</script>");
 					out.close();
-					
+					return "/mypage/modifyPwd";
 				}
-				
-				manageService.pwdModify(member_number,regReq);
-				Member memVo = dao.selectByMemberNum(member_number);
-				model.addAttribute("member", memVo);
-				
-				return "redirect:/mypage/mypage/{member_number}";
+			return "/mypage/mypage";
+			
 			}
+			
 		 
 		
 
@@ -309,5 +349,68 @@ public class MyPageController {
 				return "mypage/pointcheck";
 		}
 
+		 
+		 
+		 //회원 탈퇴 페이지연결
+		 @RequestMapping(value="/mypage/deleteAccount",  method = RequestMethod.GET)
+		 public String deleteAccount(Model model,HttpSession session, HttpServletRequest request) {
+			 
+			 AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+			 	if (authinfo == null) {
+					return "redirect:/member/login";
+				}
+			 	
+			 	long member_number = authinfo.getMember_number();
+				model.addAttribute("confirmPwd", new RegisterRequest());
+				int orderWaiting = manageService.askStatus(member_number);
+			 	System.out.println("배송준비중" + orderWaiting);
+			 
+			 return "mypage/deleteAccount";
+		 }
+		 
+		 
+		 //회원 탈퇴진행
+		 @RequestMapping(value="/mypage/delete",  method = RequestMethod.POST)
+		 public String delete(Model model,HttpSession session, HttpServletRequest request, HttpServletResponse response, RegisterRequest regReq) throws IOException {
+			 
+			 AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+			 	if (authinfo == null) {
+					return "redirect:/member/login";
+				}
+				
+			 	long member_number = authinfo.getMember_number();
+				response.setContentType("text/html;charset=utf-8");
+				PrintWriter out = response.getWriter();
+			 	String pwd = regReq.getPwd();
+			 	String member_pwd = manageService.pwdFind(member_number);
+			 	int orderWaiting = manageService.askStatus(member_number);
+			 	
+			 	System.out.println("pwd" + pwd);
+			 	System.out.println("member_pwd" + member_pwd);
+			 	
+			 	if(!pwd.equals(member_pwd))  {
+					out.println("<script>");
+					out.println("alert('비밀번호가 일치않습니다.');");
+					out.println("history.go(-1);");
+					out.println("</script>");
+					out.close();
+					return "/mypage/deleteAccount";
+			 	}else if(orderWaiting != 0) {
+			 		System.out.println("첫번째관문 통과");
+			 		System.out.println("두번째관문");
+					out.println("<script>");
+					out.println("alert('배송 준비중인 상품이 있습니다. 주문취소 또는 배송완료 시 탈퇴 가능합니다.');");
+					out.println("history.go(-1);");
+					out.println("</script>");
+					out.close();
+					return "/mypage/deleteAccount";
+				}else{
+					manageService.delete(member_number);
+				 }
+				
+			return "redirect:/";
+		 }
+		 
+		 
 	
 }

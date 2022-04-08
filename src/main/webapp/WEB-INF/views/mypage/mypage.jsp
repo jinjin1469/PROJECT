@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +19,7 @@
 	padding: 0px;
 	color: #696969;
 }
+.order{font-weight:bold;}
 
 
 </style>
@@ -47,9 +49,9 @@
 	<br>
 	<p><strong>회원정보</strong></p>
 	<hr>
-		<p><a href="<c:url value='/mypage/modify/${member.member_number}' />" class="menu">회원정보변경</a></p>
-		<p><a href="<c:url value='/mypage/modifyPwd/${member.member_number}' />" class="menu">비밀번호변경</a></p>
-		<p><a href="<c:url value='/member/login' />" class="menu">회원탈퇴</a></p>
+		<p><a href="<c:url value='/mypage/modify' />" class="menu">회원정보변경</a></p>
+		<p><a href="<c:url value='/mypage/modifyPwd' />" class="menu">비밀번호변경</a></p>
+		<p><a href="<c:url value='/mypage/deleteAccount' />" class="menu">회원탈퇴</a></p>
 </div>
 </aside>
 
@@ -64,9 +66,14 @@
 			<p>이메일 : ${member.member_email}</p>
 			<p>주 소 : ${member.member_address}</p>
 			</div>
-			<div class="order"></div>
-
-		
+			<div class="order">
+			<p>누적 포인트 - ${member.member_point}Point</p>
+			<p>누적 구매금액  - <fmt:formatNumber value="${amount}" pattern="#,###,###" />원</p>
+			<p>누적 구매 건수 - ${count}건</p>
+			
+			</div>
+	<br>
+	<div class="recentBox">*최근 3개 내역에 대한 내용입니다.</div>
 		<table class="tbl">
 			<tr>
 				<th>주문일자</th>
@@ -91,7 +98,8 @@
 				<td colspan="3">아직 작성한 리뷰가 없습니다.</td>
 			</tr>
 		</c:if>
-			
+	
+		<c:if test="${!empty list}">
 		<c:forEach var="review" items="${list}">
 			<tr>
 				<td>${review.product_name}</td>
@@ -99,7 +107,7 @@
 				<td>${review.review_regdate}</td>
 			</tr>
 		</c:forEach>
-			
+		</c:if>
 		</table>
 		
 

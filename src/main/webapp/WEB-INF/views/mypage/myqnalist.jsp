@@ -70,9 +70,9 @@ th {
 	<br>
 	<p><strong>회원정보</strong></p>
 	<hr>
-		<p><a href="<c:url value='/mypage/modify/${member.member_number}' />" class="menu">회원정보변경</a></p>
-		<p><a href="<c:url value='/mypage/modifyPwd/${member.member_number}' />" class="menu">비밀번호변경</a></p>
-		<p><a href="<c:url value='/member/login' />" class="menu">회원탈퇴</a></p>
+		<p><a href="<c:url value='/mypage/modify' />" class="menu">회원정보변경</a></p>
+		<p><a href="<c:url value='/mypage/modifyPwd' />" class="menu">비밀번호변경</a></p>
+		<p><a href="<c:url value='/mypage/deleteAccount' />" class="menu">회원탈퇴</a></p>
 </div>
 </aside>
 
@@ -89,6 +89,13 @@ th {
 			 		  		<th class="th-2">작성자</th>
 			 		  		<th class="th-2">작성일</th>
 			 		 	</tr>
+			 		 	<c:if test="${empty qna}">
+			 		 	 	<tr>
+			 		 	 		<td class="td-1" colspan="5">작성하신 질문이 없습니다.</td>
+			 		 		</tr>
+			 		 	</c:if>
+			 		 	
+			 		 	<c:if test="${!empty qna}">
 			 		 	<c:forEach var="qna" items="${qna}" varStatus="status">
 			 		 	<tr>
 			 		 		<td class="td-1">${qna.qna_state}</td>
@@ -100,8 +107,8 @@ th {
 			 		 		<td class="td-1">${qna.member_nickname}</td>
 			 		 		<td class="td-1">${qna.qna_regdate}</td>
 			 		 	</tr>
-			 					
-			 		 	</c:forEach>
+			 			</c:forEach>
+			 			</c:if>
 		 		  </table>
 
 

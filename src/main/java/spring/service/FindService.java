@@ -41,7 +41,7 @@ public class FindService {
 	public void sendEmail(Member memVo, String div) throws Exception {
 		// Mail Server 설정
 		String charSet = "utf-8";
-		String hostSMTP = "smtp.naver.com"; //네이버 이용시 smtp.naver.com
+		String hostSMTP = "smtp.naver.com"; 
 		String hostSMTPid = "withmealkit@naver.com";
 		String hostSMTPpwd = "alftbffod^^1234";
 
@@ -53,10 +53,10 @@ public class FindService {
 		
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.naver.com");
-		props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.socketFactory.port", "587");
 		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.port", "465");
+		props.put("mail.smtp.port", "587");
 
 		if(div.equals("findpwd")) {
 			subject = "밀슐랭 임시 비밀번호 입니다.";
@@ -75,7 +75,7 @@ public class FindService {
 			email.setCharset(charSet);
 			email.setSSL(true);
 			email.setHostName(hostSMTP);
-			email.setSmtpPort(465); //네이버 이용시 587 , 구글 465
+			email.setSmtpPort(587); //네이버 이용시 587 , 구글 465
 
 			email.setAuthentication(hostSMTPid, hostSMTPpwd);
 			email.setTLS(true);
@@ -130,7 +130,7 @@ public class FindService {
 			dao.updatePw(memVo);
 			// 비밀번호 변경 메일 발송
 			sendEmail(memVo, "findpwd");
-
+			
 			out.print("이메일로 임시 비밀번호를 발송하였습니다.");
 			out.close();
 		}

@@ -90,9 +90,40 @@ public class MemberDao {
    }
 
 	
-	public void updateInfo(long member_number) {
-		sqlSession.update("mybatis.mapper.member.updateInfo", member_number);
+	public void updateInfo(RegisterRequest regReq) {
+		sqlSession.update("mybatis.mapper.member.updateInfo", regReq);
 	}
+
+
+	public int askStatus(long member_number) {
+		return sqlSession.selectOne("mybatis.mapper.order.orderCheck", member_number);
+	}
+
+
+	public void deleteAccount(long member_number) {
+		sqlSession.delete("mybatis.mapper.member.deleteAccount",member_number);
+		
+	}
+
+
+	public int myPurchasesCount(long member_number) {
+		return sqlSession.selectOne("mybatis.mapper.order.myPurchasesCount",member_number);
+	}
+
+
+	public int myAmount(long member_number) {
+		return sqlSession.selectOne("mybatis.mapper.order.myAmount",member_number);
+	}
+
+
+	
+	 public List<Review> ReviewList() { 
+		List<Review> list =
+	  sqlSession.selectList("mybatis.mapper.review.ReviewAllList"); return list; 
+	  }
+	 
+	
+	
 		
 	
 }

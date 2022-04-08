@@ -115,5 +115,11 @@ public class QnaService {
 	}
 
 
+	public int selectByQnaNum(long qna_number) {
+		int num = dao.selectByQnaNum(qna_number);
+		return num;
+	}
+
+
 
 }

@@ -28,6 +28,11 @@ public class ReviewService {
 	public List<Review> selectMylist(long member_number) {
 		List<Review> list = dao.selectMylist(member_number);
 		return list;
+	}
+
+	public List<Review> selectReviewlist() {
+		List<Review> list = dao.selectReviewlist();
+		return list;
 	} 
 	
 }

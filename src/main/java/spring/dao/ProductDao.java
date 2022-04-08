@@ -121,7 +121,6 @@ public class ProductDao {
 	}
 
 	public int selectAllNumBoard(long product_number) {
-		System.out.println("첫번째 값" + product_number);
 		return sqlSession.selectOne("mybatis.mapper.qna.selectProductNum",product_number);
 	}
 
@@ -130,7 +129,6 @@ public class ProductDao {
 		map1.put("section", section);
 		map1.put("pageNum", pageNum);
 		map1.put("product_number", (int) product_number);
-		System.out.println("프로값" + product_number);
 		List<Qna> list = sqlSession.selectList("mybatis.mapper.qna.qnaPorudctPagingList",map1);
 		return list;
 	}

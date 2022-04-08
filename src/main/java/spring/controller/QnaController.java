@@ -133,9 +133,10 @@ public class QnaController {
     public String deletePost(@PathVariable("qna_number") long qna_number, Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
     	response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
+		int num = qnaService.selectByQnaNum(qna_number);
 		qnaService.deleteQue(qna_number);
 		
-		return "PRODUCT/productDetail";
+		return "redirect:/product/detail/"+ num;
     }
     
     //코멘트 삭제
@@ -283,13 +284,10 @@ public class QnaController {
 	   return "mypage/myqnalist";
    }
    
-   
-   //검색기능 ajax
-   
+
 
    
    
-
 }
 	
 	
