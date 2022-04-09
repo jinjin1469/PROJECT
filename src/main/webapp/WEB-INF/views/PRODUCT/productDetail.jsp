@@ -43,8 +43,8 @@
 }
 
 .btn3 {
-	margin-left:1rem;
-	width: 100px;
+	margin-top:10px;
+	width: 130px;
 	display: inline-block;
 	font-weight: 200;
 	line-height: 1.5;
@@ -110,7 +110,7 @@
 .qInfo{color:red; font-size:13px; margin:0px;}
 .reviewcontent{height:10rem;}
 .reviewinfo{height:2rem; background-color:white; border-bottom:0.5px solid #C1C1C1; }
-.review{border: 0.5px solid #C1C1C1; margin-top:20px;}
+.review{width: 1000px;  border-bottom: 0.3px solid #C1C1C1; text-align:left;}
 .qna{width:1000px;}
 </style>
 <body>

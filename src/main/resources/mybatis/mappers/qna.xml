@@ -88,7 +88,7 @@
 	<select id="selectMyList" resultMap="qnaVo" parameterType="long">
 		select product_name, qna_title, qna_state, member_nickname, qna_regdate, qna_number
 		from m_member m, m_qna q, m_product p
-		where q.product_number = p.product_number and m.member_number = q.member_number and q.member_number = #{member_number}
+		where q.product_number = p.product_number and m.member_number = q.member_number and q.member_number = #{member_number} ORDER BY QNA_NUMBER DESC
 	</select>
 	
 	<delete id="deleteQna">

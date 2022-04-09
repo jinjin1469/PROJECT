@@ -112,6 +112,7 @@ public class MemberDao {
 
 
 	public int myAmount(long member_number) {
+		System.out.println("member_number" + member_number);
 		return sqlSession.selectOne("mybatis.mapper.order.myAmount",member_number);
 	}
 

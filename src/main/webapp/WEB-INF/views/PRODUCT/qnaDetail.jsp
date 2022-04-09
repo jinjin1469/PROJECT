@@ -118,7 +118,7 @@ td, th{border: 0.7px solid #DCDCDC;} */
 .subbtn{width:500px;}
 .subbtn2{margin: 20px; margin-right: 0px;}
 .subbtn3{}
-input[type="text"]{border:none; height:30px; text-align:left; font-weight: bold;}
+input[type="text"]{width:500px; border:none; height:30px; text-align:left; font-weight: bold;}
 .subbtn4{width:710px; margin-top: 20px;}
 
 </style>
@@ -217,7 +217,7 @@ input[type="text"]{border:none; height:30px; text-align:left; font-weight: bold;
 	<c:when test="${empty comment}">
 	<c:if test="${authInfo.member_number == 10022}">
 		
-		<form action="insertComment" commendName="CommentWrite" name="commentForm" id="commentForm" method="POST">	
+		<form action="insertComment" commendName="CommentWrite" name="commentForm" id="commentForm" method="POST"  htmlEscape="false">	
 			<table>
 				<tr>
 					<th>관리자 답변 </th>

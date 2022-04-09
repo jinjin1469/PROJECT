@@ -54,6 +54,8 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 	
 	
 	
+	
+	
 	@Bean   //�궗�슜�븷 �씤�꽣�뀎�꽣 鍮�
 	public AuthCheckIntercepter authCheckIntercepter() {
 		return new AuthCheckIntercepter();

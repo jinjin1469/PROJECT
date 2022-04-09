@@ -67,10 +67,14 @@
 			<p>주 소 : ${member.member_address}</p>
 			</div>
 			<div class="order">
-			<p>누적 포인트 - ${member.member_point}Point</p>
-			<p>누적 구매금액  - <fmt:formatNumber value="${amount}" pattern="#,###,###" />원</p>
-			<p>누적 구매 건수 - ${count}건</p>
 			
+			<p>누적 포인트 - ${member.member_point}Point</p>
+			<c:if test="${!empty amount}">
+			<p>누적 구매금액  - <fmt:formatNumber value="${amount}" pattern="#,###,###" />원</p>
+			</c:if>
+			<c:if test="${!empty count}">
+			<p>누적 구매 건수 - ${count}건</p>
+			</c:if>
 			</div>
 	<br>
 	<div class="recentBox">*최근 구매 내역 3건에 대한 조회 내용입니다.</div>

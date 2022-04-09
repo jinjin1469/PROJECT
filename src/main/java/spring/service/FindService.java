@@ -41,22 +41,23 @@ public class FindService {
 	public void sendEmail(Member memVo, String div) throws Exception {
 		// Mail Server 설정
 		String charSet = "utf-8";
-		String hostSMTP = "smtp.naver.com"; 
-		String hostSMTPid = "withmealkit@naver.com";
+		String hostSMTP = "smtp.gmail.com"; 
+		String hostSMTPid = "withmealkit@gmail.com";
 		String hostSMTPpwd = "alftbffod^^1234";
 
 		// 보내는 사람 EMail, 제목, 내용
-		String fromEmail = "withmealkit@naver.com";
+		String fromEmail = "withmealkit@gmail.com";
 		String fromName = "밀슐랭";
-		String subject = "밀슐랭";
-		String msg = "임시번호";
+		String subject = "";
+		String msg = "";
 		
 		Properties props = new Properties();
-		props.put("mail.smtp.host", "smtp.naver.com");
-		props.put("mail.smtp.socketFactory.port", "587");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.socketFactory.port", "465");
 		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.port", "465");
+		props.put("mail.smtp.ssl.trust","smtp.gmail.com");
 
 		if(div.equals("findpwd")) {
 			subject = "밀슐랭 임시 비밀번호 입니다.";
@@ -75,7 +76,7 @@ public class FindService {
 			email.setCharset(charSet);
 			email.setSSL(true);
 			email.setHostName(hostSMTP);
-			email.setSmtpPort(587); //네이버 이용시 587 , 구글 465
+			email.setSmtpPort(587); //네이버 이용시 465 , 구글 465
 
 			email.setAuthentication(hostSMTPid, hostSMTPpwd);
 			email.setTLS(true);
@@ -131,7 +132,10 @@ public class FindService {
 			// 비밀번호 변경 메일 발송
 			sendEmail(memVo, "findpwd");
 			
-			out.print("이메일로 임시 비밀번호를 발송하였습니다.");
+			out.println("<script>");
+			out.println("alert('임시 비밀번호가 메일로 발송 완료되었습니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
 			out.close();
 		}
 

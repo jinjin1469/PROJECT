@@ -29,13 +29,12 @@ table {
 }
 
 th, td {
-	border-bottom: 1px solid #444444;
 	text-align: center;
 }
 
 .th-2{width: 400px; height:40px;border-bottom: 1px solid #E6E6E6;}
 .th-3{width: 200px; height:40px;border-bottom: 1px solid #E6E6E6;}
-.td-1{height:40px; border-bottom: 1px solid #E6E6E6;}
+.td-1{height:40px; border-bottom: 0.7px solid #E6E6E6;}
 
 th {
 	background-color: #F5F5F5;

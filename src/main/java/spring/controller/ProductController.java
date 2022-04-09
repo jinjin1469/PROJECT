@@ -92,7 +92,7 @@ public class ProductController {
 		Product product = dao.productSelect(num);
 		List<Option> productOption = dao.productOptionSelect(num);
 		
-//		int product_num = dao.productNum2(num);
+
 		long product_number = dao.productNum(num);
 
 		
@@ -109,7 +109,7 @@ public class ProductController {
 		request.setAttribute("section", section);
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("qna", qnaList);
-		//List<Qna> qnaList = dao.qnaList(product_number);
+
 		List<Review> reviewList = dao.reviewList(product_number);
 		
 		model.addAttribute("review", reviewList);

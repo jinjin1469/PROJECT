@@ -171,6 +171,7 @@ public class QnaController {
     	CommentWrite comment = qnaService.selectComment(qna_number);
     	int num = qnaService.selectByNum(qna_number);
     	
+    	
     	model.addAttribute("num", num);
     	model.addAttribute("comment", comment);
     	model.addAttribute("view", view);

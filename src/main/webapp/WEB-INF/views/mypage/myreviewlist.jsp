@@ -104,7 +104,7 @@ th {
 			 		 	</c:forEach>
 			 		 	</c:if>
 		 		  </table>
-
+<br>
 	<c:if test="${totalCnt != null}">
 		<c:choose>
 			<c:when test="${totalCnt>100}">

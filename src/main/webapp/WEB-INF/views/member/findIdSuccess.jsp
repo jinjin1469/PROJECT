@@ -128,7 +128,7 @@
     		<p>회원가입 시 등록한 정보로 찾을 수 있습니다.</p>
 		</div>
 		<br>
-		<form class="user" id="findIDform" action="findId" method="POST">
+		<form class="user" id="findPWDform" action="findPwd" method="POST">
 	<table>
 		<tr>
 			<th>이름</th>
@@ -146,7 +146,7 @@
 		</tr>
 	</table>
 	<br>
-		<button class="btn btn-primary btn-lg btn-block" type="button" id="findID" name="findID">확인</button>
+		<button class="btn btn-primary btn-lg btn-block" type="button" id="findPWD" name="findPWD">확인</button>
 </form> 
   </div>
 
@@ -158,9 +158,11 @@
 <%@include file="../footer.jsp"%>
 <script>
 
-$("#findID").on("click",function(){	
-	   $("#findIDform").submit();
+
+$("#findPWD").on("click",function(){	
+	   $("#findPWDform").submit();
 }) 
+
 
 </script>
 
