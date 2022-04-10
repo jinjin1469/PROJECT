@@ -40,7 +40,6 @@
 		<p><a href="<c:url value='/mypage/orderStatus' />" class="menu">주문내역</a></p>
 		<p><a href="<c:url value='/product/cart/list.do' />" class="menu">장바구니</a></p>
 		<p><a href="<c:url value='/mypage/pointStatus' />" class="menu">포인트현황</a></p>
-		<p><a href="<c:url value='/member/login' />" class="menu">오늘본상품</a></p>
 	<br>
 	<p><strong>쇼핑문의</strong></p>
 	<hr>
@@ -86,6 +85,7 @@
 				<th>결제금액</th>
 				<th>주문현황</th>
 			</tr>
+			<c:if test="${empty memberPageOrderView}">
 			<tr>
 				<td colspan="4">주문 내역이 없습니다.</td>
 			</tr>

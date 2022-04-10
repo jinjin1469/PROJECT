@@ -39,7 +39,6 @@
 		<p><a href="<c:url value='/mypage/orderStatus' />" class="menu">주문내역</a></p>
 		<p><a href="<c:url value='/product/cart/list.do' />" class="menu">장바구니</a></p>
 		<p><a href="<c:url value='/mypage/pointStatus' />" class="menu">포인트현황</a></p>
-		<p><a href="<c:url value='/member/login' />" class="menu">오늘본상품</a></p>
 	<br>
 	<p><strong>쇼핑문의</strong></p>
 	<hr>

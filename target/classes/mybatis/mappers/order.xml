@@ -22,7 +22,7 @@
 		<result column="sales_regdate" property="sales_regdate"/>
 	</resultMap>
 	<select id="myPurchasesCount" resultType="int" parameterType="long">
-		SELECT NVL(COUNT,0) FROM(select COUNT(*) AS COUNT from m_order where member_number = #{member_number} and order_status = '구매확정')
+		SELECT NVL(COUNT,0) FROM(select COUNT(*) AS COUNT from m_order where member_number = #{member_number} and order_status IN('구매확정','리뷰완료'))
 	</select>
 	<select id="myAmount"  resultType="int" parameterType="long">
 		select NVL(SUM_DATA,0) FROM (select sum(order_price) AS SUM_DATA from m_order where member_number = #{member_number} and order_status = '구매확정')

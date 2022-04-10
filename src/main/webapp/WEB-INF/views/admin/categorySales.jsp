@@ -50,9 +50,7 @@
 	<br>
 	<p><strong>매출관리</strong></p>
 	<hr>
-		<p><a href="<c:url value='/admin/totalSales' />" class="menu">전체매출</a></p>
-		<p><a href="<c:url value='/admin/categorySales' />" class="menu">카테고리별 매출</a></p>
-		<p><a href="<c:url value='/admin/productSales' />" class="menu">상품별 매출</a></p>
+		<p><a href="<c:url value='/admin/Sales' />" class="menu">매출현황</a></p>
 		
 	<br>
 	<%-- <p><strong>회원관리</strong></p>

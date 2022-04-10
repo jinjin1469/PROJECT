@@ -78,7 +78,6 @@
 			<p>💲금일 총 매출금액 : <fmt:formatNumber value="${today_total_price}" pattern="#,###,###"/>원</p>
 			<p>💲금일 확정매출금액 : <fmt:formatNumber value="${today_confirmation_price}" pattern="#,###,###"/>원</p>
 			</div>
-			<div class="order"></div>
 		<br>
 		<div class="recentBox">*최근 3개 내역에 대한 내용입니다.</div>
 		<table class="tbl">
