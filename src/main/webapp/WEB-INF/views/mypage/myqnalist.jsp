@@ -86,7 +86,6 @@ th {
 			 		  		<th class="th-2">답변 등록 상태</th>
 			 		  		<th class="th-2">상품이름</th>
 			 		  		<th class="th-1">제목</th>
-			 		  		<th class="th-2">작성자</th>
 			 		  		<th class="th-2">작성일</th>
 			 		 	</tr>
 			 		 	<c:if test="${empty qna}">
@@ -102,9 +101,8 @@ th {
 			 		 		<td class="td-1">${qna.product_name}</td>
 			 		 		<td class="td-1">
 			 		 			<input type="hidden" name="qna_number" id="qna_number" value="${qna.qna_number}">
-			 		 			<a href="<c:url value='/product/qna/${qna.qna_number}' />" >${qna.qna_title}</a>
+			 		 			<a href="<c:url value='/mypage/mypageQnaDetail/${qna.qna_number}' />" >${qna.qna_title}</a>
 			 		 		 </td>
-			 		 		<td class="td-1">${qna.member_nickname}</td>
 			 		 		<td class="td-1">${qna.qna_regdate}</td>
 			 		 	</tr>
 			 			</c:forEach>

@@ -16,7 +16,7 @@
 .nav-tabs .nav-link{width:250px;}
 .nav{width:500px;}
 .delete4{font-weight: bold;
-    padding: 5px;
+    padding: 5px;z
     margin-bottom: 10px;}
 .listinfo{font-weight:bold;}
 

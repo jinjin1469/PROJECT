@@ -36,7 +36,11 @@ import spring.vo.RegisterRequest;
 public class QnaController {
 
 	@Autowired
-	QnaDao dao;
+	private QnaDao dao;
+	public void setDao(QnaDao dao) {
+		this.dao = dao;
+	}
+
 
 	@Autowired
 	private QnaService qnaService;
@@ -127,6 +131,52 @@ public class QnaController {
 		
     	return "PRODUCT/qnaDetail";
 		}
+    
+    
+    //마이페이지 qna detail 연결
+    @RequestMapping(value="/mypage/mypageQnaDetail/{qna_number}", method=RequestMethod.GET)
+    public String qnaViewMypage(@PathVariable ("qna_number") long qna_number, @ModelAttribute("qna") Qna qna,HttpSession session, Model model, HttpServletResponse response) throws IOException {
+    	response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		
+		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+		
+		if (authinfo == null) {
+			return "redirect:/member/login";
+		}
+    	
+		long member_number = authinfo.getMember_number();
+		long Writer = qnaService.selectQnaNumber(qna_number);
+
+    	
+    	
+    	if(Writer != member_number && member_number != 10022 ){
+
+			out.println("<script>");
+			out.println("alert('작성자 본인만 읽을 수 있습니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+			
+    	}
+
+
+    	int num = qnaService.selectByNum(qna_number);
+    	Qna view = qnaService.selectQna(qna_number);
+    	CommentWrite comment = qnaService.selectComment(qna_number);
+    	
+    
+    	model.addAttribute("num", num);
+    	model.addAttribute("comment", comment);
+    	model.addAttribute("view", view);
+    	model.addAttribute("qna", new Qna());
+    	model.addAttribute("commentWrite", new CommentWrite());
+		
+    	return "mypage/mypageQnaDetail";
+		}
+    
+    
+
 	
     //qna 삭제
     @RequestMapping(value="/product/DeleteQue/{qna_number}")
@@ -138,6 +188,21 @@ public class QnaController {
 		
 		return "redirect:/product/detail/"+ num;
     }
+    
+    
+  //qna MyPage 삭제
+    @RequestMapping(value="/mypage/DeleteQueInMyPage/{qna_number}")
+    public String deletePostMyPage(@PathVariable("qna_number") long qna_number, Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    	response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		int num = qnaService.selectByQnaNum(qna_number);
+		qnaService.deleteQue(qna_number);
+		
+		return  "redirect:/mypage/myqnalist";
+    }
+    
+    
+    
     
     //코멘트 삭제
     @RequestMapping(value="/product/deleteCom")
@@ -160,7 +225,33 @@ public class QnaController {
     	
 		return "PRODUCT/qnaDetail";
     }
+    
+    
 
+    //코멘트 MyPage삭제
+    @RequestMapping(value="/mypage/deleteComInMyPage")
+    public String deleteComInMyPage(@RequestParam("comment_number") long comment_number, Qna qna, CommentWrite commentWrite, Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    	
+    	long qna_number = qnaService.selectCommentNumber(comment_number);
+		qnaService.setStateWaiting(qna_number);
+    	
+		qnaService.deleteCom(comment_number);
+		
+		Qna view = qnaService.selectQna(qna_number);
+    	CommentWrite comment = qnaService.selectComment(qna_number);
+    	int num = qnaService.selectByNum(qna_number);
+		
+    	model.addAttribute("num", num);
+    	model.addAttribute("comment", comment);
+    	model.addAttribute("view", view);
+    	model.addAttribute("qna", new Qna());
+    	model.addAttribute("commentWrite", new CommentWrite());
+    	
+		return "mypage/mypageQnaDetail";
+    }
+    
+    
+    
     
     //qna 수정
     @RequestMapping(value="/qnaModify/{qna_number}", method=RequestMethod.POST)    
@@ -181,6 +272,30 @@ public class QnaController {
     	return "PRODUCT/qnaDetail";
     }
     
+    
+
+    //qna mypage 수정
+    @RequestMapping(value="/qnaModifyInMyPage/{qna_number}", method=RequestMethod.POST)    
+    public String modifyQueInMyPage(@PathVariable("qna_number") long qna_number, Qna qna, Model model, HttpServletRequest request) {
+    	
+    	qnaService.update(qna);
+    	Qna view = qnaService.selectQna(qna_number);
+    	CommentWrite comment = qnaService.selectComment(qna_number);
+    	int num = qnaService.selectByNum(qna_number);
+    	
+    	
+    	model.addAttribute("num", num);
+    	model.addAttribute("comment", comment);
+    	model.addAttribute("view", view);
+    	model.addAttribute("qna", new Qna());
+    	model.addAttribute("commentWrite", new CommentWrite());
+    	
+    	return "mypage/mypageQnaDetail";
+    }
+    
+    
+    
+    
     //comment 수정
     @RequestMapping(value="/commentModify/{comment_number}", method=RequestMethod.POST)    
     public String modifyComment(@PathVariable("comment_number") long comment_number, Qna qna, CommentWrite commentWrite, Model model, HttpServletRequest request) {
@@ -200,6 +315,28 @@ public class QnaController {
     	model.addAttribute("commentWrite", new CommentWrite());
     	
     	return "PRODUCT/qnaDetail";
+    	
+    }
+    
+    //comment MyPage 수정
+    @RequestMapping(value="/commentModifyInMyPage/{comment_number}", method=RequestMethod.POST)    
+    public String modifyCommentInMyPage(@PathVariable("comment_number") long comment_number, Qna qna, CommentWrite commentWrite, Model model, HttpServletRequest request) {
+    	
+    	
+    	qnaService.updateComment(commentWrite);
+    	long qna_number = qnaService.selectCommentNumber(comment_number);
+    	Qna view = qnaService.selectQna(qna_number);
+    	CommentWrite comment = qnaService.selectComment(qna_number);
+    	int num = qnaService.selectByNum(qna_number);
+    	
+    	
+    	model.addAttribute("num", num);
+    	model.addAttribute("comment", comment);
+    	model.addAttribute("view", view);
+    	model.addAttribute("qna", new Qna());
+    	model.addAttribute("commentWrite", new CommentWrite());
+    	
+    	return "mypage/mypageQnaDetail";
     	
     }
     
@@ -235,6 +372,36 @@ public class QnaController {
     
     	return "PRODUCT/qnaDetail";
     }
+    
+  //관리자가 댓글 달기 MyPage
+    @RequestMapping(value="/mypage/mypageQnaDetail/insertCommentInMyPage", method=RequestMethod.POST)
+    public String insertCommentInMyPage(Model model, CommentWrite commentWrite, HttpSession session) {
+    	
+    	AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+		
+		if (authinfo == null) {
+			return "redirect:/member/login";
+		}
+    	
+		long member_number = authinfo.getMember_number();
+		long qna_number = commentWrite.getQna_number();
+		
+		commentWrite.setMember_number(member_number);
+		qnaService.insertCom(commentWrite);
+		qnaService.setState(qna_number);
+		
+    	CommentWrite comment = qnaService.selectComment(qna_number);
+		Qna view = qnaService.selectQna(qna_number);
+		
+		model.addAttribute("comment", comment);
+    	model.addAttribute("view", view);
+    	model.addAttribute("qna", new Qna());
+    	model.addAttribute("commentWrite", new CommentWrite());
+		
+    
+    	return "mypage/mypageQnaDetail";
+    }
+    
     
     
     
