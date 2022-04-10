@@ -20,6 +20,7 @@
 	padding: 0px;
 	color: #696969;
 }
+.order{font-weight:bold;}
 
 
 </style>
@@ -49,9 +50,9 @@
 	<br>
 	<p><strong>회원정보</strong></p>
 	<hr>
-		<p><a href="<c:url value='/mypage/modify/${member.member_number}' />" class="menu">회원정보변경</a></p>
-		<p><a href="<c:url value='/mypage/modifyPwd/${member.member_number}' />" class="menu">비밀번호변경</a></p>
-		<p><a href="<c:url value='/member/login' />" class="menu">회원탈퇴</a></p>
+		<p><a href="<c:url value='/mypage/modify' />" class="menu">회원정보변경</a></p>
+		<p><a href="<c:url value='/mypage/modifyPwd' />" class="menu">비밀번호변경</a></p>
+		<p><a href="<c:url value='/mypage/deleteAccount' />" class="menu">회원탈퇴</a></p>
 </div>
 </aside>
 
@@ -66,9 +67,18 @@
 			<p>이메일 : ${member.member_email}</p>
 			<p>주 소 : ${member.member_address}</p>
 			</div>
-			<div class="order"></div>
-
-		
+			<div class="order">
+			
+			<p>누적 포인트 - ${member.member_point}Point</p>
+			<c:if test="${!empty amount}">
+			<p>누적 구매금액  - <fmt:formatNumber value="${amount}" pattern="#,###,###" />원</p>
+			</c:if>
+			<c:if test="${!empty count}">
+			<p>누적 구매 건수 - ${count}건</p>
+			</c:if>
+			</div>
+	<br>
+	<div class="recentBox">*최근 구매 내역 3건에 대한 조회 내용입니다.</div>
 		<table class="tbl">
 			<tr>
 				<th>주문일자</th>
@@ -76,7 +86,6 @@
 				<th>결제금액</th>
 				<th>주문현황</th>
 			</tr>
-			<c:if test="${empty list}">
 			<tr>
 				<td colspan="4">주문 내역이 없습니다.</td>
 			</tr>
@@ -89,30 +98,32 @@
 					<td>${memberPageOrderView.order_status}</td>
 				</tr>
 			</c:forEach>
-	
 		</table>
-			
+
+		
 		<table class="tbl">
-				<tr>
-					<th>상품명</th>
-					<th>리뷰 내용</th>
-					<th>작성일</th>
-				</tr>
-			<c:if test="${empty list}">
-				<tr>
-					<td colspan="3">아직 작성한 리뷰가 없습니다.</td>
-				</tr>
-			</c:if>
-				
-			<c:forEach var="review" items="${list}">
-				<tr>
-					<td>${review.product_name}</td>
-					<td>${review.review_content}</td>
-					<td>${review.review_regdate}</td>
-				</tr>
-			</c:forEach>
-				
-		</table>
+			<tr>
+				<th>상품명</th>
+				<th>리뷰 내용</th>
+				<th>작성일</th>
+			</tr>
+		<c:if test="${empty list}">
+			<tr>
+				<td colspan="3">아직 작성한 리뷰가 없습니다.</td>
+			</tr>
+		</c:if>
+	
+		<c:if test="${!empty list}">
+		<c:forEach var="review" items="${list}">
+			<tr>
+				<td>${review.product_name}</td>
+				<td>${review.review_content}</td>
+				<td>${review.review_regdate}</td>
+			</tr>
+		</c:forEach>
+		</c:if>
+
+	</table>
 		
 
 </section>

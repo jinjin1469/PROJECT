@@ -86,3 +86,10 @@ th{
 .green{
 	color: green;
 }
+
+.recentBox{
+	width:900px;
+	text-align:right;
+	float:left;
+	margin-bottom:5px;
+}

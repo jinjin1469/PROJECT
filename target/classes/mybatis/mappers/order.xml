@@ -21,7 +21,15 @@
 		<result column="delivery_cost" property="delivery_cost"/>
 		<result column="sales_regdate" property="sales_regdate"/>
 	</resultMap>
-	
+	<select id="myPurchasesCount" resultType="int" parameterType="long">
+		SELECT NVL(COUNT,0) FROM(select COUNT(*) AS COUNT from m_order where member_number = #{member_number} and order_status = '구매확정')
+	</select>
+	<select id="myAmount"  resultType="int" parameterType="long">
+		select NVL(SUM_DATA,0) FROM (select sum(order_price) AS SUM_DATA from m_order where member_number = #{member_number} and order_status = '구매확정')
+	</select>
+	<select id="orderCheck" resultType="int" parameterType="long">
+		select COUNT(*) from m_order where member_number = #{member_number} and order_status = '배송준비중'
+	</select>
 	<select id="selectOrderCnt" resultType="int" parameterType="int">
 		SELECT COUNT(*) FROM m_order WHERE member_number=#{member_number} ORDER BY order_regdate DESC
 	</select>
@@ -239,7 +247,6 @@
 	<update id="reviewConfirm" parameterType="int">
 		update m_order set order_status = '완료' WHERE order_number=#{orderNum}
 	</update>
-	
 	
   
 </mapper>

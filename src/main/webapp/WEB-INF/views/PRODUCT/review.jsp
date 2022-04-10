@@ -65,7 +65,7 @@
 }
 
 .subbtn{width:530px; margin-top:10px;text-align:center;}
-
+.reviewinfo{font-size:12px; font-weight:bold; margin-top:-5px; color:red;}
  
 </style>
 </head>
@@ -84,7 +84,7 @@ member_number : ${info.member_number}
 	 	</c:forEach>
 </c:forEach> --%>
 <h3>리뷰작성✉️</h3>
-
+<p class="reviewinfo">*리뷰는 작성시 수정과 삭제가 불가능합니다.</p>
 
 <c:forEach var="productList" items="${info.order_sub}" varStatus="form">
 

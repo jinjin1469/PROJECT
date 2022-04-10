@@ -1,15 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../../../resources/css/mypage.css">
-<title>내 질문 모아보기</title>
+<title>관리자 리뷰 모아보기</title>
 <style>
 .menu{
 	text-align: left;
@@ -31,14 +29,12 @@ table {
 }
 
 th, td {
-	border-bottom: 1px solid #444444;
 	text-align: center;
 }
 
-.th-1{width: 400px; height:40px;border-bottom: 1px solid #E6E6E6;}
-
-.td-1{height:40px;
-border-bottom: 1px solid #E6E6E6;}
+.th-2{width: 400px; height:40px;border-bottom: 1px solid #E6E6E6;}
+.th-3{width: 200px; height:40px;border-bottom: 1px solid #E6E6E6;}
+.td-1{height:40px; border-bottom: 0.7px solid #E6E6E6;}
 
 th {
 	background-color: #F5F5F5;
@@ -51,67 +47,65 @@ th {
 <%@include file="../header.jsp"%>
 <br>
 <br>
+
+
 <div id="content"> 
 
 <aside>
 <div class="menu">
-	<p><strong>쇼핑정보</strong></p>
+	<p><strong>상품관리</strong></p>
 	<hr>
-		<p><a href="<c:url value='/mypage/orderStatus' />" class="menu">주문내역</a></p>
-		<p><a href="<c:url value='/product/cart/list.do' />" class="menu">장바구니</a></p>
-		<p><a href="<c:url value='/mypage/pointStatus' />" class="menu">포인트현황</a></p>
-		<p><a href="<c:url value='/member/login' />" class="menu">오늘본상품</a></p>
+		<p><a href="<c:url value='/product/insert'/>" class="menu">상품등록</a></p>
+		<p><a href="<c:url value='/product/List/totalList' />" class="menu">상품전체보기</a></p>
 	<br>
-	<p><strong>쇼핑문의</strong></p>
+	<p><strong>쇼핑관리</strong></p>
 	<hr>
-		<p><a href="<c:url value='/mypage/myqnalist' />" class="menu">1:1게시판</a></p>
-		<p><a href="<c:url value='/mypage/myreviewlist' />" class="menu">내 리뷰 모아보기</a></p>
+
+		<p><a href="<c:url value='/mypage/qnalist' />" class="menu">1:1 문의 모아보기</a></p>
+		<p><a href="<c:url value='/admin/orderStatus' />" class="menu">배송관리</a></p>
+		<p><a href="<c:url value='/admin/adminReviewList' />" class="menu">리뷰 모아보기</a></p>
 		<p><a href="<c:url value='/notice/main' />" class="menu">F&Q</a></p>
 	<br>
-	<p><strong>회원정보</strong></p>
+	<p><strong>매출관리</strong></p>
 	<hr>
-		<p><a href="<c:url value='/mypage/modify' />" class="menu">회원정보변경</a></p>
-		<p><a href="<c:url value='/mypage/modifyPwd' />" class="menu">비밀번호변경</a></p>
-		<p><a href="<c:url value='/mypage/deleteAccount' />" class="menu">회원탈퇴</a></p>
+		<p><a href="<c:url value='/admin/Sales' />" class="menu">매출현황</a></p>
+		
+	<br>
+
 </div>
 </aside>
 
 <section>
-	<h2>내 질문 모아보기</h2>
+	<h2>전체 리뷰 모아보기</h2>
 	
 			<hr class="line">
 	
 		 		  <table>
 			 		  	<tr>
-			 		  		<th class="th-2">답변 등록 상태</th>
-			 		  		<th class="th-2">상품이름</th>
-			 		  		<th class="th-1">제목</th>
-			 		  		<th class="th-2">작성자</th>
-			 		  		<th class="th-2">작성일</th>
+			 		  		<th class="th-2">상품 이름</th>
+			 		  		<th class="th-2">리뷰 내용</th>
+			 		  		<th class="th-3">작성자</th>
+			 		  		<th class="th-3">작성일</th>
 			 		 	</tr>
-			 		 	<c:if test="${empty qna}">
-			 		 	 	<tr>
-			 		 	 		<td class="td-1" colspan="5">작성하신 질문이 없습니다.</td>
+			 		 	<c:if test="${empty review}">
+			 		 		<tr>
+			 		 			<td class="td-1" colspan="3">작성되어있는 리뷰가 없습니다.</td>
+			 		 		
 			 		 		</tr>
 			 		 	</c:if>
-			 		 	
-			 		 	<c:if test="${!empty qna}">
-			 		 	<c:forEach var="qna" items="${qna}" varStatus="status">
+			 		 	<c:if test="${!empty review}">
+			 		 	<c:forEach var="review" items="${review}" varStatus="status">
 			 		 	<tr>
-			 		 		<td class="td-1">${qna.qna_state}</td>
-			 		 		<td class="td-1">${qna.product_name}</td>
-			 		 		<td class="td-1">
-			 		 			<input type="hidden" name="qna_number" id="qna_number" value="${qna.qna_number}">
-			 		 			<a href="<c:url value='/product/qna/${qna.qna_number}' />" >${qna.qna_title}</a>
-			 		 		 </td>
-			 		 		<td class="td-1">${qna.member_nickname}</td>
-			 		 		<td class="td-1">${qna.qna_regdate}</td>
+			 		 		<td class="td-1">${review.product_name}</td>
+			 		 		<td class="td-1">${review.review_content}</td>
+			 		 		<td class="td-1">${review.member_nickname}</td>
+			 		 		<td class="td-1">${review.review_regdate}</td>
 			 		 	</tr>
-			 			</c:forEach>
-			 			</c:if>
+			 					
+			 		 	</c:forEach>
+			 		 	</c:if>
 		 		  </table>
-		 	<br>
-		<c:if test="${totalCnt != null}">
+		 		  <c:if test="${totalCnt != null}">
 		<c:choose>
 			<c:when test="${totalCnt>100}">
 				<c:if test="${(section)*100<totalCnt}"> <!--   >>(다음 섹션이 존재한다.)    -->
@@ -147,16 +141,11 @@ th {
 		</c:choose>
 	</c:if>
 
-
-		
-
-</section>
-
-
-
-
-
+		 		  
+	
+		</section>
 </div>
+
 <br>
 <br>
 <%@include file="../footer.jsp"%>

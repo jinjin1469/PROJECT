@@ -25,7 +25,7 @@ input[type="text"], input[type="password"] {
 
 	<h2 class="cen">비밀번호 변경🔏</h2>
 <br>
-	<form id="modifyPwdform" action="modifying/${member_number}" commandName="modifyPwd" class="validation-form" method="post">
+	<form id="modifyPwdform" action="modifying" commandName="modifyPwd" class="validation-form" method="post">
 		
 		<table>
 			
@@ -56,7 +56,7 @@ input[type="text"], input[type="password"] {
 		</table>
 		<br>
 		<input type="button" class="btn1 btn-primary btn-lg btn-block" id="edit" name="edit" value="수정하기">
-		<button class="btn2 btn-primary btn-lg btn-block" onclick="#">취소하기</button>
+		<input type="reset" class="btn2 btn-primary btn-lg btn-block" value="취소하기">
 	</form>
 	<br>
 	<br>

@@ -71,23 +71,62 @@ public class ReviewController {
 	
 	//�궡 由щ럭 紐⑥븘蹂닿린
 	@RequestMapping(value="/mypage/myreviewlist")
-	   public String myreviewList(Model model, HttpSession session) {
+	   public String myreviewList(Model model, HttpSession session, HttpServletRequest request) {
 		   
 		   AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
 			
 			if (authinfo == null) {
 				return "redirect:/member/login";
 			}
-	    	
 			long member_number = authinfo.getMember_number();
 		   
+
+			String _section = request.getParameter("section");
+			String _pageNum = request.getParameter("pageNum");
+			
+			int section = Integer.parseInt((_section==null)?"1":_section);
+			int pageNum = Integer.parseInt((_pageNum==null)?"1":_pageNum);
+			
+			int totalCnt = dao.selectAllNumReivew(member_number);
+			List<Review> review = dao.selectTargetReview(section, pageNum, member_number);
+			
+			request.setAttribute("totalCnt", totalCnt);
+			request.setAttribute("section", section);
+			request.setAttribute("pageNum", pageNum);
+			request.setAttribute("review", review);
+			
 		   
-		   List<Review> review = reviewService.selectMylist(member_number);
+//		   List<Review> review = reviewService.selectMylist(member_number);
 		   model.addAttribute("review", review);
 	 	   
 		   return "mypage/myreviewlist";
 	   }
 
+	
+	
+	//관리자 전체 리뷰 모아보기
+		@RequestMapping(value="/admin/adminReviewList")
+		   public String reviewList(Model model, HttpSession session, HttpServletRequest request) {
+			   
+	    	String _section = request.getParameter("section");
+			String _pageNum = request.getParameter("pageNum");
+			
+			int section = Integer.parseInt((_section==null)?"1":_section);
+			int pageNum = Integer.parseInt((_pageNum==null)?"1":_pageNum);
+			
+			int totalCnt = dao.selectAllNumBoard();
+			List<Review> review = dao.selectTargetBoard(section, pageNum);
+			
+			request.setAttribute("totalCnt", totalCnt);
+			request.setAttribute("section", section);
+			request.setAttribute("pageNum", pageNum);
+			request.setAttribute("review", review);
+			  
+//			   List<Review> review = reviewService.selectReviewlist();
+		   model.addAttribute("review", review);
+	 	   
+		   return "admin/adminReviewList";
+		   }
 
 	
 

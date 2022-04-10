@@ -90,7 +90,6 @@ public class QnaDao {
 	}
 
 	public long selectCommentNumber(long comment_number) {
-		System.out.println("dao comment 값" + comment_number);
 		return sqlSession.selectOne("mybatis.mapper.qna.selectCommentNumber", comment_number);
 	}
 
@@ -108,6 +107,10 @@ public class QnaDao {
 		map1.put("pageNum", pageNum);
 		List<Qna> list = sqlSession.selectList("mybatis.mapper.qna.qnaPagingList",map1);
 		return list;
+	}
+
+	public int selectByQnaNum(long qna_number) {
+		return sqlSession.selectOne("mybatis.mapper.qna.selectByQnaNum", qna_number);
 	}
 
 	
