@@ -111,6 +111,9 @@
 							<c:when test="${list.order_status=='구매확정'}">
 								<td>적립완료</td>
 							</c:when>
+							<c:when test="${list.order_status=='리뷰완료'}">
+								<td>적립완료</td>
+							</c:when>
 						</c:choose>
 					</tr>
 				</c:forEach>

@@ -63,7 +63,9 @@ public class MyPageController {
 		 
 			Member memVo = manageService.myPage(member_number);
 			List<Review> list = manageService.myReview(member_number);
+			List<Order> memberPageOrderView = odao.memberPageOrderView(member_number);	
 			
+			model.addAttribute("memberPageOrderView", memberPageOrderView);
 			model.addAttribute("list",list);
 			model.addAttribute("member", memVo);
 			
@@ -77,8 +79,17 @@ public class MyPageController {
 		 @RequestMapping(value="/admin/admin/{member_number}",method=RequestMethod.GET)
 			public String myPageAdmin(@PathVariable("member_number") Long member_number, Model model) {
 			 
+			 	
 				Member memVo = manageService.myPage(member_number);
+
+				List<Order> adminPageOrderView = odao.adminPageOrderView();	
 				
+				int today_total_price = odao.today_total_price();
+				int today_confirmation_price = odao.today_confirmation_price();
+				
+				model.addAttribute("today_total_price", today_total_price);
+				model.addAttribute("today_confirmation_price", today_confirmation_price);
+				model.addAttribute("adminPageOrderView", adminPageOrderView);
 				model.addAttribute("member", memVo);
 				
 				return "admin/admin";

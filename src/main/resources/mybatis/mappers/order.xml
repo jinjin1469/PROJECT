@@ -40,6 +40,23 @@
 		WHERE num BETWEEN (#{section}-1)*150+(#{pageNum}-1)*15+1 AND (#{section}-1)*150+(#{pageNum})*15
 	</select>
 	
+	<select id="memberPageOrderView" resultMap="orderVo" parameterType="long">
+		SELECT order_number,order_regdate,order_price,order_status 
+		FROM(SELECT order_number,order_regdate,order_price,order_status 
+		FROM m_order WHERE member_number=#{member_number} ORDER BY order_regdate DESC) WHERE rownum <![CDATA[<=]]> 3
+	</select>
+	
+	<select id="today_total_price" resultType="int">
+		SELECT NVL(SUM(order_price), 0) order_price FROM m_order 
+		WHERE TO_CHAR(SYSDATE,'YYYYMMDD') = TO_CHAR(order_regdate,'YYYYMMDD') AND pay_status='결제완료'
+	</select>
+	
+	<select id="today_confirmation_price" resultType="int">
+		SELECT NVL(SUM(order_price), 0) order_price FROM m_order 
+		WHERE TO_CHAR(SYSDATE,'YYYYMMDD') = TO_CHAR(order_regdate,'YYYYMMDD') AND pay_status='결제완료' 
+		AND order_status NOT IN('배송완료','배송준비중')
+	</select>
+	
 	<select id="aaselectOrderinfo" resultMap="orderVo" parameterType="int">
 		SELECT * FROM m_order WHERE order_number=#{order_number}
 	</select>
@@ -58,6 +75,13 @@
 	<select id="deliveryCompleteCnt" resultType="int" >
 		SELECT COUNT(*) FROM m_order WHERE order_status IN ('배송완료','구매확정','리뷰완료') ORDER BY order_regdate DESC
 	</select>
+	
+	<select id="adminPageOrderView" resultMap="orderVo">
+		SELECT A.order_number order_number,A.order_regdate order_regdate,A.order_price order_price,A.order_status order_status,B.member_nickname recipient 
+		FROM(SELECT order_number,order_regdate,order_price,order_status,member_number FROM m_order WHERE pay_status!='결제취소' ORDER BY order_regdate DESC) A 
+		JOIN m_member B ON A.member_number = B.member_number WHERE rownum <![CDATA[<=]]> 3
+	</select>
+	
 	<select id="orderwaitList" resultMap="orderVo" parameterType="hashMap">
 		SELECT order_number,order_regdate,order_price,order_status
 		FROM (SELECT ROWNUM num,order_number,order_regdate,order_price,order_status
@@ -67,7 +91,7 @@
 	<select id="deliveryCompleteList" resultMap="orderVo" parameterType="hashMap">
 		SELECT order_number,order_regdate,order_price,order_status
 		FROM (SELECT ROWNUM num,order_number,order_regdate,order_price,order_status 
-		FROM (SELECT order_number,order_regdate,order_price,order_status FROM m_order WHERE order_status IN ('배송완료','구매확정') ORDER BY order_regdate DESC))
+		FROM (SELECT order_number,order_regdate,order_price,order_status FROM m_order WHERE order_status IN ('배송완료','구매확정','리뷰완료') ORDER BY order_regdate DESC))
 		WHERE num BETWEEN (#{section}-1)*100+(#{pageNum}-1)*10+1 AND (#{section}-1)*100+(#{pageNum})*10
 	</select>
 	

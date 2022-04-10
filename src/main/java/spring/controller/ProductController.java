@@ -182,6 +182,7 @@ public class ProductController {
 		model.addAttribute("category_1",product.getCategory_1());
 		model.addAttribute("category_2",product.getCategory_2());
 		model.addAttribute("productOption",productOption);
+		model.addAttribute("storage",product.getProduct_storage());
 		model.addAttribute("option_loop",option_loop);
 		
 		return "PRODUCT/productUpdate";

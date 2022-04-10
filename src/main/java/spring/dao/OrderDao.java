@@ -144,6 +144,27 @@ public class OrderDao {
 	public Order orderinfo(int orderNum) {
 		return sqlSession.selectOne("mybatis.mapper.order.orderinfo",orderNum);
 	}
+	
+	
+	public List<Order> adminPageOrderView() { 
+		List<Order> list = sqlSession.selectList("mybatis.mapper.order.adminPageOrderView");
+		return list;
+	}
+	
+	public List<Order> memberPageOrderView(long member_number) { 
+		List<Order> list = sqlSession.selectList("mybatis.mapper.order.memberPageOrderView",member_number);
+		return list;
+	}
+	
+	public int today_total_price() {
+		return sqlSession.selectOne("mybatis.mapper.order.today_total_price");
+	}
+	
+	public int today_confirmation_price() {
+		return sqlSession.selectOne("mybatis.mapper.order.today_confirmation_price");
+	}
+	
+	
 	public List<Order> orderwaitList(int sectionOne, int pageNumOne) { 
 		Map<String, Integer> map1 = new HashMap<>();
 		map1.put("section", sectionOne);

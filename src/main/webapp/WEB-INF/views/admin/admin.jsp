@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +19,9 @@
 	margin: 0 auto;
 	padding: 0px;
 	color: #696969;
+}
+.order{
+	padding: 30px 16px 30px 16px;
 }
 
 
@@ -60,7 +65,7 @@
 
 <section>
 
-		<h2>MYPAGE📃</h2>
+		<h2>ADMINPAGE📃</h2>
 		<hr>
 		
 			<div class="user">
@@ -69,19 +74,32 @@
 			<p>이메일 : ${member.member_email}</p>
 			<p>주 소 : ${member.member_address}</p>
 			</div>
-			<div class="order"></div>
+			<div class="order">
+			<p>💲금일 총 매출금액 : <fmt:formatNumber value="${today_total_price}" pattern="#,###,###"/>원</p>
+			<p>💲금일 확정매출금액 : <fmt:formatNumber value="${today_confirmation_price}" pattern="#,###,###"/>원</p>
+			</div>
 
-		
 		<table class="tbl">
 			<tr>
 				<th>주문일자</th>
-				<th>상품명</th>
-				<th>결제금액</th>
+				<th>닉네임</th>
 				<th>주문상세</th>
+				<th>결제금액</th>
 			</tr>
-			<tr>
-				<td colspan="4">주문 내역이 없습니다.</td>
-			</tr>
+			<c:if test="${empty adminPageOrderView}">
+				<tr>
+					<td colspan="4">주문 내역이 없습니다.</td>
+				</tr>
+			</c:if>
+				
+			<c:forEach var="adminPageOrderView" items="${adminPageOrderView}">
+				<tr>
+					<td><fmt:formatDate value="${adminPageOrderView.order_regdate}" pattern="yyyy-MM-dd" /></td>
+					<td>${adminPageOrderView.recipient}</td>
+					<td><a href="javascript:orderDetail(${adminPageOrderView.order_number});">상세보기</a></td>
+					<td>💲<fmt:formatNumber value="${adminPageOrderView.order_price}" pattern="#,###,###"/>원</td>
+				</tr>
+			</c:forEach>
 		</table>
 		
 		<table class="tbl">
@@ -101,7 +119,14 @@
 	
 	
 </div>
+<script>
+function orderDetail(order_number){
+	window.open('/order/orderDetail/'+order_number,'주문 상세보기',"width=500,height=600,top=200,left=200,toolbar=no,menubar=no,scrollbars=no,status=no");
+}
 
+
+
+</script>
 
 <br>
 <br>
