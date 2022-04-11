@@ -9,6 +9,8 @@ import org.apache.commons.mail.HtmlEmail;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import spring.dao.MemberDao;
+import spring.exception.MemberDeactivateAccount;
+import spring.exception.MemberNotFoundException;
 import spring.vo.Member;
 
 public class FindService {
@@ -24,17 +26,10 @@ public class FindService {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		Member member = dao.findId(memVo);
-		String id = member.getMember_id();
-		int member_state = member.getMember_state();
-		
-		if (id == null) {
-			out.println("<script>");
-			out.println("alert('가입된 아이디가 없습니다.');");
-			out.println("history.go(-1);");
-			out.println("</script>");
-			out.close();
-			return null;
-		}else if(member_state == 9){
+		if(member == null) {
+			throw new MemberNotFoundException();
+		}
+		else if(member.getMember_state() == 9){
 			out.println("<script>");
 			out.println("alert('탈퇴한 계정입니다.');");
 			out.println("history.go(-1);");
@@ -121,7 +116,7 @@ public class FindService {
 		Member member = dao.findPw(memVo);
 		
 		// 가입된 아이디가 없으면
-		if(member.getMember_id() == null) {
+		if(member == null) {
 			out.println("<script>");
 			out.println("alert('등록되지 않은 정보입니다.');");
 			out.println("history.go(-1);");

@@ -22,6 +22,7 @@ public class MemberRegisterService {
 		public int nameCheck(String member_nickname) {
 			Member output = dao.nameCheck(member_nickname);
 			int outputData = 0;
+			//member_point가 아이디 중복 체크 ! member_state가 현재 멤버 가입상태(2번 비활, 1번 활)
 			
 			if(output.getMember_state() == 0 && output.getMember_point() == 0) { //가입 된 아이디도 없고 탈퇴한 아이도 없을때 회원가입 가능
 				outputData = 0;
@@ -31,9 +32,7 @@ public class MemberRegisterService {
 				outputData = 2;
 			}
 			
-			System.out.println("포인트값" + output.getMember_point());
-			System.out.println("아웃풋데아터" + outputData);
-			
+
 			return outputData;
 		
 		}
