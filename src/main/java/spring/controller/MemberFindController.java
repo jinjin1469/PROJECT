@@ -33,8 +33,9 @@ public class MemberFindController {
 	// 아이디 찾기 실행
 	@RequestMapping(value = "/member/findId", method = RequestMethod.POST)
 	public String findId(HttpServletResponse response, Member memVo, Model model) throws Exception{
-		String member = findService.findId(response, memVo);
-			model.addAttribute("id", member);
+		Member member = findService.findId(response, memVo);
+			String id = member.getMember_id();
+			model.addAttribute("id", id);
 			return "/member/findIdSuccess";
 	}
 	

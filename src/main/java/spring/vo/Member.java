@@ -11,10 +11,18 @@ public class Member {
 	private String member_email;
 	private String member_address;
 	private long member_point;
+	private int member_state;
 
 	public Member() {
 	}
-	
+
+	public int getMember_state() {
+		return member_state;
+	}
+
+	public void setMember_state(int member_state) {
+		this.member_state = member_state;
+	}
 
 	public Member(String member_id, String member_pwd, String member_name, String member_nickname, String member_phone,
 			String member_email, String member_address) {
@@ -26,16 +34,12 @@ public class Member {
 		this.member_email = member_email;
 		this.member_address = member_address;
 	}
-	
-	
-	
 
 	public Member(long member_number, String member_id, String member_name) {
 		this.member_number = member_number;
 		this.member_id = member_id;
 		this.member_name = member_name;
 	}
-
 
 	public long getMember_number() {
 		return member_number;
@@ -108,7 +112,5 @@ public class Member {
 	public void setMember_point(long member_point) {
 		this.member_point = member_point;
 	}
-
-
 
 }

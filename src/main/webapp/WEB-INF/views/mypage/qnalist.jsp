@@ -99,7 +99,7 @@ th {
 			 		 		<td class="td-1">
 			 		 			<input type="hidden" value="${qna.qna_number}">
 			 		 			<%-- <a href="javascript:void(0);" id="showPwd(${status.count})" onclick="showPwd(${status.count});">🔒${qna.qna_title}</a> --%>
-			 		 			<a href="<c:url value='/product/qna/${qna.qna_number}' />" >${qna.qna_title}</a>
+			 		 			<a href="<c:url value='/admin/adminQnADetail/${qna.qna_number}' />" >${qna.qna_title}</a>
 			 		 		 </td>
 			 		 		<td class="td-1">${qna.member_nickname}</td>
 			 		 		<td class="td-1">${qna.qna_regdate}</td>

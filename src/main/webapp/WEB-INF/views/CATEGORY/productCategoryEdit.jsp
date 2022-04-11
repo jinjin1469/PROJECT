@@ -14,8 +14,7 @@
 .nav-tabs .nav-link{width:250px;}
 .nav{width:500px;}
 .delete4{font-weight: bold;
-    padding: 5px;
-    margin-bottom: 10px;}
+    margin-bottom: 6px;}
 .listinfo{font-weight:bold;}
 
 input[type="checkbox"]{
@@ -41,7 +40,8 @@ width:400px;}
     font-size: 1rem;
     font-weight: 700;
     line-height: 1;
-    margin: 0;
+    margin-top:10px;
+    margin-left:150px;
     padding: 15px 25px;
     text-align: center;
     text-decoration: none;

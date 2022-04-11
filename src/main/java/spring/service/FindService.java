@@ -20,10 +20,12 @@ public class FindService {
 	}
 
 	// 아이디 찾기 실행
-	public String findId(HttpServletResponse response, Member memVo) throws Exception {
+	public Member findId(HttpServletResponse response, Member memVo) throws Exception {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		String id = dao.findId(memVo);
+		Member member = dao.findId(memVo);
+		String id = member.getMember_id();
+		int member_state = member.getMember_state();
 		
 		if (id == null) {
 			out.println("<script>");
@@ -32,9 +34,14 @@ public class FindService {
 			out.println("</script>");
 			out.close();
 			return null;
-		} else {
-			return id;
+		}else if(member_state == 9){
+			out.println("<script>");
+			out.println("alert('탈퇴한 계정입니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
 		}
+		return member;
 	}
 	
 	//임시 비밀번호 전송
@@ -111,15 +118,22 @@ public class FindService {
 	public void findPwd(HttpServletResponse response, Member memVo) throws Exception {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		String id = dao.findPw(memVo);
+		Member member = dao.findPw(memVo);
+		
 		// 가입된 아이디가 없으면
-		if(id == null) {
+		if(member.getMember_id() == null) {
 			out.println("<script>");
 			out.println("alert('등록되지 않은 정보입니다.');");
 			out.println("history.go(-1);");
 			out.println("</script>");
 			out.close();
 
+		}else if(member.getMember_state() == 9){
+			out.println("<script>");
+			out.println("alert('탈퇴한 계정입니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
 		}else {
 			// 임시 비밀번호 생성
 			String member_pwd = "";

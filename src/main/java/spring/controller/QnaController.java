@@ -175,6 +175,48 @@ public class QnaController {
     	return "mypage/mypageQnaDetail";
 		}
     
+  //관리자 qna detail 연결
+    @RequestMapping(value="/admin/adminQnADetail/{qna_number}", method=RequestMethod.GET)
+    public String qnaViewAdmin(@PathVariable ("qna_number") long qna_number, @ModelAttribute("qna") Qna qna,HttpSession session, Model model, HttpServletResponse response) throws IOException {
+    	response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		
+		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+		
+		if (authinfo == null) {
+			return "redirect:/member/login";
+		}
+    	
+		long member_number = authinfo.getMember_number();
+		long Writer = qnaService.selectQnaNumber(qna_number);
+
+    	
+    	
+    	if(Writer != member_number && member_number != 10022 ){
+
+			out.println("<script>");
+			out.println("alert('작성자 본인만 읽을 수 있습니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+			
+    	}
+
+
+    	int num = qnaService.selectByNum(qna_number);
+    	Qna view = qnaService.selectQna(qna_number);
+    	CommentWrite comment = qnaService.selectComment(qna_number);
+    	
+    
+    	model.addAttribute("num", num);
+    	model.addAttribute("comment", comment);
+    	model.addAttribute("view", view);
+    	model.addAttribute("qna", new Qna());
+    	model.addAttribute("commentWrite", new CommentWrite());
+		
+    	return "admin/adminQnADetail";
+		}
+    
     
 
 	
@@ -201,6 +243,16 @@ public class QnaController {
 		return  "redirect:/mypage/myqnalist";
     }
     
+    //qna Admin MyPage 삭제
+    @RequestMapping(value="/admin/DeleteQueInMyPage/{qna_number}")
+    public String deletePostAdmin(@PathVariable("qna_number") long qna_number, Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    	response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		int num = qnaService.selectByQnaNum(qna_number);
+		qnaService.deleteQue(qna_number);
+		
+		return  "redirect:/mypage/qnalist";
+    }
     
     
     
@@ -228,8 +280,8 @@ public class QnaController {
     
     
 
-    //코멘트 MyPage삭제
-    @RequestMapping(value="/mypage/deleteComInMyPage")
+    //코멘트 Admin삭제
+    @RequestMapping(value="/admin/deleteComInMyPage")
     public String deleteComInMyPage(@RequestParam("comment_number") long comment_number, Qna qna, CommentWrite commentWrite, Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
     	
     	long qna_number = qnaService.selectCommentNumber(comment_number);
@@ -247,7 +299,7 @@ public class QnaController {
     	model.addAttribute("qna", new Qna());
     	model.addAttribute("commentWrite", new CommentWrite());
     	
-		return "mypage/mypageQnaDetail";
+    	return "redirect:/admin/adminQnADetail/" + qna_number;
     }
     
     
@@ -336,7 +388,7 @@ public class QnaController {
     	model.addAttribute("qna", new Qna());
     	model.addAttribute("commentWrite", new CommentWrite());
     	
-    	return "mypage/mypageQnaDetail";
+    	return "redirect:/admin/adminQnADetail/" + qna_number;
     	
     }
     
@@ -374,7 +426,7 @@ public class QnaController {
     }
     
   //관리자가 댓글 달기 MyPage
-    @RequestMapping(value="/mypage/mypageQnaDetail/insertCommentInMyPage", method=RequestMethod.POST)
+    @RequestMapping(value="/admin/adminQnADetail/insertCommentInMyPage", method=RequestMethod.POST)
     public String insertCommentInMyPage(Model model, CommentWrite commentWrite, HttpSession session) {
     	
     	AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
@@ -399,7 +451,7 @@ public class QnaController {
     	model.addAttribute("commentWrite", new CommentWrite());
 		
     
-    	return "mypage/mypageQnaDetail";
+    	return "admin/adminQnADetail";
     }
     
     

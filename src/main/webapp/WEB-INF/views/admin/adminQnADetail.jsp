@@ -202,11 +202,11 @@ margin-top:0.3rem;
 .content2{height:400px; text-align:left; vertical-align:top;}
 /* table{border: 0.7px solid #DCDCDC;}
 td, th{border: 0.7px solid #DCDCDC;} */
-.subbtn{width:500px;}
-.subbtn2{margin: 20px; margin-right: 0px;}
-.subbtn3{}
+.subbtn{width:900px;}
+.subbtn2{margin: 20px; margin-right: 0px; width:1000px;}
+.subbtn3{width:800px;, margin-left: 13px;}
 input[type="text"]{width:500px; border:none; height:30px; text-align:left; font-weight: bold;}
-.subbtn4{width:710px; margin-top: 20px;}
+.subbtn4{width:800px; margin-top: 20px;}
 
 </style>
 </head>
@@ -217,24 +217,29 @@ input[type="text"]{width:500px; border:none; height:30px; text-align:left; font-
 <div id="content"> 
 <aside>
 <div class="menu">
-	<p><strong>쇼핑정보</strong></p>
+	<p><strong>상품관리</strong></p>
 	<hr>
-		<p><a href="<c:url value='/mypage/orderStatus' />" class="menu">주문내역</a></p>
-		<p><a href="<c:url value='/product/cart/list.do' />" class="menu">장바구니</a></p>
-		<p><a href="<c:url value='/mypage/pointStatus' />" class="menu">포인트현황</a></p>
-		<p><a href="<c:url value='/member/login' />" class="menu">오늘본상품</a></p>
+		<p><a href="<c:url value='/product/insert'/>" class="menu">상품등록</a></p>
+		<p><a href="<c:url value='/product/List/totalList' />" class="menu">상품전체보기</a></p>
 	<br>
-	<p><strong>쇼핑문의</strong></p>
+	<p><strong>쇼핑관리</strong></p>
 	<hr>
-		<p><a href="<c:url value='/mypage/myqnalist' />" class="menu">1:1게시판</a></p>
-		<p><a href="<c:url value='/mypage/myreviewlist' />" class="menu">내 리뷰 모아보기</a></p>
+
+		<p><a href="<c:url value='/mypage/qnalist' />" class="menu">1:1 문의 모아보기</a></p>
+		<p><a href="<c:url value='/admin/orderStatus' />" class="menu">배송관리</a></p>
+		<p><a href="<c:url value='/admin/adminReviewList' />" class="menu">리뷰 모아보기</a></p>
 		<p><a href="<c:url value='/notice/main' />" class="menu">F&Q</a></p>
 	<br>
-	<p><strong>회원정보</strong></p>
+
+	<c:if test="${authInfo.member_id  eq 'MEALADMIN' }">
+	<p><strong>매출관리</strong></p>
 	<hr>
-		<p><a href="<c:url value='/mypage/modify' />" class="menu">회원정보변경</a></p>
-		<p><a href="<c:url value='/mypage/modifyPwd' />" class="menu">비밀번호변경</a></p>
-		<p><a href="<c:url value='/mypage/deleteAccount' />" class="menu">회원탈퇴</a></p>
+		<p><a href="<c:url value='/admin/Sales' />" class="menu">매출현황</a></p>
+		
+	<br>
+	</c:if>
+
+
 </div>
 </aside>
 <section>
@@ -280,13 +285,13 @@ input[type="text"]{width:500px; border:none; height:30px; text-align:left; font-
 	<input type="button" class="btn3 btn-primary btn-lg btn-block" onclick="deleteConfirm();" value="삭제하기">
 	<input type="button" id="updatebtn" name="updatebtn" class="btn3 btn-primary btn-lg btn-block" onclick="Modify();" value="수정하기">
 	<input type="hidden" id="updateToController" name="updateToController" class="btn3 btn-primary btn-lg btn-block" onclick="Modify();" value="수정완료">
-	<input type="button" class="btn3 btn-primary btn-lg btn-block" onclick="location.href='/mypage/myqnalist';" value="목록으로">
+	<input type="button" class="btn3 btn-primary btn-lg btn-block" onclick="location.href='/mypage/qnalist';" value="목록으로">
 </div>
 </c:if>
 
 <c:if test="${view.member_number != authInfo.member_number}">
 <div class="subbtn3">
- 	<input type="button" class="btn3 btn-primary btn-lg btn-block" onclick="location.href='/mypage/myqnalist';" value="목록으로">
+ 	<input type="button" class="btn3 btn-primary btn-lg btn-block" onclick="location.href='/mypage/qnalist';" value="목록으로">
 </div>
 </c:if>	
 
@@ -299,18 +304,56 @@ input[type="text"]{width:500px; border:none; height:30px; text-align:left; font-
 	</c:when>
 	<c:when test="${!empty comment}">
 	<form commandName="CommentWrite" name="commentForm" id="commentForm" action="/commentModifyInMyPage/${comment.comment_number}" method="POST">
-		<table>
+		<table class="commentBox">
 			<tr>
 				<th>관리자 답변 </th>
 						
 			</tr>
 				<tr>
-					<td><textarea rows="5" cols="30" id="comment_content" name="comment_content" class="focused-input3" style="text-align:left;" readonly>${comment.comment_content}</textarea></td>
+					<td><textarea rows="3" cols="30" id="comment_content" name="comment_content" class="focused-input3" style="text-align:left;" readonly>${comment.comment_content}</textarea></td>
 				</tr>
 		</table>
-	</form>
+	<c:if test="${authInfo.member_number == 10022}">
+			<div class="subbtn4">
+				<input type="hidden" name="comment_number" id="comment_number" value="${comment.comment_number}">
+				<input type="reset" value="취소" class="btn3 btn-primary btn-lg btn-block">
+				<input type="button" value="수정하기" onclick="ModifyComment();" id="updateCommentBtn" name="updateCommentBtn" class="btn3 btn-primary btn-lg btn-block">
+				<input type="hidden" value="수정완료" id="updateCommentToController" name="updateCommentToController" class="btn3 btn-primary btn-lg btn-block">
+				<input type="button" value="삭제하기" onclick="deleteComment();" class="btn3 btn-primary btn-lg btn-block">
+			</div>
+	</c:if>
+		</form>
 	</c:when>
-	</c:choose>
+</c:choose>
+<br>
+
+
+<c:choose>
+	<c:when test="${empty comment}">
+	<c:if test="${authInfo.member_number == 10022}">
+		
+		<form action="insertCommentInMyPage" commendName="CommentWrite" name="commentForm" id="commentForm" method="POST"  htmlEscape="false">	
+			<table>
+				<tr>
+					<th>관리자 답변 </th>
+					
+				</tr>
+			<tr>
+					<td><textarea rows="3" cols="30" id="comment_content" name="comment_content" class="focused-input2" style="text-align:left;"></textarea></td>
+			</tr>
+			</table>
+			<div class="subbtn2">
+				<input type="hidden" name="qna_number" id="qna_number" value="${view.qna_number}">
+				<input type="reset" value="취소" class="btn3 btn-primary btn-lg btn-block">
+				<input type="button" value="답글작성하기" id="insertbtn" name="insertbtn" class="btn3 btn-primary btn-lg btn-block">
+			</div>
+		</form>
+	</c:if>
+	</c:when>
+	<c:when test="${!empty comment}">
+		<P></P>
+	</c:when>
+</c:choose>
 
 
 </section>
@@ -324,7 +367,7 @@ function deleteConfirm(){
 	if(!confirm("삭제 하시겠습니까?")){
 		return false;
 	}else{
-		location.href='/mypage/DeleteQueInMyPage/${qna_number}';
+		location.href='/admin/DeleteQueInMyPage/${qna_number}';
 	}
 }
 
@@ -334,7 +377,7 @@ function deleteComment(){
 	if(!confirm("삭제 하시겠습니까?")){
 		return false;
 	}else{
-		location.href='/mypage/deleteComInMyPage?comment_number= '+ comment_number;
+		location.href='/admin/deleteComInMyPage?comment_number= '+ comment_number;
 	}
 }
 
