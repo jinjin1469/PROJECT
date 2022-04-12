@@ -80,7 +80,7 @@
 	    </li>
 	</c:if>
 	<c:if test="${!empty menu2}">
-	    <li><a href="#">사이드디쉬</a>
+	    <li><a href="#">&nbsp;&nbsp;&nbsp;사이드디쉬&nbsp;&nbsp;&nbsp;</a>
 	      <ul id="sub-menu">
 		        <c:forEach var="menu2" items="${menu2}">
 				   <li><a href="/product/categoryList/${menu2.category_title}" aria-label="subemnu">${menu2.category_title}</a></li>
@@ -89,7 +89,7 @@
 	    </li>
     </c:if>
     <c:if test="${!empty menu3}">
-	    <li><a href="#">브랜드관</a>
+	    <li><a href="#">&nbsp;&nbsp;&nbsp;브랜드관&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 	      <ul id="sub-menu">
 		        <c:forEach var="menu3" items="${menu3}">
 				   <li><a href="/product/categoryList/${menu3.category_title}" aria-label="subemnu">${menu3.category_title}</a></li>

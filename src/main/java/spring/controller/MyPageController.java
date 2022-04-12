@@ -191,7 +191,7 @@ public class MyPageController {
 					return "/mypage/mypage";	
 				}else if(!pwd.equals(member_pwd)) {
 					out.println("<script>");
-					out.println("alert('현재 비밀번호가 일치하지않습니다.');");
+					out.println("alert('현재 비밀번호가 일치하지 않습니다.');");
 					out.println("history.go(-1);");
 					out.println("</script>");
 					out.close();
@@ -365,8 +365,6 @@ public class MyPageController {
 			 	
 			 	long member_number = authinfo.getMember_number();
 				model.addAttribute("confirmPwd", new RegisterRequest());
-				int orderWaiting = manageService.askStatus(member_number);
-			 	System.out.println("배송준비중" + orderWaiting);
 			 
 			 return "mypage/deleteAccount";
 		 }
@@ -398,7 +396,7 @@ public class MyPageController {
 					return "/mypage/deleteAccount";
 			 	}else if(orderWaiting != 0) {
 					out.println("<script>");
-					out.println("alert('배송 준비중인 상품이 있습니다. 주문취소 또는 배송완료 시 탈퇴 가능합니다.');");
+					out.println("alert('배송 준비 중인 상품이 있습니다. 주문 취소 또는 배송 완료 시 탈퇴 가능합니다.');");
 					out.println("history.go(-1);");
 					out.println("</script>");
 					out.close();

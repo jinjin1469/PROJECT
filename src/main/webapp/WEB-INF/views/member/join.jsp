@@ -198,7 +198,7 @@
 	        	  $(".rePassword.regex").css("color","green"); 
 	          
 	        }else{
-	         $(".rePassword.regex").html("비밀번호가 일치하지않습니다"); 
+	         $(".rePassword.regex").html("비밀번호가 일치하지 않습니다"); 
 	         $(".rePassword.regex").css("color","red"); 
 	        }
 	   });
@@ -283,7 +283,7 @@
 		
 		if(member_nickname == "" || member_nickname.length<2){ 
 			
-			$(".successNameChk").text("닉네임은 한글, 영문, 숫자만 가능하며 2-10자리 가능합니다.");
+			$(".successNameChk").text("닉네임은 한글, 영문, 숫자만 가능하며 2자 이상 10자 이하로 설정해주세요.");
 			$(".successNameChk").css("color", "red"); 
 			$("#nicknameDoubleChk").val("false"); 
 			$("#nicknameDoubleChk").val("false"); 
@@ -304,7 +304,7 @@
 						
 						 } else if(result == null){
 			
-							 $(".successNameChk").text("닉네임은 한글, 영문, 숫자만 가능하며 2-10자리 가능합니다.");
+							 $(".successNameChk").text("닉네임은 한글, 영문, 숫자만 가능하며 2자 이상 10자 이하로 설정해주세요.");
 							 $(".successNameChk").css("color", "red"); 
 							 $("#nicknameDoubleChk").val("false"); 
 							 
@@ -341,7 +341,7 @@
 		
 		if(member_id == "" || member_id.length<5 ){ 
 			$("#idDoubleChk").val("false"); 
-			$(".successIdChk").text("아이디는 영어 소문자/숫자 5~12자리로 설정해주세요.");
+			$(".successIdChk").text("아이디는 영어 소문자/숫자 5자 이상 12자 이하로 설정해주세요.");
 			 $(".successIdChk").css("color", "red"); 
 			 $("#idDoubleChk").val("false"); 
 		
@@ -360,7 +360,7 @@
 						 	 $("#idDoubleChk").val("true"); 
 						 
 						 } else if(result == null) {
-							 $(".successIdChk").text("아이디는 영어 소문자/숫자 5~12자리로 설정해주세요.");
+							 $(".successIdChk").text("아이디는 영어 소문자/숫자 5자 이상 12자 이하로 설정해주세요.");
 							 $(".successIdChk").css("color", "red"); 
 							 $("#idDoubleChk").val("false"); 
 						

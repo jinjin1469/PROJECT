@@ -116,10 +116,15 @@
   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
   		<!-- content1 -->
   		<div class="text-center">
+  
  		  <h5>등록 정보로 아이디 찾기</h5>
     		<p>회원가입 시 등록한 정보로 찾을 수 있습니다.</p>
 		</div>
 		<br>
+		<c:if test="${!empty id}">
+			<p>${id}</p>
+		</c:if>
+		<c:if test="${empty id}">
 		<form class="user" id="findIDform" action="findId" method="POST">
 	<table>
 		<tr>
@@ -135,6 +140,7 @@
 	<br>
 		<button class="btn btn-primary btn-lg btn-block" type="button" id="findID" name="findID">확인</button>
 </form> 
+		</c:if>
   </div>
   
   

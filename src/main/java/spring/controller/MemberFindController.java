@@ -31,7 +31,7 @@ public class MemberFindController {
 	// 아이디 찾기 페이지로 연결
 	@RequestMapping(value ="/member/findId")
 	public String findIdForm() throws Exception{
-		return "/member/findId";
+		return "member/findId";
 	}
 	
 	// 아이디 찾기 실행
@@ -44,11 +44,13 @@ public class MemberFindController {
 			Member member = findService.findId(response, memVo);
 			String id = member.getMember_id();
 			model.addAttribute("id", id);
-			return "/member/findIdSuccess";
+		
+			return "member/findId";
+		
 		}catch(MemberNotFoundException e) {
 			
 			out.println("<script>");
-			out.println("alert('가입되어있는 계정이 없습니다.');");
+			out.println("alert('가입되어 있는 계정이 없습니다.');");
 			out.println("history.go(-1);");
 			out.println("</script>");
 			out.close();
@@ -56,9 +58,18 @@ public class MemberFindController {
 			return "member/findId";
 			
 		}
-		
-		
+	
+	}
+		@RequestMapping(value = "/member/findIdSuccess") 
+		public String findIdView() {
+			
+			
+			
+			return "member/findIdSuccess";
 		}
+		
+
+		
 	
 	//비밀번호 찾기
 	@RequestMapping(value = "/member/findPwd", method = RequestMethod.POST)
