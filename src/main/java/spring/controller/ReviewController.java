@@ -41,7 +41,7 @@ public class ReviewController {
 		this.reviewService = reviewService;
 	}
 	
-	//由щ럭 �옉�꽦
+	
 	@RequestMapping(value="/order/review/insertReview", method=RequestMethod.POST)
 		 public String reviewRegister(Model model, Review review ,Errors errors,HttpServletResponse response, HttpServletRequest request, HttpSession session) throws IOException {
 			
