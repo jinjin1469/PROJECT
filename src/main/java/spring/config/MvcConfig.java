@@ -85,7 +85,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		//registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/edit/**");
 		
 		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/category/**");
 		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/admin/**");
