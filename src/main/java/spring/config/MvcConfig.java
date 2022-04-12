@@ -22,13 +22,13 @@ import spring.intercepter.CategoryIntercepter;
 
 
 @Configuration
-@EnableWebMvc   // annotation-driven
+@EnableWebMvc  
 public class MvcConfig extends WebMvcConfigurerAdapter{
-					//  WebMvcConfigurer �씤�꽣�럹�씠�뒪媛� 援ы쁽
+					
 
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		// mvc:default-servlet-handler 
+		
 		configurer.enable();
 	}
 	@Override
@@ -56,17 +56,17 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 	
 	
 	
-	@Bean   //�궗�슜�븷 �씤�꽣�뀎�꽣 鍮�
+	@Bean   
 	public AuthCheckIntercepter authCheckIntercepter() {
 		return new AuthCheckIntercepter();
 	}
 	
-	@Bean   //�궗�슜�븷 �씤�꽣�뀎�꽣 鍮�
+	@Bean  
 	public AdminCheckIntercepter adminCheckIntercepter() {
 		return new AdminCheckIntercepter();
 	}
 
-	@Bean   //�궗�슜�븷 �씤�꽣�뀎�꽣 鍮�
+	@Bean  
 	public CategoryIntercepter categoryIntercepter() {
 		return new CategoryIntercepter();
 	}
