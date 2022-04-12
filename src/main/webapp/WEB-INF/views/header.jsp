@@ -24,8 +24,6 @@
      	<ul class="navheader">
 	       <li class="navheader"><a href="<c:url value='/member/login' />"  aria-current="page">로그인</a></li>
 	       <li class="navheader"><a href="<c:url value='/member/join' />" >회원가입</a></li>
-	       <li class="navheader"><a href="<c:url value='/category/productCategoryEdit' />" >상품카테고리변경</a></li>
-	       <li class="navheader"><a href="<c:url value='/category/stopOrStartSelling' />" >상품판매중지/상품판매재개</a></li>
      	</ul>
      </c:when>
     
@@ -33,11 +31,6 @@
      	 <ul class="navheader">
 	       <li class="navheader userinfo">관리자님 안녕하세요🙌</li>
 	       <li class="navheader"><a href="<c:url value='/logout' />"  aria-current="page">로그아웃</a></li>
-	       <li class="navheader"><a href="javascript:categoryAdd();">카테고리추가</a></li>
-	       <li class="navheader"><a href="javascript:categoryRemove();">카테고리삭제</a></li>
-	       <li class="navheader"><a href="javascript:categoryEdit();">카테고리순서변경</a></li>  
-	       <li class="navheader"><a href="<c:url value='/category/productCategoryEdit' />" >상품카테고리변경</a></li>
-	       <li class="navheader"><a href="<c:url value='/category/stopOrStartSelling' />" >상품판매중지/상품판매재개</a></li>
 	       <li class="navheader"><a href="<c:url value='/admin/admin/${authInfo.member_number}' />" >관리자페이지</a></li>
 	       
      	</ul>
@@ -108,15 +101,6 @@ $("#bookmark").click(function(){
     alert("Ctrl+D키를 누르시면 즐겨찾기에 추가하실 수 있습니다.");
 });
 
-function categoryEdit(){
-	open('/category/categorySequence','배너 추가','width=400px,height=400px,status=false');
-}
-function categoryAdd(){
-	open('/category/categoryInsert','배너 추가','width=400px,height=200px,status=false');
-}
-function categoryRemove(){
-	open('/category/categoryDelete','배너 추가','width=400px,height=200px,status=false');
-}
 
 </script>
 

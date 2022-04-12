@@ -85,28 +85,29 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		//registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/edit/**");
 		
-		//registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/category/**");
+		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/category/**");
 		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/admin/**");
 		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/notice/insert");
 		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/notice/update");
 		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/notice/delete/**");
 		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/order/adminCancle/**");
 		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/product/update/**");
-		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/order/adminCancle/**");
-		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/product/update/**");
 		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/product/insert");
 		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/product/deleteCom");
 		registry.addInterceptor(adminCheckIntercepter()).addPathPatterns("/mypage/qnalist");
 		
+		
 		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/logout");
 		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/verifyIamport/**");
-		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/mypage/mypage/**");
-		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/mypage/modify/**");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/mypage/mypage**");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/mypage/modify**");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/mypage/deleteAccount**");
 		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/mypage/modifyPwd/**");
 		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/mypage/orderStatus**");
 		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/mypage/pointStatus");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/mypage/mypageQnaDetail/**");
+		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/mypage/DeleteQueInMyPage/**");
 		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/order/paymentG");
 		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/order/cancel");
 		registry.addInterceptor(authCheckIntercepter()).addPathPatterns("/order/purchaseConfirm");

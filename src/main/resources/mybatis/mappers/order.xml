@@ -218,7 +218,7 @@
 	
 	
 	<update id="optionZero" parameterType="Option">
-		update m_option set option_count = option_count - #{payment_option_count}, option_salcount = option_salcount + #{payment_option_count}, delete_check=1 WHERE option_number=#{option_number}
+		update m_option set option_count = option_count - #{payment_option_count}, option_salcount = option_salcount + #{payment_option_count} WHERE option_number=#{option_number}
 	</update>
 	<update id="optionDeduction" parameterType="Option">
 		update m_option set option_count = option_count - #{payment_option_count}, option_salcount = option_salcount + #{payment_option_count} WHERE option_number=#{option_number}

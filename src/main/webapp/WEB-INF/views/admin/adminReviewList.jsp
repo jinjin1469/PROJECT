@@ -56,6 +56,8 @@ th {
 	<p><strong>상품관리</strong></p>
 	<hr>
 		<p><a href="<c:url value='/product/insert'/>" class="menu">상품등록</a></p>
+		<p><a href="<c:url value='/category/productCategoryEdit'/>" class="menu">상품카테고리변경</a></p>
+		<p><a href="<c:url value='/category/stopOrStartSelling'/>" class="menu">상품판매중지/상품판매재개</a></p>
 		<p><a href="<c:url value='/product/List/totalList' />" class="menu">상품전체보기</a></p>
 	<br>
 	<p><strong>쇼핑관리</strong></p>
@@ -65,6 +67,13 @@ th {
 		<p><a href="<c:url value='/admin/orderStatus' />" class="menu">배송관리</a></p>
 		<p><a href="<c:url value='/admin/adminReviewList' />" class="menu">리뷰 모아보기</a></p>
 		<p><a href="<c:url value='/notice/main' />" class="menu">F&Q</a></p>
+	<br>
+	<p><strong>카테고리관리</strong></p>
+	<hr>
+		<p><a href="javascript:categoryAdd();" class="menu">카테고리추가</a></p>
+		<p><a href="javascript:categoryRemove();" class="menu">카테고리삭제</a></p>
+		<p><a href="javascript:categoryEdit();" class="menu">카테고리순서변경</a></p>
+		
 	<br>
 	<p><strong>매출관리</strong></p>
 	<hr>
@@ -145,7 +154,20 @@ th {
 	
 		</section>
 </div>
+<script>
 
+function categoryEdit(){
+	open('/category/categorySequence','배너 추가','width=400px,height=400px,status=false');
+}
+function categoryAdd(){
+	open('/category/categoryInsert','배너 추가','width=400px,height=200px,status=false');
+}
+function categoryRemove(){
+	open('/category/categoryDelete','배너 추가','width=400px,height=200px,status=false');
+}
+
+
+</script>
 <br>
 <br>
 <%@include file="../footer.jsp"%>

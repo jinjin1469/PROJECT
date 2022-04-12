@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import spring.exception.MemberDeactivateAccount;
+
 import spring.exception.MemberNotFoundException;
 import spring.service.FindService;
 import spring.vo.Member;
@@ -28,13 +28,13 @@ public class MemberFindController {
 		this.findService = findService;
 	}
 	
-	// 아이디 찾기 페이지로 연결
+	// �븘�씠�뵒 李얘린 �럹�씠吏�濡� �뿰寃�
 	@RequestMapping(value ="/member/findId")
 	public String findIdForm() throws Exception{
 		return "member/findId";
 	}
 	
-	// 아이디 찾기 실행
+	// �븘�씠�뵒 李얘린 �떎�뻾
 	@RequestMapping(value = "/member/findId", method = RequestMethod.POST)
 	public String findId(HttpServletResponse response, Member memVo, Model model) throws Exception{
 		response.setContentType("text/html;charset=utf-8");
@@ -71,7 +71,7 @@ public class MemberFindController {
 
 		
 	
-	//비밀번호 찾기
+	//鍮꾨�踰덊샇 李얘린
 	@RequestMapping(value = "/member/findPwd", method = RequestMethod.POST)
 	public void findPwd(HttpServletResponse response, @ModelAttribute Member memVo) throws Exception{
 		findService.findPwd(response, memVo);

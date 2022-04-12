@@ -66,7 +66,7 @@ public class CategoryController {
 			int seq = dao.categorySeq(category);
 			dao.categoryDelete(category);
 			dao.productCategoryNameNull1(category);
-			int count = dao.menu3Count();
+			int count = dao.menu1Count();
 			if (seq <= count) {
 				for (int i = seq; i <= count; i++) {
 					dao.deleteBysortNumUpdate(i + 1, category.getClassification());
