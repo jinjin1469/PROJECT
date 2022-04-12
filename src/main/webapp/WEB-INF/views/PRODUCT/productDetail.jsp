@@ -106,7 +106,7 @@
 		border-color 0.15s ease-in-out;
 }
 .th-2{border-bottom: 0.7px solid #DCDCDC;}
-.qnaInfo{width: 800px; text-align: right;}
+.qnaInfo{width: 1000px; text-align: right;}
 .qInfo{color:red; font-size:13px; margin:0px;}
 .reviewcontent{height:10rem;}
 .reviewinfo{height:2rem; background-color:white; border-bottom:0.5px solid #C1C1C1; }
