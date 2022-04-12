@@ -1,6 +1,9 @@
 package spring.controller;
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.exception.IdPasswordNotMatchingException;
+import spring.exception.MemberDeactivateAccount;
 import spring.service.AuthService;
 import spring.validator.LoginCommandValidator;
 import spring.vo.AuthInfo;
@@ -47,12 +51,17 @@ public class LoginController {
     
     //로그인
     @RequestMapping(value="/member/login",method=RequestMethod.POST)
-	public String submit(Login login, Errors errors, HttpSession session, HttpServletRequest request, HttpServletResponse response, String url) { 
+	public String submit(Login login, Errors errors, HttpSession session, HttpServletRequest request, HttpServletResponse response, String url) throws IOException { 
+    	
+    	response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
     	new LoginCommandValidator().validate(login, errors);
     	if(errors.hasErrors()) {
 			return "member/login";
 		}
     		
+    	
+
 		try {
 			AuthInfo authInfo = authService.authenticate(login.getMember_id(), login.getMember_pwd());
 			session.setAttribute("authInfo", authInfo);
@@ -68,6 +77,17 @@ public class LoginController {
 			response.addCookie(rememberCookie);
 			
 			return "redirect:/";
+			
+		}
+		catch(MemberDeactivateAccount e) {
+			
+			out.println("<script>");
+			out.println("alert('탈퇴한 계정은 로그인이 불가능합니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+			
+			return "member/login";
 			
 		}catch(IdPasswordNotMatchingException e) {
 			

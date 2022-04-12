@@ -211,7 +211,7 @@
 	  
 		  
 		 <div class="totalamount">
-			<label class="amount">총 상품 금액</label>&nbsp;&nbsp; <label class="amount2" id="total_price"><fmt:formatNumber value="${Product.product_price}" pattern="#######"/></label><label class="amount2">원</label> 
+			<label class="amount">총 상품 금액</label>&nbsp;&nbsp; <label class="amount2" id="total_price"><fmt:formatNumber value="${Product.product_price}" pattern="#,###,###"/></label><label class="amount2">원</label> 
 		</div>
 		<hr>
 		<c:if test="${Product.delete_check==0}">
@@ -367,7 +367,7 @@ function total_price() {
 		total_price += $("#p_num${status.count}").val()*${ProductOption.option_Price};
 	</c:forEach>
 	total_price += product_price*product_count;
-	$("#total_price").html(total_price);
+	$("#total_price").html(total_price.format());
 };
 
 	// 숫자 콤마찍기

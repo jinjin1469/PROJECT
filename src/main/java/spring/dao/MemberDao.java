@@ -43,23 +43,35 @@ public class MemberDao {
 
 	}
 	
+	/*
+	 * //닉네임 중복검사 ajax public int nameCheck(String member_nickname){ return
+	 * sqlSession.selectOne("mybatis.mapper.member.nameCheck", member_nickname); }
+	 */
+	
 	//닉네임 중복검사 ajax
-	public int nameCheck(String member_nickname){ 
-		return sqlSession.selectOne("mybatis.mapper.member.nameCheck", member_nickname);
+	public Member nameCheck(String member_nickname){ 
+		Member member = sqlSession.selectOne("mybatis.mapper.member.nameCheck", member_nickname);
+		return member; 
 	}
 	
+	/*
+	 * //아이디 중복검사 ajax public int idCheck(String member_id){ return
+	 * sqlSession.selectOne("mybatis.mapper.member.idCheck", member_id); }
+	 */
+	
 	//아이디 중복검사 ajax
-	public int idCheck(String member_id){ 
-		return sqlSession.selectOne("mybatis.mapper.member.idCheck", member_id);
-	}
+	public Member idCheck(String member_id){ 
+		Member member = sqlSession.selectOne("mybatis.mapper.member.idCheck", member_id);
+		return member;
+		}
 
 	//아이디 찾기
-	public String findId(Member memVo) throws Exception{
+	public Member findId(Member memVo) throws Exception{
 		return sqlSession.selectOne("mybatis.mapper.member.findId",memVo);
 	}
 	
 	//비밀번호 찾기
-	public String findPw(Member memVo) throws Exception{
+	public Member findPw(Member memVo) throws Exception{
 			return sqlSession.selectOne("mybatis.mapper.member.findPwd",memVo);
 	}
 	
@@ -101,7 +113,7 @@ public class MemberDao {
 
 
 	public void deleteAccount(long member_number) {
-		sqlSession.delete("mybatis.mapper.member.deleteAccount",member_number);
+		sqlSession.update("mybatis.mapper.member.deleteAccount",member_number);
 		
 	}
 

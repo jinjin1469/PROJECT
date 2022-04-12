@@ -202,16 +202,7 @@ public class MyPageController {
 			}
 			
 		 
-		
 
-		 @RequestMapping(value="/mypage/modify/{member_number}",method=RequestMethod.POST)
-			public String modifyForm2(@PathVariable("member_number") Long member_number, Model model) {
-			 
-				Member memVo = manageService.myPage(member_number);
-				model.addAttribute("member", memVo);
-				return "/";
-			}
-		 
 
 		
 	    
@@ -397,8 +388,6 @@ public class MyPageController {
 			 	String member_pwd = manageService.pwdFind(member_number);
 			 	int orderWaiting = manageService.askStatus(member_number);
 			 	
-			 	System.out.println("pwd" + pwd);
-			 	System.out.println("member_pwd" + member_pwd);
 			 	
 			 	if(!pwd.equals(member_pwd))  {
 					out.println("<script>");
@@ -408,8 +397,6 @@ public class MyPageController {
 					out.close();
 					return "/mypage/deleteAccount";
 			 	}else if(orderWaiting != 0) {
-			 		System.out.println("첫번째관문 통과");
-			 		System.out.println("두번째관문");
 					out.println("<script>");
 					out.println("alert('배송 준비중인 상품이 있습니다. 주문취소 또는 배송완료 시 탈퇴 가능합니다.');");
 					out.println("history.go(-1);");
@@ -417,7 +404,9 @@ public class MyPageController {
 					out.close();
 					return "/mypage/deleteAccount";
 				}else{
+				
 					manageService.delete(member_number);
+					session.invalidate(); //세션에 저장된 모든 데이터를 제거
 				 }
 				
 			return "redirect:/";

@@ -193,14 +193,33 @@ function monthSalesChart(Cnt,selectDate){
     data: data,
     options: {}
   };
-  $("#total_amount").html(total_price);
-  $("#total_amount2").html(total_price2);
+  $("#total_amount").html(total_price.format());
+  $("#total_amount2").html(total_price2.format());
 
   const myChart = new Chart(
 		    document.getElementById('monthSalesChart'),
 		    config
 		  );
 }	
+
+Number.prototype.format = function(){
+	  if(this==0) return 0;
+	
+	  var reg = /(^[+-]?\d+)(\d{3})/;
+	  var n = (this + '');
+	
+	  while (reg.test(n)) n = n.replace(reg, '$1' + ',' + '$2');
+	
+	  return n;
+	};
+	 	
+	
+	String.prototype.format = function(){
+	  var num = parseFloat(this);
+	  if( isNaN(num) ) return "0";
+	
+	  return num.format();
+	};
 
 </script>
 <%@include file="../footer.jsp"%>

@@ -161,10 +161,10 @@ background: #F5F5F5;
 	<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
 	<div class="carousel-inner">
 	    <div class="carousel-item active">
-	      <a href="/notice/detail/10011" style="padding:0px;"><img src="./resources/IMG/banner1.jpg" class="d-block w-100" alt="..."></a>
+	      <a href="/notice/detail/10011" style="padding:0px;"><img src="./resources/IMG/banner-meal1.png" class="d-block w-100" alt="..."></a>
 	    </div>
 	    <div class="carousel-item">
-	      <a href="https://fresheasy.co.kr/" style="padding:0px;"><img src="./resources/IMG/banner2.jpg" class="d-block w-100" alt="..."></a>
+	      <a href="https://fresheasy.co.kr/" style="padding:0px;"><img src="./resources/IMG/banner-meal2.png" class="d-block w-100" alt="..."></a>
 	    </div>
 	    <div class="carousel-item">
 	      <a href="/product/categoryList/스미스푸줏간" style="padding:0px;"><img src="./resources/IMG/banner3.jpg" class="d-block w-100" alt="..."></a>

@@ -17,7 +17,7 @@
 .nav{width:500px;}
 .delete4{font-weight: bold;
     padding: 5px;
-    margin-bottom: 10px;}
+    margin-bottom: 6px;}
 .listinfo{font-weight:bold;}
 
 input[type="checkbox"]{

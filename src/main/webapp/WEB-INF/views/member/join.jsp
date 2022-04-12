@@ -278,7 +278,7 @@
 	//닉네임 중복 체크
 	$("#member_nickname").blur(function(){ 
 		var member_nickname = $("#member_nickname").val();
-		var regex = /[0-9]|[a-z]|[A-Z]|[가-힣]/;
+		var regex = /^[가-힣|a-z|A-Z|0-9|\*]+$/;
 		var result = regex.exec($("#member_nickname").val());
 		
 		if(member_nickname == "" || member_nickname.length<2){ 
@@ -308,8 +308,14 @@
 							 $(".successNameChk").css("color", "red"); 
 							 $("#nicknameDoubleChk").val("false"); 
 							 
-						 }else{ 
-							 $(".successNameChk	").text("사용중인 닉네임입니다.");
+						 }else if(data == 1 && result != null) {
+			
+							 $(".successNameChk").text("사용중인 닉네임입니다.");
+							 $(".successNameChk").css("color", "red"); 
+							 $("#nicknameDoubleChk").val("false"); 
+							 
+						 }else if(data == 2 && result != null){ 
+							 $(".successNameChk	").text("사용 불가능한 닉네임입니다.");
 							 $(".successNameChk").css("color", "red"); 
 							 $("#nicknameDoubleChk").val("false"); 
 							 } 
@@ -358,8 +364,13 @@
 							 $(".successIdChk").css("color", "red"); 
 							 $("#idDoubleChk").val("false"); 
 						
-							 } else{
-							 $(".successIdChk").text("사용 중인 아이디입니다."); 
+							 }else if(data == 1 && result != null) {
+								 $(".successIdChk").text("사용중인 아이디입니다.");
+								 $(".successIdChk").css("color", "red"); 
+								 $("#idDoubleChk").val("false"); 
+							
+							 }else if(data == 2 && result != null){
+							 $(".successIdChk").text("사용 불가능한 아이디입니다."); 
 						 	 $(".successIdChk").css("color", "red"); 
 						 	 $("#idDoubleChk").val("false"); 
 							 	 }
@@ -475,17 +486,22 @@
    	   var idregex = /^[a-z][a-z\d]{4,11}$/;
    	   var pwregex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
    	   var nameregex = /[가-힣]{2,}/;
-   	   var nicknameregex = /[0-9]|[a-z]|[A-Z]|[가-힣]/;
+   	   var nicknameregex = /^[가-힣|a-z|A-Z|0-9|\*]+$/;
    	   var emailregex = /.+@[a-z]+(\.[a-z]+){1,2}$/;
    	   var str_space = /\s/;
    	   var phoneregex = /^01\d\d{3,4}\d{4}$/;
    	   var a = true;
    	   var b = false;
    	 
+   	 
+   	   if(idDoubleChk == 'false'){
+		   alert("아이디를 확인해주세요.");
+		   return;   
+	   }
+	   
    	   
-   	   
-   	   if(nicknameDoubleChk == false){
-		   alert("닉네임이 중복입니다.");
+   	   if(nicknameDoubleChk == 'false'){
+		   alert("닉네임을 확인해주세요.");
 		   return;   
 	   }
 	   

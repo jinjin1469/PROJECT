@@ -23,7 +23,7 @@
 	 <c:when test="${empty authInfo}">
      	<ul class="navheader">
 	       <li class="navheader"><a href="<c:url value='/member/login' />"  aria-current="page">로그인</a></li>
-	       <li class="navheader"><a href="<c:url value='/member/joinChoice' />" >회원가입</a></li>
+	       <li class="navheader"><a href="<c:url value='/member/join' />" >회원가입</a></li>
 	       <li class="navheader"><a href="<c:url value='/category/productCategoryEdit' />" >상품카테고리변경</a></li>
 	       <li class="navheader"><a href="<c:url value='/category/stopOrStartSelling' />" >상품판매중지/상품판매재개</a></li>
      	</ul>

@@ -124,12 +124,12 @@
     </div>
    
     <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-    <div class="loginWrap">
+   <!--  <div class="loginWrap">
       <button class="kakaoLogin w-50 btn btn-lg" type="button" 
       onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=bc528016f97202a3cca0df4fd5072b8f&redirect_uri=http://localhost:8080/kakaologin&response_type=code';">
       </button> 
       <button class="naverLogin w-50 btn btn-lg" type="submit"></button>
-    </div>
+    </div> -->
   
   </form:form>
   <br>

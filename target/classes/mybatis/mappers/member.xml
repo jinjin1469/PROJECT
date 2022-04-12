@@ -16,6 +16,7 @@
 		<result column="member_email" property="member_email"/>
 		<result column="member_address" property="member_address"/>
 		<result column="member_point" property="member_point"/>
+		<result column="member_state" property="member_state"/>
 	</resultMap>
 
 	<!-- 반복적으로 나오는 쿼리를 묶어서 처리  -->
@@ -28,24 +29,28 @@
 		SELECT * FROM M_MEMBER
 	</select>
 	
-    <!--  아이디 중복 체크 보류
-    <select id="selectById" resultMap="memVo" parameterType="String">
-		<include refid="selectAllMember" />
-		WHERE MEMBER_ID=#{member_id}
-	</select>  -->
-
     <insert id="insertMember" parameterType="RegisterRequest">
 		INSERT INTO M_MEMBER 
-		 VALUES(M_MEMBER_SEQ.NEXTVAL,#{member_id},#{member_pwd},#{member_name},#{member_nickname},#{member_phone},#{member_email},#{member_address},0)
+		 VALUES(M_MEMBER_SEQ.NEXTVAL,#{member_id},#{member_pwd},#{member_name},#{member_nickname},#{member_phone},#{member_email},#{member_address},0,1)
 	</insert>
 	
-	<select id="nameCheck" parameterType="String" resultType="integer"> 
+	<!-- <select id="nameCheck" parameterType="String" resultType="integer"> 
 		SELECT COUNT(*) FROM M_MEMBER WHERE member_nickname = #{member_nickname}
+	</select> -->
+	
+	<select id="nameCheck" parameterType="String" resultMap="memVo"> 
+		select NVL(COUNT,0) as member_point, NVL(member_state,0) as member_state from
+		(select COUNT(*) AS COUNT, MEMBER_STATE FROM m_member RIGHT OUTER JOIN DUAL ON member_nickname =#{member_nickname} GROUP BY member_state, member_point)
 	</select>
 	
-	<select id="idCheck" parameterType="String" resultType="integer"> 
+<!-- 	<select id="idCheck" parameterType="String" resultType="integer"> 
 		SELECT COUNT(*) FROM M_MEMBER WHERE member_id = #{member_id}
+	</select> -->
+	<select id="idCheck" parameterType="String" resultMap="memVo"> 
+		select NVL(COUNT,0) as member_point, NVL(member_state,0) as member_state from
+		(select COUNT(*) AS COUNT, MEMBER_STATE FROM m_member RIGHT OUTER JOIN DUAL ON member_id =#{member_id} GROUP BY member_state, member_point)
 	</select>
+	
 
 	 <select id="selectById" resultMap="memVo" parameterType="String">
 		<!-- SELECT * FROM members -->
@@ -57,13 +62,13 @@
 	</select>
 	
 	<!-- 아이디 찾기 -->
-	<select id="findId" parameterType="String" resultType="String">
-		select member_id from M_MEMBER where member_name = #{member_name} AND member_email = #{member_email} 
+	<select id="findId" parameterType="String" resultMap="memVo">
+		select * from M_MEMBER where member_name = #{member_name} AND member_email = #{member_email} 
 	</select>
 	
 	<!-- 비밀번호 찾기 -->
-	<select id="findPwd" parameterType="String" resultType="String">
-		select member_id from M_MEMBER where member_name = #{member_name} AND member_email = #{member_email} AND member_id = #{member_id}
+	<select id="findPwd" parameterType="String"  resultMap="memVo">
+		select * from M_MEMBER where member_name = #{member_name} AND member_email = #{member_email} AND member_id = #{member_id}
 	</select>
 	
 	<update id="updateInfo">
@@ -90,9 +95,9 @@
 		<include refid="selectAllMember" />
 		WHERE member_number=#{member_number}
 	</select>
-	<delete id="deleteAccount" parameterType="long">
-	   DELETE m_member where member_number = #{member_number}
-	</delete>
+	<update id="deleteAccount" parameterType="long">
+	   update m_member set member_state = 9 where member_number = #{member_number}
+	</update>
     
 	
 </mapper>

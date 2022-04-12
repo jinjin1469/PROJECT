@@ -120,7 +120,7 @@
     <br>
     <br>
     <br>
-    <!--간편 로그인-->
+<!--     <!--간편 로그인
     <h3 class="h4 mb-3 fw-normal"><strong>간편가입</strong></h3>
     <p class="mb-4 fw-normal">SNS 계정을 이용한 회원가입 후 간편 로그인이 가능합니다. </p> 
     
@@ -128,8 +128,8 @@
       <input type="button" class="kakaoJoin" onclick="kakaoLogin();">
       <input type="button" class="naverJoin"> 
     </div>
-
-
+ -->
+ 
   
   </form>
   <br>

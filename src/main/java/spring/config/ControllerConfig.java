@@ -24,6 +24,7 @@ import spring.dao.MemberDao;
 import spring.dao.NoticeDao;
 import spring.dao.OrderDao;
 import spring.dao.ProductDao;
+import spring.dao.QnaDao;
 import spring.intercepter.AuthCheckIntercepter;
 import spring.intercepter.CategoryIntercepter;
 import spring.service.AuthService;
@@ -50,6 +51,8 @@ public class ControllerConfig {
 	private ManageService manageService;
 	@Autowired
 	private ShoppingService shoppingService;
+	@Autowired
+	private QnaDao qdao;
 	@Autowired
 	private NoticeDao ndao;
 	@Autowired
@@ -161,6 +164,7 @@ public class ControllerConfig {
 	public QnaController qnaController() {
 		QnaController qnaController = new QnaController();
 		qnaController.setQnaService(qnaService);
+		qnaController.setDao(qdao);
 		return qnaController;
 	}
 	

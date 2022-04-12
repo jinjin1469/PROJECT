@@ -9,6 +9,8 @@ import org.apache.commons.mail.HtmlEmail;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import spring.dao.MemberDao;
+import spring.exception.MemberDeactivateAccount;
+import spring.exception.MemberNotFoundException;
 import spring.vo.Member;
 
 public class FindService {
@@ -20,21 +22,21 @@ public class FindService {
 	}
 
 	// 아이디 찾기 실행
-	public String findId(HttpServletResponse response, Member memVo) throws Exception {
+	public Member findId(HttpServletResponse response, Member memVo) throws Exception {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		String id = dao.findId(memVo);
-		
-		if (id == null) {
+		Member member = dao.findId(memVo);
+		if(member == null) {
+			throw new MemberNotFoundException();
+		}
+		else if(member.getMember_state() == 9){
 			out.println("<script>");
-			out.println("alert('가입된 아이디가 없습니다.');");
+			out.println("alert('탈퇴한 계정입니다.');");
 			out.println("history.go(-1);");
 			out.println("</script>");
 			out.close();
-			return null;
-		} else {
-			return id;
 		}
+		return member;
 	}
 	
 	//임시 비밀번호 전송
@@ -111,15 +113,22 @@ public class FindService {
 	public void findPwd(HttpServletResponse response, Member memVo) throws Exception {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		String id = dao.findPw(memVo);
+		Member member = dao.findPw(memVo);
+		
 		// 가입된 아이디가 없으면
-		if(id == null) {
+		if(member == null) {
 			out.println("<script>");
 			out.println("alert('등록되지 않은 정보입니다.');");
 			out.println("history.go(-1);");
 			out.println("</script>");
 			out.close();
 
+		}else if(member.getMember_state() == 9){
+			out.println("<script>");
+			out.println("alert('탈퇴한 계정입니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
 		}else {
 			// 임시 비밀번호 생성
 			String member_pwd = "";
