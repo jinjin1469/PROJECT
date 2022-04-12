@@ -20,7 +20,7 @@
 				<option value="사이드디쉬">사이드디쉬</option>
 				<option value="브랜드관">브랜드관</option>
 			  </select><br>
-		카테고리명 <input type="text" name="category_title" id="show" style="display:none;"/><br>
+		<span id="show1" style="display:none;">카테고리명 <input type="text" name="category_title" id="show" style="display:none;"/></span><br>
 		<div id="edit">
 		 </div>
 		 <input type="button" id="checkBtn" value="등록" style="display:none;">
@@ -36,6 +36,7 @@ $(document).ready(function(){
 		if(sel == "테마별"){
 			document.getElementById("checkBtn").style.display='block';
 			document.getElementById("show").style.display='block';
+			document.getElementById("show1").style.display='block';
 			$('.delete').remove();
 			choiceNum = 1;
 			$('.op').remove();
@@ -55,6 +56,7 @@ $(document).ready(function(){
 		}else if(sel == "사이드디쉬"){
 			document.getElementById("checkBtn").style.display='block';
 			document.getElementById("show").style.display='block';
+			document.getElementById("show1").style.display='block';
 			$('.delete').remove();
 			choiceNum = 2;
 			$('.op').remove();
@@ -74,6 +76,7 @@ $(document).ready(function(){
 		}else if(sel == "브랜드관"){
 			document.getElementById("checkBtn").style.display='block';
 			document.getElementById("show").style.display='block';
+			document.getElementById("show1").style.display='block';
 			$('.delete').remove();
 			choiceNum = 3;
 			$('.op').remove();
