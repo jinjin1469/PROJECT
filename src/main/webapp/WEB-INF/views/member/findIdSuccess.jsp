@@ -114,6 +114,7 @@
 
 <!-- 아이디 찾기 시작 -->
 <div class="tab-content" id="nav-tabContent">
+<br>
  <h5>아이디</h5>
  <p>${id}</p>
   </div>

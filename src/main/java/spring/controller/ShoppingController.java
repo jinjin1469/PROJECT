@@ -84,6 +84,41 @@ public class ShoppingController {
 		return "redirect:/product/cart/list.do"; //
 	}
 
+	
+	@RequestMapping(value = "/product/detail/addCartReturnProductDetail", method = RequestMethod.POST)
+	public String insertReturnToDetail(Cart cart, HttpSession session, HttpServletRequest request) {
+
+		
+
+		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+		ArrayList<CartOption> option = new ArrayList<CartOption>();
+
+		
+
+		if (authinfo == null) {
+			return "redirect:/member/login";
+		}
+		
+		long member_number = authinfo.getMember_number();
+		cart.setMember_number(member_number);
+		shoppingService.insert(cart); 
+		int num = cart.getOption_join_number();
+		
+		long cartoption_number = dao.selectCartNumber()-1;
+
+
+		if(cart.getOptionList()!=null) {
+			for(CartOption cartOption : cart.getOptionList()) {
+			  cartOption.setCartoption_number(cartoption_number); 
+			  dao.insertOption(cartOption);
+			}
+		}
+		  
+
+		return "redirect:/product/detail/" + num;
+	}
+
+	
 
 	@RequestMapping("/product/cart/list.do")
 	public ModelAndView list(HttpSession session, ModelAndView mav, Cart cart, Model model) {

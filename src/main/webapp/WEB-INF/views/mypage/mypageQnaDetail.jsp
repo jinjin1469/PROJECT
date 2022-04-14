@@ -202,7 +202,7 @@ margin-top:0.3rem;
 .content2{height:400px; text-align:left; vertical-align:top;}
 /* table{border: 0.7px solid #DCDCDC;}
 td, th{border: 0.7px solid #DCDCDC;} */
-.subbtn{width:500px;}
+.subbtn{width:800px;}
 .subbtn2{margin: 20px; margin-right: 0px;}
 .subbtn3{}
 input[type="text"]{width:500px; border:none; height:30px; text-align:left; font-weight: bold;}

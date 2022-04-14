@@ -28,13 +28,13 @@ public class MemberFindController {
 		this.findService = findService;
 	}
 	
-	// �븘�씠�뵒 李얘린 �럹�씠吏�濡� �뿰寃�
+	
 	@RequestMapping(value ="/member/findId")
 	public String findIdForm() throws Exception{
-		return "/member/findId";
+		return "member/findId";
 	}
 	
-	// �븘�씠�뵒 李얘린 �떎�뻾
+	
 	@RequestMapping(value = "/member/findId", method = RequestMethod.POST)
 	public String findId(HttpServletResponse response, Member memVo, Model model) throws Exception{
 		response.setContentType("text/html;charset=utf-8");
@@ -44,7 +44,9 @@ public class MemberFindController {
 			Member member = findService.findId(response, memVo);
 			String id = member.getMember_id();
 			model.addAttribute("id", id);
-			return "/member/findIdSuccess";
+		
+			return "member/findId";
+		
 		}catch(MemberNotFoundException e) {
 			
 			out.println("<script>");
@@ -56,11 +58,20 @@ public class MemberFindController {
 			return "member/findId";
 			
 		}
-		
-		
-		}
 	
-	//鍮꾨�踰덊샇 李얘린
+	}
+		@RequestMapping(value = "/member/findIdSuccess") 
+		public String findIdView() {
+			
+			
+			
+			return "member/findIdSuccess";
+		}
+		
+
+		
+	
+	
 	@RequestMapping(value = "/member/findPwd", method = RequestMethod.POST)
 	public void findPwd(HttpServletResponse response, @ModelAttribute Member memVo) throws Exception{
 		findService.findPwd(response, memVo);

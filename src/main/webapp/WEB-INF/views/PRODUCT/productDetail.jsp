@@ -118,8 +118,9 @@
 <br>
 <br>
 <div class="Product">
-<form action="addCart" method="POST" commandName="cartData" >
+<form action="addCart" method="POST" commandName="cartData" name="addProduct"  id="addProduct">
 <input type="hidden" name="num" id="num" value="${num}">
+<input type="hidden" name="option_join_number" id="option_join_number" value="${Product.option_join_number}">
 		<div class="Product_img">
 			<img src="/uploadedIMG/${Product.product_m_image}" class="imgSize" alt="...">
 		</div>
@@ -215,7 +216,7 @@
 		</div>
 		<hr>
 		<c:if test="${Product.delete_check==0}">
-			 <input class="btn btn-primary btn-lg btn-block" type="submit" id="btn_cart" name="btn_cart" value="장바구니">
+			 <input class="btn btn-primary btn-lg btn-block" type="button" id="btn_cart" name="btn_cart" onclick="addCart();" value="장바구니">
 		</c:if>	
 
 		<c:if test="${Product.delete_check!=0}">
@@ -519,13 +520,24 @@ function total_price() {
 	
 
 
-	//장바구니 버튼 추후 수정하기
- 	$(".btn_cart").click(function() {
+	//장바구니 확인 버튼
+ 	function addCart() {
 			var check = confirm("상품이 장바구니에 담겼습니다. 확인하시겠습니까?");
-			if (check) {
-				location.assign("/PRODUCT/cart");
-			} 
-		});
+			var form = document.getElementById('addProduct');
+			
+			if (!check) {
+				  form.setAttribute("method", "Post");  
+				  form.setAttribute("commandName", "cartData");  
+				  form.setAttribute("action","addCartReturnProductDetail");
+				  
+				  form.submit();
+			}else{
+				 form.setAttribute("method", "Post");  
+				  form.setAttribute("commandName", "cartData");  
+				  form.setAttribute("action","addCart");
+				form.submit();
+			}
+	 }
  	
 	//글 작성 페이지로 이동
  	 function qna(){
