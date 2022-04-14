@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,9 +17,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import spring.dao.MemberDao;
@@ -26,7 +30,10 @@ import spring.vo.AuthInfo;
 import spring.vo.Cart;
 import spring.vo.Notice;
 import spring.vo.Option;
+import spring.vo.Order;
 import spring.vo.Product;
+import spring.vo.ProductCategoryEdit;
+import spring.vo.ProductCategoryEditList;
 import spring.vo.ProductCommand;
 import spring.vo.Qna;
 import spring.vo.RegisterRequest;
@@ -61,6 +68,17 @@ public class ProductController {
 //		
 //		return "PRODUCT/totalProductList";
 //	}
+	@ResponseBody
+	@RequestMapping(value="/productNameCheck", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+	public Map<String,Object> testaa1(@RequestBody Map<String,String> param,Model model){ 
+		  
+		  Map<String,Object> list = new HashMap<String,Object>();
+		  String product_Name = String.valueOf(param.get("product_Name"));
+		  int nameCheck = dao.product_Name(product_Name);
+		  list.put("nameCheck",nameCheck);
+
+	  return list; 
+	  }
 	
 	@RequestMapping("/List/{menu}")
 	public String total(@PathVariable("menu") String menu,Model model) {
@@ -119,7 +137,6 @@ public class ProductController {
 		model.addAttribute("ProductOption", productOption);
 		model.addAttribute("formData", new Cart()); 
 		model.addAttribute("cartData", new Cart());
-		System.out.println("ckck");
 		
 		return "PRODUCT/productDetail";
 	}
@@ -184,6 +201,7 @@ public class ProductController {
 		model.addAttribute("productOption",productOption);
 		model.addAttribute("storage",product.getProduct_storage());
 		model.addAttribute("option_loop",option_loop);
+		model.addAttribute("product_name",product.getProduct_name());
 		
 		return "PRODUCT/productUpdate";
 	}
@@ -217,20 +235,16 @@ public class ProductController {
 				String uploadFileName = multipartFile.getOriginalFilename();
 				
 				String filenameExtension = uploadFileName.substring(uploadFileName.lastIndexOf("."));
-				System.out.println(filenameExtension);
 				uploadFileName = productNum+classification[number]+filenameExtension;
 				
 				String productImagePath = getFolder()+"\\"+uploadFileName;
 				
 				if(number==0) {
 					product.setProduct_m_image(productImagePath);
-					System.out.println("check1");
 				}else if(number==1) {
 					product.setProduct_d_image(productImagePath);
-					System.out.println("check2");
 				}else if(number==2) {
 					product.setProduct_i_image(productImagePath);
-					System.out.println("check3");
 				}
 				
 				File saveFile = new File(uploadPath, uploadFileName);
@@ -289,7 +303,6 @@ public class ProductController {
 			     Model model) throws IllegalStateException, IOException {
 		
 		int productNum = dao.seqNumber();
-		System.out.println(productNum);
 		
 		ArrayList<MultipartFile> file = pic.getUploadFile();
 		

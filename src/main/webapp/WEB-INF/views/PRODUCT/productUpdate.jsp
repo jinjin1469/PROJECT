@@ -143,7 +143,9 @@
 			<table>
 				<tr>
 					<th>상품이름</th> 
-					<td><form:input path="product_Name"/></td>
+					<td><input type="text" name="product_Name" id="product_Name" value="${product_name}">
+					<span class="name regex" style="text-align:left;"></span>
+					<input type="hidden" id="nameDoubleChk">
 				</tr>
 				<tr>
 					<th>카테고리1</th> 
@@ -254,6 +256,7 @@ $(document).ready(function(){
 	let regex = new RegExp('(.*?)\.(jpeg|jpg|png|gip|svg)$','i');
 	let maxSize = 5242880; //5MB//5242880
 	let check = 0;
+	
 	/* let optionCount = 0; */
 	
 	function checkExtension(fileName, fileSize){
@@ -270,7 +273,8 @@ $(document).ready(function(){
 		return true;
 	}
 	$("#uploadBtn").on("click",function(){
-		
+		let nameDoubleChk = document.getElementById('nameDoubleChk').value
+		let product_Price = document.getElementById("product_Price").value;
 		$(".fileClass").each(function (idx,item){	
 			if(undefined!=item.files[0]){
 				if(!checkExtension(item.files[0].name, item.files[0].size)){
@@ -278,6 +282,14 @@ $(document).ready(function(){
 			}}
 			
 		});
+		if(product_Price<100){
+			alert('판매가격을 100원이상으로 설정해주세요.');
+			return;
+		}
+		if(nameDoubleChk == 'false'){
+			   alert("상품명을 확인해주세요.");
+			   return;   
+		   }
 		if(check==0){
 			$("#ProductUpdate").submit();
 		}
@@ -333,9 +345,48 @@ $(document).ready(function(){
 	 	++number;
 
 	 }); 
+	 $("#product_Name").on("input",function(){
+			let product_Name = document.getElementById("product_Name").value;
+			if(product_Name != "${product_name}"){
+				let obj = {'product_Name':product_Name};
+				$.ajax({ 
+					 type:'POST',
+					 async:true,
+					 url:'/product/productNameCheck',
+					 data: JSON.stringify(obj),
+					 contentType : "application/json; charset=UTF-8",
+					 dataType:"JSON",
+					 success : function(data) { 
+						 console.log(data);
+						 if(data.nameCheck>0){
+							 $(".name.regex").html("중복된 제품명입니다.");
+						     $(".name.regex").css("color","red");
+						     $("#nameDoubleChk").val("false"); 
+						 }else{
+							 $("#nameDoubleChk").val("true"); 
+						 }
+					},error:function(){
+						console.log("Error!!..");	
+					}
+				});
+			}
+			
+			
+			var regex = /^[0-9a-zA-Z가-힣,\\[\].\s]+$/g;
+			var result = regex.exec($("#product_Name").val());
+			   if(result != null){
+			      $(".name.regex").html("");  
+			   }else{
+			       $(".name.regex").html("특수문자[],만 입력 가능");
+			       $(".name.regex").css("color","red");
+			   }
+			   
+			    
+		});
 	 
 	 
 });
+
 function remove(index){
 	 document.getElementById('div'+index).remove();
 }

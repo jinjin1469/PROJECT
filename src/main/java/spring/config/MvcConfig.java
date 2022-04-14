@@ -131,7 +131,15 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/mypage/**");
 		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/admin/**");
 		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/notice/**");
-		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/product/**");
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/product/List/**");
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/product/categoryList/**");
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/product/detail/**");
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/product/update/**");
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/product/insert/**");
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/product/qna/**");
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/product/DeleteQue/**");
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/product/cart/**");
+		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/product/delete/**");
 		registry.addInterceptor(categoryIntercepter()).addPathPatterns("/order/**");
 		
 		

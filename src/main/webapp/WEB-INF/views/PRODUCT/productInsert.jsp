@@ -149,6 +149,7 @@
 					<th>상품 이름</th>
 					<td><input type="text" name="product_Name" id="product_Name" value="">
 					<span class="name regex" style="text-align:left;"></span>
+					<input type="hidden" id="nameDoubleChk">
 					</td>
 				</tr>
 				<tr>
@@ -258,6 +259,7 @@ $(document).ready(function(){
 	
 	$("#uploadBtn").on("click",function(){
 		let check = 0;
+		let nameDoubleChk = document.getElementById('nameDoubleChk').value
 		$(".fileClass").each(function (idx,item){	
 			if(undefined==item.files[0]){
 				alert("상품 이미지파일을 모두 등록해 주세요.");
@@ -268,6 +270,11 @@ $(document).ready(function(){
 				check+=1;
 			}
 		});
+		
+		if(nameDoubleChk == 'false'){
+			   alert("상품명을 확인해주세요.");
+			   return;   
+		   }
 		if(check==3){
 			
 			var regex = /^[0-9a-zA-Z가-힣,\\[\].\s]+$/g;
@@ -299,6 +306,7 @@ $(document).ready(function(){
 			    return;
 			}
 		}
+		
 	});
 
 	let number = 0;
@@ -354,16 +362,40 @@ $(document).ready(function(){
 });
 
 $("#product_Name").on("input",function(){
-	   var regex = /^[0-9a-zA-Z가-힣,\\[\].\s]+$/g;
-	   var result = regex.exec($("#product_Name").val());
+	let product_Name = document.getElementById("product_Name").value;
+	let obj = {'product_Name':product_Name};
+	$.ajax({ 
+		 type:'POST',
+		 async:true,
+		 url:'/product/productNameCheck',
+		 data: JSON.stringify(obj),
+		 contentType : "application/json; charset=UTF-8",
+		 dataType:"JSON",
+		 success : function(data) { 
+			 console.log(data);
+			 if(data.nameCheck>0){
+				 $(".name.regex").html("중복된 제품명입니다.");
+			     $(".name.regex").css("color","red");
+			     $("#nameDoubleChk").val("false"); 
+			 }else{
+				 $("#nameDoubleChk").val("true"); 
+			 }
+		},error:function(){
+			console.log("Error!!..");	
+		}
+	});
+	var regex = /^[0-9a-zA-Z가-힣,\\[\].\s]+$/g;
+	var result = regex.exec($("#product_Name").val());
 	   if(result != null){
 	      $(".name.regex").html("");  
 	   }else{
 	       $(".name.regex").html("특수문자[],만 입력 가능");
 	       $(".name.regex").css("color","red");
 	   }
+	   
 	    
 });
+
 function remove(index){
 	 document.getElementById('div'+index).remove();
 }

@@ -55,6 +55,12 @@ public class ProductDao {
 		return sqlSession.selectOne("mybatis.mapper.product.seqNumber");
 	}
 	
+	public int product_Name(String product_Name) { 
+		return sqlSession.selectOne("mybatis.mapper.product.product_Name",product_Name);
+	}
+	
+	
+	
 	public int updateProductNumber(int option_join_number) { 
 		return sqlSession.selectOne("mybatis.mapper.product.updateProductNumber",option_join_number);
 	}

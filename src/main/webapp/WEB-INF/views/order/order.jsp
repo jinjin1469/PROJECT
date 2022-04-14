@@ -111,8 +111,8 @@
 		<input type="hidden" name="delivery_cost" id="delivery_cost" value="">
 		 <br>
 		 <br>
-		<button class="btn3 btn-primary btn-lg btn-block" type="button" id="orderbtn" name="order">결제하기</button>
-		<button class="btn4 btn-primary btn-lg btn-block" type="button" id="cancelbtn" name="order">결제취소</button>
+		<button class="btn3 btn-primary btn-lg btn-block" type="button" id="orderbtn" name="order">주문하기</button>
+		<button class="btn4 btn-primary btn-lg btn-block" type="button" id="cancelbtn" name="order">주문취소</button>
 	</form:form>
 <br>
 <br>
@@ -274,13 +274,18 @@ $("#orderbtn").on("click",function(){
 	   }else{
 		   
 		   let name =  document.getElementById('recipient').value
+		   let phone =  document.getElementById('recipient_phone').value
 	 	   let address =  document.getElementById('recipient_address').value
 	 	   
 	 	   let nameregex = /[가-힣]{2,}/;
 	 	 
 	 	   nameregex = nameregex.exec(name);
 		   if(nameregex == null){
-			   alert("이름양식을 다시 확인해주세요");
+			   alert("수령인을 다시 확인해주세요");
+			   return;
+		   }
+		   if(phone == ""){
+			   alert("핸드폰번호를 다시 확인해주세요");
 			   return;
 		   }
 		   if(address == null){
@@ -309,14 +314,10 @@ function payment(){
 		}
 	}
 	if(${totalPrice}<point){
-		alert("주문금액보다 포인트가 클 수 없으며 배송료는 포인트를 사용할 수 없습니다.");
+		alert("주문금액보다 사용포인트가 클 수 없으며 배송료는 포인트를 사용할 수 없습니다.");
 		return;
 	}
 	totalPrice -= point;
-	if(totalPrice<0){
-		alert("결제금액보다 포인트사용금액이 큽니다.");
-		return;
-	}
 	if(totalPrice<30000){ //주문금액이 3만원이하일때는 배송료3천원부과
 		alert("총 주문금액이 30000원 미만이여서 배송료가 부과됩니다.");
 		totalPrice+=3000;

@@ -81,7 +81,7 @@
 						<td>${list.order_status}</td>
 						<c:choose>
 							<c:when test="${list.order_status=='배송준비중'}">
-								<td><a href="/order/paymentCancle/${list.order_number}">취소</a></td>
+								<td><a href="/order/paymentCancle/${list.order_number}">주문취소</a></td>
 							</c:when>
 							<c:when test="${list.order_status=='주문취소'}">
 								<td>-</td>
