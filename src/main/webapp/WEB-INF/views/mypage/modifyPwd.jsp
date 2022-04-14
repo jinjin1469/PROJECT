@@ -71,7 +71,7 @@ input[type="text"], input[type="password"] {
 	//비밀번호 유효성검사
 	$("#member_pwd").on("input",function(){
 		var regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
-	    var result = regex.exec($("#member_pwd").val())
+	    var result = regex.exec($("#member_pwd").val());
 	    
 	    if(result != null){
 	        $(".member_pwd.regex").html("");
@@ -79,8 +79,30 @@ input[type="text"], input[type="password"] {
 	        $(".member_pwd.regex").html("비밀번호는 영문 대소문자,숫자 8자 이상 20자 이하로 설정해주세요.");
 	        $(".member_pwd.regex").css("color","	red")
 	    }
+	    
+	    checkPwd();
 	});
 	
+	    
+	 function checkPwd(){
+		 let member_pwd = document.getElementById("member_pwd").value
+		   let rePassword = document.getElementById("rePassword").value 		   
+
+	        if(rePassword.length > 2 && member_pwd == rePassword){
+	        	$(".rePassword.regex").html("비밀번호가 일치합니다"); 
+	        	  $(".rePassword.regex").css("color","green"); 
+	        	  $("#rePwdDoubleChk").val("false"); 
+	          
+	        }else{
+	         $(".rePassword.regex").html("비밀번호가 일치하지않습니다"); 
+	         $(".rePassword.regex").css("color","red"); 
+	         $("#rePwdDoubleChk").val("false"); 
+	        }
+		 
+	 }   
+	    
+	   
+	    
 	//비밀번호 확인    
 	   $("#rePassword").on("input",function(){
 		   
@@ -98,6 +120,26 @@ input[type="text"], input[type="password"] {
 	         $("#rePwdDoubleChk").val("false"); 
 	        }
 	   });
+	
+	/* 
+	 //비밀번호 확인    
+	   $("#member_pwd").on("input",function(){
+		   
+		   let member_pwd = document.getElementById("member_pwd").value
+		   let rePassword = document.getElementById("rePassword").value 		   
+
+	        if(rePassword.length > 2 && member_pwd == rePassword){
+	        	$(".rePassword.regex").html("비밀번호가 일치합니다"); 
+	        	  $(".rePassword.regex").css("color","green"); 
+	        	  $("#rePwdDoubleChk").val("false"); 
+	          
+	        }else{
+	         $(".rePassword.regex").html("비밀번호가 일치하지않습니다"); 
+	         $(".rePassword.regex").css("color","red"); 
+	         $("#rePwdDoubleChk").val("false"); 
+	        }
+	   });
+	 */
 	
 
 	
