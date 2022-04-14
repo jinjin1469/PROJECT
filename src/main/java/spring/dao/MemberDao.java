@@ -124,7 +124,6 @@ public class MemberDao {
 
 
 	public int myAmount(long member_number) {
-		System.out.println("member_number" + member_number);
 		return sqlSession.selectOne("mybatis.mapper.order.myAmount",member_number);
 	}
 
@@ -134,6 +133,12 @@ public class MemberDao {
 		List<Review> list =
 	  sqlSession.selectList("mybatis.mapper.review.ReviewAllList"); return list; 
 	  }
+
+
+	public Member emailCheck(String member_email) {
+		Member member = sqlSession.selectOne("mybatis.mapper.member.emailCheck",member_email);
+		return member;
+	}
 	 
 	
 	

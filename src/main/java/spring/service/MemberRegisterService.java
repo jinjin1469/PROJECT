@@ -4,7 +4,9 @@ package spring.service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import spring.dao.MemberDao;
+import spring.exception.AlreadyExistingEmailException;
 import spring.exception.AlreadyExistingMemberException;
+import spring.exception.MemberDeactivateAccount;
 import spring.vo.Member;
 import spring.vo.RegisterRequest;
 
@@ -43,7 +45,7 @@ public class MemberRegisterService {
 		 * 
 		 */
 		
-		//아이디 중복체크 
+	//아이디 중복체크 
 	public int idCheck(String member_id) { // member_point가 아이디 중복 체크 1이면 가입안되고 0이면 가입됨! member_state가 현재 멤버 가입상태(9번 비활, 1번 활) 말해줌!! 
 		Member output = dao.idCheck(member_id);
 		int outputData = 0;
@@ -61,15 +63,25 @@ public class MemberRegisterService {
 	}
 	//회원가입진행
 	public void regist(RegisterRequest reg) {
-		System.out.println("아이디값 :" + reg.getMember_id());
+		Member output = dao.emailCheck(reg.getMember_email());		
 		
 		Member newMember = dao.selectById(reg.getMember_id());
-		
 		if(newMember != null) {
 			throw new AlreadyExistingMemberException("이미 존재하는 계정입니다.:"+reg.getMember_id());
+		}		
+//		if(newMember2 != null) {
+//			throw new AlreadyExistingEmailException("이메일로 가입되어있는 계정이 존재합니다.:"+reg.getMember_email());
+		
+		if(output.getMember_state() == 1 && output.getMember_point() != 0) { //사용중
+			throw new AlreadyExistingEmailException("이메일로 가입되어있는 계정이 존재합니다.:"+reg.getMember_email());
+		}else if(output.getMember_state() == 9 && output.getMember_point() != 0) { //탈퇴회원임
+			throw new MemberDeactivateAccount();
+		}else {
+			dao.insertMember(reg); 
 		}
 		
-		dao.insertMember(reg); 
+		
+	
 		
 	}
 	

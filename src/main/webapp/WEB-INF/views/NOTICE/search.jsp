@@ -20,7 +20,7 @@
 	text-align: center;
 	border-top: 1px solid #444444;
 	border-collapse: collapse;
-	width: 700px;
+	width: 800px;
 	font-size: 13px;
 	text-align: left;
 }

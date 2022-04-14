@@ -22,6 +22,8 @@ import com.siot.IamportRestClient.IamportClient;
 
 import spring.dao.MemberDao;
 import spring.dao.OrderDao;
+import spring.exception.AlreadyExistingEmailException;
+import spring.exception.MemberDeactivateAccount;
 import spring.service.ManageService;
 import spring.vo.AuthInfo;
 import spring.vo.CartOption;
@@ -136,19 +138,41 @@ public class MyPageController {
 	 
 
 	 @RequestMapping(value="/mypage/modifyInfo",method=RequestMethod.POST)
-		public String modifyInfo(Model model, HttpSession session, RegisterRequest regReq) {
-		 	
+		public String modifyInfo(Model model, HttpSession session, RegisterRequest regReq,HttpServletResponse response) throws IOException {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+	 	
 		 AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
 		 	
 		 if (authinfo == null) {
 				return "redirect:/member/login";
 			}
 			
-			long member_number = authinfo.getMember_number();
+		 try {
 			manageService.update(regReq);
-			
-			return "redirect:/mypage/mypage/";
-		}
+			return "redirect:/mypage/modify";
+		 }catch(AlreadyExistingEmailException e) {
+			 	
+			 	out.println("<script>");
+				out.println("alert('이미 가입되어있는 이메일입니다.');");
+				out.println("history.go(-1);");
+				out.println("</script>");
+				out.close();
+				
+			 
+			return "/mypage/mypage/";
+		 }catch(MemberDeactivateAccount e) {
+			 
+			 out.println("<script>");
+			 out.println("alert('탈퇴계정 이메일로 변경 불가능합니다.');");
+			 out.println("history.go(-1);");
+			 out.println("</script>");
+			 out.close();
+			 
+				return "/mypage/mypage/";
+			 
+		 }
+		 }
 
 
 		 @RequestMapping(value="/mypage/modifyPwd",method=RequestMethod.GET)

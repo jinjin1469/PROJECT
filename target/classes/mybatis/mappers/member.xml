@@ -51,6 +51,11 @@
 		(select COUNT(*) AS COUNT, MEMBER_STATE FROM m_member RIGHT OUTER JOIN DUAL ON member_id =#{member_id} GROUP BY member_state, member_point)
 	</select>
 	
+	<select id="emailCheck" parameterType="String" resultMap="memVo"> 
+		select NVL(COUNT,0) as member_point, NVL(member_state,0) as member_state from
+		(select COUNT(*) AS COUNT, MEMBER_STATE FROM m_member RIGHT OUTER JOIN DUAL ON member_email =#{member_email} GROUP BY member_state, member_point)
+	</select>
+	
 
 	 <select id="selectById" resultMap="memVo" parameterType="String">
 		<!-- SELECT * FROM members -->
