@@ -77,7 +77,7 @@ input[type="text"], input[type="password"] {
 	        $(".member_pwd.regex").html("");
 	    }else{
 	        $(".member_pwd.regex").html("비밀번호는 영문 대소문자,숫자 8자 이상 20자 이하로 설정해주세요.");
-	        $(".member_pwd.regex").css("color","	red")
+	        $(".member_pwd.regex").css("color","red")
 	    }
 	    
 	    checkPwd();
@@ -91,7 +91,7 @@ input[type="text"], input[type="password"] {
 	        if(rePassword.length > 2 && member_pwd == rePassword){
 	        	$(".rePassword.regex").html("비밀번호가 일치합니다"); 
 	        	  $(".rePassword.regex").css("color","green"); 
-	        	  $("#rePwdDoubleChk").val("false"); 
+	        	  $("#rePwdDoubleChk").val("true"); 
 	          
 	        }else{
 	         $(".rePassword.regex").html("비밀번호가 일치하지않습니다"); 
@@ -112,7 +112,7 @@ input[type="text"], input[type="password"] {
 	        if(rePassword.length > 2 && member_pwd == rePassword){
 	        	$(".rePassword.regex").html("비밀번호가 일치합니다"); 
 	        	  $(".rePassword.regex").css("color","green"); 
-	        	  $("#rePwdDoubleChk").val("false"); 
+	        	  $("#rePwdDoubleChk").val("true"); 
 	          
 	        }else{
 	         $(".rePassword.regex").html("비밀번호가 일치하지않습니다"); 
@@ -162,7 +162,7 @@ input[type="text"], input[type="password"] {
    		   retrun;
    	   }
    	   
-   	   if(rePwdDoubleChk == 'falase') {
+   	   if(rePwdDoubleChk == 'false') {
    		   alert("비밀번호가 일치하지않습니다.");
    		   return;
    	   }

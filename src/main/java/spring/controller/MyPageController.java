@@ -403,7 +403,7 @@ public class MyPageController {
 			 	
 			 	if(!pwd.equals(member_pwd))  {
 					out.println("<script>");
-					out.println("alert('비밀번호가 일치않습니다.');");
+					out.println("alert('비밀번호가 일치하지 않습니다.');");
 					out.println("history.go(-1);");
 					out.println("</script>");
 					out.close();
