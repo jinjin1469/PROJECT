@@ -177,6 +177,8 @@ public class MyPageController {
 			 	AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
 			 	
 				long member_number = authinfo.getMember_number();
+			
+			try {
 				
 			 	String pwd = regReq.getPwd();
 			 	String member_pwd = manageService.pwdFind(member_number);
@@ -198,7 +200,19 @@ public class MyPageController {
 					return "/mypage/modifyPwd";
 				}
 			return "/mypage/mypage";
-			
+			}catch(Exception e) {
+				if(!regReq.isPasswordEqualToConfirmPassword()) {
+					
+					out.println("<script>");
+					out.println("alert('비밀번호가 일치하지않습니다.');");
+					out.println("history.go(-1);");
+					out.println("</script>");
+					out.close();
+					
+					return "/mypage/modifyPwd";
+				}
+				return "/mypage/mypage";	
+			  }
 			}
 			
 		 
