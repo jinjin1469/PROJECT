@@ -172,7 +172,7 @@
 							<c:forEach var="menu3" items="${menu3}">
 								<option value="${menu3.category_title}">${menu3.category_title}</option>
 							</c:forEach>
-							<option value="">NULL</option>
+							<option value="">해당없음</option>
 			  			</select>
 			  		</td>
 				</tr>

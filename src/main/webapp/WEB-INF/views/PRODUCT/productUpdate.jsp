@@ -150,6 +150,7 @@
 				<tr>
 					<th>카테고리1</th> 
 					<td><select name="category_1">
+							<option value="">해당없음</option>
 							<c:forEach var="menu1" items="${menu1}">
 								<c:if test="${menu1.category_title==category_1}">
 									<option value="${menu1.category_title}" selected>${menu1.category_title}</option>
@@ -171,7 +172,7 @@
 				<tr>
 					<th>카테고리2</th> 
 					<td><select name="category_2">
-							<option value="">NULL</option>
+							<option value="">해당없음</option>
 							<c:forEach var="menu3" items="${menu3}">
 								<c:if test="${menu3.category_title==category_2}">
 									<option value="${menu3.category_title}" selected>${menu3.category_title}</option>
