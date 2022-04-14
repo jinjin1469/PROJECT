@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="../../../resources/css/shopping.css">
 <title>장바구니</title>
 <style>
-
+.emptycart{font-weight:bold; font-size:15px;}
 imgSize{width:0.5rem; height:0.5rem;}
 </style>
 </head>
@@ -24,7 +24,9 @@ imgSize{width:0.5rem; height:0.5rem;}
 	<br>
 		<c:choose>
 			    <c:when test="${map.count==0}">
-			      	장바구니가 비었습니다. 얼른 쇼핑해보세요!
+			      <p class="emptycart">장바구니가 비었습니다. 얼른 쇼핑해보세요!</p>
+			      	<br>
+			      	<br>
 			    </c:when>
 		<c:otherwise>
    <form commandName="Order" id="orderform" method="post" class="orderform" action="/order/payment">
