@@ -77,10 +77,19 @@ input[type="text"], input[type="password"] {
 	        $(".member_pwd.regex").html("");
 	    }else{
 	        $(".member_pwd.regex").html("비밀번호는 영문 대소문자,숫자 8자 이상 20자 이하로 설정해주세요.");
-	        $(".member_pwd.regex").css("color","	red")
+	        $(".member_pwd.regex").css("color","red")
 	    }
 	});
-	
+	$("#member_pwd").on("input",function(){
+		   let member_pwd = document.getElementById("member_pwd").value
+		   let rePassword = document.getElementById("rePassword").value 
+		   if(member_pwd == rePassword){
+			   $("#pwdDoubleChk").val("true");
+		   }else{
+			   $("#pwdDoubleChk").val("false");
+		   }
+		   
+	   });
 	//비밀번호 확인    
 	   $("#rePassword").on("input",function(){
 		   
@@ -90,7 +99,8 @@ input[type="text"], input[type="password"] {
 	        if(rePassword.length > 2 && member_pwd == rePassword){
 	        	$(".rePassword.regex").html("비밀번호가 일치합니다"); 
 	        	  $(".rePassword.regex").css("color","green"); 
-	        	  $("#rePwdDoubleChk").val("false"); 
+	        	  $("#rePwdDoubleChk").val("true"); 
+	        	  $("#pwdDoubleChk").val("true");
 	          
 	        }else{
 	         $(".rePassword.regex").html("비밀번호가 일치하지않습니다"); 
@@ -110,6 +120,7 @@ input[type="text"], input[type="password"] {
    	  
    	   var pwregex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
    	   var rePwdDoubleChk = document.getElementById("rePwdDoubleChk").value;
+   	   var pwdDoubleChk = document.getElementById("pwdDoubleChk").value;
 
    	   
    	   var pwregex = pwregex.exec(pw);
@@ -117,10 +128,13 @@ input[type="text"], input[type="password"] {
    	   
    	   if(pwregex == null){
    		   alert("비밀번호양식을 다시 확인해주세요");
-   		   retrun;
+   		   return;
    	   }
-   	   
-   	   if(rePwdDoubleChk == 'falase') {
+   		if(pwdDoubleChk == 'false') {
+		   alert("비밀번호가 일치하지않습니다.");
+		   return;
+	   }
+   	   if(rePwdDoubleChk == 'false') {
    		   alert("비밀번호가 일치하지않습니다.");
    		   return;
    	   }
