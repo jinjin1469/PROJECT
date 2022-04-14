@@ -203,7 +203,7 @@ margin-top:0.3rem;
 /* table{border: 0.7px solid #DCDCDC;}
 td, th{border: 0.7px solid #DCDCDC;} */
 .subbtn{width:900px;}
-.subbtn2{margin: 20px; margin-right: 0px; width:1000px;}
+.subbtn2{margin: 20px; margin-right: 0px; width:790px;}
 .subbtn3{width:800px;, margin-left: 13px;}
 input[type="text"]{width:500px; border:none; height:30px; text-align:left; font-weight: bold;}
 .subbtn4{width:800px; margin-top: 20px;}

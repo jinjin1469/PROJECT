@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.dao.MemberDao;
+import spring.exception.AlreadyExistingEmailException;
 import spring.exception.AlreadyExistingMemberException;
+import spring.exception.MemberDeactivateAccount;
 import spring.service.MemberRegisterService;
 import spring.vo.RegisterRequest;
 
@@ -89,7 +91,23 @@ public class MemberRegisterController {
 			out.close();
 			
 			return "member/join";
-			}
+		}catch(AlreadyExistingEmailException e) {
+			
+			out.println("<script>");
+			out.println("alert('입력하신 이메일로 가입되어있는 계정이 존재합니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+			return "member/join";
+		}
+		catch(MemberDeactivateAccount e) {
+			out.println("<script>");
+			out.println("alert('탈퇴계정 이메일로는 재가입이 불가능합니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+			return "member/join";
+		}
 		
 		return "redirect:/";
 		}

@@ -3,6 +3,9 @@ package spring.service;
 import java.util.List;
 
 import spring.dao.MemberDao;
+import spring.exception.AlreadyExistingEmailException;
+import spring.exception.AlreadyExistingMemberException;
+import spring.exception.MemberDeactivateAccount;
 import spring.vo.Member;
 import spring.vo.RegisterRequest;
 import spring.vo.Review;
@@ -41,7 +44,18 @@ public class ManageService {
 	}
 
 	public void update(RegisterRequest regReq) {
-		dao.updateInfo(regReq);
+		
+		Member output = dao.emailCheck(regReq.getMember_email());		
+		
+		if(output.getMember_state() == 1 && output.getMember_point() != 0) { //사용중
+			throw new AlreadyExistingEmailException("이메일로 가입되어있는 계정이 존재합니다.:"+regReq.getMember_email());
+		}else if(output.getMember_state() == 9 && output.getMember_point() != 0) { //탈퇴회원임
+			throw new MemberDeactivateAccount();
+		}else {
+			dao.updateInfo(regReq);
+		}
+		
+
 	}
 
 	public int askStatus(long member_number) {
