@@ -90,10 +90,12 @@ input[type="text"], input[type="password"] {
 	        if(rePassword.length > 2 && member_pwd == rePassword){
 	        	$(".rePassword.regex").html("비밀번호가 일치합니다"); 
 	        	  $(".rePassword.regex").css("color","green"); 
+	        	  $("#rePwdDoubleChk").val("false"); 
 	          
 	        }else{
 	         $(".rePassword.regex").html("비밀번호가 일치하지않습니다"); 
 	         $(".rePassword.regex").css("color","red"); 
+	         $("#rePwdDoubleChk").val("false"); 
 	        }
 	   });
 	
@@ -107,11 +109,20 @@ input[type="text"], input[type="password"] {
    	   var pw = $("#member_pwd").val();
    	  
    	   var pwregex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
+   	   var rePwdDoubleChk = document.getElementById("rePwdDoubleChk").value;
+
    	   
    	   var pwregex = pwregex.exec(pw);
+   	   
+   	   
    	   if(pwregex == null){
    		   alert("비밀번호양식을 다시 확인해주세요");
    		   retrun;
+   	   }
+   	   
+   	   if(rePwdDoubleChk == 'falase') {
+   		   alert("비밀번호가 일치하지않습니다.");
+   		   return;
    	   }
    	
         //빈칸 없을 때 제출.
