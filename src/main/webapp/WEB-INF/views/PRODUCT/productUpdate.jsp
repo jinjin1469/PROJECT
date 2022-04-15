@@ -274,8 +274,10 @@ $(document).ready(function(){
 		return true;
 	}
 	$("#uploadBtn").on("click",function(){
-		let nameDoubleChk = document.getElementById('nameDoubleChk').value
+		let nameDoubleChk = document.getElementById('nameDoubleChk').value;
 		let product_Price = document.getElementById("product_Price").value;
+		let product_Count = document.getElementById("product_Count").value;
+		
 		$(".fileClass").each(function (idx,item){	
 			if(undefined!=item.files[0]){
 				if(!checkExtension(item.files[0].name, item.files[0].size)){
@@ -285,6 +287,10 @@ $(document).ready(function(){
 		});
 		if(product_Price<100){
 			alert('판매가격을 100원이상으로 설정해주세요.');
+			return;
+		}
+		if(product_Count<0){
+			alert('음수 입력은 불가능합니다.');
 			return;
 		}
 		if(nameDoubleChk == 'false'){
