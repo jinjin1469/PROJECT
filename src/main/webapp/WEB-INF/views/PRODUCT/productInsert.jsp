@@ -172,7 +172,7 @@
 							<c:forEach var="menu3" items="${menu3}">
 								<option value="${menu3.category_title}">${menu3.category_title}</option>
 							</c:forEach>
-							<option value="">NULL</option>
+							<option value="">해당없음</option>
 			  			</select>
 			  		</td>
 				</tr>
@@ -291,7 +291,7 @@ $(document).ready(function(){
 					 if(product_Price<100){
 						alert('판매가격을 100원이상으로 설정해주세요.');
 						return;
-					}else if(product_Count==0){
+					}else if(product_Count<=0){
 						alert('판매수량을 1개 이상으로 설정해주세요.');
 						return;
 					}else{

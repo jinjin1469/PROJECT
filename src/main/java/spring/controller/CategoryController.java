@@ -237,14 +237,19 @@ public class CategoryController {
 	}
 	@RequestMapping(value = "/startSelling", method = RequestMethod.POST)
 	public String startSellingP(ProductCategoryEdit editList,Model model) {
+		System.out.println("요까지");
 		for(ProductCategoryEditList list : editList.getCategory_editList()) {
+			System.out.println("저까지");
 			if(list.getEdit_check()==1){
+				System.out.println("이까지");
 				if(list.getProduct_count()!=0) {
+					System.out.println("와우");
 					dao.startSelling(list);
 				}
-				
+					
 			}
 		}
+
 		return "redirect:/";
 	}
 	@RequestMapping(value = "/productCategoryEdit", method = RequestMethod.POST)

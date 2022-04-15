@@ -150,6 +150,7 @@
 				<tr>
 					<th>카테고리1</th> 
 					<td><select name="category_1">
+							<option value="">해당없음</option>
 							<c:forEach var="menu1" items="${menu1}">
 								<c:if test="${menu1.category_title==category_1}">
 									<option value="${menu1.category_title}" selected>${menu1.category_title}</option>
@@ -171,7 +172,7 @@
 				<tr>
 					<th>카테고리2</th> 
 					<td><select name="category_2">
-							<option value="">NULL</option>
+							<option value="">해당없음</option>
 							<c:forEach var="menu3" items="${menu3}">
 								<c:if test="${menu3.category_title==category_2}">
 									<option value="${menu3.category_title}" selected>${menu3.category_title}</option>
@@ -273,8 +274,10 @@ $(document).ready(function(){
 		return true;
 	}
 	$("#uploadBtn").on("click",function(){
-		let nameDoubleChk = document.getElementById('nameDoubleChk').value
+		let nameDoubleChk = document.getElementById('nameDoubleChk').value;
 		let product_Price = document.getElementById("product_Price").value;
+		let product_Count = document.getElementById("product_Count").value;
+		
 		$(".fileClass").each(function (idx,item){	
 			if(undefined!=item.files[0]){
 				if(!checkExtension(item.files[0].name, item.files[0].size)){
@@ -284,6 +287,10 @@ $(document).ready(function(){
 		});
 		if(product_Price<100){
 			alert('판매가격을 100원이상으로 설정해주세요.');
+			return;
+		}
+		if(product_Count<0){
+			alert('음수 입력은 불가능합니다.');
 			return;
 		}
 		if(nameDoubleChk == 'false'){

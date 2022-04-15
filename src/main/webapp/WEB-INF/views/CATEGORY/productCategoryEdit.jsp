@@ -117,7 +117,7 @@ $(document).ready(function(){
 		 	
 		 	let optN = document.createElement('option');
 			optN.setAttribute("value","NULL");
-			optN.innerHTML="NULL";
+			optN.innerHTML="해당없음";
 			CategoryName.appendChild(optN);
 			<c:forEach var="menu1" items="${menu1}" varStatus="n">
 				let optT${n.index} = document.createElement('option');
@@ -161,7 +161,7 @@ $(document).ready(function(){
 			CategoryName.appendChild(opt);
 		 	let optN = document.createElement('option');
 			optN.setAttribute("value","NULL");
-			optN.innerHTML="NULL";
+			optN.innerHTML="해당없음";
 			CategoryName.appendChild(optN);
 			<c:forEach var="menu3" items="${menu3}" varStatus="n">
 				let opt${n.index} = document.createElement('option');
@@ -247,7 +247,7 @@ $(document).ready(function(){
 				 	
 				 	let optN = document.createElement('option');
 					optN.setAttribute("value","");
-					optN.innerHTML="NULL";
+					optN.innerHTML="해당없음";
 					category_title_change.appendChild(optN);
 					
 					let classification = $(".choice option:selected").val();

@@ -132,8 +132,9 @@ width:400px;}
   </div>
 
 <script>
+let loop = 0;
+
 $(document).ready(function(){
-	
 	$('.choice').change(function(){
 		let sel = $(this).val();
 		if(sel == "category_1"){
@@ -163,7 +164,7 @@ $(document).ready(function(){
 		 	
 		 	let optN = document.createElement('option');
 			optN.setAttribute("value","NULL");
-			optN.innerHTML="NULL";
+			optN.innerHTML="해당없음";
 			CategoryName.appendChild(optN);
 			<c:forEach var="menu1" items="${menu1}" varStatus="n">
 				let optT${n.index} = document.createElement('option');
@@ -209,7 +210,7 @@ $(document).ready(function(){
 			CategoryName.appendChild(opt);
 		 	let optN = document.createElement('option');
 			optN.setAttribute("value","NULL");
-			optN.innerHTML="NULL";
+			optN.innerHTML="해당없음";
 			CategoryName.appendChild(optN);
 			<c:forEach var="menu3" items="${menu3}" varStatus="n">
 				let opt${n.index} = document.createElement('option');
@@ -234,7 +235,6 @@ $(document).ready(function(){
 		   $.ajax({ 
 			 type:'POST',
 			 async:true,
-			 /* url:'/category/categoryCheck?category_title='+ category_title, */
 			 url:'/category/categoryCheck',
 			 data: JSON.stringify(obj),
 			 contentType : "application/json; charset=UTF-8",
@@ -250,7 +250,7 @@ $(document).ready(function(){
 					let form = document.createElement('form');
 					form.setAttribute("charset","UTF-8");
 					form.setAttribute("method","POST");
-					form.setAttribute("id","Suspension");
+					form.setAttribute("id","stopSelling");
 					form.setAttribute("class","delete4");
 					form.setAttribute("action","/category/stopSelling");
 					form.setAttribute("commandName","ProductCategoryEdit");
@@ -262,7 +262,7 @@ $(document).ready(function(){
 				 	p.setAttribute("class","name");
 				 	p.setAttribute("class","listinfo");
 				 	p.setAttribute("class","delete4");
-				 	p.innerHTML="판매 중지할 상품을 선택하세요(수량이 0개로 변경됩니다) ";
+				 	p.innerHTML="판매 중지할 상품을 선택하세요(수량이 0개로 변경됩니다)<br>(개수 미입력시 판매상태 유지) ";
 					hr.setAttribute("class","line");
 				 	
 				 	form.appendChild(p);
@@ -276,13 +276,8 @@ $(document).ready(function(){
 						let checkbox = document.createElement('input');
 						checkbox.setAttribute("type","checkbox");
 						checkbox.setAttribute("class","delete4");
-//						checkbox.setAttribute("id","check1");
 						checkbox.setAttribute("name","category_editList["+key+"].edit_check");
 						checkbox.setAttribute("value","1");
-						
-// 						let label = document.createElement('label');
-//						label.setAttribute("for","check1");   
-						
 						
 						let product_number = document.createElement('input');
 						product_number.setAttribute("type","hidden");
@@ -296,7 +291,6 @@ $(document).ready(function(){
 						
 						form.appendChild(div);
 						form.appendChild(checkbox);
-//						form.appendChild(label);
 						form.appendChild(product_number);
 						form.appendChild(product_name);
 					}
@@ -321,9 +315,6 @@ $(document).ready(function(){
 		});    
 	});
 	
-	$(document).on('click','#uploadBtn',function(){
-		$("#Suspension").submit();
-	});
 	
 	$('.choice2').change(function(){
 		let sel = $(this).val();
@@ -354,7 +345,7 @@ $(document).ready(function(){
 		 	
 		 	let optN = document.createElement('option');
 			optN.setAttribute("value","NULL");
-			optN.innerHTML="NULL";
+			optN.innerHTML="해당없음";
 			CategoryName.appendChild(optN);
 			<c:forEach var="menu1" items="${menu1}" varStatus="n">
 				let optT${n.index} = document.createElement('option');
@@ -400,7 +391,7 @@ $(document).ready(function(){
 			CategoryName.appendChild(opt);
 		 	let optN = document.createElement('option');
 			optN.setAttribute("value","NULL");
-			optN.innerHTML="NULL";
+			optN.innerHTML="해당없음";
 			CategoryName.appendChild(optN);
 			<c:forEach var="menu3" items="${menu3}" varStatus="n">
 				let opt${n.index} = document.createElement('option');
@@ -422,10 +413,10 @@ $(document).ready(function(){
 		let obj = {'category_title':category_title,'classification':classification};
 		$('.delete2_2').remove();
 		$('.delete4_2').remove();
+		count = 0;
 		   $.ajax({ 
 			 type:'POST',
 			 async:true,
-			 /* url:'/category/categoryCheck?category_title='+ category_title, */
 			 url:'/category/categoryRemoveCheck',
 			 data: JSON.stringify(obj),
 			 contentType : "application/json; charset=UTF-8",
@@ -441,7 +432,7 @@ $(document).ready(function(){
 					let form = document.createElement('form');
 					form.setAttribute("charset","UTF-8");
 					form.setAttribute("method","POST");
-					form.setAttribute("id","Suspension");
+					form.setAttribute("id","startSelling");
 					form.setAttribute("class","delete4_2");
 					form.setAttribute("action","/category/startSelling");
 					form.setAttribute("commandName","ProductCategoryEdit");
@@ -453,7 +444,7 @@ $(document).ready(function(){
 				 	p.setAttribute("class","name_2");
 				 	p.setAttribute("class","listinfo");
 				 	p.setAttribute("class","delete4_2");
-				 	p.innerHTML="판매 재개할 상품을 선택하세요.<br>(개수 미입력시 중지상태 유지) ";
+				 	p.innerHTML="판매 재개할 상품을 선택하세요.";
 					hr.setAttribute("class","line");
 				 	
 				 	form.appendChild(p);
@@ -467,12 +458,9 @@ $(document).ready(function(){
 						let checkbox = document.createElement('input');
 						checkbox.setAttribute("type","checkbox");
 						checkbox.setAttribute("class","delete4_2");
-//						checkbox.setAttribute("id","check1");
+						checkbox.setAttribute("id","category_editList["+key+"].edit_check");
 						checkbox.setAttribute("name","category_editList["+key+"].edit_check");
 						checkbox.setAttribute("value","1");
-						
-// 						let label = document.createElement('label');
-//						label.setAttribute("for","check1");   
 						
 						
 						let product_number = document.createElement('input');
@@ -490,20 +478,21 @@ $(document).ready(function(){
 						product_count.setAttribute("type","text");
 						product_count.setAttribute("class","delete4_2");
 						product_count.setAttribute("name","category_editList["+key+"].product_count");
+						product_count.setAttribute("id","category_editList["+key+"].product_count");
 						
 						form.appendChild(div);
 						form.appendChild(checkbox);
-//						form.appendChild(label);
 						form.appendChild(product_number);
 						form.appendChild(product_name);
 						form.appendChild(product_count);
+						loop++;
 					}
 					
 					let br = document.createElement('br');
 					let submit = document.createElement('input');
 					submit.setAttribute("type","button");
 					submit.setAttribute("class","btn light-green");
-					submit.setAttribute("id","uploadBtn");
+					submit.setAttribute("id","uploadBtn2");
 					submit.setAttribute("value","변경하기");
 					
 					form.appendChild(br);
@@ -518,8 +507,37 @@ $(document).ready(function(){
 			}
 		});    
 	});
+	
 });
-
+$(document).on('click','#uploadBtn',function(){
+	$("#stopSelling").submit();
+});
+$(document).on('click','#uploadBtn2',function(){
+	let submit_check = 0;
+	let all_uncheck = 0;
+	let checked = 0;
+	let count = 0;
+	let zero = 0;
+	for(let i = 0;i<loop;i++){
+		checked = $("input:checkbox[id='category_editList["+i+"].edit_check']").is(":checked");
+		if(checked){
+			count = document.getElementById("category_editList["+i+"].product_count").value;
+			if(count<=0){
+				alert("수량은 0개이하가 될 수 없습니다.");
+				return;
+			}
+		}else{
+			all_uncheck++;
+			$("input[id='category_editList["+i+"].product_count']").attr('value',zero);
+		}
+		if(all_uncheck==loop){
+			alert("판매재개할 상품을 선택해 주세요.");
+			return;
+		}
+	}
+	$("#startSelling").submit();
+	
+});
 </script>
 <br>
 <br>
