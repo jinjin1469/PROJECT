@@ -165,16 +165,25 @@ public class ShoppingController {
 		
 		
 		shoppingService.delete(cart_number);
-		/*
-		 * out.println("<script>"); out.println("alert('�긽�뭹�씠 �궘�젣 �릺�뿀�뒿�땲�떎.');");
-		 * out.println("</script>"); out.close();
-		 */
-		
+
         return "redirect:/product/cart/list.do";
 
 		
 	}
 
+	
+	@RequestMapping("/product/deleteAll")
+	public String deleteAllCart(HttpSession session, ModelAndView mav, HttpServletResponse response) throws IOException {
+		
+		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+		long member_number = authinfo.getMember_number();
+		shoppingService.deleteAll(member_number);
+
+		
+        return "redirect:/product/cart/list.do";
+
+		
+	}
 
 	@RequestMapping("/product/cartoption")
 		public String optionlist(@RequestParam("cartoption_number") long cartoption_number, Model model, HttpSession session, ModelAndView mav) {
@@ -215,8 +224,6 @@ public class ShoppingController {
 	@RequestMapping("/product/cartoption/modifyOption")
 	public String modifyOption(Model model, Cart cart, HttpSession session, ModelAndView mav, HttpServletResponse response) throws IOException {
 
-				response.setContentType("text/html;charset=utf-8");
-				PrintWriter out = response.getWriter();
 			
 				AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
 				long member_number = authinfo.getMember_number();
@@ -231,19 +238,32 @@ public class ShoppingController {
 					for(CartOption cartOption : cart.getChange_option()) {
 					  dao.updateOption(cartOption);
 					}
-					out.println("<script>");
-					out.println("alert('옵션 수량이 변경되었습니다');");
-					out.println("history.go(-1);");
-					out.println("</script>");
-					out.close();
 				}
 		
-		return "PRODUCT/cartoption";
+		return "PRODUCT/optionClose";
 	
 
 	}
 	
-	
+		// 선택 카트 삭제
+//	@RequestParam(value = "chbox[]") List<String> chArr, 	
+		@RequestMapping(value = "/product/deleteChecked", method = RequestMethod.POST)
+		@ResponseBody
+		public String deleteCartChecked(@RequestParam(value = "cart_number[]") HttpSession session, Cart cart, List<Long> cart_number) throws Exception {
+		 
+		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+		long member_number = authinfo.getMember_number();
+		 System.out.println("넘어오냐");
+		 	 
+		 cart.setMember_number(member_number);
+		  
+		  for(int i=0 ; i<cart_number.size(); i++) {   
+		   shoppingService.deleteChecked(cart_number.get(i));
+		  }   
+
+		 
+		  return "redirect:/product/cart/list.do";
+		}
 	
 	
 	

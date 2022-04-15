@@ -71,6 +71,10 @@ public class ShoppingDao {
 	    public void deleteAll(long member_number) {
 	        sqlSession.delete("mybatis.mapper.shopping.deleteAll", member_number);
 	    }
+	    
+	    public void deleteChecked(Long cart_number) {
+	    	sqlSession.delete("mybatis.mapper.shopping.deleteAll", cart_number);
+	    }
 	 
 
 	    public void update(long cart_number) {
