@@ -27,7 +27,16 @@ public class Cart {
 	private String cart_status;
 	private ArrayList<CartOption> change_option;
 	private ArrayList<CartOption> optionList;
+	private long[] cart_numberlist;
 	
+	
+
+	public long[] getCart_numberlist() {
+		return cart_numberlist;
+	}
+	public void setCart_numberlist(long[] cart_numberlist) {
+		this.cart_numberlist = cart_numberlist;
+	}
 	public int getOption_join_number() {
 		return option_join_number;
 	}
