@@ -4,6 +4,7 @@ import java.beans.PropertyVetoException;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -16,9 +17,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
-
-import com.mchange.v2.c3p0.ComboPooledDataSource;
-import com.mchange.v2.c3p0.DriverManagerDataSource;
 
 import spring.dao.AdminDao;
 import spring.dao.CategoryDao;
@@ -56,15 +54,15 @@ public class MybatisConfig {
 	 
 	 	@Bean
 		public DataSource dataSource() {
-			ComboPooledDataSource ds = new ComboPooledDataSource();
-			
+			BasicDataSource ds = new BasicDataSource();
 			try {
-				ds.setDriverClass(driver);
-			} catch (PropertyVetoException e) {
+				ds.setDriverClassName(driver);
+				
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			ds.setJdbcUrl(jdbcUrl);
-			ds.setUser(user);
+			ds.setUrl(jdbcUrl);
+			ds.setUsername(user);
 			ds.setPassword(password);
 			
 			return ds;

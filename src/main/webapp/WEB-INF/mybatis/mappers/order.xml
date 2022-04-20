@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mybatis.mapper.order">
+	<resultMap type="order" id="orderVo">
+		<result column="order_number" property="order_number"/>
+		<result column="member_number" property="member_number"/>
+		<result column="order_regdate" property="order_regdate"/>
+		<result column="order_price" property="order_price"/>
+		<result column="recipient" property="recipient"/>
+		<result column="recipient_phone" property="recipient_phone"/>
+		<result column="recipient_address" property="recipient_address"/>
+		<result column="use_point" property="use_point"/>
+		<result column="earn_point" property="earn_point"/>
+		<result column="imp_uid" property="imp_uid"/>
+		<result column="pay_status" property="pay_status"/>
+		<result column="order_status" property="order_status"/>
+		<result column="order_join_number" property="order_join_number"/>
+		<result column="delivery_cost" property="delivery_cost"/>
+		<result column="sales_regdate" property="sales_regdate"/>
+	</resultMap>
+	<select id="myPurchasesCount" resultType="int" parameterType="long">
+		SELECT NVL(COUNT,0) FROM(select COUNT(*) AS COUNT from m_order where member_number = #{member_number} and order_status IN('구매확정','리뷰완료'))
+	</select>
+	<select id="myAmount"  resultType="int" parameterType="long">
+		select NVL(SUM_DATA,0) FROM (select sum(order_price) AS SUM_DATA from m_order where member_number = #{member_number} and order_status = '구매확정')
+	</select>
+	<select id="orderCheck" resultType="int" parameterType="long">
+		select COUNT(*) from m_order where member_number = #{member_number} and order_status = '배송준비중'
+	</select>
+	<select id="selectOrderCnt" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM m_order WHERE member_number=#{member_number} ORDER BY order_regdate DESC
+	</select>
+	
+	<select id="selectOrderinfo" resultMap="orderVo" parameterType="hashMap">
+		SELECT order_number,order_regdate,order_price,order_status 
+		FROM (SELECT ROWNUM num,order_number,order_regdate,order_price,order_status 
+		FROM (SELECT order_number,order_regdate,order_price,order_status FROM m_order WHERE member_number=#{member_number} ORDER BY order_regdate DESC)) 
+		WHERE num BETWEEN (#{section}-1)*150+(#{pageNum}-1)*15+1 AND (#{section}-1)*150+(#{pageNum})*15
+	</select>
+	
+	<select id="selectPointinfo" resultMap="orderVo" parameterType="hashMap">
+		SELECT order_number,order_regdate,use_point,earn_point,order_status 
+		FROM (SELECT ROWNUM num,order_number,order_regdate,use_point,earn_point,order_status 
+		FROM (SELECT order_number,order_regdate,use_point,earn_point,order_status FROM m_order WHERE member_number=#{member_number} ORDER BY order_regdate DESC)) 
+		WHERE num BETWEEN (#{section}-1)*150+(#{pageNum}-1)*15+1 AND (#{section}-1)*150+(#{pageNum})*15
+	</select>
+	
+	<select id="memberPageOrderView" resultMap="orderVo" parameterType="long">
+		SELECT order_number,order_regdate,order_price,order_status 
+		FROM(SELECT order_number,order_regdate,order_price,order_status 
+		FROM m_order WHERE member_number=#{member_number} ORDER BY order_regdate DESC) WHERE rownum <![CDATA[<=]]> 3
+	</select>
+	
+	<select id="today_total_price" resultType="int">
+		SELECT NVL(SUM(order_price), 0) order_price FROM m_order 
+		WHERE TO_CHAR(SYSDATE,'YYYYMMDD') = TO_CHAR(order_regdate,'YYYYMMDD') AND pay_status='결제완료'
+	</select>
+	
+	<select id="today_confirmation_price" resultType="int">
+		SELECT NVL(SUM(order_price), 0) order_price FROM m_order 
+		WHERE TO_CHAR(SYSDATE,'YYYYMMDD') = TO_CHAR(order_regdate,'YYYYMMDD') AND pay_status='결제완료' 
+		AND order_status NOT IN('배송완료','배송준비중')
+	</select>
+	
+	<select id="aaselectOrderinfo" resultMap="orderVo" parameterType="int">
+		SELECT * FROM m_order WHERE order_number=#{order_number}
+	</select>
+	
+	<select id="productCountCheck" resultType="int" parameterType="orderSub">
+		SELECT product_count FROM m_product WHERE product_number=#{product_number}
+	</select>
+	
+	<select id="optionCountCheck" resultType="int" parameterType="Option">
+		SELECT option_count FROM m_option WHERE option_number=#{option_number}
+	</select>
+	
+	<select id="orderwaitCnt" resultType="int">
+		SELECT COUNT(*) FROM m_order WHERE order_status='배송준비중' ORDER BY order_regdate DESC
+	</select>
+	<select id="deliveryCompleteCnt" resultType="int" >
+		SELECT COUNT(*) FROM m_order WHERE order_status IN ('배송완료','구매확정','리뷰완료') ORDER BY order_regdate DESC
+	</select>
+	
+	<select id="adminPageOrderView" resultMap="orderVo">
+		SELECT A.order_number order_number,A.order_regdate order_regdate,A.order_price order_price,A.order_status order_status,B.member_nickname recipient 
+		FROM(SELECT order_number,order_regdate,order_price,order_status,member_number FROM m_order WHERE pay_status!='결제취소' ORDER BY order_regdate DESC) A 
+		JOIN m_member B ON A.member_number = B.member_number WHERE rownum <![CDATA[<=]]> 3
+	</select>
+	
+	<select id="orderwaitList" resultMap="orderVo" parameterType="hashMap">
+		SELECT order_number,order_regdate,order_price,order_status
+		FROM (SELECT ROWNUM num,order_number,order_regdate,order_price,order_status
+		FROM (SELECT order_number,order_regdate,order_price,order_status FROM m_order WHERE order_status = '배송준비중' ORDER BY order_regdate DESC))
+		WHERE num BETWEEN (#{section}-1)*100+(#{pageNum}-1)*10+1 AND (#{section}-1)*100+(#{pageNum})*10
+	</select>
+	<select id="deliveryCompleteList" resultMap="orderVo" parameterType="hashMap">
+		SELECT order_number,order_regdate,order_price,order_status
+		FROM (SELECT ROWNUM num,order_number,order_regdate,order_price,order_status 
+		FROM (SELECT order_number,order_regdate,order_price,order_status FROM m_order WHERE order_status IN ('배송완료','구매확정','리뷰완료') ORDER BY order_regdate DESC))
+		WHERE num BETWEEN (#{section}-1)*100+(#{pageNum}-1)*10+1 AND (#{section}-1)*100+(#{pageNum})*10
+	</select>
+	
+	<select id="orderinfo" resultMap="orderVo" parameterType="int">
+		SELECT * FROM m_order WHERE order_number=#{order_number}
+	</select>
+	
+	<select id="membershipPoint" resultType="long" parameterType="long">
+		SELECT member_point FROM m_member WHERE member_number=#{member_number}
+	</select>
+	
+	<select id="order_join_number" resultType="int" parameterType="String">
+		SELECT order_join_number FROM m_order WHERE imp_uid=#{imp_uid}
+	</select>
+	
+	<select id="option_join_number" resultType="int" parameterType="int">
+		SELECT MAX(option_join_number) FROM m_order_list WHERE order_join_number=#{order_join_number}
+	</select>
+	
+	<select id="recipient" resultType="String" parameterType="long">
+		SELECT member_name FROM m_member WHERE member_number=#{member_number}
+	</select>
+
+	<select id="recipient_phone" resultType="String" parameterType="long">
+		SELECT member_phone FROM m_member WHERE member_number=#{member_number}
+	</select>
+	
+	<select id="recipient_address" resultType="String" parameterType="long">
+		SELECT member_address FROM m_member WHERE member_number=#{member_number}
+	</select>
+	
+	<select id="search_uid" resultType="String" parameterType="int">
+		SELECT imp_uid FROM m_order WHERE order_number=#{orderNum}
+	</select>
+	
+	<select id="payment_status" resultType="String" parameterType="int">
+		SELECT pay_status FROM m_order WHERE order_number=#{orderNum}
+	</select>
+	
+	<select id="confirmationSales" resultMap="orderVo">
+		SELECT TO_CHAR(order_regdate, 'YYYY/MM/DD') sales_regdate,SUM(order_price) order_price 
+		FROM m_order WHERE pay_status='결제완료' AND order_status NOT IN('배송완료','배송준비중') 
+		GROUP BY TO_CHAR(order_regdate, 'YYYY/MM/DD')
+	</select>
+	<select id="allSales" resultMap="orderVo">
+		SELECT TO_CHAR(order_regdate, 'YYYY/MM/DD') sales_regdate,SUM(order_price) order_price 
+		FROM m_order WHERE pay_status='결제완료' GROUP BY TO_CHAR(order_regdate, 'YYYY/MM/DD')
+	</select>
+	
+	<update id="paymentCancel" parameterType="long">
+		update m_cart set cart_status = NULL WHERE member_number=#{member_number}
+	</update>
+	<update id="productCountUpdate" parameterType="orderSub">
+		update m_cart set product_selectcount = #{product_count} WHERE cart_number=#{cart_number}
+	</update>
+  	<insert id="insertOrder" parameterType="order">
+  		INSERT INTO m_order(order_number,member_number,order_regdate,order_price,
+  			<if test="#{delivery_cost} != null"> delivery_cost, </if> 
+  			<if test="#{recipient} != null"> recipient, </if> 
+  			<if test="#{recipient_phone} != null"> recipient_phone, </if> 
+  			<if test="#{recipient_address} != null"> recipient_address, </if> 
+  			<if test="#{use_point} != null"> use_point, </if> 
+  			earn_point,imp_uid,pay_status,order_status,order_join_number
+  			)
+		VALUES(m_order_seq.nextval,#{member_number},SYSDATE,#{order_price},
+			<if test="#{delivery_cost} != null"> #{delivery_cost}, </if> 
+			<if test="#{recipient} != null"> #{recipient}, </if> 
+			<if test="#{recipient_phone} != null"> #{recipient_phone}, </if> 
+			<if test="#{recipient_address} != null"> #{recipient_address}, </if> 
+			<if test="#{use_point} != null"> #{use_point}, </if> 
+			#{earn_point}, #{imp_uid}, '결제완료', '배송준비중', 
+			m_order_join_seq.nextval
+			)
+  	</insert>
+  	
+  	<insert id="insertProductList" parameterType="orderSub">
+  		INSERT INTO m_order_list(order_list_number,product_number,product_count,option_join_number,order_join_number)
+		VALUES(m_order_list_number_seq.nextval,#{product_number},#{product_count},m_option_join_number_seq.nextval,
+			#{order_join_number})
+  	</insert>
+  	
+  	<insert id="insertOptionList" parameterType="option">
+  		INSERT INTO m_order_option_list(order_option_number,option_number,option_count,option_join_number)
+		VALUES(order_option_number.nextval,#{option_number},#{payment_option_count},#{option_Join_Number})
+  	</insert>
+  	
+  	<update id="pointEarn" parameterType="order">
+		update m_member set member_point = member_point + #{earn_point} WHERE member_number=#{member_number}
+	</update>
+  	
+  	<update id="pointDeduction" parameterType="order">
+		update m_member set member_point = member_point - #{use_point} WHERE member_number=#{member_number}
+	</update>
+	
+	<update id="pointRollBack" parameterType="order">
+		update m_member set member_point = member_point + #{use_point} WHERE member_number=#{member_number}
+	</update>
+	
+  	<delete id="deleteCart" parameterType="int">
+		DELETE FROM m_cart WHERE cartoption_number=#{cartoption_number}
+	</delete>
+	<delete id="deleteCartOption" parameterType="int">
+		DELETE FROM m_cartoption WHERE cartoption_number=#{cartoption_number}
+	</delete>
+	
+	<update id="productZero" parameterType="orderSub">
+		update m_product set product_count = product_count - #{product_count}, product_salcount = product_salcount + #{product_count}, delete_check=1 WHERE product_number=#{product_number}
+	</update>
+	<update id="productDeduction" parameterType="orderSub">
+		update m_product set product_count = product_count - #{product_count}, product_salcount = product_salcount + #{product_count} WHERE product_number=#{product_number}
+	</update>
+	
+	<update id="productRollBack" parameterType="orderSub">
+		update m_product set product_count = product_count + #{product_count}, product_salcount = product_salcount - #{product_count} WHERE product_number=#{product_number}
+	</update>
+	
+	
+	<update id="optionZero" parameterType="Option">
+		update m_option set option_count = option_count - #{payment_option_count}, option_salcount = option_salcount + #{payment_option_count} WHERE option_number=#{option_number}
+	</update>
+	<update id="optionDeduction" parameterType="Option">
+		update m_option set option_count = option_count - #{payment_option_count}, option_salcount = option_salcount + #{payment_option_count} WHERE option_number=#{option_number}
+	</update>
+	
+	<update id="optionRollBack" parameterType="Option">
+		update m_option set option_count = option_count + #{option_Count}, option_salcount = option_salcount - #{option_Count} WHERE option_number=#{option_number}
+	</update>
+	
+	<update id="paymentStatusEdit" parameterType="int">
+		update m_order set pay_status = '결제취소', order_status = '주문취소' WHERE order_number=#{orderNum}
+	</update>
+	
+	<update id="adminPaymentStatusEdit" parameterType="int">
+		update m_order set pay_status = '결제취소', order_status = '관리자주문취소' WHERE order_number=#{orderNum}
+	</update>
+	
+	<update id="delivery" parameterType="int">
+		update m_order set order_status = '배송완료' WHERE order_number=#{orderNum}
+	</update>
+	
+	<update id="purchaseConfirm" parameterType="int">
+		update m_order set order_status = '구매확정' WHERE order_number=#{orderNum}
+	</update>
+	
+	<update id="reviewConfirm" parameterType="int">
+		update m_order set order_status = '완료' WHERE order_number=#{orderNum}
+	</update>
+	
+  
+</mapper>

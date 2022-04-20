@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="mybatis.mapper.category">
+	
+	<resultMap type="category" id="categoryVo">
+		<result column="category_number" property="category_number"/>
+		<result column="category_title" property="category_title"/>
+		<result column="classification" property="classification"/>
+		<result column="category_sort" property="category_sort"/>
+	</resultMap>
+	
+	<select id="menu1" resultMap="categoryVo">
+		SELECT * FROM m_category WHERE classification='테마별' ORDER BY category_sort ASC
+	</select>
+	<select id="menu2" resultMap="categoryVo">
+		SELECT * FROM m_category WHERE classification='사이드디쉬' ORDER BY category_sort ASC
+	</select>
+	<select id="menu3" resultMap="categoryVo">
+		SELECT * FROM m_category WHERE classification='브랜드관' ORDER BY category_sort ASC
+	</select>
+	<select id="menuCount1" resultType="int">
+		SELECT COUNT(*) FROM m_category WHERE classification='테마별'
+	</select>
+	<select id="menuCount2" resultType="int">
+		SELECT COUNT(*) FROM m_category WHERE classification='사이드디쉬'
+	</select>
+	<select id="menuCount3" resultType="int">
+		SELECT COUNT(*) FROM m_category WHERE classification='브랜드관'
+	</select>
+	
+	<select id="categorySeq" resultType="int" parameterType="category">
+		SELECT category_sort FROM m_category WHERE classification = #{classification} AND category_title=#{category_title}
+	</select>
+	
+	<insert id="categoryInsert" parameterType="Category">
+		INSERT INTO m_category
+		VALUES(m_category_seq.nextval,#{category_title},#{classification},#{category_sort})
+	</insert>
+	
+	<delete id="categoryDelete" parameterType="Category">
+		DELETE FROM m_category WHERE category_title=#{category_title}
+	</delete>
+	
+	<update id="categoryUpdate" parameterType="ProductCategoryEditList">
+		UPDATE m_product SET
+		<if test="classification == 'category_1'">  category_1 </if> 
+		<if test="classification == 'category_2'">  category_2 </if> 
+		<if test="#{product_name} != null">  = #{product_name} </if> 
+		<if test="#{product_name} == null">  is null </if> 
+		WHERE product_number = #{product_number}
+	</update>
+	
+	<update id="stopSelling" parameterType="ProductCategoryEditList">
+		UPDATE m_product SET
+		product_count=0, delete_check=1
+		WHERE product_number = #{product_number}
+	</update>
+	
+	<update id="startSelling" parameterType="ProductCategoryEditList">
+		UPDATE m_product SET
+		product_count=#{product_count}, delete_check=0
+		WHERE product_number = #{product_number}
+	</update>
+	
+	<update id="categorySeqUpdate" parameterType="Category">
+		UPDATE m_category SET 
+		category_sort=#{category_sort}
+		WHERE category_title = #{category_title}
+	</update>
+	<update id="productCategoryNameNull1" parameterType="Category">
+		UPDATE m_product SET 
+		category_1=null
+		WHERE category_1 = #{category_title}
+	</update>
+	<update id="productCategoryNameNull2" parameterType="Category">
+		UPDATE m_product SET 
+		category_2=null
+		WHERE category_2 = #{category_title}
+	</update>
+	<update id="deleteBysortNumUpdate" parameterType="hashMap">
+		UPDATE m_category SET 
+		category_sort=#{num}-1
+		WHERE classification = #{classification} AND category_sort = #{num} 
+	</update>
+	
+
+</mapper>

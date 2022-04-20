@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="mybatis.mapper.ProductCategoryEditList">
+	
+	
+	<resultMap type="ProductCategoryEditList" id="pcelVo">
+		<result column="product_number" property="product_number"/>
+		<result column="product_name" property="product_name"/>
+	</resultMap>
+	<select id="nullCategorySelect" resultMap="pcelVo" parameterType="ProductCategoryEdit">
+		SELECT product_number,product_name FROM m_product 
+		WHERE <if test="category_1 != null"> category_1 is null</if> 
+		<if test="category_2 != null"> category_2 is null</if>
+		AND delete_check=0
+	</select>
+	<select id="categorySelect" resultMap="pcelVo" parameterType="ProductCategoryEdit">
+		SELECT product_number,product_name FROM m_product 
+		WHERE <if test="category_1 != null"> category_1 = #{category_title}</if> 
+		<if test="category_2 != null"> category_2 = #{category_title}</if>
+		AND delete_check=0
+	</select>
+	<select id="nullCategorySelect1" resultMap="pcelVo" parameterType="ProductCategoryEdit">
+		SELECT product_number,product_name FROM m_product 
+		WHERE <if test="category_1 != null"> category_1 is null</if> 
+		<if test="category_2 != null"> category_2 is null</if>
+		AND delete_check=1
+	</select>
+	<select id="categorySelect1" resultMap="pcelVo" parameterType="ProductCategoryEdit">
+		SELECT product_number,product_name FROM m_product 
+		WHERE <if test="category_1 != null"> category_1 = #{category_title}</if> 
+		<if test="category_2 != null"> category_2 = #{category_title}</if>
+		AND delete_check=1
+	</select>
+	
+
+</mapper>

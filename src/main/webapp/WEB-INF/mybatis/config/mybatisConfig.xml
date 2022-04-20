@@ -10,6 +10,19 @@
   <typeAliases> <!-- DB에서 데이터를 전달하거나 DB에서 데이터를 읽어올때 사용하는 객체를 기록 -->
   	<typeAlias type="spring.vo.Member" alias="member"/>
   	<typeAlias type="spring.vo.RegisterRequest" alias="RegisterRequest"/>
+  	<typeAlias type="spring.vo.Notice" alias="notice"/>
+  	<typeAlias type="spring.vo.Product" alias="product"/>
+  	<typeAlias type="spring.vo.Option" alias="option"/>
+  	<typeAlias type="spring.vo.Category" alias="category"/>
+  	<typeAlias type="spring.vo.Cart" alias="cart"/>
+  	<typeAlias type="spring.vo.ProductCategoryEditList" alias="ProductCategoryEditList"/>
+  	<typeAlias type="spring.vo.ProductCategoryEdit" alias="ProductCategoryEdit"/>
+  	<typeAlias type="spring.vo.Review" alias="review"/>
+  	<typeAlias type="spring.vo.Qna" alias="qna"/>
+	<typeAlias type="spring.vo.CommentWrite" alias="commentWrite"/>
+	<typeAlias type="spring.vo.Order" alias="order"/>
+  	<typeAlias type="spring.vo.OrderSub" alias="orderSub"/>
+
   </typeAliases>
 
 </configuration>

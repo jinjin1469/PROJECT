@@ -7,66 +7,102 @@
 <mapper namespace="mybatis.mapper.member">
 	
 	<resultMap type="member" id="memVo">
-		<result column="id" property="id"/>
-		<result column="name" property="name"/>
-		<result column="email" property="email"/>
-		<result column="password" property="password"/>
-		<result column="regdate" property="registerDate"/>
+		<result column="member_number" property="member_number"/>
+		<result column="member_id" property="member_id"/>
+		<result column="member_pwd" property="member_pwd"/>
+		<result column="member_name" property="member_name"/>
+		<result column="member_nickname" property="member_nickname"/>
+		<result column="member_phone" property="member_phone"/>
+		<result column="member_email" property="member_email"/>
+		<result column="member_address" property="member_address"/>
+		<result column="member_point" property="member_point"/>
+		<result column="member_state" property="member_state"/>
 	</resultMap>
 
-
-	  <!-- 아이디 중복 체크 -->
-    <select id="idCheck" parameterType="String" resultType="int">
-        SELECT COUNT(id) FROM USER WHERE id= #{id}
-    </select>
-
-
 	<!-- 반복적으로 나오는 쿼리를 묶어서 처리  -->
+	
 	<sql id="selectAllMember">
-		SELECT * FROM members
+		SELECT * FROM M_MEMBER
 	</sql>
-
-	<select id="selectAll" resultMap="memVo">
-		<!-- SELECT * FROM members -->
-		<include refid="selectAllMember" />
-		ORDER BY id ASC
+	
+	<select id="memberAll" resultMap="memVo" parameterType="member">
+		SELECT * FROM M_MEMBER
 	</select>
-
-	 <select id="selectByEmail" resultMap="memVo" parameterType="String">
-		<!-- SELECT * FROM members -->
-		<include refid="selectAllMember" />
-		WHERE email=#{email}
+	
+    <insert id="insertMember" parameterType="RegisterRequest">
+		INSERT INTO M_MEMBER 
+		 VALUES(M_MEMBER_SEQ.NEXTVAL,#{member_id},#{member_pwd},#{member_name},#{member_nickname},#{member_phone},#{member_email},#{member_address},0,1)
+	</insert>
+	
+	<!-- <select id="nameCheck" parameterType="String" resultType="integer"> 
+		SELECT COUNT(*) FROM M_MEMBER WHERE member_nickname = #{member_nickname}
+	</select> -->
+	
+	<select id="nameCheck" parameterType="String" resultMap="memVo"> 
+		select NVL(COUNT,0) as member_point, NVL(member_state,0) as member_state from
+		(select COUNT(*) AS COUNT, MEMBER_STATE FROM m_member RIGHT OUTER JOIN DUAL ON member_nickname =#{member_nickname} GROUP BY member_state, member_point)
+	</select>
+	
+<!-- 	<select id="idCheck" parameterType="String" resultType="integer"> 
+		SELECT COUNT(*) FROM M_MEMBER WHERE member_id = #{member_id}
+	</select> -->
+	<select id="idCheck" parameterType="String" resultMap="memVo"> 
+		select NVL(COUNT,0) as member_point, NVL(member_state,0) as member_state from
+		(select COUNT(*) AS COUNT, MEMBER_STATE FROM m_member RIGHT OUTER JOIN DUAL ON member_id =#{member_id} GROUP BY member_state, member_point)
+	</select>
+	
+	<select id="emailCheck" parameterType="String" resultMap="memVo"> 
+		select NVL(COUNT,0) as member_point, NVL(member_state,0) as member_state from
+		(select COUNT(*) AS COUNT, MEMBER_STATE FROM m_member RIGHT OUTER JOIN DUAL ON member_email =#{member_email} GROUP BY member_state, member_point)
 	</select>
 	
 
-	 <select id="selectById" resultMap="memVo" parameterType="Long">
+	 <select id="selectById" resultMap="memVo" parameterType="String">
 		<!-- SELECT * FROM members -->
 		<include refid="selectAllMember" />
-		WHERE id=#{id}
+		WHERE member_id=#{member_id}
+	</select>
+	<select id="pwdFind" parameterType="long" resultType="String">
+	 	select member_pwd from m_member where member_number = #{member_number} 
 	</select>
 	
-	<select id="selectByRegDate" resultMap="memVo" parameterType="spring.vo.ListCommand">
-		<!-- SELECT * FROM members -->
-		<include refid="selectAllMember" />
-		WHERE regdate 
-		BETWEEN #{from} AND #{to} 
-		ORDER BY REGDATE ASC 
+	<!-- 아이디 찾기 -->
+	<select id="findId" parameterType="String" resultMap="memVo">
+		select * from M_MEMBER where member_name = #{member_name} AND member_email = #{member_email} 
 	</select>
-	 
-	<select id="selectCount" resultType="int">
-		SELECT count(*) FROM members
+	
+	<!-- 비밀번호 찾기 -->
+	<select id="findPwd" parameterType="String"  resultMap="memVo">
+		select * from M_MEMBER where member_name = #{member_name} AND member_email = #{member_email} AND member_id = #{member_id}
 	</select>
-
-	<update id="updateMember" parameterType="member">
-		UPDATE members 
-		SET name=#{name}, password=#{password} 
-		WHERE email=#{email}
+	
+	<update id="updateInfo">
+	 	update m_member
+	 	<trim prefix="set" suffixOverrides=",">
+	 	<if test='member_name != null and member_name != ""'>member_name = #{member_name},</if>
+	 	<if test='member_phone != null and member_phone !=""'> member_phone = #{member_phone},</if>
+	 	<if test='member_email != null and member_email !=""'> member_email = #{member_email},</if>
+	 	<if test='member_address != null and member_address !=""'> member_address = #{member_address}</if>
+	 	</trim>where member_number = #{member_number}
+	</update>
+		    
+    <update id="updatePw">
+		update m_member set member_pwd = #{member_pwd} where member_id = #{member_id}
 	</update>
 	
-	<insert id="insertMember" parameterType="member">
-		INSERT INTO members 
-		VALUES(members_seq.nextval,#{email},#{password},#{name},sysdate)
-	</insert>
-
-
+	<update id="updatePwd" parameterType="member">
+		UPDATE m_member
+		set member_pwd = #{member_pwd} where member_number = #{member_number}
+	</update>
+	
+	 <select id="selectByMemberNum" resultMap="memVo" parameterType="long">
+		<!-- SELECT * FROM members -->
+		<include refid="selectAllMember" />
+		WHERE member_number=#{member_number}
+	</select>
+	<update id="deleteAccount" parameterType="long">
+	   update m_member set member_state = 9 where member_number = #{member_number}
+	</update>
+    
+	
 </mapper>

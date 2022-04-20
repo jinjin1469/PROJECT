@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="mybatis.mapper.option">
+ 
+	<resultMap type="option" id="optionVo">
+		<result column="option_number" property="option_number"/>
+		<result column="option_Join_Number" property="option_Join_Number"/>
+		<result column="option_Name" property="option_Name"/>
+		<result column="option_Price" property="option_Price"/>
+		<result column="option_Count" property="option_Count"/>
+		<result column="option_salcount" property="option_salcount"/>
+		<result column="delete_check" property="delete_check"/>
+		<result column="payment_option_count" property="payment_option_count"/>
+	</resultMap>
+	
+	
+	
+	
+	<select id="productOptionSelect" resultMap="optionVo" parameterType="int">
+		SELECT * FROM m_option WHERE option_join_number=#{num} AND delete_check=0
+	</select>
+	
+	<select id="optionListinfo" resultMap="optionVo" parameterType="int">
+		SELECT A.option_name option_name, A.option_number option_number, B.option_count option_Count 
+		FROM m_option A JOIN (SELECT * FROM m_order_option_list WHERE option_join_number=#{option_join_number}) B 
+		ON A.option_number=B.option_number
+	</select>
+	
+	<insert id="insertOption" parameterType="option">
+		INSERT INTO m_option 
+		VALUES(m_option_seq.nextval,#{option_Join_Number},#{option_Name},#{option_Price},#{option_Count},0,0)
+	</insert>
+	
+	<update id="updateOption" parameterType="option">
+		UPDATE m_option SET 
+		option_Name=#{option_Name},
+		option_Price=#{option_Price},
+		option_Count=#{option_Count}
+		<if test="option_Count==0"> , delete_check=1 </if>
+		WHERE option_number = #{option_number}
+	</update>
+	
+	<update id="optionDelete" parameterType="option">
+		UPDATE m_option SET delete_check=1, option_Count=0
+		WHERE option_number = #{option_number}
+	</update>
+	
+	<select id="optionList" resultMap="optionVo" parameterType="int">
+		SELECT A.option_number option_number, A.option_name option_Name, A.option_price option_Price, 
+		B.option_selectcount payment_option_count FROM m_option A JOIN 
+		(SELECT * FROM m_cartoption WHERE cartoption_number=#{cartoption_number}) B ON A.option_number=B.option_number
+	</select>
+
+</mapper>

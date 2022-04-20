@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="mybatis.mapper.qna">
+	
+	<resultMap type="qna" id="qnaVo">
+		<result column="product_number" property="product_number"/>
+		<result column="qna_number" property="qna_number"/>
+		<result column="member_number" property="member_number"/>
+		<result column="qna_title" property="qna_title"/>
+		<result column="qna_content" property="qna_content"/>
+		<result column="qna_regdate" property="qna_regdate"/>
+		<result column="product_name" property="product_name"/>
+		<result column="member_nickname" property="member_nickname"/>
+		<result column="qna_state" property="qna_state"/>
+		<result column="comment_content" property="comment_content"/>
+		<result column="comment_number" property="comment_number"/>
+		<result column="comment_regdate" property="comment_regdate"/>
+		<result column="option_join_number" property="option_join_number"/>
+	</resultMap>
+	
+	<resultMap type="commentWrite" id="commentWriteVo">
+		<result column="qna_number" property="qna_number"/>
+		<result column="member_number" property="member_number"/>
+		<result column="comment_content" property="comment_content"/>
+		<result column="comment_number" property="comment_number"/>
+		<result column="comment_regdate" property="comment_regdate"/>	
+	</resultMap>
+	
+	<select id="selectProNUM" resultType="long" parameterType="long">
+	 	select option_join_number
+		from m_product
+		where product_number = #{product_number}
+	</select>
+	
+	<select id="selectList" resultMap = "qnaVo">
+	 select qna_title, m.member_nickname, qna_regdate, qna_number, p.product_number, qna_state, product_name
+	 from m_qna q , m_member m , m_product p
+	 where p.product_number = q.product_number and m.member_number=q.member_number ORDER BY QNA_NUMBER DESC
+	</select> 
+	
+	<select id="selectNum" resultType="int" parameterType="long">
+	   select option_join_number
+		from m_product p, m_qna q
+		where p.product_number = q.product_number and q.qna_number = #{qna_number}
+	</select>
+	
+	<select id="selectComment" resultMap="commentWriteVo" parameterType="long">
+	    SELECT * FROM M_QNACOMMENT WHERE qna_number = #{qna_number} ORDER BY QNA_NUMBER DESC
+	</select>
+	
+	<select id="selectNumber" parameterType="long" resultType="String"> 
+		SELECT product_name from m_product where product_number = #{product_number}
+	</select>
+	 
+	 <insert id="insertQna" parameterType="qna">
+		INSERT INTO M_QNA
+		 VALUES(M_QNA_SEQ.NEXTVAL,#{product_number},#{member_number},#{qna_title},#{qna_content},SYSDATE, DEFAULT)
+	</insert>
+	
+	<insert id="insertCom" parameterType="commentWrite">
+	 	INSERT INTO m_qnaComment
+	 	VALUES(M_COMMENT_SEQ.NEXTVAL,#{qna_number},#{comment_content},SYSDATE,#{member_number})
+	</insert>
+	
+	<select id="qnaList" resultMap="qnaVo">
+	select qna_title, m.member_nickname, qna_regdate, qna_number, p.product_number, qna_state
+	from m_qna q , m_member m , m_product p
+	where p.product_number = q.product_number and m.member_number=q.member_number and q.product_number=#{product_number} ORDER BY QNA_NUMBER DESC
+	</select>
+	
+	<select id="selectQna" resultMap="qnaVo">
+	select qna_title, m.member_nickname, qna_regdate, qna_number, product_name, p.product_number, m.member_number, qna_content
+	from m_qna q , m_member m , m_product p
+	where p.product_number = q.product_number and m.member_number=q.member_number and q.qna_number=#{qna_number} ORDER BY QNA_NUMBER DESC
+	</select>
+	
+	<select id="selectQnaNumber" parameterType="long" resultType="long">
+	 	SELECT member_number from m_qna where qna_number = #{qna_number}
+	</select>
+	
+	<select id="selectCommentNumber" parameterType="long" resultType="long">
+		select qna_number from m_qnacomment where comment_number = #{comment_number}
+	</select>
+	
+	<select id="selectMyList" resultMap="qnaVo" parameterType="long">
+		select product_name, qna_title, qna_state, member_nickname, qna_regdate, qna_number
+		from m_member m, m_qna q, m_product p
+		where q.product_number = p.product_number and m.member_number = q.member_number and q.member_number = #{member_number} ORDER BY QNA_NUMBER DESC
+	</select>
+	
+	<delete id="deleteQna">
+		delete from m_qna where qna_number = #{qna_number}
+	</delete>
+	
+	<delete id="deleteCom">
+		delete from m_qnacomment where comment_number = #{comment.number}
+	</delete>
+	
+	<update id="update" parameterType="qna">
+		UPDATE M_QNA
+		SET QNA_TITLE = #{qna_title}, QNA_CONTENT = #{qna_content}
+		WHERE qna_number = #{qna_number}
+	</update>
+	
+	<update id="updateComment" parameterType="commentWrite">
+	 	UPDATE M_QNACOMMENT
+	 	SET COMMENT_CONTENT = #{comment_content}
+	 	WHERE COMMENT_NUMBER =  #{comment_number}
+	
+	</update>
+	
+	<update id="setWaiting" parameterType="long">
+	 	UPDATE M_QNA
+	 	SET QNA_STATE = '답변대기' WHERE qna_number = #{qna_number}	
+	</update>
+	<update id="updateState" parameterType="long">
+		UPDATE M_QNA
+		SET QNA_STATE = '답변완료' WHERE qna_number = #{qna_number}
+	</update>
+	
+	
+	<select id="selectAllNumBoard" resultType="int" >
+	select COUNT(*)
+	from m_qna q , m_member m , m_product p
+	where p.product_number = q.product_number and m.member_number=q.member_number ORDER BY QNA_NUMBER DESC
+	</select>
+	
+	<select id="qnaPagingList" resultMap="qnaVo" parameterType="hashMap">
+	 select qna_title, member_nickname, qna_regdate, qna_number, product_number, qna_state, product_name
+	 from(SELECT ROWNUM num, qna_title, member_nickname, qna_regdate, qna_number, product_number, qna_state, product_name
+	 from (SELECT qna_title, m.member_nickname, qna_regdate, qna_number, p.product_number, qna_state, product_name FROM m_qna q , m_member m , m_product p
+	 where p.product_number = q.product_number and m.member_number=q.member_number ORDER BY QNA_NUMBER DESC))
+	 WHERE num BETWEEN (#{section}-1)*100+(#{pageNum}-1)*10+1 AND (#{section}-1)*100+(#{pageNum})*10
+	</select>
+	
+	<select id="selectProductNum" resultType="int" parameterType="long">
+	select COUNT(*)
+	from m_qna q , m_member m , m_product p
+	where p.product_number = q.product_number and m.member_number=q.member_number and q.product_number=#{product_number} ORDER BY QNA_NUMBER DESC
+	</select>
+	
+	<select id="qnaPorudctPagingList" resultMap="qnaVo" parameterType="hashMap">
+	select qna_title, member_nickname, qna_regdate, qna_number, product_number, qna_state
+	from(SELECT ROWNUM num, qna_title, member_nickname, qna_regdate, qna_number, product_number, qna_state
+	from(SELECT qna_title, m.member_nickname, qna_regdate, qna_number, p.product_number, qna_state FROM m_qna q , m_member m , m_product p
+	where p.product_number = q.product_number and m.member_number=q.member_number and q.product_number=#{product_number} ORDER BY QNA_NUMBER DESC)) 
+	WHERE num BETWEEN (#{section}-1)*100+(#{pageNum}-1)*10+1 AND (#{section}-1)*100+(#{pageNum})*10
+	</select>
+	
+	<select id="selectByQnaNum" resultType="int" parameterType="long">
+	select option_join_number 
+	from m_product p, m_qna q
+	where p.product_number = q.product_number and q.qna_number = #{qna_number}
+	</select>
+
+	
+
+
+</mapper>

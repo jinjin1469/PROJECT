@@ -56,12 +56,12 @@ h3{text-align:left; margin-left:70px;}
 	<br>
 		<div class="accordion accordion-flush" id="accordionFlushExample">
 	  		<div class="accordion-item">
-			    <h2 class="accordion-header" id="flush-headingOne">
-			      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-			        적립금/이벤트 적립금은 어떻게 적용하나요?
+			    <h2 class="accordion-header" id="a1">
+			      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#b1" aria-expanded="false" aria-controls="b1">
+			        적립금은 어떻게 적용하나요?
 			      </button>
 	    		</h2>
-	    		<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+	    		<div id="b1" class="accordion-collapse collapse" aria-labelledby="a1" data-bs-parent="#accordionFlushExample">
 	      			<div class="accordion-body">
 					주문시 적립금 사용을 통해 일정부분 할인받을 수 있습니다.<br>
 					<br>
@@ -72,12 +72,12 @@ h3{text-align:left; margin-left:70px;}
 				</div>
 	  		</div>
 	  		<div class="accordion-item">
-			    <h2 class="accordion-header" id="flush-headingTwo">
-			      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+			    <h2 class="accordion-header" id="a2">
+			      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#b2" aria-expanded="false" aria-controls="b2">
 			        주문한 상품을 취소하고 전부 환불받고 싶어요.
 			      </button>
 	    		</h2>
-	    		<div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+	    		<div id="b2" class="accordion-collapse collapse" aria-labelledby="a2" data-bs-parent="#accordionFlushExample">
 	      			<div class="accordion-body">
 					'상품 준비중' 상태일 경우 주문현황 화면에서 '취소'를 하시면 취소 및 환불이 가능합니다.<br>
 					<br>
@@ -86,16 +86,58 @@ h3{text-align:left; margin-left:70px;}
 				</div>
 	  		</div>
 	  		<div class="accordion-item">
-	    		<h2 class="accordion-header" id="flush-headingThree">
-	      			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+	    		<h2 class="accordion-header" id="a3">
+	      			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#b3" aria-expanded="false" aria-controls="b3">
 	        		제품이 파손돼서(깨져서) 왔어요.
 	      			</button>
 	    		</h2>
-	    		<div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+	    		<div id="b3" class="accordion-collapse collapse" aria-labelledby="a3" data-bs-parent="#accordionFlushExample">
 	      			<div class="accordion-body">
 	      			고객님께 믿음을 드릴 수 있는 안전한 배송을 위하여, 제품의 포장 상태 등을 체크하여 배송 드리고 있습니다.<br>
 					<br>
 					구입하신 제품 중 파손 상품 발생 시 고객행복센터(000-0000-0000)로 연락주세요.<br>
+					</div>
+	  			</div>
+			</div>
+			<div class="accordion-item">
+	    		<h2 class="accordion-header" id="a4">
+	      			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#b4" aria-expanded="false" aria-controls="b4">
+	        		배송비는 무료인가요?
+	      			</button>
+	    		</h2>
+	    		<div id="b4" class="accordion-collapse collapse" aria-labelledby="a4" data-bs-parent="#accordionFlushExample">
+	      			<div class="accordion-body">
+	      			결제금액이 3만원 이상 일시 배송비가 무료로 적용됩니다.<br><br>
+					(택배배송 비용)<br>
+					3만원 미만: 3,000원<br>
+					3만원 이상: 무료<br>
+					</div>
+	  			</div>
+			</div>
+			<div class="accordion-item">
+	    		<h2 class="accordion-header" id="a5">
+	      			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#b5" aria-expanded="false" aria-controls="b5">
+	        		고객센터 운영시간은 어떻게 되나요?
+	      			</button>
+	    		</h2>
+	    		<div id="b5" class="accordion-collapse collapse" aria-labelledby="a5" data-bs-parent="#accordionFlushExample">
+	      			<div class="accordion-body">
+	      			고객센터는 평일 오전 10시 ~ 오후 6시까지 운영됩니다.<br>
+					고객센터(xxxx-xxxx), 카카오 플러스친구톡<br>
+					</div>
+	  			</div>
+			</div>
+			<div class="accordion-item">
+	    		<h2 class="accordion-header" id="a6">
+	      			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#b6" aria-expanded="false" aria-controls="b6">
+	        		상품의 상태가 좋지 않아요.
+	      			</button>
+	    		</h2>
+	    		<div id="b6" class="accordion-collapse collapse" aria-labelledby="a6" data-bs-parent="#accordionFlushExample">
+	      			<div class="accordion-body">
+	      			구입하신 상품 중 품질에 이상이 있는 고객님께서는 수령 후 1일 이내에<br> 
+					고객센터(xxxx-xxxx)로 연락주시거나 [1:1문의] 또는 [카카오톡] 으로 문의 주시면<br>
+					환불이나 재발송을 안내해 드립니다.<br>
 					</div>
 	  			</div>
 			</div>

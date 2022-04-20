@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="mybatis.mapper.review">
+	
+	<resultMap type="review" id="reviewVo">
+		
+		<result column="review_number" property="review_number"/>
+		<result column="product_number" property="product_number"/>
+		<result column="member_number" property="member_number"/>
+		<result column="review_content" property="review_content"/>
+		<result column="review_regdate" property="review_regdate"/>
+		<result column="order_number" property="order_number"/>
+		<result column="member_nickname" property="member_nickname"/>
+		<result column="product_name" property="product_name"/>
+		
+	</resultMap>
+	
+	 <insert id="insertReview" parameterType="review">
+		INSERT INTO M_REVIEW
+		 VALUES(REVIEW_NUMBER_SEQ.NEXTVAL,#{product_number},#{member_number},#{review_content},SYSDATE,#{order_number})
+	</insert>
+	
+	<select id="listReview" resultMap="reviewVo">
+		select review_content, product_name
+		from m_review r, m_product p
+		where r.product_number = p.product_number and order_number = #{order_number}
+	</select>	
+	
+	<select id="reviewList" resultMap="reviewVo" parameterType="long">
+		select member_nickname, review_content, review_regdate
+		from m_member m, m_review r
+		where r.member_number = m.member_number and product_number = #{product_number}
+	 </select>
+	<select id="listMyReview" resultMap="reviewVo" parameterType="long">
+		select review_content, review_regdate, product_name
+		from m_review r, m_product p, m_member m
+		where p.product_number = r.product_number and r.member_number = m.member_number and m.member_number= #{member_numbe}
+	</select>
+	<select id="myReview" resultMap="reviewVo"  parameterType="long">
+		select review_content, review_regdate, product_name
+		from m_review r, m_product p, m_member m
+		where p.product_number = r.product_number and r.member_number = m.member_number and m.member_number= #{member_number} and ROWNUM <![CDATA[<=]]> 3 ORDER BY review_number DESC
+	</select>
+	<select id="ReviewList" resultMap="reviewVo">
+		select member_nickname, review_content, review_regdate,  product_name
+		from m_member m, m_review r, m_product p
+		where m.member_number = r.member_number and r.product_number = p.product_number order by review_number DESC
+	</select>
+
+	<select id="selectAllNumBoard" resultType="int">
+		select COUNT(*)
+		from m_member m, m_review r, m_product p
+		where m.member_number = r.member_number and r.product_number = p.product_number order by review_number DESC
+	</select>
+	
+	<select id ="reviewPagingList" resultMap="reviewVo" parameterType="hashMap">
+		select member_nickname, review_content, review_regdate,  product_name
+		from(SELECT ROWNUM num,  member_nickname, review_content, review_regdate,  product_name
+		from(select member_nickname, review_content, review_regdate,  product_name from m_member m, m_review r, m_product p
+		where m.member_number = r.member_number and r.product_number = p.product_number order by review_number DESC))
+		 WHERE num BETWEEN (#{section}-1)*100+(#{pageNum}-1)*10+1 AND (#{section}-1)*100+(#{pageNum})*10
+	</select>
+	<update id="reviewConfirm" parameterType="long">
+		update m_order set order_status = '리뷰완료' WHERE order_number=#{order_number}
+	</update>
+
+	<select id="selectAllNumReview" resultType="int" parameterType="long">
+		select COUNT(*)
+		from m_review r, m_product p, m_member m
+		where p.product_number = r.product_number and r.member_number = m.member_number and m.member_number= #{member_number}
+	</select>
+	
+	<select id="myReviewPagingList" resultMap="reviewVo" parameterType="hashMap">
+		select review_content, review_regdate, product_name
+		from(SELECT ROWNUM num, review_content, review_regdate, product_name
+		from(SELECT review_content, review_regdate, product_name FROM m_review r, m_product p, m_member m
+		where p.product_number = r.product_number and r.member_number = m.member_number and m.member_number= #{member_number} order by review_number DESC))	
+		WHERE num BETWEEN (#{section}-1)*100+(#{pageNum}-1)*10+1 AND (#{section}-1)*100+(#{pageNum})*10
+	</select>
+	
+	<select id="ReviewAllList" resultMap="reviewVo">
+		select review_content, review_regdate, product_name
+		from m_review r, m_product p, m_member m
+		where p.product_number = r.product_number and r.member_number = m.member_number and ROWNUM <![CDATA[<=]]> 3 ORDER BY review_number DESC
+	</select> 		
+
+</mapper>

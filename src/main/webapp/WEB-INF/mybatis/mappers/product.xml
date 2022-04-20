@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="mybatis.mapper.product">
+ 
+ 	<resultMap type="product" id="productVo">
+		<result column="product_number" property="product_number"/>
+		<result column="option_join_number" property="option_join_number"/>
+		<result column="product_name" property="product_name"/>
+		<result column="product_price" property="product_price"/>
+		<result column="product_count" property="product_count"/>
+		<result column="product_cookingTime" property="product_cookingTime"/>
+		<result column="product_weight" property="product_weight"/>
+		<result column="product_storage" property="product_storage"/>
+		<result column="product_m_image" property="product_m_image"/>
+		<result column="product_d_image" property="product_d_image"/>
+		<result column="product_i_image" property="product_i_image"/>
+		<result column="product_salcount" property="product_salcount"/>
+		<result column="product_regdate" property="product_regdate"/>
+		<result column="category_1" property="category_1"/>
+		<result column="category_2" property="category_2"/>
+		<result column="delete_check" property="delete_check"/>
+	</resultMap>
+	
+	<select id="productAll" resultMap="productVo">
+		SELECT * FROM m_product WHERE delete_check=0
+	</select>
+	
+	<select id="productBest" resultMap="productVo">
+		SELECT option_join_number,product_name,product_price,product_m_image 
+		FROM (SELECT * FROM m_product WHERE delete_check=0 ORDER BY product_salcount DESC) 
+		WHERE rownum <![CDATA[<=]]> 20
+	</select>
+	
+	<select id="productNew" resultMap="productVo">
+		SELECT option_join_number,product_name,product_price,product_m_image,product_regdate 
+		FROM (SELECT * FROM m_product WHERE delete_check=0 ORDER BY product_number DESC) 
+		WHERE rownum <![CDATA[<=]]> 20
+	</select>
+	
+	<select id="category" resultMap="productVo" parameterType="String">
+		SELECT * FROM m_product WHERE delete_check=0 AND category_1=#{category} OR category_2=#{category} 
+	</select>
+	
+	<select id="mainBest" resultMap="productVo">
+		SELECT option_join_number,product_name,product_price,product_m_image 
+		FROM (SELECT * FROM m_product WHERE delete_check=0 ORDER BY product_salcount DESC) 
+		WHERE rownum <![CDATA[<=]]> 6 
+	</select>
+	
+	<select id="mainRandom" resultMap="productVo">
+		SELECT option_join_number,product_name,product_price,product_m_image 
+		FROM (SELECT MOD(ABS(DBMS_RANDOM.RANDOM),8) + 1 AS num,option_join_number,product_name,product_price,product_m_image 
+		FROM m_product WHERE delete_check=0 ORDER BY num ASC) WHERE rownum <![CDATA[<=]]> 8
+	</select>
+	
+	<select id="mainNew" resultMap="productVo">
+		SELECT option_join_number,product_name,product_price,product_m_image,product_regdate 
+		FROM (SELECT * FROM m_product WHERE delete_check=0 ORDER BY product_number DESC) 
+		WHERE rownum <![CDATA[<=]]> 6 
+	</select>
+	
+	<select id="product_Name" resultType="int" parameterType="String">
+		SELECT count(*) FROM m_product WHERE product_Name = #{product_Name}
+	</select>
+	
+	<select id="seqNumber" resultType="int">
+			SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME='M_PRODUCT_SEQ'
+	</select>
+	
+	<select id="updateProductNumber" resultType="int" parameterType="int">
+		SELECT product_number FROM m_product WHERE option_join_number = #{option_join_number}
+	</select>
+	
+	<select id="selectJoinNumber" resultType="int" parameterType="String">
+		SELECT option_join_number FROM m_product WHERE product_name=#{product_name}
+	</select>
+	
+	<select id="productSelect" resultMap="productVo" parameterType="int">
+		SELECT * FROM m_product WHERE option_join_number=#{num}
+	</select>
+	
+	<select id="productNum" resultType="long" parameterType="int">
+	    SELECT PRODUCT_NUMBER FROM M_PRODUCT WHERE option_join_number = #{option_join_number}
+	</select>
+
+	<insert id="insertProduct" parameterType="product">
+		INSERT INTO m_product(product_number,option_join_number,product_name,product_price,
+		product_count,product_cookingTime,product_weight,product_storage,product_m_image,
+		product_d_image,product_i_image,product_salcount,product_regdate,
+		<if test="#{category_1} != null"> category_1, </if> 
+		<if test="#{category_2} != null"> category_2, </if>
+		delete_check) 
+		VALUES(m_product_seq.nextval,option_join_number_seq.nextval,#{product_name}, #{product_price},
+		#{product_count}, #{product_cookingTime}, #{product_weight}, #{product_storage}, #{product_m_image},
+		#{product_d_image}, #{product_i_image},0,SYSDATE,
+		<if test="#{category_1} != null"> #{category_1}, </if> 
+		<if test="#{category_2} != null"> #{category_2}, </if>
+		0)
+	</insert>
+	
+	<update id="updateProduct" parameterType="product">
+		UPDATE m_product SET 
+		<if test="#{category_1} != null"> category_1=#{category_1}, </if> 
+		<if test="#{category_2} != null"> category_2=#{category_2}, </if>
+		product_name=#{product_name},
+		product_price=#{product_price},
+		product_count=#{product_count},
+		<if test="#{product_cookingTime} != null"> product_cookingTime=#{product_cookingTime}, </if>
+		product_weight=#{product_weight},
+		product_storage=#{product_storage},
+		product_m_image=#{product_m_image},
+		product_d_image=#{product_d_image},
+		product_i_image=#{product_i_image}
+		<if test="product_count==0"> , delete_check=1 </if>
+		<if test="product_count>=1"> , delete_check=0 </if>
+		WHERE option_join_number = #{option_join_number}
+	</update>
+
+</mapper>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="mybatis.mapper.shopping">
+	
+	<resultMap type="cart" id="cartVo">
+		<result column="cart_number" property="cart_number"/>
+		<result column="optionlist_number" property="optionlist_number"/>
+		<result column="cartoption_number" property="cartoption_number"/>
+		<result column="member_number" property="member_number"/>
+		<result column="member_name" property="member_name"/>
+		<result column="product_number" property="product_number"/>
+		<result column="product_name" property="product_name"/>
+		<result column="product_price" property="product_price"/>
+		<result column="option_price" property="option_price"/>
+		<result column="option_number" property="option_number"/>
+		<result column="option_selectCount" property="option_selectCount"/>
+		<result column="money" property="money"/>
+		<result column="sumoption" property="sumoption"/>
+		<result column="cartoption_number" property="cartoption_number"/>
+		<result column="product_selectCount" property="product_selectCount"/>
+		<result column="product_m_image" property="product_m_image"/>
+		<result column="option_join_number" property="option_join_number"/>
+	</resultMap>
+	
+	
+	 <insert id="insert">
+        insert into m_cart (cart_number, member_number, product_number, product_selectCount, cartoption_number)
+        values 
+          (cart_number_seq.nextval, #{member_number}, #{product_number}, #{product_selectCount}, co_number_seq.nextval)
+   	 </insert>
+   	 
+   	  <insert id="optioninsert">
+        insert into m_cartoption (optionlist_number, cartoption_number, option_number, option_selectCount)
+        values 
+          (option_list_seq.nextval, #{cartoption_number}, #{option_number}, #{option_selectCount})
+   	 </insert>
+   	 
+   	 <update id="updateOption">
+   	 	update m_cartoption set option_selectCount = #{option_selectCount} where optionlist_number= #{optionlist_number}
+   	 </update>
+   	 
+   	<!--   <select id="listCart" resultType="cart">
+ 		select cart_number, p.product_number, m.member_number, member_name, product_name, product_selectcount, product_price, product_m_image, (product_price*product_selectcount) money
+      	from m_member m, m_cart c, m_product p 
+        where m.member_number=c.member_number and c.product_number=p.product_number and c.member_number=#{member_number} order by cart_number
+	 </select> -->
+	 
+	 <!--  <select id="listCart" resultType="cart">
+	  	select cart_number, t.cartoption_number, o.option_number, option_selectcount, option_price, p.product_number, m.member_number, member_name, product_name, product_selectcount, product_price, product_m_image, (product_price*product_selectcount) money
+		from m_member m, m_cart c, m_product p, m_cartoption t, m_option o
+		where m.member_number=c.member_number and c.product_number=p.product_number and c.cartoption_number=t.cartoption_number and o.option_number=t.option_number and c.member_number=#{member_number} order by cart_number
+	  </select> -->
+	  
+	   <select id="listCart" resultType="cart">
+	   select DISTINCT cart_number, c.cartoption_number, p.product_number, p.option_join_number, m.member_number, member_name, product_name, product_selectcount, product_price, product_m_image, (product_price*product_selectcount) money
+	   from m_member m, m_cart c, m_product p, m_cartoption t, m_option o
+	   where m.member_number=c.member_number and c.product_number=p.product_number and c.member_number=#{member_number} order by cart_number
+	 	</select>
+	  
+	   <select id="listOptionCart" resultType="cart">
+	  select cart_number, t.cartoption_number, option_selectCount, optionlist_number, option_price, option_name, optionlist_number, o.option_number, m.member_number, (option_price * option_selectCount) sumOption
+	  from m_member m, m_cart c, m_cartoption t, m_option o
+      where m.member_number=c.member_number and c.cartoption_number=t.cartoption_number and o.option_number=t.option_number and c.cartoption_number=#{cartoption_number} order by cart_number
+	  </select>
+    
+     <select id="sumMoney" resultType="int">
+ 		select nvl(sum(product_price*product_selectcount),0)
+		from m_cart c,m_product p
+		where c.product_number=p.product_number and member_number=#{member_number}
+    </select> 
+    
+   <!--  <select id="sumMoney" resultType="int">
+ 		select sum(optionmoney) from( 
+		select cart_number, t.cartoption_number, o.option_number, option_selectcount, option_price, p.product_number, m.member_number, member_name, product_name, product_selectcount, product_price, product_m_image,(option_price*option_selectcount) optionmoney
+		from m_member m, m_cart c, m_product p, m_cartoption t, m_option o
+		where m.member_number=c.member_number and c.product_number=p.product_number and c.cartoption_number=t.cartoption_number and o.option_number=t.option_number and c.cart_number=1007 order by cart_number)
+    </select> -->
+    
+    <select id="selectNumber" resultType="long">
+  	  SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME='CO_NUMBER_SEQ'
+    </select>
+   	 
+   	  <delete id="delete">
+        delete from m_cart where cart_number=#{cart_number}
+    </delete>
+    
+    
+    <update id="paymentWait" parameterType="OrderSub">
+   	 	update m_cart set cart_status = '결제대기' where cartoption_number=#{cartoption_number}
+   	 </update>
+   	 
+   	 <select id="waitingPayment" resultType="long" parameterType="long">
+   	 	select count(*) FROM m_cart WHERE cart_status = '결제대기' AND member_number=#{member_number}
+   	 </select>
+   	 
+   	 
+
+</mapper>
