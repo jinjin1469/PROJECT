@@ -82,7 +82,9 @@ public class ShoppingService {
         dao.modifyCart(cart);
     }
  
-	
+	public void deleteChecked(long cart_number) {
+		dao.deleteChecked(cart_number);
+	}
 	
 	
 }

@@ -87,6 +87,14 @@
         delete from m_cart where cart_number=#{cart_number}
     </delete>
     
+    <delete id="deleteAll" parameterType="long">
+   		delete from m_cart where member_number=#{member_number}
+    </delete>
+    
+    <delete id="deleteChecked">
+    	delete from m_cart where cart_number = #{cart_number}
+    </delete>
+   
     
     <update id="paymentWait" parameterType="OrderSub">
    	 	update m_cart set cart_status = '결제대기' where cartoption_number=#{cartoption_number}

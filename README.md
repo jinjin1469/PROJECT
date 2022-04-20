@@ -7,7 +7,7 @@
 ## 📌 About 밀슐랭 PROJECT
 <p>밀키트를 판매하는 쇼핑몰 구현을한 프로젝트입니다.</p>
 <p>기간 : 2022-03 ~ 2022-04</p>
-<p> 사이트 주소: _________ </p>
+<p> 사이트 주소: http://mealchelin.shop/ </p>
 <img src ="https://user-images.githubusercontent.com/92283099/163513494-eb9a0114-bba0-4e34-a19c-3cbada313060.PNG">
 
 ## ⭐ 팀원 소개
@@ -51,16 +51,16 @@
 - Javascript
 - jQuery
 - CSS
-- 
+
 #### Build tool
 - maven
 
 #### Database
 - Oracle
 
-#### AWS
--
--
+#### INFRA
+- AWS EC2
+
 ## 📚 Entity Relationship Diagram
 <img src="https://user-images.githubusercontent.com/92283099/163517278-2b74be8e-a8bd-4bb5-94af-9b78a11002a6.png">
 
@@ -168,7 +168,7 @@
 6-5. 카테고리 관리
     - 카테고리 추가/삭제/위치변경 가능
 6-6. 매출확인
-    - 일매출, 월매출 그래프로 표기
+    - chart.js를 이용하여 월매출 그래프 표기
 ```
 
 7. customer service center 📍

@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../../../resources/css/shopping.css">
+<script src="../../../resources/jquery/jquery-3.6.0.js"></script>
 <title>장바구니</title>
 <style>
 .emptycart{font-weight:bold; font-size:15px;}
@@ -56,7 +57,7 @@ imgSize{width:0.5rem; height:0.5rem;}
                 <div class="row data">
                     <div class="subdiv">
 
-                        <div class="check"><input type="checkbox" class="buy" name="order_sub[${status.index}].check_box" value="1" onclick="javascript:basket.checkItem();" checked>&nbsp;</div>
+                        <div class="check"><input type="checkbox" class="buy" name="order_sub[${status.index}].check_box" value="1" onclick="javascript:basket.checkItem();" data-cart_number="${row.cart_number}" checked>&nbsp;</div>
 
                         <div class="img"><img src="/uploadedIMG/${row.product_m_image}" class="p_img"></div>
                         <div class="pname">
@@ -96,7 +97,7 @@ imgSize{width:0.5rem; height:0.5rem;}
             </div>
     
             <div class="bigtext right-align sumcount" id="sum_p_num">상품갯수: ${map.count}개</div>
-             <div class="bigtext right-align sumcount" id="sum_p_num">배송비: <fmt:formatNumber value="${map.fee}" pattern="#,###,###" />원</div>
+             <div class="bigtext right-align sumcount" id="sum_p_num_fee">배송비: <fmt:formatNumber value="${map.fee}" pattern="#,###,###" />원</div>
             <div class="bigtext right-align box blue summoney" id="sum_p_price">합계금액: <fmt:formatNumber value="${map.sum}" pattern="#,###,###" />원</div>
     	
             <div id="goorder" class="">
@@ -126,25 +127,57 @@ $(document).ready(function(){
 	    totalPrice: 0,
 	    //체크한 장바구니 상품 비우기
 	    delCheckedItem: function(){
-	    document.querySelectorAll("input[class=buy]:checked").forEach(function (item) {
-	    item.parentElement.parentElement.parentElement.remove();
+	    	document.querySelectorAll("input[class='buy']:checked").forEach(function (item) {
+			item.parentElement.parentElement.parentElement.remove();
+			});
+	         this.reCalc();
+
+	         this.updateUI();
+
+	    
+/* 	    var check = confirm("선택한 상품을 삭제하시겠습니까?");
+	    var checkArr = [];
+	    
+	    if(check){
+	 	var list = $("input[class='buy']:checked");
+	 	$("input[class='buy']:checked").each(function (item) {
+			checkArr.push($(this).attr("data-cart_number"));  	
 	        });
-	    this.reCalc();
-        this.updateUI();
-	 
-	    },
+	 	
+	 	if (checkArr.length == 0){
+	 		alert("선택된 상품이 없습니다.");
+	 	}
+	 	
+	    console.log(checkArr);
+	    alert(checkArr);
+	   
+	    	
+	    $.ajax({
+	    	url: '/product/deleteChecked',
+	    	type:'post',
+	    	ContentType:'application/json',
+	    	cache : false,
+	    	data: {checkArr:checkArr},
+	    	success : function(){	
+	    		location.reload();
+	    	},
+	    	error : function(error){
+	    		alert(error);
+	    	}
+	    });	    
+	   } */
+	 },
 	    //장바구니 전체 비우기
 	    delAllItem: function(){
-	        document.querySelectorAll('.row.data').forEach(function (item) {
-	            item.remove();
-	          });
-	          //AJAX 서버 업데이트 전송
-	        
-	          //전송 처리 결과가 성공이면
-	          this.totalCount = 0;
-	          this.total = 0;
-	          this.reCalc();
-	          this.updateUI();
+			
+	    	var check = confirm('장바구니를 비우시겠습니까?');
+	    	if(!check){
+				return false;
+	    	}else{
+	    		location.href='/product/deleteAll';
+	    	}
+	    	
+
 	    },
 	    //재계산
 	    reCalc: function(){
@@ -164,7 +197,12 @@ $(document).ready(function(){
 	    //화면 업데이트
 	    updateUI: function () {
 	        document.querySelector('#sum_p_num').textContent = '상품갯수: ' + this.totalCount.formatNumber() + '개';
-	        document.querySelector('#sum_p_price').textContent = '합계금액: ' + this.totalPrice.formatNumber() + '원';
+	       	document.querySelector('#sum_p_price').textContent = '합계금액: ' + this.totalPrice.formatNumber() + '원';
+	       	if(this.totalPrice>=30000){
+				  document.querySelector('#sum_p_num_fee').textContent = '배송비: 0원';
+			}else{
+				document.querySelector('#sum_p_num_fee').textContent = '배송비: 3,000원';
+			}
 	    },
 	    
 	    
@@ -196,11 +234,10 @@ $(document).ready(function(){
 	        var price = item.parentElement.parentElement.previousElementSibling.firstElementChild.getAttribute('value');
 	        console.log(price);
 	        item.parentElement.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.textContent = (newval * price).formatNumber()+"원";
-	        //AJAX 업데이트 전송
 
-	        //전송 처리 결과가 성공이면    
 	        this.reCalc();
 	        this.updateUI();
+
 	    },
 	    checkItem: function () {
 	        this.reCalc();
@@ -212,11 +249,17 @@ $(document).ready(function(){
 			var cart_number = item.parentElement.parentElement.firstElementChild.getAttribute('value');
 			location.href='/product/delete?cart_number= '+ cart_number;
 			
-	       /*  
-			event.target.parentElement.parentElement.parentElement.remove();
-	        this.reCalc();
-	        this.updateUI(); */
+	    },
+	   /*  fee : function(){
+	    	var totalAmount=document.getElementById("sum_p_price").value;
+			if(totalAmount>=30,000){
+				  document.querySelector('#sum_p_num_fee').textContent = '배송비: ' + '0' + '원';
+			}else{
+				document.querySelector('#sum_p_num_fee').textContent = '배송비: ' + '3,000' + '원';
+			}
 	    }
+	     */
+	    
 	}
 
 	// 숫자 3자리 콤마찍기
@@ -230,7 +273,21 @@ $(document).ready(function(){
 	
 	$("#submit").on("click",function(){
 			$("#orderform").submit();
+	});	
+
+/* 	
+	function fee(){
+		
+			
+		
+		
+	} 
+		
+	$("sum_p_price").change(function(){
+		fee();
 	});
+	
+	 */
 	 
 </script>
 <%@include file="../footer.jsp" %>
