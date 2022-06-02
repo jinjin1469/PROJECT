@@ -7,7 +7,7 @@
 ## 📌 About 밀슐랭 PROJECT
 <p>밀키트를 판매하는 쇼핑몰 구현을한 프로젝트입니다.</p>
 <p>기간 : 2022-03 ~ 2022-04</p>
-<p> 사이트 주소: http://mealchelin.shop/ </p>
+<p> 사이트 주소: http://mealchelin.shop/ [DB복구중5.29~]</p>
 <img src ="https://user-images.githubusercontent.com/92283099/163513494-eb9a0114-bba0-4e34-a19c-3cbada313060.PNG">
 
 ## ⭐ 팀원 소개
